@@ -11,7 +11,8 @@ class AssignedPermission < ApplicationRecord
 
   # Validations.
   validates :user_id,
-            uniqueness: { scope: :permission_id, message: 'cannot be assigned more than once' }
+            uniqueness: { scope: :permission_id,
+                          message: 'cannot be assigned more than once' }
 
   # Select options for value.
   def self.options_for_value label_set = false
@@ -62,7 +63,7 @@ class AssignedPermission < ApplicationRecord
           ['Edit', '2'],
           ['Admin', '3']
         ]
-      end
+    end
   end
 
 end

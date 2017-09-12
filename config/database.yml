@@ -8,12 +8,12 @@ default: &default
 
 development:
   <<: *default
-  database: rails_dev
+  database: rails5_dev
 
 test:
   <<: *default
-  database: rails_test
+  database: rails5_test
 
 production:
   <<: *default
-  database: rails_prod
+  database: rails5_prod

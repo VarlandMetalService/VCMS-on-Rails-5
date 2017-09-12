@@ -11,7 +11,8 @@ class User < ApplicationRecord
   # Associations.
   has_many      :assigned_permissions
   has_many      :permissions,
-                -> { select('permissions.*, assigned_permissions.value AS access_level') },
+                -> { select('permissions.*,
+                            assigned_permissions.value AS access_level') },
                 :through => :assigned_permissions
 
   accepts_nested_attributes_for   :assigned_permissions,
