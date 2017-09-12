@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+
+    <title>VCMS</title>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+
+    <!--[if lt IE 9]>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/r29/html5.min.js">
+      </script>
+    <![endif]-->
+
+  </head>
+
+  <body class="login">
+
+    <div class="container-fluid visible-xs mobile-login-container">
+
+      <div class="row">
+
+        <div class="col-xs-12 login-form-container">
+
+          <%= form_for(:session, url: login_path) do |f| %>
+            <%= f.hidden_field :login_method, value: 'mobile' %>
+
+            <%= render partial: 'shared/flash_messages', flash: flash %>
+
+            <div class="form-group">
+              <%= f.label :employee_number, 'Employee #:' %>
+              <%= f.text_field :employee_number, class: 'form-control input-lg text-center', readonly: 'readonly', maxlength: 3 %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :pin, 'Pin:' %>
+              <%= f.password_field :pin, class: 'form-control input-lg text-center', readonly: 'readonly', maxlength: 4 %>
+            </div>
+
+          <% end %>
+
+        </div>
+
+      </div>
+
+      <div class="row">
+
+        <div class="col-xs-12">
+
+          <div class="row">
+            <div class="col-xs-4">
+              <%= button_tag '1', class: 'btn btn-info mobile-login-button number-button' %>
+            </div>
+            <div class="col-xs-4">
+              <%= button_tag '2', class: 'btn btn-info mobile-login-button number-button' %>
+            </div>
+            <div class="col-xs-4">
+              <%= button_tag '3', class: 'btn btn-info mobile-login-button number-button' %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-4">
+              <%= button_tag '4', class: 'btn btn-info mobile-login-button number-button' %>
+            </div>
+            <div class="col-xs-4">
+              <%= button_tag '5', class: 'btn btn-info mobile-login-button number-button' %>
+            </div>
+            <div class="col-xs-4">
+              <%= button_tag '6', class: 'btn btn-info mobile-login-button number-button' %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-4">
+              <%= button_tag '7', class: 'btn btn-info mobile-login-button number-button' %>
+            </div>
+            <div class="col-xs-4">
+              <%= button_tag '8', class: 'btn btn-info mobile-login-button number-button' %>
+            </div>
+            <div class="col-xs-4">
+              <%= button_tag '9', class: 'btn btn-info mobile-login-button number-button' %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-4">
+              <%= button_tag 'Del', class: 'btn btn-warning mobile-login-button delete-button' %>
+            </div>
+            <div class="col-xs-4">
+              <%= button_tag '0', class: 'btn btn-info mobile-login-button number-button' %>
+            </div>
+            <div class="col-xs-4">
+              <%= button_tag 'Enter', class: 'btn btn-success mobile-login-button enter-button' %>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="container hidden-xs">
+
+      <div class="row">
+
+        <div class="col-xs-12 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4 login-form-container">
+
+          <%= form_for(:session, url: login_path) do |f| %>
+            <%= f.hidden_field :login_method, value: 'desktop' %>
+
+            <%= render partial: 'shared/flash_messages', flash: flash %>
+
+            <div class="form-group">
+              <%= f.label :username, 'System i Username:' %>
+              <%= f.text_field :username, class: 'form-control', required: 'required', autofocus: 'autofocus' %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :password, 'System i Password:' %>
+              <%= f.password_field :password, class: 'form-control', required: 'required' %>
+            </div>
+
+            <%= f.submit 'Log In', class: 'btn btn-primary btn-block' %>
+
+          <% end %>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </body>
+
+</html>

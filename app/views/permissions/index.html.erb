@@ -1,0 +1,53 @@
+<% provide(:title, 'Permission Management') %>
+<div class="row">
+  
+  <div class="col-xs-12">
+    
+    <div class="well well-sm">
+      <strong class="pull-left">Permission Management</strong>
+      <strong class="text-danger text-uppercase pull-right">
+        Admin Mode
+      </strong>
+      
+      <div class="clearfix"><!----></div>
+    
+    </div>
+    
+  </div>
+  
+  <div class="col-xs-12">
+    
+    <p><%= page_entries_info @permissions %></p>
+
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th class="col-xs-2">ID</th>
+            <th class="col-xs-8">Description</th>
+            <th class="col-xs-1 text-center">User Count</th>
+            <th class="col-xs-1 text-center hidden-print">Options</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @permissions.each do |p| -%>
+            <tr>
+              <td><%= p.permission %></td>
+              <td><%= p.description %></td>
+              <td class="text-center"><%= p.assigned_permissions.size %></td>
+              <td class="text-center hidden-print">
+                <%= link_to 'Edit', edit_permission_path(p), class: 'btn btn-xs btn-default'  %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    
+    <div class="hidden-print">
+      <%= will_paginate @permissions, renderer: BootstrapPagination::Rails %>
+    </div>
+    
+  </div>
+  
+</div>

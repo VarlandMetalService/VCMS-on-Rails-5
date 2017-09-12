@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+
+    <title><%= full_title(yield(:title)) %></title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable"
+          content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style"
+          content="black" />
+
+    <!--[if lt IE 9]>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/r29/html5.min.js">
+      </script>
+    <![endif]-->
+
+    <link rel="apple-touch-icon" href="<%= image_url 'icon60.png' %>" />
+    <link rel="apple-touch-icon" sizes="76x76" href="<%= image_url 'icon76.png' %>" />
+    <link rel="apple-touch-icon" sizes="120x120" href="<%= image_url 'icon120.png' %>" />
+    <link rel="apple-touch-icon" sizes="152x152" href="<%= image_url 'icon152.png' %>" />
+    <link rel="apple-touch-icon" sizes="167x167" href="<%= image_url 'icon167.png' %>" />
+    <link rel="apple-touch-icon" sizes="180x180" href="<%= image_url 'icon180.png' %>" />
+
+  </head>
+
+  <body>
+
+    <%= render partial: 'shared/nav' %>
+
+    <div class="container-fluid <%= controller_name %>">
+
+      <%= render partial: 'shared/flash_messages', flash: flash %>
+
+      <%= yield %>
+
+    </div>
+
+  </body>
+
+</html>

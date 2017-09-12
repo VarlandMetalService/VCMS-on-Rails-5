@@ -1,0 +1,19 @@
+default: &default
+  adapter: mysql2
+  encoding: utf8
+  pool: 5
+  username: vcms
+  password: Vms.1946!
+  host: 192.168.82.2
+
+development:
+  <<: *default
+  database: rails_dev
+
+test:
+  <<: *default
+  database: rails_test
+
+production:
+  <<: *default
+  database: rails_prod
