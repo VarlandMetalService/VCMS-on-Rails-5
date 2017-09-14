@@ -59,6 +59,12 @@ class User < ApplicationRecord
     end
   end
 
+  def self.from_omniauth(access_token)
+    data = access_token.info
+    user = User.where(email: data['email']).first_name
+    user
+  end
+
   # Shortcut method for returning user's full name.
   def full_name
     if suffix.blank?

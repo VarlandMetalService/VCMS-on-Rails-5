@@ -16,9 +16,12 @@ gem 'uglifier',                     '>= 1.3.0'
 # gem 'therubyracer', platforms: :ruby
 
 # Project specific gems
-gem 'bootstrap-sass',               '3.2.0.0'
+gem 'bootstrap',                    '~> 4.0.0.beta'
 gem 'cocoon',                       '1.2.6'
+gem 'font-awesome-rails'
+gem 'jquery-rails'
 gem 'mysql2',                       '~> 0.3.18'
+gem 'omniauth-google-oauth2',       '~> 0.2.1'
 gem 'will_paginate',                '~> 3.0.6'
 gem 'will_paginate-bootstrap',      '1.0.1'
 
