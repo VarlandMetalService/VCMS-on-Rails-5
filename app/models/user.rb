@@ -61,7 +61,9 @@ class User < ApplicationRecord
 
   def self.from_omniauth(access_token)
     data = access_token.info
-    user = User.where(email: data['email']).first_name
+    # TODO?: Ensure that the returned 'hd' value is our domain name
+      # 'hd' can be accessed by calling access_token.extra.raw_info['hd']
+    user = User.where(email: data['email']).first
     user
   end
 

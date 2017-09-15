@@ -5,5 +5,6 @@ Rails.application.config.middleware.use OmniAuth::Builder do
     {
       # name: 'name_of_strategy',   # defaults to google_oauth2
       # hd: 'domain.com'            # limits sign-in to a particular Google Apps hosted domain
+      # hd: 'varland.com'
     }
 end

@@ -7,8 +7,17 @@ class SessionsController < ApplicationController
   end
 
   def create
-    if params[:session][:login_method] == 'mobile'
-      # user = User.from_omniauth(request.env["omniauth.auth"])
+    # TODO: decide if we are only using Google auth, or if we are keeping both auth options
+    if params[:provider] == 'google_oauth2'
+      user = User.from_omniauth(request.env["omniauth.auth"])
+      if user && user.is_active
+        log_in user
+        redirect_to(session[:return_to] || root_path) and return
+      else
+        flash.now[:error] = 'Authentication failed.'
+        render 'new', :layout => false
+      end
+    elsif params[:session][:login_method] == 'mobile'
       user = User.find_by(employee_number: params[:session][:employee_number])
       if user && user.pin == params[:session][:pin] && user.is_active
         log_in user
