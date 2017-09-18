@@ -38,9 +38,9 @@ ActiveRecord::Schema.define(version: 20170908170327) do
     t.string "initials"
     t.string "email"
     t.string "pin"
-    t.string "backgroung_color"
+    t.string "background_color"
     t.string "text_color"
-    t.boolean "is_active"
+    t.boolean "is_active", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true

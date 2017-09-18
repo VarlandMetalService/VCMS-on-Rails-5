@@ -52,6 +52,7 @@ employee_notes = Permission.create(permission: 'employee_notes', description: 'E
 
 assignments = AssignedPermission.create([{ user_id: toby.id, permission_id: sysadmin.id, value: 3 },
                                          { user_id: johnm.id, permission_id: sysadmin.id, value: 3 },
+                                         { user_id: brendan.id, permission_id: sysadmin.id, value: 3 },
                                          { user_id: gregt.id, permission_id: employee_notes.id, value: 2 },
                                          { user_id: ted.id, permission_id: employee_notes.id, value: 2 },
                                          { user_id: tony.id, permission_id: employee_notes.id, value: 2 },
@@ -63,5 +64,4 @@ assignments = AssignedPermission.create([{ user_id: toby.id, permission_id: sysa
                                          { user_id: joel.id, permission_id: employee_notes.id, value: 3 },
                                          { user_id: johnm.id, permission_id: employee_notes.id, value: 2 },
                                          { user_id: ed.id, permission_id: employee_notes.id, value: 2 },
-                                         { user_id: brendan.id, permission_id: employee_notes.id, value: 3 },
                                          { user_id: ross.id, permission_id: employee_notes.id, value: 3 }])
