@@ -60,11 +60,17 @@ class User < ApplicationRecord
   end
 
   def self.from_omniauth(access_token)
-    data = access_token.info
-    # TODO?: Ensure that the returned 'hd' value is our domain name
-      # 'hd' can be accessed by calling access_token.extra.raw_info['hd']
-    user = User.where(email: data['email']).first
-    user
+    begin
+      data = access_token.info
+      if access_token.extra.raw_info['hd'] == 'varland.com'
+        user = User.where(email: data['email']).first
+        return user
+      end
+      false
+    rescue => e
+      puts e.message
+      false
+    end
   end
 
   # Shortcut method for returning user's full name.

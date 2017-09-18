@@ -10,6 +10,7 @@ class SessionsController < ApplicationController
     # TODO: decide if we are only using Google auth, or if we are keeping both auth options
     if params[:provider] == 'google_oauth2'
       user = User.from_omniauth(request.env["omniauth.auth"])
+      logger.debug "User: #{user}"
       if user && user.is_active
         log_in user
         redirect_to(session[:return_to] || root_path) and return
