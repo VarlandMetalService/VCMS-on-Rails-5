@@ -1,22 +1,19 @@
 <% provide(:title, 'User Management') %>
 <div class="row">
-  
-  <div class="col-xs-12">
-    
-    <div class="well well-sm">
-      <strong class="pull-left">User Management</strong>
-      <strong class="text-danger text-uppercase pull-right">Admin Mode</strong>      
-      <div class="clearfix"><!----></div>    
+  <div class="col-12 card bg-light">
+    <div class="row">
+      <strong class="col-6">User Management</strong>
+      <strong class="text-danger text-uppercase col-6 text-right">Admin Mode</strong>
     </div>
-    
   </div>
-  
-  <div class="col-xs-12">
-    
+</div>
+<div class="row">
+  <div class="col-12">
+
     <p class="text-muted">
       <em>Users are created/managed on the System i. You cannot add or delete users here, nor can you change user's passwords. Those functions must be done on the System i.</em>
     </p>
-    
+
     <p><%= page_entries_info @users %></p>
 
     <div class="table-responsive">
@@ -47,11 +44,11 @@
         </tbody>
       </table>
     </div>
-    
+
     <div class="hidden-print">
       <%= will_paginate @users, renderer: BootstrapPagination::Rails %>
     </div>
-    
+
   </div>
-  
+
 </div>
