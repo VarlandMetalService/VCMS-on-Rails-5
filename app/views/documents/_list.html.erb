@@ -1,0 +1,22 @@
+<div class="card">
+    <div class="card-header">
+      <div><i class="fa fa-fw fa-search" aria-hidden="true"></i> Search Results</div>
+    </div>
+    <% if documents.length == 0 -%>
+      <div class="card-body"><em>No results found.</em></div>
+    <% else %>
+      <div class="list-group">
+        <% documents.each do |d| -%>
+          <%
+            extra_info = ' <small class="text-muted">' + d.document_updated_on.strftime('%m/%d/%y') + '</small>'
+            extra_info += '<small class="pull-right">'
+            #d.categories.each do |c|
+            #  extra_info += "&nbsp;<span class=\"label label-info\">#{c.name}</span>"
+            #end
+            extra_info += '</small>'
+          %>
+          <%= link_to(content_type_icon(d.content_type) + ' ' + d.name + extra_info.html_safe, d, :class => 'list-group-item') %>
+        <% end %>
+      </div>
+    <% end %>
+</div>

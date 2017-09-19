@@ -1,4 +1,4 @@
-require 'net/http'
+require 'rest-client'
 
 class User < ApplicationRecord
 
@@ -50,11 +50,12 @@ class User < ApplicationRecord
   # Uses Net::HTTP to authenticate user on IBM System i.
   def authenticate(password = '')
     begin
-      uri = 'http://api.varland.com/v1/auth?user=' + self.username + '&password=' + password
-      response = Net::HTTP.get(uri)
+      response = RestClient.get 'http://api.varland.com/v1/auth', params: { user: self.username,
+                                                                            password: password }
 
       response == '1' ? true : false
     rescue => e
+      logger.debug("User Model ERROR: #{e.message}")
       false
     end
   end

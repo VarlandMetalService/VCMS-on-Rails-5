@@ -1,0 +1,125 @@
+<% provide(:title, 'Documents') %>
+<div class="row mx-1">
+  <div class="col-12 card bg-light mb-3">
+    <div class="row">
+      <strong class="col-6">Documents</strong>
+      <% if @access_level && @access_level.access_level == 3 -%>
+        <strong class="col-6 text-danger text-uppercase text-right">
+          Admin Mode
+        </strong>
+      <% end %>
+    </div>
+  </div>
+  <div class="col-xs-12">
+    <% if @access_level && @access_level.access_level == 3 -%>
+      <div class="row">
+        <div class="col-xs-12">
+          <p>
+            <button class="btn btn-success btn-sm" type="button" data-toggle="collapse" data-target="#adminOptions" aria-expanded="false" aria-controls="adminOptions">
+              Options
+            </button>
+          </p>
+          <div class="collapse row" id="adminOptions">
+            <div class="col-xs-12 col-sm-4">
+              <h5>Add New Folder</h5>
+              <%#= render 'category_form' %>
+            </div>
+            <div class="col-xs-12 col-sm-4">
+              <h5>Upload New File</h5>
+              <%#= render 'upload_file_form' %>
+            </div>
+            <div class="col-xs-12 col-sm-4">
+              <h5>Add File from Google Docs</h5>
+              <%#= render 'google_file_form' %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+    <div class="row">
+
+      <div class="col-xs-12 col-sm-6 col-md-4">
+
+        <%= form_for :document, html: { class: 'filter-form hidden-print' } do |f| %>
+          <div class="row">
+            <div class="col-6">
+              <div class="form-group">
+                <%= f.label :with_date_gte, 'Starting Date:' %>
+                <%= f.date_field :with_date_gte, class: 'form-control'  %>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <%= f.label :with_date_lte, 'Ending Date:' %>
+                <%= f.date_field :with_date_lte, class: 'form-control'  %>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+
+            <div class="col-12">
+              <div class="form-group">
+                <%= f.label :search_query, 'Search:' %>
+                <%= f.text_field :search_query, class: 'form-control filterrific-periodically-observed' %>
+                <span class="help-block"><small>Search results will update as you type. If you enter multiple words, documents containing all words will be returned. If you need to find a specific phrase, enclose the phrase in double quotes. Entering <code>poor adhesion</code> will find documents containing the words <code>poor</code> and <code>adhesion</code>. Entering <code>"poor adhesion"</code> will find documents containing the phrase <code>poor adhesion</code>. You can have multiple double-quoted phrases.</small></span>
+              </div>
+            </div>
+
+          </div>
+          <div class="row">
+
+            <div class="col-12">
+
+              <%#= render_filterrific_spinner %>
+
+              <%#= link_to 'Reset Search', reset_filterrific_url, class: 'btn btn-xs btn-warning pull-right' %>
+              <div class="clearfix"><!----></div>
+
+            </div>
+
+          </div>
+        <% end %>
+
+
+        <div id="most_recent">
+          <div class="card border-success">
+            <div class="card-header bg-success">
+              <div><i class="fa fa-fw fa-clock-o" aria-hidden="true"></i> Most Recent Documents</div>
+            </div>
+            <div class="list-group">
+              <% @most_recent.each do |d| -%>
+                <%
+                  extra_info = ' <small class="text-muted">' + d.document_updated_on.strftime('%m/%d/%y') + '</small>'
+                  extra_info += '<br /><i class="fa fa-fw" aria-hidden="true"></i>&nbsp;'
+                  extra_info += '<small>'
+                  #d.categories.each do |c|
+                  #  extra_info += "<span class=\"label label-info\">#{c.name}</span>"
+                  #end
+                  extra_info += '</small>'
+                %>
+                <%= link_to(content_type_icon(d.content_type) + ' ' + d.name + extra_info.html_safe, d, :class => 'list-group-item') %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-8">
+
+        <div id="results">
+          <%= render partial: 'documents/list', locals: { documents: @documents } %>
+        </div>
+
+        <%# @all_categories.each do |c| -%>
+          <%#= category_list c, @access_level %>
+        <%# end %>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

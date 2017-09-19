@@ -49,6 +49,7 @@ ross = User.create(username: 'ross', employee_number: 938, first_name: 'Ross', l
 
 sysadmin = Permission.create(permission: 'sysadmin', description: 'System Administration')
 employee_notes = Permission.create(permission: 'employee_notes', description: 'Employee Notes Application')
+documents = Permission.create(permission: 'documents', description: 'Departmental Information Application')
 
 assignments = AssignedPermission.create([{ user_id: toby.id, permission_id: sysadmin.id, value: 3 },
                                          { user_id: johnm.id, permission_id: sysadmin.id, value: 3 },

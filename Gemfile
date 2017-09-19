@@ -5,7 +5,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-# Default gems
+#  Rails default gems
 gem 'coffee-rails',                 '~> 4.2'
 gem 'rails',                        '~> 5.1.3'
 gem 'puma',                         '~> 3.7'
@@ -23,6 +23,7 @@ gem 'holder_rails'
 gem 'jquery-rails'
 gem 'mysql2',                       '~> 0.3.18'
 gem 'omniauth-google-oauth2',       '~> 0.2.1'
+gem 'rest-client',                  '~> 2.1.0.rc1'
 gem 'will_paginate',                '~> 3.0.6'
 gem 'will_paginate-bootstrap',      '1.0.1'
 

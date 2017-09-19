@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :documents
   resources :permissions
   root                        'vcms#home'
   get     'login'         =>  'sessions#new'

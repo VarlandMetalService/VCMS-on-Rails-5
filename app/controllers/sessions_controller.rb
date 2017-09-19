@@ -8,6 +8,7 @@ class SessionsController < ApplicationController
 
   def create
     # TODO: decide if we are only using Google auth, or if we are keeping both auth options
+    # MAINTENANCE TODO: abstract this logic out to its own method for legibility
     if params[:provider] == 'google_oauth2'
       user = User.from_omniauth(request.env["omniauth.auth"])
       if user && user.is_active

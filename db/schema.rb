@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170908170327) do
+ActiveRecord::Schema.define(version: 20170918185340) do
 
   create_table "assigned_permissions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "user_id"
@@ -20,6 +20,22 @@ ActiveRecord::Schema.define(version: 20170908170327) do
     t.datetime "updated_at", null: false
     t.index ["permission_id"], name: "fk_rails_aca282a7fd"
     t.index ["user_id"], name: "fk_rails_324ef26984"
+  end
+
+  create_table "documents", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "added_by"
+    t.string "name"
+    t.boolean "is_valid"
+    t.string "content_type"
+    t.string "file"
+    t.string "google_url"
+    t.string "google_id"
+    t.text "google_contents"
+    t.datetime "google_updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.date "document_updated_on"
+    t.boolean "exclude_from_newest", default: false
   end
 
   create_table "permissions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
