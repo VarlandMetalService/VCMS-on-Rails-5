@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :categories
   resources :documents
   resources :permissions
   root                        'vcms#home'

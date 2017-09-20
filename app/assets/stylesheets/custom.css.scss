@@ -42,6 +42,8 @@ $enable-gradients: true;
 $default-spacing: 15px;
 
 
+// Global styles
+
 html, body {
   height: 100%
 }
@@ -53,13 +55,27 @@ body {
 .navbar {
   border-bottom: 1px solid #e7e7e7;
 }
+
 .list-group-item {
   font-size: 14px;
 }
 
-.filter-form {
-  margin-bottom: $default-spacing;
-  padding: $default-spacing;
-  border: 1px solid rgb(221, 221, 221);
-  background-color: #fcf8e3;
+
+// Controller specific styles
+
+.cn-documents {
+  .card-body .card:last-child {
+    margin-bottom: 5px !important;
+  }
+
+  .category-card {
+    margin-bottom: 20px;
+  }
+
+  .filter-form {
+    margin-bottom: $default-spacing;
+    padding: $default-spacing;
+    border: 1px solid rgb(221, 221, 221);
+    background-color: #fcf8e3;
+  }
 }

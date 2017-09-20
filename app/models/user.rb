@@ -55,7 +55,7 @@ class User < ApplicationRecord
 
       response == '1' ? true : false
     rescue => e
-      logger.debug("User Model ERROR: #{e.message}")
+      logger.debug("ERROR (User Model - authenticate): #{e.message}")
       false
     end
   end

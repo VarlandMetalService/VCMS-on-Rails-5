@@ -1,12 +1,14 @@
+require 'rest-client'
+
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :require_login
-  
+
   include SessionsHelper
 
 protected
-  
+
   def check_permission(right)
 
     if current_user.nil?
@@ -34,11 +36,11 @@ protected
   # Uses Net::HTTP to retrieve shop order details
   def get_shop_order_details(shop_order = '')
     begin
-      uri = 'http://api.varland.com/v1/so_details?so=' + shop_order
-      response = Net::HTTP.get(uri)
+      response = RestClient.get 'http://api.varland.com/v1/so_details?so=' + shop_order
 
-      response_json = JSON.parse(response)
+      return JSON.parse(response)
     rescue => e
+      logger.debug("ERROR (ApplicationController - shop_order_details): #{e.message}")
       false
     end
   end

@@ -94,9 +94,9 @@
                   extra_info = ' <small class="text-muted">' + d.document_updated_on.strftime('%m/%d/%y') + '</small>'
                   extra_info += '<br /><i class="fa fa-fw" aria-hidden="true"></i>&nbsp;'
                   extra_info += '<small>'
-                  #d.categories.each do |c|
-                  #  extra_info += "<span class=\"label label-info\">#{c.name}</span>"
-                  #end
+                  d.categories.each do |c|
+                    extra_info += "<span class=\"label label-info\">#{c.name}</span>"
+                  end
                   extra_info += '</small>'
                 %>
                 <%= link_to(content_type_icon(d.content_type) + ' ' + d.name + extra_info.html_safe, d, :class => 'list-group-item') %>
@@ -109,12 +109,12 @@
       <div class="col-xs-12 col-sm-6 col-md-8">
 
         <div id="results">
-          <%= render partial: 'documents/list', locals: { documents: @documents } %>
+          <%#= render partial: 'documents/list', locals: { documents: @documents } %>
         </div>
 
-        <%# @all_categories.each do |c| -%>
-          <%#= category_list c, @access_level %>
-        <%# end %>
+        <% @all_categories.each do |c| -%>
+          <%= category_list c, @access_level %>
+        <% end %>
 
       </div>
 

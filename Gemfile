@@ -16,6 +16,7 @@ gem 'uglifier',                     '>= 1.3.0'
 # gem 'therubyracer', platforms: :ruby
 
 # Project specific gems
+gem 'awesome_nested_set'
 gem 'bootstrap',                    '~> 4.0.0.beta'
 gem 'cocoon',                       '1.2.6'
 gem 'font-awesome-rails'

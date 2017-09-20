@@ -9,13 +9,17 @@ class DocumentsController < ApplicationController
   def index
 
     @documents = Document.all.page(params[:page])
+    @category = Category.new
 
+    @all_categories = Category.top_level
     @most_recent = Document.not_excluded.reorder(document_updated_on: :desc).limit(5)
 
   end
 
   def create
     @document = Document.new document_params
+    categories = params[:document][:category_ids].reject!(&:empty?)
+    @document.categories = Category.find(categories) if categories
     @document.user = current_user
     if @document.save
       redirect_to documents_url, notice: "Successfully added <code>#{@document.name}</code>.".html_safe
@@ -40,6 +44,8 @@ class DocumentsController < ApplicationController
 
   def update
     if @document.update document_params
+      categories = params[:document][:category_ids].reject!(&:empty?)
+      @document.categories = Category.find(categories) if categories
       @document.save
       redirect_to @document, notice: "Successfully updated #{@document.name}."
     else
@@ -72,7 +78,7 @@ class DocumentsController < ApplicationController
         }
       end
     rescue => e
-      logger.debug("Docment Controller ERROR: #{e.message}")
+      logger.debug("ERROR (DocmentsController - get_google_meta): #{e.message}")
       googleResult = {
         :content_type => '',
         :google_id => '',

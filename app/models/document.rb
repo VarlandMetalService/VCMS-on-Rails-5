@@ -14,8 +14,13 @@ class Document < ApplicationRecord
   self.per_page = 100
 
   # Associations.
+  has_and_belongs_to_many   :categories
   belongs_to                :user,
                             foreign_key: 'added_by'
+
+  accepts_nested_attributes_for   :categories,
+                            reject_if: :all_blank,
+                            allow_destroy: false
 
   # Validations.
   validates :name,
@@ -88,7 +93,7 @@ class Document < ApplicationRecord
         self.is_valid = false
       end
     rescue => e
-      logger.debug "Document Model ERROR: #{e.message}"
+      logger.debug "ERROR (Document Model - lookup_google_info): #{e.message}"
       self.is_valid = false
     end
   end
