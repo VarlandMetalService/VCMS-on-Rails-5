@@ -10,7 +10,6 @@ class ApplicationController < ActionController::Base
 protected
 
   def check_permission(right)
-
     if current_user.nil?
       @access_level = nil
     else

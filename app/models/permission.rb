@@ -7,8 +7,7 @@ class Permission < ApplicationRecord
   has_many      :assigned_permissions,
                 -> { includes(:user).order('users.employee_number ASC') }
   has_many      :users,
-                -> { select('users.*,
-                            assigned_permissions.value AS access_level') },
+                -> { select('users.*, assigned_permissions.value AS access_level') },
                 :through => :assigned_permissions
 
   accepts_nested_attributes_for   :assigned_permissions,
