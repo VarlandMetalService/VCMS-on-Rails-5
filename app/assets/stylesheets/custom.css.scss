@@ -65,11 +65,15 @@ body {
 
 .cn-documents {
   .card-body .card:last-child {
-    margin-bottom: 5px !important;
+    margin-bottom: 5px;
   }
 
   .category-card {
     margin-bottom: 20px;
+  }
+
+  .doc-options.collapse.show {
+    display: flex;
   }
 
   .filter-form {

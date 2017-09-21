@@ -25,13 +25,13 @@ module DocumentsHelper
 
     buttons = ''
     if access_level && access_level.access_level == 3
-      buttons = '<span class="pull-right">'
-      buttons += link_to('<i class="fa fa-fw fa-pencil"></i>'.html_safe, edit_category_path(cat))
+      buttons = '<span class="float-right">'
+      buttons += link_to('<i class="fa fa-fw fa-pencil"></i>'.html_safe, edit_category_path(cat), method: :get)
       buttons += link_to('<i class="fa fa-fw fa-arrow-up"></i>'.html_safe, move_up_categories_path(id: cat), method: :post)
       buttons += link_to('<i class="fa fa-fw fa-arrow-down"></i>'.html_safe, move_down_categories_path(id: cat), method: :post)
       buttons += '</span>'
     end
-    item = "<div class=\"card card-default category-card\"><div class=\"card-header\" data-toggle=\"collapse\" data-target=\".cat#{cat.id}\" style=\"cursor: pointer;\"><i class=\"fa fa-fw fa-folder\" aria-hidden=\"true\"></i> #{cat.name}#{buttons}</div>"
+    item = "<div class=\"card card-default category-card\"><div class=\"card-header\"><div data-toggle=\"collapse\" data-target=\".cat#{cat.id}\" style=\"cursor: pointer;\"><i class=\"fa fa-fw fa-folder\" aria-hidden=\"true\"></i> #{cat.name}#{buttons}</div></div>"
     if cat.children.length > 0
       item += "<div class=\"card-body collapse cat#{cat.id}\" >"
       cat.children.each do |child|
