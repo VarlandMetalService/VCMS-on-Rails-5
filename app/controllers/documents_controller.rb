@@ -6,9 +6,13 @@ class DocumentsController < ApplicationController
   before_action :check_user_permission
   skip_before_action :require_login
 
+  has_scope :search_query
+  has_scope :with_date_gte
+  has_scope :with_date_lte
+
   def index
 
-    @documents = Document.all.page(params[:page])
+    @documents = apply_scopes(Document).all.page(params[:page])
     @category = Category.new
 
     @all_categories = Category.top_level
