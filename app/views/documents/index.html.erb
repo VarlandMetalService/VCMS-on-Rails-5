@@ -41,18 +41,18 @@
 
       <div class="col-12 col-sm-6 col-md-4">
 
-        <%= form_for :document, html: { class: 'filter-form hidden-print' } do |f| %>
+        <%= form_with url: documents_path, class: 'filter-form hidden-print' , method: 'get', local: true do |f| %>
           <div class="row">
             <div class="col-6">
               <div class="form-group">
                 <%= f.label :with_date_gte, 'Starting Date:' %>
-                <%= f.date_field :with_date_gte, class: 'form-control'  %>
+                <%= f.date_field :with_date_gte, class: 'form-control datepicker'  %>
               </div>
             </div>
             <div class="col-6">
               <div class="form-group">
                 <%= f.label :with_date_lte, 'Ending Date:' %>
-                <%= f.date_field :with_date_lte, class: 'form-control'  %>
+                <%= f.date_field :with_date_lte, class: 'form-control datepicker'  %>
               </div>
             </div>
           </div>
@@ -65,6 +65,7 @@
                 <%= f.text_field :search_query, class: 'form-control filterrific-periodically-observed' %>
                 <span class="help-block"><small>Search results will update as you type. If you enter multiple words, documents containing all words will be returned. If you need to find a specific phrase, enclose the phrase in double quotes. Entering <code>poor adhesion</code> will find documents containing the words <code>poor</code> and <code>adhesion</code>. Entering <code>"poor adhesion"</code> will find documents containing the phrase <code>poor adhesion</code>. You can have multiple double-quoted phrases.</small></span>
               </div>
+              <%= f.submit 'Search', name: nil, class: 'float-right' %>
             </div>
 
           </div>
