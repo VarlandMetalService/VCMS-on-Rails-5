@@ -4,4 +4,6 @@
 
 $(document).on 'turbolinks:load', ->
   $('.datepicker').datepicker({
+    autoclose: true,
+    format: "mm/dd/yyyy"
   })

@@ -49,12 +49,20 @@ class Document < ApplicationRecord
     joins(:categories).where(categories: { id: values })
   }
   scope :with_date_gte, ->(value) {
-    date = Date.strptime(value, "%Y-%m-%d")
-    where 'document_updated_on >= ?', date
+    begin
+      date = Date.strptime(value, '%m/%d/%Y')
+      where 'document_updated_on >= ?', date.strftime('%Y-%m-%d')
+    rescue
+      return
+    end
   }
   scope :with_date_lte, ->(value) {
-    date = Date.strptime(value, "%Y-%m-%d")
-    where 'document_updated_on <= ?', date
+    begin
+      date = Date.strptime(value, '%m/%d/%Y')
+      where 'document_updated_on <= ?', date.strftime('%Y-%m-%d')
+    rescue
+      return
+    end
   }
   scope :not_excluded, ->() {
     where 'exclude_from_newest IS FALSE'

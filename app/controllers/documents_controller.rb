@@ -18,6 +18,10 @@ class DocumentsController < ApplicationController
     @all_categories = Category.top_level
     @most_recent = Document.not_excluded.reorder(document_updated_on: :desc).limit(5)
 
+    respond_to do |format|
+      format.js
+      format.html
+    end
   end
 
   def create
