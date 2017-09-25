@@ -14,6 +14,8 @@ class DocumentsController < ApplicationController
 
     @documents = apply_scopes(Document).all.page(params[:page])
     @category = Category.new
+    @upload_document = Document.new
+    @google_document = Document.new
 
     @all_categories = Category.top_level
     @most_recent = Document.not_excluded.reorder(document_updated_on: :desc).limit(5)

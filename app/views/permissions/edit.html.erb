@@ -1,16 +1,15 @@
 <% provide(:title, 'Edit Permission') %>
-<div class="row">
+<div class="row mx-1">
 
-  <div class="col-12">
+  <div class="col-12 card bg-light mb-3">
 
-    <div class="well well-sm">
-      <strong>Permission Management &ndash; Edit Permission</strong>
-      <strong class="text-danger text-uppercase pull-right">Admin Mode</strong>
-      <div class="clearfix"><!----></div>
+    <div class="row">
+      <strong class="col-6">Permission Management &ndash; Edit Permission</strong>
+      <strong class="col-6 text-danger text-uppercase text-right">Admin Mode</strong>
     </div>
 
   </div>
-
-  <div class="col-12 col-sm-12 col-md-8 col-md-offset-2"><%= render 'form' %></div>
+  <div class="col-md-2"></div>
+  <div class="col-12 col-sm-12 col-md-8"><%= render 'form' %></div>
 
 </div>

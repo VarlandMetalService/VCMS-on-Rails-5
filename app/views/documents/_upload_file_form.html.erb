@@ -1,0 +1,68 @@
+<div class="card bg-light">
+  <div class="card-body">
+    <%= form_for @upload_document do |f| %>
+
+      <% if @upload_document.errors.any? %>
+        <div class="error_explanation bg-danger text-danger">
+          <p><%= pluralize(@upload_document.errors.count, "error") %> prevented this document from being saved:</p>
+          <ul>
+            <% @upload_document.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="row">
+
+        <div class="col-12">
+
+          <div class="form-group<%= ' has-error' if @upload_document.errors[:name].any? %>">
+            <%= f.label :name, required_field_label('Name:'), class: 'control-label' %>
+            <%= f.text_field :name, { class: 'form-control', required: 'required' } %>
+          </div>
+
+          <div class="form-group<%= ' has-error' if @upload_document.errors[:document_updated_on].any? %>">
+            <%= f.label :document_updated_on, 'Date:', class: 'control-label' %>
+            <%= f.date_field :document_updated_on, { class: 'form-control' } %>
+            <span class="help-block"><small>You may specify an update date or leave blank to default to today's date.</small></span>
+          </div>
+
+          <div class="form-group<%= ' has-error' if @upload_document.errors[:file].any? %>">
+            <%= f.label :file, required_field_label('File:'), class: 'control-label' %>
+            <%= f.file_field :file, { class: 'form-control', required: 'required' } %>
+          </div>
+
+          <div class="form-group<%= ' has-error' if @upload_document.errors[:exclude_from_newest].any? %>">
+            <div class="checkbox">
+              <label>
+                <%= f.check_box :exclude_from_newest %>
+                Exclude from list of newest documents
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group<%= ' has-error' if @upload_document.errors[:categories].any? %>">
+            <%= f.label :category_ids, required_field_label('Folder(s):'), class: 'control-label' %>
+            <%= f.select :category_ids, nested_set_options(Category, @upload_document) {|i| "#{'&ndash;' * i.level} #{i.name}".html_safe }, { include_blank: false }, { class: 'form-control', multiple: true, size: 10, required: 'required' } %>
+            <span class="help-block"><small>This document may appear in as many folders as you would like. You must choose at least one folder. Use Control/Command-Click to select/deselect folders.</small></span>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="row">
+
+        <div class="col-12">
+
+          <%= f.submit 'Upload Document', { class: 'btn btn-primary' } %>
+          <%= link_to 'Cancel', documents_path, class: 'btn btn-link' %>
+
+        </div>
+
+      </div>
+
+    <% end %>
+  </div>
+</div>

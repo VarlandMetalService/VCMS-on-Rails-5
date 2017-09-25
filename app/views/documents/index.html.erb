@@ -19,18 +19,18 @@
               Options
             </button>
           </p>
-          <div class="collapse row doc-options" id="adminOptions">
+          <div class="collapse row doc-options mb-4" id="adminOptions">
             <div class="col-12 col-sm-4">
               <h5>Add New Folder</h5>
-              <%#= render 'category_form' %>
+              <%= render 'category_form' %>
             </div>
             <div class="col-12 col-sm-4">
               <h5>Upload New File</h5>
-              <%#= render 'upload_file_form' %>
+              <%= render 'upload_file_form' %>
             </div>
             <div class="col-12 col-sm-4">
               <h5>Add File from Google Docs</h5>
-              <%#= render 'google_file_form' %>
+              <%= render 'google_file_form' %>
             </div>
           </div>
         </div>
@@ -63,7 +63,7 @@
               <div class="form-group">
                 <%= f.label :search_query, 'Search:' %>
                 <%= f.text_field :search_query, class: 'form-control filterrific-periodically-observed' %>
-                <span class="help-block"><small>Search results will update as you type. If you enter multiple words, documents containing all words will be returned. If you need to find a specific phrase, enclose the phrase in double quotes. Entering <code>poor adhesion</code> will find documents containing the words <code>poor</code> and <code>adhesion</code>. Entering <code>"poor adhesion"</code> will find documents containing the phrase <code>poor adhesion</code>. You can have multiple double-quoted phrases.</small></span>
+                <span class="help-block"><small>If you enter multiple words, documents containing all words will be returned. If you need to find a specific phrase, enclose the phrase in double quotes. Entering <code>poor adhesion</code> will find documents containing the words <code>poor</code> and <code>adhesion</code>. Entering <code>"poor adhesion"</code> will find documents containing the phrase <code>poor adhesion</code>. You can have multiple double-quoted phrases.</small></span>
               </div>
               <%= f.submit 'Search', name: nil, class: 'float-right' %>
             </div>
