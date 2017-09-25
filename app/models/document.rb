@@ -1,8 +1,8 @@
 require 'rest-client'
 
 class Document < ApplicationRecord
-  include Filterable
 
+  # Callbacks.
   before_save :set_doc_update
   after_destroy :update_all_positions
 
@@ -13,14 +13,18 @@ class Document < ApplicationRecord
   # Pagination.
   self.per_page = 100
 
+  # CarrierWave uploader support.
+  mount_uploader    :file,
+                    FileUploader
+
   # Associations.
   has_and_belongs_to_many   :categories
   belongs_to                :user,
                             foreign_key: 'added_by'
 
   accepts_nested_attributes_for   :categories,
-                            reject_if: :all_blank,
-                            allow_destroy: false
+                                  reject_if: :all_blank,
+                                  allow_destroy: false
 
   # Validations.
   validates :name,
@@ -79,6 +83,10 @@ class Document < ApplicationRecord
   def initialize(params = {})
     super
     self.is_valid = true
+  end
+
+  def update_all_positions
+    Category.update_positions
   end
 
   def set_doc_update

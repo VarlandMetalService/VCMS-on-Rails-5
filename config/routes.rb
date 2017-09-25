@@ -5,6 +5,9 @@ Rails.application.routes.draw do
   post    'login'         =>  'sessions#create'
   delete  'logout'        =>  'sessions#destroy'
 
+  resources :users
+  resources :permissions
+
   resources :documents do
     collection do
       get :get_google_meta
@@ -16,8 +19,6 @@ Rails.application.routes.draw do
       post :move_down
     end
   end
-  resources :permissions
-  resources :users
 
   get 'auth/:provider/callback', to: 'sessions#create'
   get 'auth/failure', to: redirect('/')

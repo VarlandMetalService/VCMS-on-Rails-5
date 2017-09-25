@@ -37,7 +37,8 @@
 
       </div>
 
-      <%= f.submit 'Update Folder', { class: 'btn btn-primary' } %>
+      <%= f.submit 'Update Folder', { class: 'btn btn-primary' } if controller_name == 'categories' %>
+      <%= f.submit 'Create Folder', { class: 'btn btn-primary' } if controller_name == 'documents' %>
       <%= link_to 'Cancel', documents_path, class: 'btn btn-link' %>
 
     <% end %>
