@@ -1,0 +1,71 @@
+<div class="card bg-light">
+  <div class="card-body">
+    <%= form_for @employee_note do |f| %>
+
+      <% if @employee_note.errors.any? %>
+        <div class="error_explanation bg-danger text-danger">
+          <p><%= pluralize(@employee_note.errors.count, "error") %> prevented this note from being saved:</p>
+          <ul>
+            <% @employee_note.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="row">
+
+        <div class="col-12 col-sm-4 col-md-2">
+          <div class="form-group<%= ' has-error' if @employee_note.errors[:employee].any? %>">
+            <%= f.label :employee, required_field_label('Employee:'), class: 'control-label' %>
+            <%= f.collection_select(:employee, User.order('employee_number'), :id, :number_and_name, { include_blank: true }, { class: 'form-control', required: 'required' }) %>
+          </div>
+        </div>
+
+        <div class="col-12 col-sm-4 col-md-2">
+          <div class="form-group<%= ' has-error' if @employee_note.errors[:note_on].any? %>">
+            <%= f.label :note_on, required_field_label('Date:'), class: 'control-label' %>
+            <%= f.date_field :note_on, { class: 'form-control', required: 'required' } %>
+          </div>
+        </div>
+
+        <div class="col-12 col-sm-4 col-md-2">
+          <div class="form-group<%= ' has-error' if @employee_note.errors[:note_type].any? %>">
+            <%= f.label :note_type, required_field_label('Type:'), class: 'control-label' %>
+            <%= f.select :note_type, options_for_select(EmployeeNote.options_for_type, @employee_note.note_type), { include_blank: true }, { class: 'form-control', required: 'required' } %>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="row">
+
+        <div class="col-12 col-md-6">
+          <div class="form-group<%= ' has-error' if @employee_note.errors[:notes].any? %>">
+            <%= f.label :notes, required_field_label('Notes:'), class: 'control-label' %>
+            <%= f.text_area :notes, { class: 'form-control', rows: 8, required: 'required' } %>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <div class="form-group<%= ' has-error' if @employee_note.errors[:follow_up].any? %>">
+            <%= f.label :follow_up, 'Follow Up:', class: 'control-label' %>
+            <%= f.text_area :follow_up, { class: 'form-control', rows: 8 } %>
+          </div>
+        </div>
+
+        <div class="col-12 col-sm-4 col-md-2 col-md-offset-6">
+          <div class="form-group<%= ' has-error' if @employee_note.errors[:follow_up_on].any? %>">
+            <%= f.label :follow_up_on, 'Follow Up Date:', class: 'control-label' %>
+            <%= f.date_field :follow_up_on, { class: 'form-control' } %>
+          </div>
+        </div>
+
+      </div>
+
+      <%= f.submit nil, { class: 'btn btn-primary' } %>
+      <%= link_to 'Cancel', employee_notes_path, class: 'btn btn-link' %>
+
+    <% end %>
+  </div>
+</div>

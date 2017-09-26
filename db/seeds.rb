@@ -40,20 +40,36 @@ kelly = User.create(username: 'kelly', employee_number: 827, first_name: 'Kelly'
 johnm = User.create(username: 'johnm', employee_number: 828, first_name: 'John', last_name: 'McGuire', initials: 'JM', email: 'john.mcguire@varland.com', pin: '4897')
 andrea = User.create(username: 'andrea', employee_number: 830, first_name: 'Andrea', last_name: 'Wilson', initials: 'AVW', email: 'andrea.wilson@varland.com', pin: '1096')
 cherie = User.create(username: 'cherie', employee_number: 831, first_name: 'Cherie', last_name: 'Robben', initials: 'CR', email: 'cherie.robben@varland.com', pin: '5927')
-brendan = User.create(username: 'brendan', employee_number: 833, first_name: 'Brendan', last_name: 'Ryan', initials: 'BR', email: 'brendan.ryan@varland.com', pin: '5714')
 ed = User.create(username: 'ed', employee_number: 926, first_name: 'Ed', last_name: 'Christian', initials: 'PEC', email: 'ed.christian@varland.com', pin: '2364')
 kevin = User.create(username: 'kevin', employee_number: 928, first_name: 'Kevin', last_name: 'Marsh', initials: 'KM', email: 'kevin.marsh@varland.com', pin: '2494')
 chip = User.create(username: 'chip', employee_number: 935, first_name: 'Art', last_name: 'Mink', initials: 'AM', email: 'art.mink@varland.com', pin: '7525')
 toby = User.create(username: 'toby', employee_number: 937, first_name: 'Toby', last_name: 'Varland', initials: 'TV', email: 'toby.varland@varland.com', pin: '7301')
 ross = User.create(username: 'ross', employee_number: 938, first_name: 'Ross', last_name: 'Varland', initials: 'RV', email: 'ross.varland@varland.com', pin: '2279')
+johnd = User.create(username: 'johnd', employee_number: 129, first_name: 'John', last_name: 'Dunn', initials: 'JD', email: 'john.dunn@varland.com', pin: '5675')
+joelw = User.create(username: 'joelw', employee_number: 437, first_name: 'Joel', last_name: 'Wuerdeman', initials: 'JW', email: 'joel.wuerdeman@varland.com', pin: '3450')
+larry = User.create(username: 'larry', employee_number: 130, first_name: 'Larry', last_name: 'Mitchell', initials: 'LM', email: 'larry.mitchell@varland.com', pin: '6467')
+brandon = User.create(username: 'brandon', employee_number: 131, first_name: 'Brandon', last_name: 'Mangold', initials: 'BrM', email: 'brandon.mangold@varland.com', pin: '2758')
+jeff = User.create(username: 'jeff', employee_number: 438, first_name: 'Jeff', last_name: 'Coad', initials: 'JC', email: 'jeff.coad@varland.com', pin: '6168')
+koby = User.create(username: 'koby', employee_number: 439, first_name: 'Koby', last_name: 'Luccasen', initials: 'KL', email: 'koby.luccasen@varland.com', pin: '0399')
+dennis = User.create(username: 'dennis', employee_number: 132, first_name: 'Dennis', last_name: 'Loew', initials: 'DL', email: 'dennis.loew@varland.com', pin: '1425')
+eric = User.create(username: 'eric', employee_number: 832, first_name: 'Eric', last_name: 'Thiry', initials: 'ET', email: 'eric.thiry@varland.com', pin: '9816')
+garrett = User.create(username: 'garrett', employee_number: 133, first_name: 'Garrett', last_name: 'Nadicksbernd', initials: 'GN', email: 'garrett.nadicksbernd@varland.com', pin: '5695')
+mattc = User.create(username: 'mattc', employee_number: 134, first_name: 'Matthew', last_name: 'Cappelletti', initials: 'MC', email: 'matthew.cappelletti@varland.com', pin: '0118')
+brendan = User.create(username: 'brendan', employee_number: 833, first_name: 'Brendan', last_name: 'Ryan', initials: 'BR', email: 'brendan.ryan@varland.com', pin: '5714')
 
-sysadmin = Permission.create(permission: 'sysadmin', description: 'System Administration')
-employee_notes = Permission.create(permission: 'employee_notes', description: 'Employee Notes Application')
-documents = Permission.create(permission: 'documents', description: 'Departmental Information Application')
+
+sysadmin = Permission.create(permission: 'sysadmin', description: 'System Administration', label_set: 2)
+employee_notes = Permission.create(permission: 'employee_notes', description: 'Employee Notes Application', label_set: 1)
+shift_notes = Permission.create(permission: 'shift_notes', description: 'Shift Notes Application', label_set: 1)
+documents = Permission.create(permission: 'documents', description: 'Departmental Information Application', label_set: 7)
+opto_messages = Permission.create(permission: 'opto_messages', description: 'Opto Logs Application', label_set: 6)
+thickness_checks = Permission.create(permission: 'thickness_checks', description: 'Thickness Checks Application', label_set: 7)
+
 
 assignments = AssignedPermission.create([{ user_id: toby.id, permission_id: sysadmin.id, value: 3 },
                                          { user_id: johnm.id, permission_id: sysadmin.id, value: 3 },
                                          { user_id: brendan.id, permission_id: sysadmin.id, value: 3 },
+                                         { user_id: brendan.id, permission_id: documents.id, value: 3 },
                                          { user_id: gregt.id, permission_id: employee_notes.id, value: 2 },
                                          { user_id: ted.id, permission_id: employee_notes.id, value: 2 },
                                          { user_id: tony.id, permission_id: employee_notes.id, value: 2 },

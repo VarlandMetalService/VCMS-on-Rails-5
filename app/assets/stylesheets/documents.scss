@@ -1,3 +1,18 @@
 // Place all the styles related to the Documents controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.cn-documents {
+  .card-body .card:last-child {
+    margin-bottom: 5px;
+  }
+
+  .category-card {
+    margin-bottom: 20px;
+  }
+
+  .doc-options.collapse.show {
+    display: flex;
+  }
+
+}

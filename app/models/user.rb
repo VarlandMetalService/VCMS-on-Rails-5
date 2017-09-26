@@ -9,6 +9,15 @@ class User < ApplicationRecord
   self.per_page = 50
 
   # Associations.
+  has_many      :documents,
+                foreign_key: 'added_by'
+  has_many      :employee_notes,
+                class_name: 'EmployeeNote',
+                foreign_key: 'employee'
+  has_many      :authored_employee_notes,
+                -> { order 'note_on DESC' },
+                class_name: 'EmployeeNote',
+                foreign_key: 'entered_by'
   has_many      :assigned_permissions
   has_many      :permissions,
                 -> { select('permissions.*,

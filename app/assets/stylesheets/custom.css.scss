@@ -60,26 +60,9 @@ body {
   font-size: 14px;
 }
 
-
-// Controller specific styles
-
-.cn-documents {
-  .card-body .card:last-child {
-    margin-bottom: 5px;
-  }
-
-  .category-card {
-    margin-bottom: 20px;
-  }
-
-  .doc-options.collapse.show {
-    display: flex;
-  }
-
-  .filter-form {
-    margin-bottom: $default-spacing;
-    padding: $default-spacing;
-    border: 1px solid rgb(221, 221, 221);
-    background-color: #fcf8e3;
-  }
+.filter-form {
+  margin-bottom: $default-spacing;
+  padding: $default-spacing;
+  border: 1px solid rgb(221, 221, 221);
+  background-color: #fcf8e3;
 }
