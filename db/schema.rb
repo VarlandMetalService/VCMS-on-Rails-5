@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170920151324) do
+ActiveRecord::Schema.define(version: 20170926141626) do
 
   create_table "assigned_permissions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "user_id"
@@ -20,6 +20,15 @@ ActiveRecord::Schema.define(version: 20170920151324) do
     t.datetime "updated_at", null: false
     t.index ["permission_id"], name: "fk_rails_aca282a7fd"
     t.index ["user_id"], name: "fk_rails_324ef26984"
+  end
+
+  create_table "attachments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "attachable_id"
+    t.string "attachable_type"
+    t.string "content_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "file"
   end
 
   create_table "categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

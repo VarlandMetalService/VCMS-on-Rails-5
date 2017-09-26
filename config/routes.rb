@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :attachments
   root                        'vcms#home'
   get     'login'         =>  'sessions#new'
   post    'login'         =>  'sessions#create'

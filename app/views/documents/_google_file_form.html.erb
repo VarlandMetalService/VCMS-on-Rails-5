@@ -1,5 +1,7 @@
 <div class="card bg-light">
   <div class="card-body">
+  <div class="text-center">***Currently Unavailable***</div>
+  <% if false %>
     <%= form_for @google_document, :html => { class: 'google-docs-form' } do |f| %>
 
       <% if @google_document.errors.any? %>
@@ -19,13 +21,13 @@
 
           <div class="form-group<%= ' has-error' if @google_document.errors[:google_url].any? %>">
             <%= f.label :google_url, required_field_label('Google Docs URL:'), class: 'control-label' %>
-            <%= f.text_field :google_url, { class: 'form-control', required: 'required' } %>
+            <%= f.text_field :google_url, { class: 'form-control google-drive-url', required: 'required' } %>
             <span class="help-block"><small>After you enter the URL, the document name will be automatically retrieved from Google Drive.</small></span>
           </div>
 
           <div class="form-group<%= ' has-error' if @google_document.errors[:name].any? %>">
             <%= f.label :name, required_field_label('File Name:'), class: 'control-label' %>
-            <%= f.text_field :name, { class: 'form-control', readonly: 'readonly', required: 'required' } %>
+            <%= f.text_field :name, { class: 'form-control google-doc-name', readonly: 'readonly', required: 'required' } %>
             <%= f.hidden_field :content_type, { class: 'form-control' } %>
             <%= f.hidden_field :google_id, { class: 'form-control' } %>
             <%= f.hidden_field :google_contents, { class: 'form-control' } %>
@@ -70,5 +72,6 @@
       </div>
 
     <% end %>
+  <% end %>
   </div>
 </div>

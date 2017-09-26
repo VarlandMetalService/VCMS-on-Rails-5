@@ -22,7 +22,7 @@
           <div class="collapse row doc-options mb-4" id="adminOptions">
             <div class="col-12 col-sm-4">
               <h5>Add New Folder</h5>
-              <%= render partial: 'categories/form' %>
+              <%= render 'categories/form' %>
             </div>
             <div class="col-12 col-sm-4">
               <h5>Upload New File</h5>
@@ -65,19 +65,8 @@
                 <%= f.text_field :search_query, class: 'form-control filterrific-periodically-observed' %>
                 <span class="help-block"><small>If you enter multiple words, documents containing all words will be returned. If you need to find a specific phrase, enclose the phrase in double quotes. Entering <code>poor adhesion</code> will find documents containing the words <code>poor</code> and <code>adhesion</code>. Entering <code>"poor adhesion"</code> will find documents containing the phrase <code>poor adhesion</code>. You can have multiple double-quoted phrases.</small></span>
               </div>
+              <%= link_to 'Reset Search', documents_url, class: 'btn btn-sm btn-link float-left' %>
               <%= f.submit 'Search', name: nil, class: 'float-right' %>
-            </div>
-
-          </div>
-          <div class="row">
-
-            <div class="col-12">
-
-              <%#= render_filterrific_spinner %>
-
-              <%#= link_to 'Reset Search', reset_filterrific_url, class: 'btn btn-xs btn-warning pull-right' %>
-              <div class="clearfix"><!----></div>
-
             </div>
 
           </div>

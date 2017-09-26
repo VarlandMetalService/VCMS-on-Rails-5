@@ -21,13 +21,9 @@ module ApplicationHelper
     end
   end
 
-  def primary_nav_link controller, action, text, reset_filterrific = false
+  def primary_nav_link controller, action, text
     content_tag :li, class: (params[:controller] == controller && params[:action] == action ? 'active' : nil) do
-      # if reset_filterrific
-      #   content_tag :a, text, href: reset_filterrific_url(controller: controller, action: action)
-      # else
-        link_to text, { controller: controller, action: action }
-      # end
+      link_to text, { controller: controller, action: action }, class: 'dropdown-item'
     end
   end
 
