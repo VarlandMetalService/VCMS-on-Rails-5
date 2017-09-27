@@ -3,7 +3,7 @@
     <%= form_for @employee_note do |f| %>
 
       <% if @employee_note.errors.any? %>
-        <div class="error_explanation bg-danger text-danger">
+        <div class="error_explanation text-danger">
           <p><%= pluralize(@employee_note.errors.count, "error") %> prevented this note from being saved:</p>
           <ul>
             <% @employee_note.errors.full_messages.each do |msg| %>
@@ -16,23 +16,23 @@
       <div class="row">
 
         <div class="col-12 col-sm-4 col-md-2">
-          <div class="form-group<%= ' has-error' if @employee_note.errors[:employee].any? %>">
+          <div class="form-group">
             <%= f.label :employee, required_field_label('Employee:'), class: 'control-label' %>
-            <%= f.collection_select(:employee, User.order('employee_number'), :id, :number_and_name, { include_blank: true }, { class: 'form-control', required: 'required' }) %>
+            <%= f.collection_select(:employee, User.order('employee_number'), :id, :number_and_name, { include_blank: true }, { class: "form-control#{' is-invalid' if @employee_note.errors[:employee].any?}", required: 'required' }) %>
           </div>
         </div>
 
         <div class="col-12 col-sm-4 col-md-2">
-          <div class="form-group<%= ' has-error' if @employee_note.errors[:note_on].any? %>">
+          <div class="form-group">
             <%= f.label :note_on, required_field_label('Date:'), class: 'control-label' %>
-            <%= f.date_field :note_on, { class: 'form-control', required: 'required' } %>
+            <%= f.date_field :note_on, {value: format_date(@employee_note.note_on), class: "form-control datepicker#{' is-invalid' if @employee_note.errors[:note_on].any?}", required: 'required' } %>
           </div>
         </div>
 
         <div class="col-12 col-sm-4 col-md-2">
-          <div class="form-group<%= ' has-error' if @employee_note.errors[:note_type].any? %>">
+          <div class="form-group">
             <%= f.label :note_type, required_field_label('Type:'), class: 'control-label' %>
-            <%= f.select :note_type, options_for_select(EmployeeNote.options_for_type, @employee_note.note_type), { include_blank: true }, { class: 'form-control', required: 'required' } %>
+            <%= f.select :note_type, options_for_select(EmployeeNote.options_for_type, @employee_note.note_type), { include_blank: true }, { class: "form-control#{' is-invalid' if @employee_note.errors[:note_type].any?}", required: 'required' } %>
           </div>
         </div>
 
@@ -57,7 +57,7 @@
         <div class="col-12 col-sm-4 col-md-2 col-md-offset-6">
           <div class="form-group<%= ' has-error' if @employee_note.errors[:follow_up_on].any? %>">
             <%= f.label :follow_up_on, 'Follow Up Date:', class: 'control-label' %>
-            <%= f.date_field :follow_up_on, { class: 'form-control' } %>
+            <%= f.date_field :follow_up_on, { value: format_date(@employee_note.follow_up_on), class: 'form-control' } %>
           </div>
         </div>
 

@@ -32,7 +32,7 @@ class EmployeeNote < ApplicationRecord
 
   # Scopes.
   scope :sorted_by, ->(sort_option) {
-    order sort_option
+    reorder sort_option
   }
   scope :search_query, ->(query) {
     where 'notes like ? or follow_up like ?', "%#{query}%", "%#{query}%"
@@ -49,7 +49,6 @@ class EmployeeNote < ApplicationRecord
   scope :with_date_gte, ->(value) {
     begin
       date = Date.strptime(value, '%m/%d/%Y')
-      puts "EMPLOYEED NOTE STARTING DATE: #{date.strftime('%Y-%m-%d')}"
       where 'note_on >= ?', date.strftime('%Y-%m-%d')
     rescue
       return

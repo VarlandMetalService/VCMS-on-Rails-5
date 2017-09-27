@@ -6,8 +6,9 @@ $(document).on 'turbolinks:load', ->
   $('.datepicker').datepicker({
     autoclose: true,
     format: "mm/dd/yyyy",
-    clearBtn: true
-  })
+    clearBtn: true,
+    todayHighlight: true
+  }).attr('autocomplete', 'off')
 
   # $('.google-drive-url').change ->
     # Extract file id from text field
