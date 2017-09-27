@@ -47,10 +47,21 @@ class EmployeeNote < ApplicationRecord
     where entered_by: [*values]
   }
   scope :with_date_gte, ->(value) {
-    where 'note_on >= ?', value
+    begin
+      date = Date.strptime(value, '%m/%d/%Y')
+      puts "EMPLOYEED NOTE STARTING DATE: #{date.strftime('%Y-%m-%d')}"
+      where 'note_on >= ?', date.strftime('%Y-%m-%d')
+    rescue
+      return
+    end
   }
   scope :with_date_lte, ->(value) {
-    where 'note_on <= ?', value
+    begin
+      date = Date.strptime(value, '%m/%d/%Y')
+      where 'note_on <= ?', date.strftime('%Y-%m-%d')
+    rescue
+      return
+    end
   }
 
   # Select options for type.
@@ -72,7 +83,7 @@ class EmployeeNote < ApplicationRecord
 
   # Select options for entered by.
   def self.options_for_entered_by
-    users = User.where id: EmployeeNote.all.uniq.pluck(:entered_by)
+    users = User.where id: EmployeeNote.all.distinct.pluck(:entered_by)
     users.map { |u| [u.full_name, u.id] }
   end
 

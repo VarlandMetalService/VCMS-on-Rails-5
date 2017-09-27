@@ -1,12 +1,27 @@
 class EmployeeNotesController < ApplicationController
+  helper_method :sort_column, :sort_direction
+
   before_action :set_note, only: [:edit, :update, :destroy]
   before_action :check_permission
 
+  has_scope :search_query
+  has_scope :with_employee
+  has_scope :with_entered_by
+  has_scope :with_note_type
+  has_scope :with_date_gte
+  has_scope :with_date_lte
+  has_scope :sorted_by
+
   def index
     if @access_level.access_level == 3
-      @employee_notes = EmployeeNote.all.page(params[:page])
+      @employee_notes = apply_scopes(EmployeeNote).all.page(params[:page])
     else
-      @employee_notes = EmployeeNote.all.page(params[:page]).with_entered_by(current_user.id)
+      @employee_notes = apply_scopes(EmployeeNote).all.page(params[:page]).with_entered_by(current_user.id)
+    end
+
+    respond_to do |format|
+      format.js
+      format.html
     end
   end
 
@@ -57,4 +72,5 @@ private
   def employee_note_params
     params.require(:employee_note).permit(:employee, :note_on, :note_type, :notes, :follow_up, :follow_up_on)
   end
+
 end

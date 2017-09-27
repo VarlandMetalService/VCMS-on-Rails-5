@@ -29,59 +29,57 @@
 
     <% else -%>
 
-      <%#= TODO: Add filtering to this form %>
       <%= form_with url: employee_notes_path, class: 'filter-form hidden-print' , method: 'get' do |f| %>
         <div class="row">
 
           <div class="col-12">
             <div class="form-group">
               <%= f.label :search_query, 'Search:' %>
-              <%= f.text_field :search_query, class: 'form-control filterrific-periodically-observed' %>
+              <%= f.text_field :search_query, class: 'form-control' %>
             </div>
           </div>
 
           <div class="col-12 col-sm-4 col-md-2">
             <div class="form-group">
               <%= f.label :with_employee, 'Employee:' %>
-              <%#= f.select :with_employee, @filterrific.select_options[:with_employee], { include_blank: true }, { class: 'form-control' } %>
-              <%= f.collection_select :employee, User.all, :id, :full_name, prompt: true %>
+              <%= f.select :with_employee, User.options_for_select, include_blank: true %>
             </div>
           </div>
 
           <% if @access_level.access_level == 3 -%>
             <div class="col-12 col-sm-4 col-md-2">
               <div class="form-group">
-                <%#= f.label :with_entered_by, 'Entered By:' %>
-                <%#= f.select :with_entered_by, @filterrific.select_options[:with_entered_by], { include_blank: true }, { class: 'form-control' } %>
+                <%= f.label :with_entered_by, 'Entered By:', class: 'w-100' %>
+                <%= f.select :with_entered_by, EmployeeNote.options_for_entered_by, include_blank: true %>
               </div>
             </div>
           <% end %>
 
           <div class="col-12 col-sm-4 col-md-2">
             <div class="form-group">
-              <%#= f.label :with_note_type, 'Type:' %>
-              <%#= f.select :with_note_type, @filterrific.select_options[:with_note_type], { include_blank: true }, { class: 'form-control' } %>
+              <%= f.label :with_note_type, 'Type:', class: 'w-100' %>
+              <%= f.select :with_note_type, @employee_notes.options_for_type, include_blank: true %>
             </div>
           </div>
 
           <div class="col-12 col-sm-4 col-md-2">
             <div class="form-group">
-              <%#= f.label :with_date_gte, 'Starting Date:' %>
-              <%#= f.date_field :with_date_gte, class: 'form-control'  %>
+              <%= f.label :with_date_gte, 'Starting Date:' %>
+              <%= f.date_field :with_date_gte, class: 'form-control datepicker'  %>
             </div>
           </div>
 
           <div class="col-12 col-sm-4 col-md-2">
             <div class="form-group">
-              <%#= f.label :with_date_lte, 'Ending Date:' %>
-              <%#= f.date_field :with_date_lte, class: 'form-control'  %>
+              <%= f.label :with_date_lte, 'Ending Date:' %>
+              <%= f.date_field :with_date_lte, class: 'form-control datepicker'  %>
             </div>
           </div>
 
           <div class="col-12 col-sm-4 col-md-2">
             <div class="form-group">
-              <%#= f.label :sorted_by, 'Sorted By:' %>
-              <%#= f.select :sorted_by, @filterrific.select_options[:sorted_by], { }, { class: 'form-control' } %>
+              <%= f.label :sorted_by, 'Sorted By:', class: 'w-100' %>
+              <%= f.select :sorted_by, @employee_notes.options_for_sorted_by, { include_blank: true, class: 'form-control' } %>
             </div>
           </div>
 
@@ -90,14 +88,8 @@
         <div class="row">
 
           <div class="col-12">
-
-            <%# TODO: Add reset filter button %>
-
-            <%#= render_filterrific_spinner %>
-
-            <%#= link_to 'Reset Filters', reset_filterrific_url, class: 'btn btn-sm btn-warning float-right' %>
-            <div class="clearfix"><!----></div>
-
+            <%= link_to 'Reset Filter', employee_notes_path, class: 'btn-link btn-sm' %>
+            <%= f.submit 'Filter', class: 'float-right' %>
           </div>
 
         </div>
