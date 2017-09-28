@@ -54,10 +54,12 @@
           </div>
         </div>
 
-        <div class="col-12 col-sm-4 col-md-2 col-md-offset-6">
+        <!-- Temporary fix for bootstrap offset (offset will be reintroduced in Bootstrap 4 beta v2) -->
+        <div class="col-md-6"></div>
+        <div class="col-12 col-sm-4 col-md-2 offset-md-6">
           <div class="form-group<%= ' has-error' if @employee_note.errors[:follow_up_on].any? %>">
             <%= f.label :follow_up_on, 'Follow Up Date:', class: 'control-label' %>
-            <%= f.date_field :follow_up_on, { value: format_date(@employee_note.follow_up_on), class: 'form-control' } %>
+            <%= f.date_field :follow_up_on, { value: format_date(@employee_note.follow_up_on), class: 'form-control datepicker' } %>
           </div>
         </div>
 

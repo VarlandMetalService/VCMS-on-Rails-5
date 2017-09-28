@@ -3,6 +3,9 @@ class EmployeeNote < ApplicationRecord
   # Constants.
   VALID_IP_REGEX = /\A([1-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])(\.([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])){3}\z/i
 
+  # Default scoping.
+  default_scope { order(note_on: :desc) }
+
   # Pagination.
   self.per_page = 50
 
@@ -75,8 +78,8 @@ class EmployeeNote < ApplicationRecord
   # Select options for sorted by.
   def self.options_for_sorted_by
     [
-      ['Date (oldest first)', 'note_on'],
-      ['Date (newest first)', 'note_on DESC']
+      ['Date (newest first)', 'note_on DESC'],
+      ['Date (oldest first)', 'note_on']
     ]
   end
 

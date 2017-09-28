@@ -1,6 +1,4 @@
 class EmployeeNotesController < ApplicationController
-  helper_method :sort_column, :sort_direction
-
   before_action :set_note, only: [:edit, :update, :destroy]
   before_action :check_permission
 
