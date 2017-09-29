@@ -1,0 +1,127 @@
+<div class="card bg-light">
+  <div class="card-body">
+    <%= form_for @shift_note do |f| %>
+
+      <% if @shift_note.errors.any? %>
+        <div class="error_explanation text-danger">
+          <p><%= pluralize(@shift_note.errors.count, "error") %> prevented this note from being saved:</p>
+          <ul>
+            <% @shift_note.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="row">
+
+        <div class="col-12 col-sm-12 col-md-6">
+
+          <div class="row">
+
+            <div class="col-12 col-sm-12 col-md-6">
+              <div class="form-group<%= ' has-error' if @shift_note.errors[:note_on].any? %>">
+                <%= f.label :note_on, required_field_label('Date:'), class: 'control-label' %>
+                <%= f.date_field :note_on, { value: format_date(@shift_note.note_on), class: 'form-control datepicker', required: 'required' } %>
+              </div>
+            </div>
+
+            <div class="col-12 col-sm-12 col-md-6">
+              <div class="form-group<%= ' has-error' if @shift_note.errors[:shift].any? %>">
+                <%= f.label :shift, required_field_label('Shift:'), class: 'control-label' %>
+                <%= f.select :shift, options_for_select(ShiftNote.options_for_shift, @shift_note.shift), { include_blank: true }, { class: 'form-control', required: 'required' } %>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="row">
+
+            <div class="col-12 col-sm-12 col-md-6">
+              <div class="form-group<%= ' has-error' if @shift_note.errors[:note_type].any? %>">
+                <%= f.label :note_type, 'Type:', class: 'control-label' %>
+                <%= f.select :note_type, options_for_select(ShiftNote.options_for_type, @shift_note.note_type), { include_blank: true }, { class: 'form-control' } %>
+              </div>
+            </div>
+
+            <div class="col-12 col-sm-12 col-md-6">
+              <div class="form-group<%= ' has-error' if @shift_note.errors[:department].any? %>">
+                <%= f.label :department, 'Department:', class: 'control-label' %>
+                <%= f.select :department, options_for_select(ShiftNote.options_for_department, @shift_note.department), { include_blank: true }, { class: 'form-control' } %>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="row">
+
+            <div class="col-12">
+              <div class="form-group<%= ' has-error' if @shift_note.errors[:notes].any? %>">
+                <%= f.label :notes, required_field_label('Notes:'), class: 'control-label' %>
+                <%= f.text_area :notes, { class: 'form-control', rows: 8, required: 'required' } %>
+              </div>
+            </div>
+
+          </div>
+
+          <% unless @shift_note.id.nil? || @access_level.access_level < 3 -%>
+            <div class="row">
+
+              <div class="col-12">
+                <div class="form-group<%= ' has-error' if @shift_note.errors[:supervisor_notes].any? %>">
+                  <%= f.label :supervisor_notes, 'Supervisor Notes:', class: 'control-label' %>
+                  <%= f.text_area :supervisor_notes, { class: 'form-control', rows: 8 } %>
+                </div>
+              </div>
+
+            </div>
+          <% end %>
+
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-6">
+          <p><strong>Attachments:</strong></p>
+          <div class="table-responsive">
+            <table class="table table-bordered table-condensed">
+              <thead>
+                <tr>
+                  <th class="col-10">Preview</th>
+                  <th class="col-2 text-center">Options</th>
+                </tr>
+              </thead>
+              <tfoot>
+                <tr>
+                  <td colspan="3" class="text-center">
+                    <%= link_to_add_association 'Add Attachment', f, :attachments,
+                                                                    :class => 'btn btn-sm btn-success',
+                                                                    :'data-association-insertion-node' => '#shift_note_attachments',
+                                                                    :'data-association-insertion-method' => 'append',
+                                                                    :partial => 'new_attachment_fields' %>
+                  </td>
+                </tr>
+              </tfoot>
+              <tbody id="shift_note_attachments">
+                <%= f.fields_for :attachments do |attachment| %>
+                  <%= render 'attachment_fields', f: attachment %>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="row">
+
+        <div class="col-12">
+
+          <%= f.submit nil, { class: 'btn btn-primary' } %>
+          <%= link_to 'Cancel', shift_notes_path, class: 'btn btn-link' %>
+
+        </div>
+
+      </div>
+
+    <% end %>
+  </div>
+</div>

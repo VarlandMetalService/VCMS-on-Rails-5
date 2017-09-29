@@ -89,4 +89,16 @@ class EmployeeNote < ApplicationRecord
     users.map { |u| [u.full_name, u.id] }
   end
 
+  def initialize(params = {})
+    super
+    current_time = Time.new
+    today = Date.today
+    case current_time.hour
+      when 0..6
+        self.note_on = today - 1
+      when 7..23
+        self.note_on = today
+    end
+  end
+
 end

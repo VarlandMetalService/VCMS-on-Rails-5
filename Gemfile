@@ -31,6 +31,7 @@ gem 'mini_magick',                   '~> 4.3'
 gem 'mysql2',                       '~> 0.3.18'
 gem 'omniauth-google-oauth2',       '~> 0.2.1'
 gem 'rest-client',                  '~> 2.1.0.rc1'
+gem 'sidekiq'
 gem 'will_paginate',                '~> 3.0.6'
 gem 'will_paginate-bootstrap',      '1.0.1'
 

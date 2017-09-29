@@ -23,6 +23,8 @@ class User < ApplicationRecord
                 -> { select('permissions.*,
                             assigned_permissions.value AS access_level') },
                 :through => :assigned_permissions
+  has_many      :shift_notes,
+                foreign_key: 'entered_by'
 
   accepts_nested_attributes_for   :assigned_permissions,
                                   reject_if: :all_blank,

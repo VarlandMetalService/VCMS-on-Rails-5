@@ -1,0 +1,105 @@
+<% provide(:title, 'Shift Notes') %>
+<div class="row mx-1">
+
+  <div class="col-12 card bg-light mb-3">
+
+    <div class="row">
+      <strong class="col-6">Shift Notes</strong>
+
+      <% if @access_level.access_level == 3 -%>
+        <strong class="col-6 text-danger text-uppercase text-right">
+          Admin Mode
+        </strong>
+      <% end %>
+
+    </div>
+
+  </div>
+
+  <div class="col-12">
+
+    <p class="hidden-print">
+      <%= link_to 'Add Shift Note', new_shift_note_path, class: 'btn btn-success btn-sm' %>
+    </p>
+
+    <% if @shift_notes.size == 0 -%>
+
+      <p class="text-muted">No shift notes found.</p>
+
+    <% else -%>
+
+      <%= form_with url: shift_notes_path, class: 'filter-form hidden-print' , method: 'get' do |f| %>
+
+        <div class="row">
+
+          <div class="col-12">
+            <div class="form-group">
+              <%= f.label :search_query, 'Search:' %>
+              <%= f.text_field :search_query, class: 'form-control' %>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-4 col-md-2">
+            <div class="form-group">
+              <%= f.label :with_date, 'Date:' %>
+              <%= f.date_field :with_date, class: 'form-control datepicker'  %>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-4 col-md-2">
+            <div class="form-group">
+              <%= f.label :with_shift, 'Shift:' %>
+              <%= f.select :with_shift, @shift_notes.options_for_shift, { include_blank: true }, { class: 'form-control' } %>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-4 col-md-2">
+            <div class="form-group">
+              <%= f.label :with_entered_by, 'Entered By:' %>
+              <%= f.select :with_entered_by, @shift_notes.options_for_entered_by, { include_blank: true }, { class: 'form-control' } %>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-4 col-md-2">
+            <div class="form-group">
+              <%= f.label :with_department, 'Department:' %>
+              <%= f.select :with_department, @shift_notes.options_for_department, { include_blank: true }, { class: 'form-control' } %>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-4 col-md-2">
+            <div class="form-group">
+              <%= f.label :with_note_type, 'Type:' %>
+              <%= f.select :with_note_type, @shift_notes.options_for_type, { include_blank: true }, { class: 'form-control' } %>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-4 col-md-2">
+            <div class="form-group">
+              <%= f.label :sorted_by, 'Sorted By:' %>
+              <%= f.select :sorted_by, @shift_notes.options_for_sorted_by, { }, { class: 'form-control' } %>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="row">
+
+          <div class="col-12">
+
+            <%= link_to 'Reset Filter', shift_notes_path, class: 'btn-link btn-sm' %>
+            <%= f.submit 'Filter', class: 'float-right' %>
+
+          </div>
+
+        </div>
+
+      <% end %>
+
+      <div id="results"><%= render partial: 'shift_notes/list', locals: { shift_notes: @shift_notes, current_user: @current_user, access_level: @access_level.access_level } %></div>
+
+    <% end %>
+
+  </div>
+
+</div>

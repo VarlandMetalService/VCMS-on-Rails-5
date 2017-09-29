@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170929122208) do
+ActiveRecord::Schema.define(version: 20170929134958) do
 
   create_table "assigned_permissions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "user_id"
@@ -110,6 +110,24 @@ ActiveRecord::Schema.define(version: 20170929122208) do
     t.index ["permission"], name: "index_permissions_on_permission", unique: true
   end
 
+  create_table "shift_notes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "entered_by"
+    t.date "note_on"
+    t.integer "shift"
+    t.string "ip_address"
+    t.integer "department"
+    t.string "note_type"
+    t.text "notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "supervisor_notes"
+    t.datetime "supervisor_notes_at"
+    t.bigint "supervisor_id"
+    t.boolean "author_email_needed"
+    t.index ["entered_by"], name: "fk_rails_8c4d173e86"
+    t.index ["supervisor_id"], name: "fk_rails_bfc751106f"
+  end
+
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "username"
     t.integer "employee_number"
@@ -133,4 +151,6 @@ ActiveRecord::Schema.define(version: 20170929122208) do
   add_foreign_key "assigned_permissions", "users"
   add_foreign_key "employee_notes", "users", column: "employee"
   add_foreign_key "employee_notes", "users", column: "entered_by"
+  add_foreign_key "shift_notes", "users", column: "entered_by"
+  add_foreign_key "shift_notes", "users", column: "supervisor_id"
 end

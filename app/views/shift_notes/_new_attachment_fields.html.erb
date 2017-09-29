@@ -1,0 +1,8 @@
+<tr class="nested-fields<%= ' danger' unless f.object.valid? %>">
+  <td>
+     <%= f.file_field :file %>
+  </td>
+  <td class="text-center">
+    <%= link_to_remove_association 'Remove', f, class: 'btn btn-sm btn-danger' %>
+  </td>
+</tr>
