@@ -1,4 +1,175 @@
-<p id="notice"><%= notice %></p>
+<% provide(:title, @document.name) %>
+<div class="row mx-1">
 
-<%= link_to 'Edit', edit_document_path(@document) %> |
-<%= link_to 'Back', documents_path %>
+  <div class="col-12 card bg-light mb-3">
+
+    <div class="row">
+
+      <strong class="col-6">Documents</strong>
+
+      <% if @access_level && @access_level.access_level == 3 -%>
+        <strong class="col-6 text-danger text-uppercase text-right">
+          Admin Mode
+        </strong>
+      <% end %>
+
+    </div>
+
+  </div>
+
+  <div class="col-12">
+
+    <div class="row">
+      <div class="col-12">
+        <p>
+          <%= link_to 'Back to List', documents_path, class: 'btn btn-sm btn-secondary'  %>
+          <% if @document.google_url.nil? %>
+            <%= link_to 'Full Screen', @document.file.url, class: 'btn btn-sm btn-primary', target: '_blank'  %>
+          <% else %>
+            <%= link_to 'Full Screen', @document.google_url, class: 'btn btn-sm btn-primary', target: '_blank'  %>
+          <% end %>
+          <% if @access_level && @access_level.access_level == 3 -%>
+            <button class="btn btn-success btn-sm" type="button" data-toggle="collapse" data-target="#adminOptions" aria-expanded="false" aria-controls="adminOptions">
+              Options
+            </button>
+          <% end %>
+        </p>
+      </div>
+    </div>
+    <% if @access_level && @access_level.access_level == 3 -%>
+      <div class="row">
+        <div class="col-12">
+
+          <div class="collapse row" id="adminOptions">
+            <div class="col-12 col-sm-4">
+              <h5>Update Document</h5>
+              <div class="card bg-light">
+                <div class="card-body">
+                  <%= form_for @document do |f| %>
+
+                    <% if @document.errors.any? %>
+                      <div class="error_explanation bg-danger text-danger">
+                        <p><%= pluralize(@document.errors.count, "error") %> prevented this document from being saved:</p>
+                        <ul>
+                          <% @document.errors.full_messages.each do |msg| %>
+                            <li><%= msg %></li>
+                          <% end %>
+                        </ul>
+                      </div>
+                    <% end %>
+
+                    <div class="row">
+
+                      <div class="col-12">
+
+                        <div class="form-group<%= ' has-error' if @document.errors[:document_updated_on].any? %>">
+                          <%= f.label :document_updated_on, 'Date:', class: 'control-label' %>
+                          <%= f.date_field :document_updated_on, { value: format_date(@document.document_updated_on), class: 'form-control datepicker' } %>
+                          <% if @document.google_url.nil? %>
+                            <span class="help-block"><small>You may update the document's date to change sorting as needed.</small></span>
+                          <% else %>
+                            <span class="help-block"><small>You may update the document's date to change sorting as needed. This date will automatically update as the contents of the Google Document change.</small></span>
+                          <% end %>
+                        </div>
+
+                        <% if @document.google_url.nil? %>
+                          <div class="form-group<%= ' has-error' if @document.errors[:name].any? %>">
+                            <%= f.label :name, 'Name:', class: 'control-label' %>
+                            <%= f.text_field :name, { class: 'form-control' } %>
+                          </div>
+
+                          <div class="form-group<%= ' has-error' if @document.errors[:file].any? %>">
+                            <%= f.label :file, 'File:', class: 'control-label' %>
+                            <%= f.file_field :file, { class: 'form-control' } %>
+                            <span class="help-block"><small>Use this field to replace the file without changing the name, date, or folders.</small></span>
+                          </div>
+                        <% end %>
+
+                        <div class="form-group<%= ' has-error' if @document.errors[:exclude_from_newest].any? %>">
+                          <div class="checkbox">
+                            <label>
+                              <%= f.check_box :exclude_from_newest %>
+                              Exclude from list of newest documents
+                            </label>
+                          </div>
+                        </div>
+
+                        <div class="form-group<%= ' has-error' if @document.errors[:categories].any? %>">
+                          <%= f.label :category_ids, required_field_label('Folder(s):'), class: 'control-label' %>
+                          <%= f.select :category_ids, nested_set_options(Category, @category) {|i| "#{'&ndash;' * i.level} #{i.name}".html_safe }, { include_blank: false }, { class: 'form-control', multiple: true, size: 10, required: 'required' } %>
+                          <span class="help-block"><small>This document may appear in as many folders as you would like. You must choose at least one folder. Use Control/Command-Click to select/deselect folders.</small></span>
+                        </div>
+
+                      </div>
+
+                    </div>
+
+                    <div class="row">
+
+                      <div class="col-12">
+
+                        <%= f.submit 'Update Document', { class: 'btn btn-primary' } %>
+                        <%= link_to 'Cancel', @document, class: 'btn btn-link' %>
+
+                      </div>
+
+                    </div>
+
+                  <% end %>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-sm-4">
+              <h5>Delete Document</h5>
+              <div class="card bg-light">
+                <%= link_to 'Delete', @document, method: :delete, class: 'btn btn-block btn-danger', data: { confirm: 'Are you sure you want to delete this document?' }  %>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    <% end %>
+
+    <div class="row">
+
+      <div class="col-12">
+        <p class="lead"><%= @document.name %></p>
+      </div>
+
+      <% case @document.content_type %>
+      <% when 'video/mp4', 'video/quicktime' %>
+        <div class="col-12 col-sm-12 col-md-8 col-md-offset-2">
+          <div class="embed-responsive embed-responsive-16by9 bottom-spacing">
+            <video class="embed-responsive-item" controls src="<%= @document.file.url %>"></video>
+          </div>
+        </div>
+      <% when 'application/pdf' %>
+        <div class="col-12">
+          <div class="embed-responsive embed-fill-height bottom-spacing">
+            <iframe class="embed-responsive-item" src="<%= @document.file.url %>"></iframe>
+          </div>
+        </div>
+      <% when 'google/document' %>
+        <div class="col-12">
+          <div class="embed-responsive embed-fill-height bottom-spacing">
+            <iframe class="embed-responsive-item" src="https://docs.google.com/document/d/<%= @document.google_id %>/edit?usp=sharing"></iframe>
+          </div>
+        </div>
+      <% when 'google/spreadsheets' %>
+        <div class="col-12">
+          <div class="embed-responsive embed-fill-height bottom-spacing">
+            <iframe class="embed-responsive-item" src="https://docs.google.com/spreadsheets/d/<%= @document.google_id %>/edit?usp=sharing"></iframe>
+          </div>
+        </div>
+      <% when 'image/png', 'image/jpg', 'image/gif', 'image/tiff', 'image/jpeg' %>
+        <div class="col-12 col-sm-12 col-md-8 col-md-offset-2">
+          <img class="img-responsive" src="<%= @document.file.url %>" />
+        </div>
+      <% end %>
+
+    </div>
+
+  </div>
+
+</div>

@@ -24,7 +24,7 @@
 
           <div class="form-group<%= ' has-error' if @upload_document.errors[:document_updated_on].any? %>">
             <%= f.label :document_updated_on, 'Date:', class: 'control-label' %>
-            <%= f.date_field :document_updated_on, { class: 'form-control' } %>
+            <%= f.date_field :document_updated_on, { class: 'form-control datepicker' } %>
             <span class="help-block"><small>You may specify an update date or leave blank to default to today's date.</small></span>
           </div>
 

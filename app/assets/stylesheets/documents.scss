@@ -3,6 +3,7 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .cn-documents {
+
   .card-body .card:last-child {
     margin-bottom: 5px;
   }
@@ -13,6 +14,10 @@
 
   .doc-options.collapse.show {
     display: flex;
+  }
+
+  .embed-fill-height {
+    height: 77vh;
   }
 
 }
