@@ -1,9 +1,9 @@
 <div class="card bg-light">
   <div class="card-body">
-    <%= form_for @user do |f| %>
+    <%= form_with model: @user do |f| %>
 
       <% if @user.errors.any? %>
-        <div class="error_explanation bg-danger text-danger">
+        <div class="error_explanation text-danger">
           <p><%= pluralize(@user.errors.count, "error") %> prevented this user from being saved:</p>
           <ul>
             <% @user.errors.full_messages.each do |msg| %>

@@ -2,10 +2,10 @@
   <div class="card-body">
   <div class="text-center">***Currently Unavailable***</div>
   <% if false %>
-    <%= form_for @google_document, :html => { class: 'google-docs-form' } do |f| %>
+    <%= form_with model: @google_document, class: 'google-docs-form' do |f| %>
 
       <% if @google_document.errors.any? %>
-        <div class="error_explanation bg-danger text-danger">
+        <div class="error_explanation text-danger">
           <p><%= pluralize(@google_document.errors.count, "error") %> prevented this document from being saved:</p>
           <ul>
             <% @google_document.errors.full_messages.each do |msg| %>

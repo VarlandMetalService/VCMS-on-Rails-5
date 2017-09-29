@@ -1,9 +1,9 @@
 <div class="card bg-light">
   <div class="card-body">
-    <%= form_for @upload_document do |f| %>
+    <%= form_with model: @upload_document do |f| %>
 
       <% if @upload_document.errors.any? %>
-        <div class="error_explanation bg-danger text-danger">
+        <div class="error_explanation text-danger">
           <p><%= pluralize(@upload_document.errors.count, "error") %> prevented this document from being saved:</p>
           <ul>
             <% @upload_document.errors.full_messages.each do |msg| %>

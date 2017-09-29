@@ -1,6 +1,6 @@
 <div class="card bg-light">
   <div class="card-body">
-    <%= form_for @employee_note do |f| %>
+    <%= form_with model: @employee_note do |f| %>
 
       <% if @employee_note.errors.any? %>
         <div class="error_explanation text-danger">

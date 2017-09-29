@@ -1,9 +1,9 @@
 <div class="card bg-light">
   <div class="card-body">
-    <%= form_for @permission do |f| %>
+    <%= form_with model: @permission do |f| %>
 
       <% if @permission.errors.any? %>
-        <div class="error_explanation bg-danger text-danger">
+        <div class="error_explanation text-danger">
           <p><%= pluralize(@permission.errors.count, "error") %> prevented this permission from being saved:</p>
           <ul>
             <% @permission.errors.full_messages.each do |msg| %>
