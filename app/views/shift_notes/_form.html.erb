@@ -20,16 +20,16 @@
           <div class="row">
 
             <div class="col-12 col-sm-12 col-md-6">
-              <div class="form-group<%= ' has-error' if @shift_note.errors[:note_on].any? %>">
+              <div class="form-group">
                 <%= f.label :note_on, required_field_label('Date:'), class: 'control-label' %>
-                <%= f.date_field :note_on, { value: format_date(@shift_note.note_on), class: 'form-control datepicker', required: 'required' } %>
+                <%= f.date_field :note_on, { value: format_date(@shift_note.note_on), class: "form-control datepicker#{' is-invalid' if @shift_note.errors[:note_on].any?}", required: 'required' } %>
               </div>
             </div>
 
             <div class="col-12 col-sm-12 col-md-6">
-              <div class="form-group<%= ' has-error' if @shift_note.errors[:shift].any? %>">
+              <div class="form-group">
                 <%= f.label :shift, required_field_label('Shift:'), class: 'control-label' %>
-                <%= f.select :shift, options_for_select(ShiftNote.options_for_shift, @shift_note.shift), { include_blank: true }, { class: 'form-control', required: 'required' } %>
+                <%= f.select :shift, options_for_select(ShiftNote.options_for_shift, @shift_note.shift), { include_blank: true }, { class: "form-control#{' is-invalid' if @shift_note.errors[:shift].any?}", required: 'required' } %>
               </div>
             </div>
 
@@ -38,16 +38,16 @@
           <div class="row">
 
             <div class="col-12 col-sm-12 col-md-6">
-              <div class="form-group<%= ' has-error' if @shift_note.errors[:note_type].any? %>">
+              <div class="form-group">
                 <%= f.label :note_type, 'Type:', class: 'control-label' %>
-                <%= f.select :note_type, options_for_select(ShiftNote.options_for_type, @shift_note.note_type), { include_blank: true }, { class: 'form-control' } %>
+                <%= f.select :note_type, options_for_select(ShiftNote.options_for_type, @shift_note.note_type), { include_blank: true }, { class: "form-control#{' is-invalid' if @shift_note.errors[:note_type].any?}" } %>
               </div>
             </div>
 
             <div class="col-12 col-sm-12 col-md-6">
-              <div class="form-group<%= ' has-error' if @shift_note.errors[:department].any? %>">
+              <div class="form-group">
                 <%= f.label :department, 'Department:', class: 'control-label' %>
-                <%= f.select :department, options_for_select(ShiftNote.options_for_department, @shift_note.department), { include_blank: true }, { class: 'form-control' } %>
+                <%= f.select :department, options_for_select(ShiftNote.options_for_department, @shift_note.department), { include_blank: true }, { class: "form-control#{' is-invalid' if @shift_note.errors[:department].any?}" } %>
               </div>
             </div>
 
@@ -56,9 +56,9 @@
           <div class="row">
 
             <div class="col-12">
-              <div class="form-group<%= ' has-error' if @shift_note.errors[:notes].any? %>">
+              <div class="form-group">
                 <%= f.label :notes, required_field_label('Notes:'), class: 'control-label' %>
-                <%= f.text_area :notes, { class: 'form-control', rows: 8, required: 'required' } %>
+                <%= f.text_area :notes, { class: "form-control#{' is-invalid' if @shift_note.errors[:notes].any?}", rows: 8, required: 'required' } %>
               </div>
             </div>
 
@@ -68,9 +68,9 @@
             <div class="row">
 
               <div class="col-12">
-                <div class="form-group<%= ' has-error' if @shift_note.errors[:supervisor_notes].any? %>">
+                <div class="form-group">
                   <%= f.label :supervisor_notes, 'Supervisor Notes:', class: 'control-label' %>
-                  <%= f.text_area :supervisor_notes, { class: 'form-control', rows: 8 } %>
+                  <%= f.text_area :supervisor_notes, { class: "form-control#{' is-invalid' if @shift_note.errors[:supervisor_notes].any?}", rows: 8 } %>
                 </div>
               </div>
 
