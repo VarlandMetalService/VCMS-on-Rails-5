@@ -20,6 +20,17 @@ body {
   font-size: 14px;
 }
 
+// temporary fix until Bootstrap v4 Beta 2 is released
+.collapse {
+  display: none;
+  &.show {
+    display: block;
+  }
+  &.row.show {
+    display: flex;
+  }
+}
+
 .bg-success {
   background-color: #dff0d8 !important;
 }
