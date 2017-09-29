@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170926145421) do
+ActiveRecord::Schema.define(version: 20170929122208) do
 
   create_table "assigned_permissions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "user_id"
@@ -83,6 +83,24 @@ ActiveRecord::Schema.define(version: 20170926145421) do
     t.datetime "updated_at", null: false
     t.index ["employee"], name: "fk_rails_a688637a0d"
     t.index ["entered_by"], name: "fk_rails_60f15ac792"
+  end
+
+  create_table "opto_messages", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "message_name"
+    t.datetime "message_at"
+    t.integer "department"
+    t.integer "lane"
+    t.integer "station"
+    t.integer "shop_order"
+    t.integer "load"
+    t.integer "barrel"
+    t.string "customer"
+    t.text "message"
+    t.string "hashed_data"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "raw_data"
+    t.index ["hashed_data"], name: "index_opto_messages_on_hashed_data", unique: true
   end
 
   create_table "permissions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  resources :employee_notes
+
   root                        'vcms#home'
   get     'login'         =>  'sessions#new'
   post    'login'         =>  'sessions#create'
@@ -10,11 +10,15 @@ Rails.application.routes.draw do
   resources :permissions
 
   resources :attachments
+  resources :employee_notes
+  resources :opto_messages
+
   resources :documents do
     collection do
       get :get_google_meta
     end
   end
+
   resources :categories do
     collection do
       post :move_up

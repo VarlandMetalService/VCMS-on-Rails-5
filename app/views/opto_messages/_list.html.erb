@@ -1,0 +1,40 @@
+<p><%= page_entries_info opto_messages %></p>
+
+<div class="table-responsive">
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th class="col-xs-1 text-center">Date/Time</th>
+        <th class="col-xs-1 text-center">Type</th>
+        <th class="col-xs-1 text-center">Department</th>
+        <th class="col-xs-1 text-center">Lane</th>
+        <th class="col-xs-1 text-center">Station</th>
+        <th class="col-xs-1 text-center">Bbl #</th>
+        <th class="col-xs-1 text-center">S.O. #</th>
+        <th class="col-xs-1 text-center">Load</th>
+        <th class="col-xs-4">Message</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% opto_messages.each do |o| -%>
+        <tr>
+          <td class="text-center"><%= o.message_at.strftime '%m/%d/%y %H:%M:%S' %></td>
+          <td class="text-center"><%= o.message_name %></td>
+          <td class="text-center"><%= department_name(o.department) %></td>
+          <td class="text-center"><%= o.lane %></td>
+          <td class="text-center"><%= o.station %></td>
+          <td class="text-center"><%= o.barrel %></td>
+          <td class="text-center"><%= o.shop_order %></td>
+          <td class="text-center"><%= o.load %></td>
+          <td>
+            <%= format_line_breaks o.message %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<div class="hidden-print">
+  <%= will_paginate opto_messages, renderer: BootstrapPagination::Rails %>
+</div>

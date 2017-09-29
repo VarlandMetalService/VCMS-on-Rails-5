@@ -1,0 +1,7 @@
+<% js = escape_javascript(
+  render(
+    :partial => 'opto_messages/list',
+    :locals => { :opto_messages => @opto_messages, current_user: @current_user, :access_level => @access_level.access_level }
+  )
+) %>
+$('#results').html("<%= js %>");
