@@ -1,42 +1,41 @@
 <p><%= page_entries_info employee_notes %></p>
 
-<div class="table-responsive">
-  <table class="table table-bordered table-striped">
-    <thead>
+<table class="table table-responsive table-bordered table-striped">
+  <thead>
+    <tr>
+      <th class="col-1">Employee</th>
+      <th class="col-1 text-center">Date</th>
+      <th class="col-1 text-center">By</th>
+      <th class="col-1 text-center">Type</th>
+      <th class="col-7">Notes</th>
+      <th class="col-1 text-center hidden-print">Options</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% employee_notes.each do |n| -%>
       <tr>
-        <th class="col-1">Employee</th>
-        <th class="col-1 text-center">Date</th>
-        <th class="col-1 text-center">By</th>
-        <th class="col-1 text-center">Type</th>
-        <th class="col-7">Notes</th>
-        <th class="col-1 text-center hidden-print">Options</th>
+        <td><%= n.subject.full_name %></td>
+        <td class="text-center"><%= n.note_on.strftime '%m/%d/%y' %></td>
+        <td class="text-center"><%= n.author.initials %></td>
+        <td class="text-center"><%= n.note_type %></td>
+        <td>
+          <%= format_line_breaks n.notes %>
+          <% unless n.follow_up.blank? -%>
+            <br />
+            <br />
+            <small><strong class="text-uppercase">Follow Up<%= " on #{n.follow_up_on.strftime('%m/%d/%y')}" unless n.follow_up_on.nil? %>:</strong></small><br />
+            <%= format_line_breaks n.follow_up %>
+          <% end %>
+        </td>
+        <td class="text-center hidden-print">
+          <%= link_to 'Edit', edit_employee_note_path(n), class: 'btn btn-sm btn-secondary'  %>
+          <%= link_to 'Delete', n, method: :delete, class: 'btn btn-sm btn-danger', data: { confirm: 'Are you sure you want to delete this note?' }  %>
+        </td>
       </tr>
-    </thead>
-    <tbody>
-      <% employee_notes.each do |n| -%>
-        <tr>
-          <td><%= n.subject.full_name %></td>
-          <td class="text-center"><%= n.note_on.strftime '%m/%d/%y' %></td>
-          <td class="text-center"><%= n.author.initials %></td>
-          <td class="text-center"><%= n.note_type %></td>
-          <td>
-            <%= format_line_breaks n.notes %>
-            <% unless n.follow_up.blank? -%>
-              <br />
-              <br />
-              <small><strong class="text-uppercase">Follow Up<%= " on #{n.follow_up_on.strftime('%m/%d/%y')}" unless n.follow_up_on.nil? %>:</strong></small><br />
-              <%= format_line_breaks n.follow_up %>
-            <% end %>
-          </td>
-          <td class="text-center hidden-print">
-            <%= link_to 'Edit', edit_employee_note_path(n), class: 'btn btn-sm btn-secondary'  %>
-            <%= link_to 'Delete', n, method: :delete, class: 'btn btn-sm btn-danger', data: { confirm: 'Are you sure you want to delete this note?' }  %>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>
+    <% end %>
+  </tbody>
+</table>
+
 
 <div class="hidden-print">
   <%= will_paginate employee_notes, renderer: BootstrapPagination::Rails %>

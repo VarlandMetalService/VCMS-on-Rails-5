@@ -14,34 +14,32 @@
 
     <p><%= page_entries_info @users %></p>
 
-    <div class="table-responsive">
-      <table class="table table-bordered table-striped">
-        <thead>
-          <tr>
-            <th class="col-1 text-center">Employee #</th>
-            <th class="col-2">Name</th>
-            <th class="col-1 text-center">Initials</th>
-            <th class="col-2">Email</th>
-            <th class="col-1 text-center">Pin</th>
-            <th class="col-1 text-center hidden-print">Options</th>
+    <table class="table table-responsive table-bordered table-striped">
+      <thead>
+        <tr>
+          <th class="col-1 text-center">Employee #</th>
+          <th class="col-2">Name</th>
+          <th class="col-1 text-center">Initials</th>
+          <th class="col-2">Email</th>
+          <th class="col-1 text-center">Pin</th>
+          <th class="col-1 text-center hidden-print">Options</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @users.each do |u| -%>
+          <tr<%= ' class="text-muted"'.html_safe unless u.is_active %>>
+            <td class="text-center"><%= u.employee_number %></td>
+            <td><%= u.full_name %><%= ' <small class="pull-right"><strong class="text-uppercase text-danger">Inactive</strong></small>'.html_safe unless u.is_active %></td>
+            <td class="text-center"><%= avatar_for u %></td>
+            <td><%= u.email %></td>
+            <td class="text-center"><%= u.pin %></td>
+            <td class="text-center hidden-print">
+              <%= link_to 'Edit', edit_user_path(u), class: 'btn btn-sm btn-secondary'  %>
+            </td>
           </tr>
-        </thead>
-        <tbody>
-          <% @users.each do |u| -%>
-            <tr<%= ' class="text-muted"'.html_safe unless u.is_active %>>
-              <td class="text-center"><%= u.employee_number %></td>
-              <td><%= u.full_name %><%= ' <small class="pull-right"><strong class="text-uppercase text-danger">Inactive</strong></small>'.html_safe unless u.is_active %></td>
-              <td class="text-center"><%= avatar_for u %></td>
-              <td><%= u.email %></td>
-              <td class="text-center"><%= u.pin %></td>
-              <td class="text-center hidden-print">
-                <%= link_to 'Edit', edit_user_path(u), class: 'btn btn-sm btn-secondary'  %>
-              </td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
+        <% end %>
+      </tbody>
+    </table>
 
     <div class="hidden-print">
       <%= will_paginate @users, renderer: BootstrapPagination::Rails %>

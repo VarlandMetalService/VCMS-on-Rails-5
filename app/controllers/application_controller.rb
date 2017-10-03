@@ -44,4 +44,8 @@ protected
     end
   end
 
+  def my_logger
+    @@my_logger ||= Logger.new("#{Rails.root}/log/my_dev.log")
+  end
+
 end

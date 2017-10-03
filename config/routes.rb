@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
 
+
   resources :shift_notes
   root                        'vcms#home'
   get     'login'         =>  'sessions#new'
@@ -13,6 +14,12 @@ Rails.application.routes.draw do
   resources :attachments
   resources :employee_notes
   resources :opto_messages
+
+  resources :salt_spray_tests do
+    member do
+      get 'part_details'
+    end
+  end
 
   resources :documents do
     collection do

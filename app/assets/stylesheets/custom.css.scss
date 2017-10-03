@@ -20,6 +20,18 @@ body {
   font-size: 14px;
 }
 
+.display-none {
+  display: none;
+}
+
+.btn {
+  margin-bottom: 1rem;
+}
+
+.btn-mobile {
+  margin-bottom: 0;
+}
+
 // temporary fix until Bootstrap v4 Beta 2 is released
 .collapse {
   display: none;

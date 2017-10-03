@@ -64,6 +64,7 @@ shift_notes = Permission.create(permission: 'shift_notes', description: 'Shift N
 documents = Permission.create(permission: 'documents', description: 'Departmental Information Application', label_set: 7)
 opto_messages = Permission.create(permission: 'opto_messages', description: 'Opto Logs Application', label_set: 6)
 thickness_checks = Permission.create(permission: 'thickness_checks', description: 'Thickness Checks Application', label_set: 7)
+salt_spray_tests = Permission.create(permission: 'salt_spray_tests', description: 'Salt Spray Tests Application', label_set: 7)
 
 
 assignments = AssignedPermission.create([{ user_id: toby.id, permission_id: sysadmin.id, value: 3 },
@@ -74,6 +75,7 @@ assignments = AssignedPermission.create([{ user_id: toby.id, permission_id: sysa
                                          { user_id: brendan.id, permission_id: opto_messages.id, value: 3 },
                                          { user_id: brendan.id, permission_id: thickness_checks.id, value: 3 },
                                          { user_id: brendan.id, permission_id: employee_notes.id, value: 3 },
+                                         { user_id: brendan.id, permission_id: salt_spray_tests.id, value: 3 },
                                          { user_id: gregt.id, permission_id: employee_notes.id, value: 2 },
                                          { user_id: ted.id, permission_id: employee_notes.id, value: 2 },
                                          { user_id: tony.id, permission_id: employee_notes.id, value: 2 },

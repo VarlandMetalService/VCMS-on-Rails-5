@@ -14,30 +14,28 @@
 
     <p><%= page_entries_info @permissions %></p>
 
-    <div class="table-responsive">
-      <table class="table table-bordered table-striped">
-        <thead>
+    <table class="table table-responsive table-bordered table-striped">
+      <thead>
+        <tr>
+          <th class="col-2">ID</th>
+          <th class="col-8">Description</th>
+          <th class="col-1 text-center">User Count</th>
+          <th class="col-1 text-center hidden-print">Options</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @permissions.each do |p| -%>
           <tr>
-            <th class="col-2">ID</th>
-            <th class="col-8">Description</th>
-            <th class="col-1 text-center">User Count</th>
-            <th class="col-1 text-center hidden-print">Options</th>
+            <td><%= p.permission %></td>
+            <td><%= p.description %></td>
+            <td class="text-center"><%= p.assigned_permissions.size %></td>
+            <td class="text-center hidden-print">
+              <%= link_to 'Edit', edit_permission_path(p), class: 'btn btn-sm btn-secondary'  %>
+            </td>
           </tr>
-        </thead>
-        <tbody>
-          <% @permissions.each do |p| -%>
-            <tr>
-              <td><%= p.permission %></td>
-              <td><%= p.description %></td>
-              <td class="text-center"><%= p.assigned_permissions.size %></td>
-              <td class="text-center hidden-print">
-                <%= link_to 'Edit', edit_permission_path(p), class: 'btn btn-sm btn-secondary'  %>
-              </td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
+        <% end %>
+      </tbody>
+    </table>
 
     <div class="hidden-print">
       <%= will_paginate @permissions, renderer: BootstrapPagination::Rails %>

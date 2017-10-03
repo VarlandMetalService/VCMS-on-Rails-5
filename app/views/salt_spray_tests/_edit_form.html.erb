@@ -1,0 +1,81 @@
+<div class="row">
+  <div class="col-12 text-left desktop-edit-info">
+    <label>Shop Order:</label>
+    <span><%= @salt_spray_test.salt_spray_part.shop_order_number %></span>
+    <label>Load:</label>
+    <span><%= @salt_spray_test.salt_spray_part.load_number %></span>
+    <label>Process:</label>
+    <span><%= @salt_spray_test.salt_spray_part.process %></span>
+  </div>
+</div>
+<div class="card bg-light">
+  <div class="card-body">
+    <%= form_with model: @salt_spray_test do |f| %>
+
+      <% if @salt_spray_test.errors.any? %>
+        <div id="error_explanation">
+          <h2>
+            <%= pluralize(@salt_spray_test.errors.count, "error") %> prohibited
+            this article from being saved:
+          </h2>
+          <ul>
+            <% @salt_spray_test.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+            <%= f.label :date_on %><br />
+            <%= f.text_field :date_on, class: 'datepicker', :value => (@salt_spray_test.date_on.blank? ? '' : @salt_spray_test.date_on.strftime('%m/%d/%Y')) %>
+          </div>
+          <div class="form-group">
+            <%= f.label :put_on_by %><br />
+            <%= f.select :put_on_by, options_for_reporters, prompt: " " %>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <%= f.label :date_with_white %><br />
+            <%= f.text_field :date_w_white, class: 'datepicker', :value => (@salt_spray_test.date_w_white.blank? ? '' : @salt_spray_test.date_w_white.strftime('%m/%d/%Y')) if @salt_spray_test.salt_spray_part.white_spec != 0 %>
+            <%= f.text_field :date_w_white, class: 'datepicker', disabled: true if @salt_spray_test.salt_spray_part.white_spec == 0 %>
+          </div>
+          <div class="form-group">
+            <%= f.label :who_called_white, 'White spot reporter' %><br />
+            <%= f.select :who_called_white, options_for_reporters, :prompt => " " if @salt_spray_test.salt_spray_part.white_spec != 0 %>
+            <%= f.text_field :who_called_white, disabled: true if @salt_spray_test.salt_spray_part.white_spec == 0 %>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <%= f.label :date_with_red %><br />
+            <%= f.text_field :date_w_red, class: 'datepicker', :value => (@salt_spray_test.date_w_red.blank? ? '' : @salt_spray_test.date_w_red.strftime('%m/%d/%Y')) if @salt_spray_test.salt_spray_part.red_spec != 0 %>
+            <%= f.text_field :date_w_red, class: 'datepicker', disabled: true if @salt_spray_test.salt_spray_part.red_spec == 0 %>
+          </div>
+          <div class="form-group">
+            <%= f.label :who_called_red, 'Red spot reporter' %><br />
+            <%= f.select :who_called_red, options_for_reporters, :prompt => " " if @salt_spray_test.salt_spray_part.red_spec != 0 %>
+            <%= f.text_field :who_called_red, disabled: true if @salt_spray_test.salt_spray_part.red_spec == 0 %>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <br />
+            <%= f.label :comments %><br />
+            <%= f.text_area :comments %>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <br />
+        <%= f.submit 'Edit Salt Spray Test', class: 'btn btn-primary' %>
+        <%= link_to 'Cancel', salt_spray_tests_path, class: 'btn btn-link' %>
+      </div>
+    <% end %>
+  </div>
+</div>

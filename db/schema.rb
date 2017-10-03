@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170929134958) do
+ActiveRecord::Schema.define(version: 20171002155552) do
 
   create_table "assigned_permissions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "user_id"
@@ -110,6 +110,46 @@ ActiveRecord::Schema.define(version: 20170929134958) do
     t.index ["permission"], name: "index_permissions_on_permission", unique: true
   end
 
+  create_table "salt_spray_parts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "shop_order_number"
+    t.integer "load_number"
+    t.string "customer"
+    t.string "process"
+    t.string "part_number"
+    t.string "sub"
+    t.integer "white_spec"
+    t.integer "red_spec"
+    t.decimal "part_area", precision: 10, scale: 4
+    t.decimal "ft_cubed_per_pound", precision: 10, scale: 4
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["shop_order_number", "load_number", "sub"], name: "shop_order_unique_index", unique: true
+  end
+
+  create_table "salt_spray_tests", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "salt_spray_part_id"
+    t.boolean "checked"
+    t.bigint "put_on_by"
+    t.integer "dept"
+    t.datetime "date_on"
+    t.datetime "date_off"
+    t.text "comments"
+    t.datetime "date_w_white"
+    t.bigint "who_called_white"
+    t.datetime "date_w_red"
+    t.bigint "who_called_red"
+    t.integer "barrel_number"
+    t.decimal "load_weight", precision: 10, scale: 4
+    t.boolean "is_deleted", default: false
+    t.bigint "deleted_by"
+    t.boolean "is_archived", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["put_on_by"], name: "fk_rails_94de30c9f6"
+    t.index ["who_called_red"], name: "fk_rails_3300f3e27a"
+    t.index ["who_called_white"], name: "fk_rails_7c92d74d57"
+  end
+
   create_table "shift_notes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "entered_by"
     t.date "note_on"
@@ -151,6 +191,9 @@ ActiveRecord::Schema.define(version: 20170929134958) do
   add_foreign_key "assigned_permissions", "users"
   add_foreign_key "employee_notes", "users", column: "employee"
   add_foreign_key "employee_notes", "users", column: "entered_by"
+  add_foreign_key "salt_spray_tests", "users", column: "put_on_by"
+  add_foreign_key "salt_spray_tests", "users", column: "who_called_red"
+  add_foreign_key "salt_spray_tests", "users", column: "who_called_white"
   add_foreign_key "shift_notes", "users", column: "entered_by"
   add_foreign_key "shift_notes", "users", column: "supervisor_id"
 end

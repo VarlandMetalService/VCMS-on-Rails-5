@@ -66,7 +66,6 @@ class EmployeeNote < ApplicationRecord
     end
   }
 
-  # Select options for type.
   def self.options_for_type
     [
       ['Positive', 'Positive'],
@@ -75,7 +74,6 @@ class EmployeeNote < ApplicationRecord
     ]
   end
 
-  # Select options for sorted by.
   def self.options_for_sorted_by
     [
       ['Date (newest first)', 'note_on DESC'],
@@ -83,7 +81,6 @@ class EmployeeNote < ApplicationRecord
     ]
   end
 
-  # Select options for entered by.
   def self.options_for_entered_by
     users = User.where id: EmployeeNote.all.distinct.pluck(:entered_by)
     users.map { |u| [u.full_name, u.id] }

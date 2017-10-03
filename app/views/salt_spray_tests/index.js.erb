@@ -1,0 +1,4 @@
+<% js = escape_javascript(
+  render(partial: 'table', locals: { salt_spray_tests: @salt_spray_tests })
+) %>
+$("#salt_spray_test_results").html("<%= js %>");

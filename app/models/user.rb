@@ -25,6 +25,8 @@ class User < ApplicationRecord
                 :through => :assigned_permissions
   has_many      :shift_notes,
                 foreign_key: 'entered_by'
+  has_many      :salt_spray_tests,
+                foreign_key: 'put_on_by'
 
   accepts_nested_attributes_for   :assigned_permissions,
                                   reject_if: :all_blank,
@@ -85,18 +87,16 @@ class User < ApplicationRecord
     end
   end
 
-  # Shortcut method for returning user's full name.
+  def self.options_for_employees
+    order('employee_number').map { |u| ["#{u.employee_number} - #{u.full_name}", u.id] }
+  end
+
   def full_name
     if suffix.blank?
       "#{first_name} #{last_name}"
     else
       "#{first_name} #{last_name} #{suffix}"
     end
-  end
-
-  # Returns select options for employees.
-  def self.options_for_select
-    order('employee_number').map { |u| ["#{u.employee_number} - #{u.full_name}", u.id] }
   end
 
   def number_and_name
