@@ -64,16 +64,16 @@ module ApplicationHelper
   def show_attachment attachment
     case attachment.content_type
       when 'image/jpeg'
-        link_to(image_tag(attachment.file.thumb.url, class: 'img-responsive'), attachment.file.url, target: '_blank')
+        link_to(image_tag(attachment.file.thumb.url, class: 'img-fluid'), attachment.file.url, target: '_blank')
       when 'image/gif'
-        link_to(image_tag(attachment.file.thumb.url, class: 'img-responsive'), attachment.file.url, target: '_blank')
+        link_to(image_tag(attachment.file.thumb.url, class: 'img-fluid'), attachment.file.url, target: '_blank')
       when 'image/png'
-        link_to(image_tag(attachment.file.thumb.url, class: 'img-responsive'), attachment.file.url, target: '_blank')
+        link_to(image_tag(attachment.file.thumb.url, class: 'img-fluid'), attachment.file.url, target: '_blank')
       when 'video/quicktime'
-        #video_tag attachment.file.url, class: 'img-responsive', controls: 'true', type: 'video/mp4'
+        #video_tag attachment.file.url, class: 'img-fluid', controls: 'true', type: 'video/mp4'
         link_to "<i class=\"fa fa-file-video-o\"></i> #{attachment.file_identifier}".html_safe, attachment.file.url, target: '_blank'
       when 'video/mp4'
-        video_tag attachment.file.url, class: 'img-responsive', controls: 'true', type: 'video/mp4'
+        video_tag attachment.file.url, class: 'img-fluid', controls: 'true', type: 'video/mp4'
         #link_to "<i class=\"fa fa-file-video-o\"></i> #{attachment.file_identifier}".html_safe, attachment.file.url, target: '_blank'
       when 'application/pdf'
         link_to "<i class=\"fa fa-file-pdf-o text-danger\"></i> #{attachment.file_identifier}".html_safe, attachment.file.url, target: '_blank'

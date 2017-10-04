@@ -1,0 +1,137 @@
+<div class="row">
+  <div class="col-12 card bg-light text-left mobile-details-sm">
+    <span><strong>Shop Order: </strong><%= @salt_spray_test.salt_spray_part.shop_order_number %></span>
+    <span><strong>Load: </strong><%= @salt_spray_test.salt_spray_part.load_number %></span>
+    <span><strong>Process: </strong><%= @salt_spray_test.salt_spray_part.process %></span>
+  </div>
+</div>
+<%= form_for @salt_spray_test, class: 'mobile-update-form' do |f| %>
+  <div class="container rust-spot-info">
+    <div class="row">
+      <div class="col-6">
+        <%= f.label :hours_wo_white, "Hours w/o white <br /> (spec):".html_safe %><br />
+        <% if @salt_spray_test.salt_spray_part.white_spec != 0 %>
+          <div class="white_hours <%= get_pass_fail(@white_hours, @salt_spray_test.salt_spray_part.white_spec) if @white_hours %>">
+            <%= @white_hours %>
+            (<%= @salt_spray_test.salt_spray_part.white_spec %>)
+          </div>
+        <% else %>
+          N/A
+        <% end %>
+      </div>
+      <div class="col-6">
+        <%= f.label :hours_wo_red, "Hours w/o red <br /> (spec):".html_safe %><br />
+          <div class="red_hours <%= get_pass_fail(@red_hours, @salt_spray_test.salt_spray_part.red_spec) if @red_hours && @salt_spray_test.salt_spray_part.red_spec != 0 %>">
+            <%= @red_hours %>
+            <% if @salt_spray_test.salt_spray_part.red_spec != 0 %>
+              (<%= @salt_spray_test.salt_spray_part.red_spec %>)
+            <% else %>
+              (N/A)
+            <% end %>
+          </div>
+      </div>
+    </div>
+    <hr />
+    <div class="row">
+      <div class="col-6">
+        <%= f.label :date_w_white, 'Date white:' %><br />
+        <%= @salt_spray_test.get_white_value('date') %>
+        <br /><br />
+        <%= f.label :who_called_white, "Reporter:" %><br />
+        <%= @salt_spray_test.get_white_value('reporter') %>
+        <br /><br />
+      </div>
+      <div class="col-6">
+        <%= f.label :date_w_red, 'Date red:' %><br />
+        <%= @salt_spray_test.get_red_value('date') %>
+        <br /><br />
+        <%= f.label :who_called_red, "Reporter:" %><br />
+        <%= @salt_spray_test.get_red_value('reporter') %>
+        <br /><br />
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <p><strong>Attachments:</strong></p>
+      <div class="sst-attachments-table">
+        <div id="salt_spray_attachments">
+          <%= f.fields_for :attachments do |attachment| %>
+            <%= render 'attachment_fields', f: attachment %>
+          <% end %>
+        </div>
+        <div>
+              <%= link_to_add_association 'Add Attachment', f, :attachments,
+                                                                :class => 'btn btn-sm btn-success add-salt-spray-attachment text-right',
+                                                                :'data-association-insertion-node' => '#salt_spray_attachments',
+                                                                :'data-association-insertion-method' => 'append',
+                                                                :partial => 'new_attachment_fields' %>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <br />
+      <label>Comments</label><br />
+      <%= f.text_area :comments, class: 'col-12' %>
+      <br />
+    </div>
+  </div>
+  <%= f.hidden_field :checked, :value => true %>
+  <br />
+  <div class="row">
+    <% if @salt_spray_test.red_spot_reporter || (@salt_spray_test.white_spot_reporter && @salt_spray_test.salt_spray_part.red_spec == 0) %>
+      <div class="text-center col-6">
+        <%= f.submit 'Continue Test', class: 'btn btn-sm btn-default' %>
+      </div>
+      <div class="text-center col-6">
+        <%= f.submit 'Test Complete', class: 'btn btn-sm btn-danger' %>
+      </div>
+    <% else %>
+      <div class="text-left col-6">
+        <%= f.submit 'No Spot Found', class: 'btn btn-sm btn-default' if !@salt_spray_test.red_spot_reporter %>
+      </div>
+      <div class="text-right col-6">
+        <%= button_tag 'Red Spot Found', type: 'button', data: {toggle: 'modal', target: '#test-complete-modal', spot: 'red'}, class: 'btn btn-sm btn-danger open-submit-modal' if @salt_spray_test.white_spot_reporter || @salt_spray_test.salt_spray_part.white_spec == 0 %>
+        <% if @salt_spray_test.salt_spray_part.red_spec == 0 %>
+          <%= button_tag 'White Spot Found', type: 'button', data: {toggle: 'modal', target: '#test-complete-modal', spot: 'white'}, class: 'btn btn-sm btn-danger open-submit-modal' if !@salt_spray_test.white_spot_reporter && @salt_spray_test.salt_spray_part.white_spec != 0 %>
+        <% else %>
+          <%= f.submit 'White Spot Found', class: 'btn btn-sm btn-danger submit-white' if !@salt_spray_test.white_spot_reporter && @salt_spray_test.salt_spray_part.white_spec != 0 %>
+        <% end %>
+      </div>
+      <%= f.hidden_field :date_off, value: nil, class: 'form-submit-date-off' %>
+      <%= f.hidden_field :is_archived, value: false, class: 'form-submit-archived' %>
+      <%= f.submit 'White Spot Found', class: 'btn btn-sm btn-danger test-complete-white' %>
+      <%= f.submit 'Red Spot Found', class: 'btn btn-sm btn-danger test-complete-red' %>
+    <% end %>
+    <div class="text-center col-12 cancel-test">
+      <%= link_to 'Cancel', salt_spray_tests_path, class: 'btn btn-sm btn-link' %>
+    </div>
+  </div>
+<% end %>
+<!-- Modal -->
+<div id="test-complete-modal" class="modal fade" role="dialog">
+  <div class="vertical-alignment-helper">
+    <div class="modal-dialog vertical-align-center">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-body">
+          <div id="test-complete-question">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4>Is this test complete?</h4><br /><br />
+            <div class="row">
+              <div class="col-6">
+                <%= button_tag 'No', type: 'button', name: 'no', class: 'btn btn-default test-complete-confirm' %>
+              </div>
+              <div class="col-6">
+                <%= button_tag 'Yes', type: 'button', name: 'yes', class: 'btn btn-success test-complete-confirm' %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

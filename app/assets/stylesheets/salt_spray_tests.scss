@@ -1,3 +1,69 @@
 // Place all the styles related to the SaltSprayTests controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.vcms-salt_spray_tests {
+
+  .inputfile {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+  }
+  .inputfile + label {
+    width: 195px;
+  }
+
+  .mobile-details-sm {
+    font-size: 12px;
+  }
+
+  .rust-spot-info {
+    border: 1px solid lightgray;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    padding-top: 10px;
+    font-size: 12px;
+  }
+
+  .spec-failed {
+    color: red;
+  }
+
+  .spec-passed {
+    color: green;
+  }
+
+  .test-complete-white, .test-complete-red {
+    visibility: hidden;
+    display: none;
+  }
+
+  // Table row colors
+  .row-color-TZ, .row-color-STZ {
+    background-color: #fff;
+  }
+
+  .row-color-ZN {
+    background-color: #edeff2;
+  }
+
+  .row-color-LN, .row-color-HN, .row-color-SLN {
+    background-color: #e9e1f7;
+  }
+
+  .row-color-NI {
+    background-color: #e8ffeb;
+  }
+
+  .row-color-ZF {
+    background-color: #ddedff;
+  }
+
+  .row-color-SN {
+    background-color: #fce6cc;
+  }
+
+}
