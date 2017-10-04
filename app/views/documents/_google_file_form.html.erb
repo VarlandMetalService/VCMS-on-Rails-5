@@ -42,7 +42,7 @@
           </div>
 
           <div class="form-group">
-            <div class="checkbox">
+            <div class="form-check">
               <label>
                 <%= f.check_box :exclude_from_newest, { class: "#{'is-invalid' if @google_document.errors[:exclude_from_newest].any?}" } %>
                 Exclude from list of newest documents

@@ -20,11 +20,16 @@ class SaltSprayTest < ApplicationRecord
   has_many      :attachments,
                 as: :attachable,
                 dependent: :destroy
+  has_many      :salt_spray_process_steps,
+                inverse_of: :salt_spray_test
 
   accepts_nested_attributes_for   :attachments,
-                                  reject_if: :all_blank,
-                                  allow_destroy: true
+                                    reject_if: :all_blank,
+                                    allow_destroy: true
   accepts_nested_attributes_for   :salt_spray_part
+  accepts_nested_attributes_for   :salt_spray_process_steps,
+                                    reject_if: :all_blank,
+                                    allow_destroy: true
 
   # Scopes.
   scope :with_salt_spray_part_id, lambda { |part_numbers|

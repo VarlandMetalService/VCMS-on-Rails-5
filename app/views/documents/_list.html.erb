@@ -12,7 +12,7 @@
               extra_info = ' <small class="text-muted">' + d.document_updated_on.strftime('%m/%d/%y') + '</small>'
               extra_info += '<small class="float-right">'
               d.categories.each do |c|
-                extra_info += "&nbsp;<span class=\"label label-info\">#{c.name}</span>"
+                extra_info += "&nbsp;<span class=\"badge badge-info\">#{c.name}</span>"
               end
               extra_info += '</small>'
             %>

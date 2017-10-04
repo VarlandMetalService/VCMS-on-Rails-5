@@ -28,44 +28,45 @@
 
       <%= f.hidden_field :checked, :value => false %>
       <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-2">
           <%= f.fields_for :salt_spray_parts do |s| %>
             <div class="form-group">
-              <%= s.label :shop_order_number, 'Shop Order:', class: 'control-label' %><br />
-              <%= s.text_field :shop_order_number, required: 'required' %>
+              <%= s.label :shop_order_number, 'Shop Order:', class: 'form-control-label' %><br />
+              <%= s.text_field :shop_order_number, required: 'required', class: 'form-control' %>
             </div>
             <div class="form-group">
-              <%= s.label :load_number, 'Load Number:', class: 'control-label' %><br />
-              <%= s.text_field :load_number %>
+              <%= s.label :load_number, 'Load Number:', class: 'form-control-label' %><br />
+              <%= s.text_field :load_number, class: 'form-control' %>
             </div>
             <div class="form-group">
-              <%= s.label :sub, 'Sub:' %><br />
-              <%= s.text_field :sub %>
+              <%= s.label :sub, 'Sub:', class: 'form-control-label' %><br />
+              <%= s.text_field :sub, class: 'form-control' %>
             </div>
           <% end %>
 
           <div class="form-group">
-            <%= f.label :dept, 'Department:', class: 'control-label' %><br />
-            <%= f.text_field :dept %>
+            <%= f.label :dept, 'Department:', class: 'form-control-label' %><br />
+            <%= f.text_field :dept, class: 'form-control' %>
           </div>
         </div>
+        <div class="col-md-1"></div>
         <div class="col-md-3">
           <div class="form-group">
             <p><strong>Process Steps:</strong></p>
             <table class="table-responsive table-sm sst-attachments-table">
               <tbody id="salt_spray_processes">
                 <%= f.fields_for :salt_spray_process_steps do |process| %>
-                  <%#= render 'salt_spray_tests/partials/process_fields', f: process %>
+                  <%= render 'process_fields', f: process %>
                 <% end %>
               </tbody>
               <tfoot>
                 <tr>
-                  <td colspan="3" class="text-center">
-                    <%#= link_to_add_association 'Add Process Step', f, :salt_spray_process_steps,
+                  <td class="text-center">
+                    <%= link_to_add_association 'Add Process Step', f, :salt_spray_process_steps,
                                                                     :class => 'btn btn-sm btn-success',
                                                                     :'data-association-insertion-node' => '#salt_spray_processes',
                                                                     :'data-association-insertion-method' => 'append',
-                                                                    :partial => 'salt_spray_tests/partials/process_fields' %>
+                                                                    :partial => 'process_fields' %>
                   </td>
                 </tr>
               </tfoot>
@@ -75,46 +76,49 @@
         <div class="manual-entry-inputs display-none col-md-6">
           <%= f.fields_for :salt_spray_parts do |s| %>
             <div class="row">
-              <div class="col-md-6">
+              <div class="col-md-5">
                 <div class="form-group">
-                  <%= s.label :customer, 'Customer:', class: 'control-label' %><br />
-                  <%= s.text_field :customer, disabled: true %>
+                  <%= s.label :customer, 'Customer:', class: 'form-control-label' %><br />
+                  <%= s.text_field :customer, disabled: true, class: 'form-control' %>
                 </div>
                 <div class="form-group">
-                  <%= s.label :process, 'Process:', class: 'control-label' %><br />
-                  <%= s.text_field :process, disabled: true %>
+                  <%= s.label :process, 'Process:', class: 'form-control-label' %><br />
+                  <%= s.text_field :process, disabled: true, class: 'form-control' %>
                 </div>
                 <div class="form-group">
-                  <%= s.label :part_number, 'Part ID:', class: 'control-label' %><br />
-                  <%= s.text_field :part_number, disabled: true %>
+                  <%= s.label :part_number, 'Part ID:', class: 'form-control-label' %><br />
+                  <%= s.text_field :part_number, disabled: true, class: 'form-control' %>
                 </div>
                 <div class="form-group">
-                  <%= s.label :load_weight, 'Load Weight:', class: 'control-label' %><br />
-                  <%= s.text_field :load_weight, disabled: true %>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <%= s.label :white_spec, 'White Spec:', class: 'control-label' %><br />
-                  <%= s.text_field :white_spec, disabled: true %>
-                </div>
-                <div class="form-group">
-                  <%= s.label :red_spec, 'Red Spec:', class: 'control-label' %><br />
-                  <%= s.text_field :red_spec, disabled: true %>
-                </div>
-                <div class="form-group">
-                  <%= s.label :part_area, 'Part Area:', class: 'control-label' %><br />
-                  <%= s.text_field :part_area, disabled: true %>
-                </div>
-                <div class="form-group">
-                  <%= s.label :ft_cubed_per_pound, 'ft<sup>3</sup> Per Pound:'.html_safe, class: 'control-label' %><br />
-                  <%= s.text_field :ft_cubed_per_pound, disabled: true %>
+                  <%= s.label :load_weight, 'Load Weight:', class: 'form-control-label' %><br />
+                  <%= s.text_field :load_weight, disabled: true, class: 'form-control' %>
                 </div>
               </div>
+              <div class="col-md-1"></div>
+              <div class="col-md-5">
+                <div class="form-group">
+                  <%= s.label :white_spec, 'White Spec:', class: 'form-control-label' %><br />
+                  <%= s.text_field :white_spec, disabled: true, class: 'form-control' %>
+                </div>
+                <div class="form-group">
+                  <%= s.label :red_spec, 'Red Spec:', class: 'form-control-label' %><br />
+                  <%= s.text_field :red_spec, disabled: true, class: 'form-control' %>
+                </div>
+                <div class="form-group">
+                  <%= s.label :part_area, 'Part Area:', class: 'form-control-label' %><br />
+                  <%= s.text_field :part_area, disabled: true, class: 'form-control' %>
+                </div>
+                <div class="form-group">
+                  <%= s.label :ft_cubed_per_pound, 'ft<sup>3</sup> Per Pound:'.html_safe, class: 'form-control-label' %><br />
+                  <%= s.text_field :ft_cubed_per_pound, disabled: true, class: 'form-control' %>
+                </div>
+              </div>
+              <div class="col-md-1"></div>
             </div>
           <% end %>
         </div>
       </div>
+      <br />
       <div class="form-group">
         <%= f.submit 'Create Salt Spray Test', class: 'btn btn-primary' %>
         <%= link_to 'Cancel', salt_spray_tests_path, class: 'btn btn-link' %>

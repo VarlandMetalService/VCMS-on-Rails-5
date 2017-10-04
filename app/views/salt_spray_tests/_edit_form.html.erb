@@ -1,11 +1,13 @@
 <div class="row">
-  <div class="col-12 text-left desktop-edit-info">
-    <label>Shop Order:</label>
+  <div class="col-12">
+    <label><strong>Shop Order:</strong></label>
     <span><%= @salt_spray_test.salt_spray_part.shop_order_number %></span>
-    <label>Load:</label>
+    <label class="ml-3"><strong>Load:</strong></label>
     <span><%= @salt_spray_test.salt_spray_part.load_number %></span>
-    <label>Process:</label>
+    <label class="ml-3"><strong>Process:</strong></label>
     <span><%= @salt_spray_test.salt_spray_part.process %></span>
+    <label class="ml-3"><strong>Sub:</strong></label>
+    <span><%= @salt_spray_test.salt_spray_part.sub %></span>
   </div>
 </div>
 <div class="card bg-light">
@@ -27,43 +29,41 @@
       <% end %>
 
       <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-2">
           <div class="form-group">
-            <%= f.label :date_on %><br />
-            <%= f.text_field :date_on, class: 'datepicker', :value => (@salt_spray_test.date_on.blank? ? '' : @salt_spray_test.date_on.strftime('%m/%d/%Y')) %>
+            <%= f.label :date_on, class: 'form-control-label' %>
+            <%= f.text_field :date_on, class: 'datepicker form-control', :value => (@salt_spray_test.date_on.blank? ? '' : @salt_spray_test.date_on.strftime('%m/%d/%Y')) %>
           </div>
           <div class="form-group">
-            <%= f.label :put_on_by %><br />
-            <%= f.select :put_on_by, options_for_reporters, prompt: " " %>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <div class="form-group">
-            <%= f.label :date_with_white %><br />
-            <%= f.text_field :date_w_white, class: 'datepicker', :value => (@salt_spray_test.date_w_white.blank? ? '' : @salt_spray_test.date_w_white.strftime('%m/%d/%Y')) if @salt_spray_test.salt_spray_part.white_spec != 0 %>
-            <%= f.text_field :date_w_white, class: 'datepicker', disabled: true if @salt_spray_test.salt_spray_part.white_spec == 0 %>
-          </div>
-          <div class="form-group">
-            <%= f.label :who_called_white, 'White spot reporter' %><br />
-            <%= f.select :who_called_white, options_for_reporters, :prompt => " " if @salt_spray_test.salt_spray_part.white_spec != 0 %>
-            <%= f.text_field :who_called_white, disabled: true if @salt_spray_test.salt_spray_part.white_spec == 0 %>
+            <%= f.label :put_on_by, class: 'form-control-label' %>
+            <%= f.select :put_on_by, reporters_for_select, {include_blank: true}, {class: 'form-control'} %>
           </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-1"></div>
+        <div class="col-md-2">
           <div class="form-group">
-            <%= f.label :date_with_red %><br />
-            <%= f.text_field :date_w_red, class: 'datepicker', :value => (@salt_spray_test.date_w_red.blank? ? '' : @salt_spray_test.date_w_red.strftime('%m/%d/%Y')) if @salt_spray_test.salt_spray_part.red_spec != 0 %>
-            <%= f.text_field :date_w_red, class: 'datepicker', disabled: true if @salt_spray_test.salt_spray_part.red_spec == 0 %>
+            <%= f.label :date_with_white, class: 'form-control-label' %>
+            <%= f.text_field :date_w_white, class: 'datepicker form-control', value: format_date(@salt_spray_test.date_w_white), disabled: @salt_spray_test.salt_spray_part.white_spec == 0 %>
           </div>
           <div class="form-group">
-            <%= f.label :who_called_red, 'Red spot reporter' %><br />
-            <%= f.select :who_called_red, options_for_reporters, :prompt => " " if @salt_spray_test.salt_spray_part.red_spec != 0 %>
-            <%= f.text_field :who_called_red, disabled: true if @salt_spray_test.salt_spray_part.red_spec == 0 %>
+            <%= f.label :who_called_white, 'White spot reporter', class: 'form-control-label' %>
+            <%= f.select :who_called_white, reporters_for_select, {include_blank: true}, {disabled: @salt_spray_test.salt_spray_part.white_spec == 0, class: 'form-control'} %>
+          </div>
+        </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-2">
+          <div class="form-group">
+            <%= f.label :date_with_red, class: 'form-control-label' %>
+            <%= f.text_field :date_w_red, class: 'datepicker form-control', value: format_date(@salt_spray_test.date_w_red), disabled: @salt_spray_test.salt_spray_part.red_spec == 0 %>
+          </div>
+          <div class="form-group">
+            <%= f.label :who_called_red, 'Red spot reporter', class: 'form-control-label' %>
+            <%= f.select :who_called_red, reporters_for_select, {include_blank: true}, {disabled: @salt_spray_test.salt_spray_part.red_spec == 0, class: 'form-control'} %>
           </div>
         </div>
       </div>
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-3">
           <div class="form-group">
             <br />
             <%= f.label :comments %><br />
