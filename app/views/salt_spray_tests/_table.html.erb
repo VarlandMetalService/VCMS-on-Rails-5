@@ -6,14 +6,14 @@
         <% if action_name != 'archived_tests' %><th class="col-1 text-center"></th><% end %>
         <th class="text-center">Shop Order</th>
         <th class="text-center">Load</th>
+        <th class="text-center">Sub</th>
         <th class="text-center d-none d-md-table-cell">Part ID</th>
         <th class="text-center">Process</th>
         <th class="text-center d-none d-md-table-cell">Department</th>
-        <th class="text-center d-none d-md-table-cell">Load Info</th> <!-- put_on_by , date_on , date_off -->
+        <th class="text-center d-none d-md-table-cell">Report Info</th> <!-- put_on_by , date_on , date_off -->
         <th class="d-none d-md-table-cell">White Spots</th> <!-- date_w_white , who_called_white -->
         <th class="d-none d-md-table-cell">Red Spots</th> <!-- date_w_red , who_called_red -->
-        <th class="text-center d-none d-md-table-cell">Barrel Number</th>
-        <th class="text-center d-none d-md-table-cell">Load Weight</th>
+        <th class="text-center d-none d-md-table-cell">Load Info</th> <!-- barrel_number, load_weight -->
         <th class="d-none d-md-table-cell">Comments</th>
         <% if @access_level.access_level == 3 and action_name != 'archived_tests' -%>
           <th class="text-center hidden-print d-none d-md-table-cell">Options</th>
@@ -28,6 +28,7 @@
           <% if action_name != 'archived_tests' %><td class="text-center<%= ' d-none d-md-table-cell' if !t.checked %>"><%= check_box_tag 'checked', t.id, t.checked, class: 'test-checkbox' %></td><% end %>
           <td class="text-center"><%= link_to t.salt_spray_part.shop_order_number, salt_spray_test_path(t.salt_spray_part_id), remote: true %></td>
           <td class="text-center"><%= t.salt_spray_part.load_number %></td>
+          <td class="text-center"><%= t.salt_spray_part.sub %></td>
           <td class="text-center d-none d-md-table-cell"><%= t.salt_spray_part.part_number %></td>
           <td class="text-center process"><%= t.salt_spray_part.process %></td>
           <td class="text-center d-none d-md-table-cell"><%= t.dept %></td>
@@ -44,8 +45,10 @@
             <% unless t.date_w_red.blank? %><small><strong>Date of first spot: </strong></small><br /><%= t.date_w_red.strftime('%m/%d/%Y') %><% end %>
             <% unless t.red_spot_reporter.blank? %><br /><small><strong>Reporter: </strong></small><br /><%= t.red_spot_reporter.full_name %><% end %>
           </td>
-          <td class="text-center d-none d-md-table-cell"><%= t.barrel_number %></td>
-          <td class="text-center d-none d-md-table-cell"><%= number_with_precision(t.load_weight, strip_insignificant_zeros: true) %></td>
+          <td class="d-none d-md-table-cell">
+            <small><strong>Load Weight: </strong></small><%= number_with_precision(t.load_weight, strip_insignificant_zeros: true) %><br />
+            <small><strong>Barrel Number: </strong></small><%= t.barrel_number %>
+          </td>
           <td class="d-none d-md-table-cell"><%= t.comments %></td>
           <% if @access_level.access_level == 3 and action_name != 'archived_tests'-%>
             <td class="text-center hidden-print td-centered d-none d-md-table-cell">
