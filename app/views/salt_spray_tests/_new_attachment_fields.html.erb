@@ -1,12 +1,12 @@
 <div class="nested-fields<%= ' danger' unless f.object.valid? %>">
 
-  <div class="form-group row mr-3">
+  <div class="form-group row">
     <div class="col-9">
       <%= f.file_field :file, data: {'multiple-caption': '{count} files selected' }, class: 'inputfile' %>
       <%= f.label :file, 'Choose a file...', class: 'btn btn-sm btn-mobile btn-primary' %>
     </div>
     <div class='col-3'>
-      <%= link_to_remove_association '<i class="fa fa-close"></i>'.html_safe, f, class: 'btn btn-sm btn-danger ml-5' %>
+      <%= link_to_remove_association '<i class="fa fa-close"></i>'.html_safe, f, class: 'btn btn-sm btn-danger' %>
     </div>
   </div>
 

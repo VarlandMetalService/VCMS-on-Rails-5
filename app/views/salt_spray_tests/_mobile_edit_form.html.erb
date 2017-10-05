@@ -5,7 +5,7 @@
     <span><strong>Process: </strong><%= @salt_spray_test.salt_spray_part.process %></span>
   </div>
 </div>
-<%= form_for @salt_spray_test, class: 'mobile-update-form' do |f| %>
+<%= form_with model: @salt_spray_test, class: 'mobile-update-form' do |f| %>
   <div class="container rust-spot-info">
     <div class="row">
       <div class="col-6">
