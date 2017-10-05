@@ -4,6 +4,40 @@
 
 .vcms-salt_spray_tests {
 
+  #salt_spray_test_results div.row div{
+    border: 1px solid lightgray;
+    padding: 5px;
+    max-height: 132px;
+  }
+
+  #part_info td{
+    max-width: 181px;
+  }
+
+  // Mobile only
+  @media (max-width:600px) {
+
+    .mobile-text-overflow {
+      max-height: 105px;
+    }
+
+    .bold-sm {
+      font-size: 80%;
+      font-weight: bold;
+    }
+
+  }
+
+  .mobile-text-overflow {
+    overflow: hidden;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    hyphens: auto;
+  }
+
   .inputfile {
     width: 0.1px;
     height: 0.1px;
