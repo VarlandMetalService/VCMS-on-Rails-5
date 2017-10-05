@@ -4,8 +4,8 @@
 
 # color Salt Spray Tests table based on process
 colorTable = () ->
-  $('#salt_spray_test_results').find('td.process').each ->
-    $(this).closest('tr').find('td').addClass 'row-color-' + $(this).text()
+  $('#salt_spray_test_results').find('div.process').each ->
+    $(this).closest('.row').find('div').addClass 'row-color-' + $(this).text()
     return
 
 $(document).on 'turbolinks:load', (event) ->
@@ -14,7 +14,7 @@ $(document).on 'turbolinks:load', (event) ->
     colorTable()
 
   # Manage Salt Spray Test "checked" functionality
-  $('#salt-spray-table tr').on 'click', '.test-checkbox', (event) ->
+  $('#salt_spray_test_results').on 'click', '.test-checkbox', (event) ->
     $.ajax
       cache: false
       type: 'PUT'

@@ -4,16 +4,6 @@
 
 .vcms-salt_spray_tests {
 
-  #salt_spray_test_results div.row div{
-    border: 1px solid lightgray;
-    padding: 5px;
-    max-height: 132px;
-  }
-
-  #part_info td{
-    max-width: 181px;
-  }
-
   // Mobile only
   @media (max-width:600px) {
 
@@ -26,6 +16,16 @@
       font-weight: bold;
     }
 
+  }
+
+  #salt_spray_test_results div.row div{
+    border: 1px solid lightgray;
+    padding: 5px;
+    max-height: 132px;
+  }
+
+  #part_info td{
+    max-width: 181px;
   }
 
   .mobile-text-overflow {
