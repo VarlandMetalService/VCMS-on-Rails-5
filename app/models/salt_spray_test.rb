@@ -4,7 +4,7 @@ class SaltSprayTest < ApplicationRecord
   default_scope { where 'is_deleted IS FALSE' }
 
   # Associations.
-  belongs_to    :salt_spray_part
+  has_one       :salt_spray_part
   belongs_to    :salt_spray_tester,
                 class_name: 'User',
                 foreign_key: 'put_on_by',

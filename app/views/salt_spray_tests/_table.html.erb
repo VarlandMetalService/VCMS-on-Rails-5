@@ -21,11 +21,11 @@
     <% if !t.checked and !t.date_on %><div class="col-4 text-center d-md-none"><%= link_to 'Start Test', salt_spray_test_path(t, salt_spray_test: {date_on: DateTime.current, put_on_by: current_user.id, checked: true}), :method => :patch, class: 'btn btn-success btn-sm btn-mobile' %></div><% end %>
     <% if !t.checked and t.date_on %><div class="col-4 text-center d-md-none"><%= link_to 'Update', edit_salt_spray_test_path(t), class: 'btn btn-primary btn-sm btn-mobile' %></div><% end %>
     <% if action_name != 'archived_tests' %><div class="col-4 col-md-1 text-center<%= ' d-none d-md-table-cell' if !t.checked %>"><%= check_box_tag 'checked', t.id, t.checked, class: 'test-checkbox', disabled: t.date_on.blank? %><%= '<br /><small class="d-none d-md-block"><em>Test Not Started</em></small>'.html_safe if t.date_on.blank? %></div><% end %>
-    <div class="col-3 col-md-1 text-center"><%= link_to t.salt_spray_part.shop_order_number, salt_spray_test_path(t.salt_spray_part_id), remote: true %><br /> <small>Load: <%= t.salt_spray_part.load_number %></small></div>
+    <div class="col-3 col-md-1 text-center"><%= link_to t.salt_spray_part.shop_order_number, salt_spray_test_path(t.salt_spray_part), remote: true %><br /> <small>Load: <%= t.salt_spray_part.load_number %></small></div>
     <div class="col-3 col-md-1 mobile-text-overflow"><%= t.salt_spray_part.sub %></div>
     <div class="col-md-1 text-center d-none d-md-table-cell"><%= t.salt_spray_part.part_number %></div>
     <div class="col-2 col-md-1 text-center process"><%= t.salt_spray_part.process %></div>
-    <div class="col-md-1 text-center d-none d-md-table-cell"><%= t.dept %></div>
+    <div class="col-md-1 text-center d-none d-md-table-cell"><%= t.salt_spray_part.dept %></div>
     <div class="col-md-1 d-none d-md-table-cell">
       <% unless t.date_on.blank? %><small><strong>Date on: </strong></small><br /><%= t.date_on.strftime('%m/%d/%Y') %><br /><% end %>
       <% unless t.date_off.blank? %><small><strong>Date off: </strong></small><br /><%= t.date_off.strftime('%m/%d/%Y') %><br /><% end %>
@@ -40,8 +40,8 @@
       <% unless t.red_spot_reporter.blank? %><br /><small><strong>Reporter: </strong></small><br /><%= t.red_spot_reporter.full_name %><% end %>
     </div>
     <div class="col-md-1 d-none d-md-table-cell">
-      <small><strong>Barrel #: </strong></small><%= t.barrel_number %><br />
-      <small><strong>Load Weight: </strong><%= number_with_precision(t.load_weight, strip_insignificant_zeros: true) %></small>
+      <small><strong>Barrel #: </strong></small><%= t.salt_spray_part.barrel_number %><br />
+      <small><strong>Load Weight: </strong><%= number_with_precision(t.salt_spray_part.load_weight, strip_insignificant_zeros: true) %></small>
     </div>
     <% if @access_level.access_level == 3 and action_name != 'archived_tests' -%>
       <div class="col-md-1 d-none d-md-table-cell"><%= t.comments %></div>

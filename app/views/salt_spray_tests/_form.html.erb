@@ -13,7 +13,7 @@
 </div>
 <div class="card bg-light">
   <div class="card-body">
-    <%= form_with model: @salt_spray_test, url: salt_spray_tests_path, local: true do |f| %>
+    <%= form_with model: @salt_spray_test, url: salt_spray_tests_path do |f| %>
 
       <% if @salt_spray_test.errors.any? %>
         <div class="error_explanation text-danger">
@@ -29,7 +29,7 @@
       <%= f.hidden_field :checked, :value => false %>
       <div class="row">
         <div class="col-md-2">
-          <%= f.fields_for :salt_spray_parts do |s| %>
+          <%= f.fields_for :salt_spray_part do |s| %>
             <div class="form-group">
               <%= s.label :shop_order_number, 'Shop Order:', class: 'form-control-label' %><br />
               <%= s.text_field :shop_order_number, required: 'required', class: 'form-control' %>
@@ -42,12 +42,11 @@
               <%= s.label :sub, 'Sub:', class: 'form-control-label' %><br />
               <%= s.text_field :sub, class: 'form-control' %>
             </div>
+            <div class="form-group">
+              <%= s.label :dept, 'Department:', class: 'form-control-label' %><br />
+              <%= s.text_field :dept, class: 'form-control' %>
+            </div>
           <% end %>
-
-          <div class="form-group">
-            <%= f.label :dept, 'Department:', class: 'form-control-label' %><br />
-            <%= f.text_field :dept, class: 'form-control' %>
-          </div>
         </div>
         <div class="col-md-1"></div>
         <div class="col-md-3">
@@ -74,7 +73,7 @@
           </div>
         </div>
         <div class="manual-entry-inputs display-none col-md-6">
-          <%= f.fields_for :salt_spray_parts do |s| %>
+          <%= f.fields_for :salt_spray_part do |s| %>
             <div class="row">
               <div class="col-md-5">
                 <div class="form-group">

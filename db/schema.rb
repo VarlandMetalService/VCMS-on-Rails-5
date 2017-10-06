@@ -111,6 +111,7 @@ ActiveRecord::Schema.define(version: 20171004141007) do
   end
 
   create_table "salt_spray_parts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "salt_spray_test_id"
     t.bigint "shop_order_number"
     t.integer "load_number"
     t.string "customer"
@@ -119,6 +120,9 @@ ActiveRecord::Schema.define(version: 20171004141007) do
     t.string "sub"
     t.integer "white_spec"
     t.integer "red_spec"
+    t.integer "dept"
+    t.integer "barrel_number"
+    t.decimal "load_weight", precision: 10, scale: 4
     t.decimal "part_area", precision: 10, scale: 4
     t.decimal "ft_cubed_per_pound", precision: 10, scale: 4
     t.datetime "created_at", null: false
@@ -144,10 +148,8 @@ ActiveRecord::Schema.define(version: 20171004141007) do
   end
 
   create_table "salt_spray_tests", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.bigint "salt_spray_part_id"
     t.boolean "checked"
     t.bigint "put_on_by"
-    t.integer "dept"
     t.datetime "date_on"
     t.datetime "date_off"
     t.text "comments"
@@ -155,8 +157,6 @@ ActiveRecord::Schema.define(version: 20171004141007) do
     t.bigint "who_called_white"
     t.datetime "date_w_red"
     t.bigint "who_called_red"
-    t.integer "barrel_number"
-    t.decimal "load_weight", precision: 10, scale: 4
     t.boolean "is_deleted", default: false
     t.bigint "deleted_by"
     t.boolean "is_archived", default: false

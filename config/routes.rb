@@ -17,7 +17,7 @@ Rails.application.routes.draw do
 
   resources :salt_spray_tests do
     member do
-      get 'part_details'
+      get 'test_complete'
     end
   end
 
