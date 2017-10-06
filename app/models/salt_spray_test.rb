@@ -32,9 +32,6 @@ class SaltSprayTest < ApplicationRecord
                                     allow_destroy: true
 
   # Scopes.
-  scope :with_salt_spray_part_id, lambda { |part_numbers|
-    joins(:salt_spray_part).where("salt_spray_parts.part_number = ?", part_numbers)
-  }
   scope :with_shop_order_number, lambda { |shop_orders|
     joins(:salt_spray_part).where("salt_spray_parts.shop_order_number like ?", "#{shop_orders}%")
   }
@@ -44,7 +41,7 @@ class SaltSprayTest < ApplicationRecord
   scope :with_date_on_gte, lambda { |reference_time|
     where('salt_spray_tests.date_on >= ?', reference_time.to_date)
   }
-  scope :with_date_on_lt, lambda { |reference_time|
+  scope :with_date_on_lte, lambda { |reference_time|
     where('salt_spray_tests.date_on <= ?', reference_time.to_date)
   }
   scope :sorted_by, ->(sort_option) {

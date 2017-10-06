@@ -1,0 +1,87 @@
+<div class="salt_spray_tests">
+  <% provide(:title, 'Archived Salt Spray Tests') %>
+  <div class="row mx-1">
+
+    <div class="col-12 card bg-light mb-3">
+        <div class="row">
+
+          <strong class="col-6">Archived Salt Spray Tests</strong>
+
+          <% if @access_level.access_level == 3 -%>
+            <strong class="col-6 text-danger text-uppercase text-right">
+              Admin Mode
+            </strong>
+          <% end %>
+
+        </div>
+    </div>
+
+    <div class="col-12">
+      <div class="row d-none d-md-flex">
+        <div class="col-12 text-right">
+          <%= link_to 'View Active Tests', salt_spray_tests_path, :class => "btn btn-sm btn-info"%>
+        </div>
+      </div>
+
+      <% if @salt_spray_tests.size == 0 -%>
+
+        <p class="text-muted">No salt spray tests found.</p>
+
+      <% else -%>
+
+        <%= form_with url: archived_tests_salt_spray_tests_path, class: 'filter-form d-none' , method: 'get' do |f| %>
+          <div class="row">
+            <div class="form-group col-md-2">
+              Shop Order <br />
+              <%= f.text_field :with_shop_order_number %>
+            </div>
+            <div class="form-group col-md-2">
+              Put On By <br />
+              <%= f.select :with_put_on_by, @salt_spray_tests.options_for_put_on_by, { include_blank: true } %>
+            </div>
+            <div class="form-group col-md-2">
+              Part ID <br />
+              <%= f.select :with_salt_spray_part_number, SaltSprayPart.options_for_part_number, { include_blank: true } %>
+            </div>
+            <div class="form-group col-md-3">
+              Date On <br />
+              <%= f.text_field :with_date_on_gte %> to
+              <%= f.text_field :with_date_on_lte %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <%= link_to 'Reset Filters', archived_tests_salt_spray_tests_url, class: 'btn btn-sm btn-link float-left' %>
+              <%= f.submit 'Filter', name: nil, class: 'float-right' %>
+            </div>
+          </div>
+        <% end %>
+
+        <%= render 'table' %>
+
+        <!-- Modal -->
+        <div id="modal-window" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Shop Order Information</h4>
+              </div>
+              <div class="modal-body">
+                <div id="part_info"></div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      <% end %>
+
+    </div>
+  </div>
+</div>

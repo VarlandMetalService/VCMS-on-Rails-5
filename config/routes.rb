@@ -16,6 +16,9 @@ Rails.application.routes.draw do
   resources :opto_messages
 
   resources :salt_spray_tests do
+    collection do
+      get 'archived_tests'
+    end
     member do
       get 'test_complete'
     end
