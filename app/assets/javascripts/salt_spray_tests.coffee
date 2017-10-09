@@ -40,6 +40,9 @@ $(document).on 'turbolinks:load', (event) ->
   $('.open-submit-modal').on 'click', (event) ->
     $('.test-complete-' + $(event.target).data('spot')).addClass('trigger-test-complete');
 
+  $('#test-complete-modal').on 'hidden.bs.modal', (event) ->
+    $('.trigger-test-complete').removeClass('trigger-test-complete');
+
   $('.test-complete-confirm').on 'click', (event) ->
     if $(event.target).attr('name') == 'yes'
         $('.form-submit-date-off').val(Date)

@@ -69,11 +69,30 @@ class SaltSprayTest < ApplicationRecord
     end
   end
 
-  def calculate_rust_hours(spot_type)
-    if spot_type == 'white' and self.date_w_white
-      return subtract_time_get_hours(self.date_w_white.to_time, self.date_on.to_time)
-    elsif spot_type == 'red' and self.date_w_red
-      return subtract_time_get_hours(self.date_w_red.to_time, self.date_on.to_time)
+  def get_pass_fail(spot_type)
+    case spot_type
+    when 'white'
+      spec_test = self.salt_spray_part.white_spec
+      spot_date = self.date_w_white
+    when 'red'
+      spec_test = self.salt_spray_part.red_spec
+      spot_date = self.date_w_red
+    end
+
+    if spec_test == 0
+      return
+    end
+
+    if calculate_rust_hours(spot_date) <= spec_test
+      return 'spec-passed'
+    else
+      return 'spec-failed'
+    end
+  end
+
+  def calculate_rust_hours(spot_date)
+    if spot_date
+      return subtract_time_get_hours(spot_date.to_time, self.date_on.to_time)
     else
       return subtract_time_get_hours(DateTime.current.to_time, self.date_on.to_time)
     end
@@ -83,34 +102,35 @@ class SaltSprayTest < ApplicationRecord
     return ((time_off - time_on)/1.hour).floor
   end
 
-  def get_white_value(value)
-    if self.salt_spray_part.white_spec != 0
-      if self.date_w_white
-        if value == 'date'
-          return self.date_w_white.strftime('%m/%d/%Y')
-        else
-          return self.white_spot_reporter.full_name
-        end
-      else
-        return ''
-      end
+  def get_spot_found_value(value, spot_type)
+    case spot_type
+    when 'white'
+      return 'N/A' if !self.white_spec_exists?
+      spot_date = self.date_w_white
+      reporter = self.white_spot_reporter
+    when 'red'
+      return 'N/A' if !self.red_spec_exists?
+      spot_date = self.date_w_red
+      reporter = self.red_spot_reporter
     end
-    return 'N/A'
+
+    if spot_date
+      if value == 'date'
+        return spot_date.strftime('%m/%d/%Y')
+      else
+        return reporter.full_name
+      end
+    else
+      return '<br />'.html_safe
+    end
   end
 
-  def get_red_value(value)
-    if self.salt_spray_part.red_spec != 0
-      if self.date_w_red
-        if value == 'date'
-          return self.date_w_red.strftime('%m/%d/%Y')
-        else
-          return self.red_spot_reporter.full_name
-        end
-      else
-        return ''
-      end
-    end
-    return 'N/A'
+  def white_spec_exists?
+    return self.salt_spray_part.white_spec != 0
+  end
+
+  def red_spec_exists?
+    return self.salt_spray_part.red_spec != 0
   end
 
 end

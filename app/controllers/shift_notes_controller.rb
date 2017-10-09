@@ -3,7 +3,8 @@ class ShiftNotesController < ApplicationController
   before_action :check_permission
 
   has_scope :search_query
-  has_scope :with_date
+  has_scope :with_date_gte
+  has_scope :with_date_lte
   has_scope :with_shift
   has_scope :with_entered_by
   has_scope :with_department

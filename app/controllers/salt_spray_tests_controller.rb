@@ -28,8 +28,6 @@ class SaltSprayTestsController < ApplicationController
   end
 
   def edit
-    @white_hours = @salt_spray_test.calculate_rust_hours('white')
-    @red_hours = @salt_spray_test.calculate_rust_hours('red')
   end
 
   def create

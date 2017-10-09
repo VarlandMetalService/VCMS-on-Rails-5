@@ -30,7 +30,7 @@
 
         <div class="row">
 
-          <div class="col-12">
+          <div class="col-8">
             <div class="form-group">
               <%= f.label :search_query, 'Search:' %>
               <%= f.text_field :search_query, class: 'form-control' %>
@@ -39,8 +39,15 @@
 
           <div class="col-12 col-sm-4 col-md-2">
             <div class="form-group">
-              <%= f.label :with_date, 'Date:' %>
-              <%= f.date_field :with_date, class: 'form-control datepicker' %>
+              <%= f.label :with_date_gte, 'Starting Date:' %>
+              <%= f.date_field :with_date_gte, class: 'form-control datepicker' %>
+            </div>
+          </div>
+
+          <div class="col-6 col-sm-4 col-md-2">
+            <div class="form-group">
+              <%= f.label :with_date_lte, 'Ending Date:' %>
+              <%= f.date_field :with_date_lte, class: 'form-control datepicker' %>
             </div>
           </div>
 

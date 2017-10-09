@@ -32,7 +32,7 @@
         <div class="col-md-2">
           <div class="form-group">
             <%= f.label :date_on, class: 'form-control-label' %>
-            <%= f.text_field :date_on, class: 'datepicker form-control', :value => (@salt_spray_test.date_on.blank? ? '' : @salt_spray_test.date_on.strftime('%m/%d/%Y')) %>
+            <%= f.text_field :date_on, class: 'datepicker form-control', value: format_date(@salt_spray_test.date_on) %>
           </div>
           <div class="form-group">
             <%= f.label :put_on_by, class: 'form-control-label' %>
@@ -43,22 +43,22 @@
         <div class="col-md-2">
           <div class="form-group">
             <%= f.label :date_with_white, class: 'form-control-label' %>
-            <%= f.text_field :date_w_white, class: 'datepicker form-control', value: format_date(@salt_spray_test.date_w_white), disabled: @salt_spray_test.salt_spray_part.white_spec == 0 %>
+            <%= f.text_field :date_w_white, class: 'datepicker form-control', value: format_date(@salt_spray_test.date_w_white), disabled: !@salt_spray_test.white_spec_exists? %>
           </div>
           <div class="form-group">
             <%= f.label :who_called_white, 'White spot reporter', class: 'form-control-label' %>
-            <%= f.select :who_called_white, reporters_for_select, {include_blank: true}, {disabled: @salt_spray_test.salt_spray_part.white_spec == 0, class: 'form-control'} %>
+            <%= f.select :who_called_white, reporters_for_select, {include_blank: true}, {disabled: !@salt_spray_test.white_spec_exists?, class: 'form-control'} %>
           </div>
         </div>
         <div class="col-md-1"></div>
         <div class="col-md-2">
           <div class="form-group">
             <%= f.label :date_with_red, class: 'form-control-label' %>
-            <%= f.text_field :date_w_red, class: 'datepicker form-control', value: format_date(@salt_spray_test.date_w_red), disabled: @salt_spray_test.salt_spray_part.red_spec == 0 %>
+            <%= f.text_field :date_w_red, class: 'datepicker form-control', value: format_date(@salt_spray_test.date_w_red), disabled: !@salt_spray_test.red_spec_exists? %>
           </div>
           <div class="form-group">
             <%= f.label :who_called_red, 'Red spot reporter', class: 'form-control-label' %>
-            <%= f.select :who_called_red, reporters_for_select, {include_blank: true}, {disabled: @salt_spray_test.salt_spray_part.red_spec == 0, class: 'form-control'} %>
+            <%= f.select :who_called_red, reporters_for_select, {include_blank: true}, {disabled: !@salt_spray_test.red_spec_exists?, class: 'form-control'} %>
           </div>
         </div>
       </div>

@@ -51,8 +51,8 @@
         <div class="col-md-1"></div>
         <div class="col-md-3">
           <div class="form-group">
-            <p><strong>Process Steps:</strong></p>
-            <table class="table-responsive table-sm sst-attachments-table">
+            <p>Process Steps:</p>
+            <table class="table-responsive table-sm">
               <tbody id="salt_spray_processes">
                 <%= f.fields_for :salt_spray_process_steps do |process| %>
                   <%= render 'process_fields', f: process %>
@@ -72,7 +72,7 @@
             </table>
           </div>
         </div>
-        <div class="manual-entry-inputs display-none col-md-6">
+        <div class="col-md-6 manual-entry-inputs display-none">
           <%= f.fields_for :salt_spray_part do |s| %>
             <div class="row">
               <div class="col-md-5">

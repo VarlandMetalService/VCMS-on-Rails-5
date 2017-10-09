@@ -25,7 +25,7 @@
   #salt_spray_test_results div.row div{
     border: 1px solid lightgray;
     padding: 10px;
-    max-height: 132px;
+    max-height: 170px;
   }
 
   #part_info td{
@@ -63,6 +63,7 @@
     margin-bottom: 10px;
     margin-top: 10px;
     padding-top: 10px;
+    padding-bottom: 10px;
     font-size: 12px;
   }
 
@@ -77,6 +78,15 @@
   .test-complete-white, .test-complete-red {
     visibility: hidden;
     display: none;
+  }
+
+  #manual_entry_modal {
+    h3, p {
+      margin-bottom: 45px;
+    }
+    .modal-dialog {
+      width: 450px;
+    }
   }
 
   // Table row colors

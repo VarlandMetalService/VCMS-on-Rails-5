@@ -65,15 +65,17 @@ class ShiftNote < ApplicationRecord
     where entered_by: [*values]
   }
   scope :with_date_gte, ->(value) {
-    where 'note_on >= ?', value
-  }
-  scope :with_date_lte, ->(value) {
-    where 'note_on <= ?', value
-  }
-  scope :with_date, ->(value) {
     begin
       date = Date.strptime(value, '%m/%d/%Y')
-      where 'note_on = ?', date.strftime('%Y-%m-%d')
+      where 'note_on >= ?', date.strftime('%Y-%m-%d')
+    rescue
+      return
+    end
+  }
+  scope :with_date_lte, ->(value) {
+    begin
+      date = Date.strptime(value, '%m/%d/%Y')
+      where 'note_on <= ?', date.strftime('%Y-%m-%d')
     rescue
       return
     end

@@ -11,7 +11,6 @@ class CreateOptoMessages < ActiveRecord::Migration[5.1]
       t.integer :shop_order,    default: nil
       t.integer :load,          default: nil
       t.integer :barrel,        default: nil
-      t.string :customer,       default: nil
       t.text :message
       t.string :hashed_data
       t.timestamps              null: false

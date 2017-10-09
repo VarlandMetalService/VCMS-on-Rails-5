@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
 
-
-
   resources :shift_notes
   root                        'vcms#home'
   get     'login'         =>  'sessions#new'

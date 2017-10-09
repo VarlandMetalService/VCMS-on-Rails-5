@@ -94,7 +94,6 @@ ActiveRecord::Schema.define(version: 20171004141007) do
     t.integer "shop_order"
     t.integer "load"
     t.integer "barrel"
-    t.string "customer"
     t.text "message"
     t.string "hashed_data"
     t.datetime "created_at", null: false
