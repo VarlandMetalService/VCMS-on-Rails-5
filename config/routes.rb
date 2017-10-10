@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :timeclock_records
   resources :shift_notes
   root                        'vcms#home'
   get     'login'         =>  'sessions#new'

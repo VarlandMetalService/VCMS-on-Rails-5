@@ -1,0 +1,31 @@
+<form class="flag-record-form" role="form" method="post">
+  <h3>Flag Record</h3>
+  <p class="form-instructions">
+    If you believe one of your time card entries is not correct, click the "Flag" button in the table.
+    You will then be able to send a note to your foreman requesting that the record be fixed.
+  </p>
+</form>
+
+<%# <% @flagged_records.each do |f| %>
+  <%# <p>
+    @user has flagged the following time clock record:
+  </p>
+  <ul>
+    <li>
+      <small>Date/Time:</small>
+      <strong>@dateTime</strong>
+    </li>
+    <li>
+      <small>Type:</small>
+      <strong>@recordType</strong>
+    </li>
+  </ul>
+  <p>
+    @firstName entered the following notes:
+  </p>
+  <blockquote>
+    <p>
+      @notes
+    </p>
+  </blockquote> %>
+<%# <% end %>

@@ -1,0 +1,75 @@
+<p class="lead">Time Card for week of <%# <?= $currentPeriod->period_start_date->format('m/d/y') ?> &ndash; <?= $currentPeriod->period_ending_date->format('m/d/y') ?> %>:</p>
+<div class="table-responsive">
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+          <th class="col-1 text-center">Date</th>
+          <th class="col-1 text-center">Time</th>
+          <th class="col-2 text-center">Record Type</th>
+          <th class="col-3 text-left">Edit Info</th>
+          <th class="col-4 text-left">Notes</th>
+          <th class="col-1 text-center"></th>
+      </tr>
+    </thead>
+    <tbody class="filtered-table">
+      <% @timeclock_records.each do |t| %>
+        <%# <?php
+            $recordClass = '';
+            switch ($r->record_type) {
+            case 'Start Work':
+              $recordClass = 'success';
+              break;
+            case 'End Work':
+              $recordClass = 'danger';
+              break;
+            case 'Start Break':
+              $recordClass = 'warning';
+              break;
+            case 'End Break':
+              $recordClass = 'warning';
+              break;
+            case 'Notes':
+              $recordClass = 'active';
+              break;
+            }
+        ?> %>
+        <tr data-id="<%= t.id %>" class="<%= 'info' if t.is_flagged %>">
+          <td class="text-center">
+            <%= t.created_at.strftime('%a, %m/%d') %>
+            <% if t.created_at != t.updated_at %>
+              <br />
+              <small class="text-muted"><%= t.updated_at.strftime('%a, %m/%d') %></small>
+            <% end %>
+          </td>
+          <td class="text-center">
+            <%= t.created_at.strftime('%l:%M %P') %>
+            <% if t.created_at != t.updated_at %>
+              <br />
+              <small class="text-muted"><%= t.updated_at.strftime('%l:%M %P') %></small>
+            <% end %>
+          </td>
+          <td class="text-center <%#= $recordClass %>">
+            <%= t.record_type %>
+          </td>
+          <td class="text-left">
+            <% if t.edit_type %>
+              <small><strong>By:</strong></small> <%= t.user.full_name %>
+              <br />
+              <small><strong>When:</strong></small> <%= t.updated_at.strftime('m/d/y g:i:s a') %>
+              <br />
+              <small><strong>Reason:</strong></small> <%= t.reason_code.code %>
+            <% end %>
+          </td>
+          <td class="text-left">
+            <% if t.edit_type && t.notes %>
+              <%= t.notes %>
+            <% end %>
+          </td>
+          <td class="text-center">
+            <button class="btn btn-default btn-xs flag-record-button">Flag</button>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

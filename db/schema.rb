@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171004141007) do
+ActiveRecord::Schema.define(version: 20171010145317) do
 
   create_table "assigned_permissions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "user_id"
@@ -109,6 +109,14 @@ ActiveRecord::Schema.define(version: 20171004141007) do
     t.index ["permission"], name: "index_permissions_on_permission", unique: true
   end
 
+  create_table "reason_codes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "code"
+    t.boolean "requires_notes"
+    t.boolean "is_deleted"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "salt_spray_parts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "salt_spray_test_id"
     t.bigint "shop_order_number"
@@ -182,6 +190,21 @@ ActiveRecord::Schema.define(version: 20171004141007) do
     t.boolean "author_email_needed"
     t.index ["entered_by"], name: "fk_rails_8c4d173e86"
     t.index ["supervisor_id"], name: "fk_rails_bfc751106f"
+  end
+
+  create_table "timeclock_records", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "user_id"
+    t.string "record_type"
+    t.string "submit_type"
+    t.string "ip_address"
+    t.string "edit_type"
+    t.string "edit_ip_address"
+    t.bigint "reason_code_id"
+    t.string "notes"
+    t.boolean "is_locked"
+    t.boolean "is_flagged"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

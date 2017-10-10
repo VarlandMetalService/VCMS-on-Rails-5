@@ -1,0 +1,17 @@
+<%= form_with(model: timeclock_record, local: true) do |form| %>
+  <% if timeclock_record.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(timeclock_record.errors.count, "error") %> prohibited this timeclock_record from being saved:</h2>
+
+      <ul>
+      <% timeclock_record.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

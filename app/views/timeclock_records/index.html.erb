@@ -1,0 +1,14 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 col-sm-12 col-md-8 col-lg-9">
+      <% if @timeclock_records.size == 0 %>
+        <p>No records found for the current period.</p>
+      <% else %>
+        <%= render 'table' %>
+      <% end %>
+    </div>
+    <div class="col-12 col-sm-12 col-md-4 col-lg-3">
+      <%= render 'flag_record' if @timeclock_records.size > 0 %>
+    </div>
+  </div>
+</div>
