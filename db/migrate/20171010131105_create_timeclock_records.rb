@@ -3,6 +3,7 @@ class CreateTimeclockRecords < ActiveRecord::Migration[5.1]
     create_table :timeclock_records do |t|
       t.bigint    :user_id
       t.string    :record_type
+      t.datetime  :record_timestamp
       t.string    :submit_type
       t.string    :ip_address
       t.string    :edit_type

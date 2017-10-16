@@ -1,17 +1,41 @@
-<%= form_with(model: timeclock_record, local: true) do |form| %>
-  <% if timeclock_record.errors.any? %>
+<%= form_with model: @timeclock_record, local: true do |f| %>
+  <h3>Add Clock Record</h3>
+  <% if @timeclock_record.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(timeclock_record.errors.count, "error") %> prohibited this timeclock_record from being saved:</h2>
+      <h2><%= pluralize(@timeclock_record.errors.count, "error") %> prohibited this timeclock_record from being saved:</h2>
 
       <ul>
-      <% timeclock_record.errors.full_messages.each do |message| %>
+      <% @timeclock_record.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div class="actions">
-    <%= form.submit %>
+  <%= f.hidden_field :edit_type, value: 'add' %>
+  <%#= f.hidden_field 'clockRecordUserGroup', $appUser->group_id %>
+  <div class="form-group">
+    <%= f.label :user_id, required_field_label('Employee:'), class: 'form-control-label' %>
+    <%= f.collection_select :user_id, User.order('employee_number'), :id, :number_and_name, { include_blank: true }, { class: "form-control#{' is-invalid' if @timeclock_record.errors[:user_id].any?}", required: 'required' } %>
+  </div>
+  <div class="form-group">
+    <%= f.label :record_type, required_field_label('Record Type:'), class: 'form-control-label' %>
+    <%= f.select :record_type, TimeclockRecord.options_for_record_type, { include_blank: true }, { class: "form-control#{' is-invalid' if @timeclock_record.errors[:record_type].any?}", required: 'required' } %>
+  </div>
+  <div class="form-group">
+    <%= f.label :record_timestamp, required_field_label('Date/Time:'), class: 'form-control-label' %>
+    <%= f.datetime_select :record_timestamp, required: 'required' %>
+  </div>
+  <div class="form-group">
+    <%= f.label :reason_code_id, required_field_label("Reason:") %>
+    <%= f.collection_select :reason_code_id, ReasonCode.all, :id, :code %>
+  </div>
+  <div class="form-group">
+    <%= f.label :notes, 'Notes:' %>
+    <%= f.text_area :notes, rows: 5 %>
+  </div>
+  <div class="form-group">
+    <%= f.submit 'Add Record', class: 'btn btn-primary' %>
+    <%= link_to 'Cancel', timeclock_records_path, class: 'btn btn-link' %>
   </div>
 <% end %>

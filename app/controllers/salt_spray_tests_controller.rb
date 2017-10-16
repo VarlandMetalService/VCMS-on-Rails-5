@@ -7,7 +7,7 @@ class SaltSprayTestsController < ApplicationController
   has_scope :with_shop_order_number
   has_scope :with_put_on_by
   has_scope :with_date_on_gte
-  has_scope :with_date_on_lt
+  has_scope :with_date_on_lte
   has_scope :with_salt_spray_part_number
 
   def index

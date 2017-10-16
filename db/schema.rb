@@ -195,6 +195,7 @@ ActiveRecord::Schema.define(version: 20171010145317) do
   create_table "timeclock_records", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "user_id"
     t.string "record_type"
+    t.datetime "record_timestamp"
     t.string "submit_type"
     t.string "ip_address"
     t.string "edit_type"
@@ -216,6 +217,8 @@ ActiveRecord::Schema.define(version: 20171010145317) do
     t.string "initials"
     t.string "email"
     t.string "pin"
+    t.string "current_status"
+    t.timestamp "status_timestamp"
     t.string "background_color"
     t.string "text_color"
     t.boolean "is_active", default: true

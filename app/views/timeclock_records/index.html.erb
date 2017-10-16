@@ -1,6 +1,7 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-12 col-sm-12 col-md-8 col-lg-9">
+      <p class="lead">Time Card for week of <%= (Date.today.beginning_of_week - 1).strftime('%m/%d/%y') %> &ndash; <%= (Date.today.end_of_week - 1).strftime('%m/%d/%y') %>:</p>
       <% if @timeclock_records.size == 0 %>
         <p>No records found for the current period.</p>
       <% else %>

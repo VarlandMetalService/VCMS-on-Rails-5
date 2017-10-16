@@ -112,4 +112,114 @@ class User < ApplicationRecord
     end
   end
 
+  def update_status
+    # Find last clock record for user.
+    last_record = TimeclockRecord.where('user_id = ? AND is_deleted IS FALSE', self.id).order(timestamp: :desc).first
+
+    if !last_record
+      self.current_status = 'out'
+      self.status_timestamp = nil
+      self.save
+      return
+    end
+
+    # If last record was notes record, find previous record.
+    invalid_ids = []
+    while last_record.record_type == 'Notes'
+      invalid_ids << last_record.id
+      last_record = TimeclockRecord.where('user_id = ? AND is_deleted IS FALSE AND id NOT IN (?)', self.id, invalid_ids).order(timestamp: :desc).first
+
+      if last_record.nil?
+        self.current_status = 'out'
+        self.status_timestamp = nil
+        self.save
+        return
+      end
+    end
+
+    last_in = TimeclockRecord.where('user_id = ? AND record_type = ? AND is_deleted IS FALSE', self.id, 'Start Work').order(record_timestamp: :desc)
+
+    # If last record was clock out or in, update status.
+    case last_record.record_type
+    when 'Start Work'
+      self.current_status = 'in'
+      self.status_timestamp = last_record.record_timestamp
+      self.save
+      return
+    when 'End Work'
+      self.current_status = 'out'
+      self.status_timestamp = nil
+      self.save
+      return
+    when 'Start Break'
+      self.current_status = 'break'
+      self.status_timestamp = last_in.record_timestamp
+      self.save
+      return
+    when 'End Break'
+      self.current_status = 'in'
+      self.status_timestamp = last_in.record_timestamp
+      self.save
+      return
+    end
+
+  end
+
+  def punch_clock(record_type, submit_type = 'pin', timestamp = DateTime.current)
+
+    day = timestamp.strftime('%e')
+    hour = timestamp.strftime('%k')
+    minute = timestamp.strftime('%M')
+    second = timestamp.strftime('%S')
+
+    # is_first_of_month = (day == 1)
+
+    # NOTE: check_labor_entry makes a call to System i which requires PHP, therefore
+    #       we will need to add this to the API
+    # if record_type == 'End Work'
+      # labor_entered = self.check_labor_entry(timestamp)
+      # if !labor_entered && !is_first_of_month
+        # return false
+      # end
+    # end
+
+    # if clocking in within the buffer time on a 15 min border, subtract the buffer time.
+    buffer = 10
+    if record_type == 'Start Work'
+      if second <= buffer && (minute == 1 || minute == 16 || minute == 31 || minute == 46)
+        timestamp -= buffer
+      end
+    end
+
+    # Create new clock record
+    clock_record = new TimeclockRecord
+    clock_record.user_id = self.id
+    clock_record.record_type = record_type
+    clock_record.submit_type = submit_type
+    clock_record.record_timestamp = timestamp.strftime('%F')
+    if !clock_record.save
+      return false
+    end
+
+    case record_type
+    when 'Start Work'
+      self.current_status = 'in'
+      self.status_timestamp = timestamp.strftime('%F')
+      return self.save
+    when 'End Work'
+      self.current_status = 'out'
+      self.status_timestamp = nil
+      return self.save
+    when 'Start Break'
+      self.current_status = 'in'
+      self.status_timestamp = timestamp.strftime('%F')
+      return self.save
+    when 'End Break'
+      self.current_status = 'in'
+      self.status_timestamp = timestamp.strftime('%F')
+      return self.save
+    end
+
+  end
+
 end

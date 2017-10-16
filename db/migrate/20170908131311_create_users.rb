@@ -9,6 +9,8 @@ class CreateUsers < ActiveRecord::Migration[5.1]
       t.string          :initials
       t.string          :email
       t.string          :pin
+      t.string          :current_status
+      t.timestamp       :status_timestamp
       t.string          :background_color
       t.string          :text_color
       t.boolean         :is_active, default: true
