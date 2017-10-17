@@ -1,18 +1,20 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-12">
-      <p class="lead">
-        Clocked in right now:
-        <small class="text-warning">(Yellow highlight means on break)</small>
-      </p>
+    <div class="col-9 lead">
+      Clocked in right now:
+      <small class="text-warning">(Yellow highlight means on break)</small>
     </div>
+    <div class="col-3 text-right">
+      <%= link_to '<i class="fa fa-times"></i>'.html_safe, ipad_timeclock_records_path, class: 'btn btn-sm btn-danger' %>
+    </div>
+
     <% if @clocked_in.size == 0 %>
       <div class="col-12">
         <p>No one is currently clocked in.</p>
       </div>
     <% else %>
       <% employee_groups.each do |g| %>
-        <div class="col-12 col-sm-12 col-md-4 col-lg-2">
+        <div class="col-12 col-sm-6 col-xl-2">
           <div class="card">
             <div class="card-header bg-light">
               <h5><%= g[:name] %></h5>

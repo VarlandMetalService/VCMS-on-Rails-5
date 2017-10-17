@@ -1,0 +1,40 @@
+<div class="col-12 col-sm-12" id="employee-pin-screen">
+
+  <div class="row">
+
+    <div class="col-12 col-sm-12">
+      <p class="lead text-center">
+        <strong class="employee-name">&name</strong>
+        <br />
+        Please enter your PIN and click &ldquo;enter&rdquo;:
+      </p>
+    </div>
+
+    <div class="col-12 col-sm-4 col-sm-offset-4">
+      <div class="form-group employee-pin-error-container">
+        <input type="password"
+                class="form-control text-center input-lg"
+                maxlength="4"
+                id="employee-pin-field"
+                autofocus
+                readonly />
+      </div>
+    </div>
+
+    <div class="col-12 col-sm-6 col-sm-offset-3">
+      <%= render 'keypad' %>
+
+      <div class="text-center">
+        <button class="btn btn-default back-button btn-lg">
+          <i class="fa fa-fw fa-chevron-left"></i> Back
+        </button>
+        &nbsp;
+        <button class="btn btn-default time-card-button btn-lg">
+          <i class="fa fa-fw fa-clipboard"></i> View Time Card
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+</div>

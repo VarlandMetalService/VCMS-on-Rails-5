@@ -1,0 +1,12 @@
+<nav class="navbar fixed-top navbar-light bg-light navbar-expand-md justify-content-left py-0" role="navigation">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <%= link_to root_url, class: 'navbar-brand' do -%>
+        <%= image_tag('logo.png', class: 'img-fluid', alt: 'VCMS', srcset: "#{image_url('logo.png')} 1x, #{image_url('logo@2x.png')} 2x, #{image_url('logo@3x.png')} 3x") %>
+      <% end %>
+    </div>
+    <div class="navbar-right">
+      <button type="button" class="btn btn-secondary ipad-refresh"><i class="fa fa-refresh"></i></button>
+    </div>
+  </div>
+</nav>

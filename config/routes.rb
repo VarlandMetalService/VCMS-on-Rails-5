@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     collection do
       get :reason_codes
       get :clocked_in
+      get :ipad
     end
   end
 

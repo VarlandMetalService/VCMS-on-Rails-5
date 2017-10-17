@@ -3,6 +3,7 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .vcms-timeclock_records {
+
   .flag-record-form {
     padding: 15px;
     border: 1px solid #dddddd;
@@ -17,6 +18,42 @@
       border-bottom: 1px solid #dddddd;
       padding: 15px;
       margin: 0 -15px 15px -15px;
+    }
+
+  }
+  .lead span {
+    font-weight: bold;
+  }
+  .card {
+    margin-bottom: 20px;
+    .card-header {
+      padding-bottom: 0;
+    }
+  }
+
+  .keypad {
+    padding: 0 30px;
+  }
+
+  .keypad .row > div{
+    padding: 0;
+    text-align: center;
+  }
+
+  .keypad-button {
+    font-size: 24px;
+    line-height: 75px;
+    text-align: center;
+    height: 75px;
+    width: 75px;
+    padding: 0;
+    border-radius: 100%;
+  }
+
+  // Styling for tablet or smaller
+  @media (max-width:1025px) {
+    h5 {
+      font-size: 16px;
     }
   }
 }

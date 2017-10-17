@@ -1,14 +1,22 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-12 col-sm-12 col-md-8 col-lg-9">
-      <p class="lead">Time Card for week of <%= (Date.today.beginning_of_week - 1).strftime('%m/%d/%y') %> &ndash; <%= (Date.today.end_of_week - 1).strftime('%m/%d/%y') %>:</p>
+    <div class="col-12 col-xl-9">
+      <div class="row">
+        <div class="col-9 lead">
+          <span class="d-xl-none"><%= current_user.full_name %>  &raquo;</span>
+          Time Card for week of <%= (Date.today.beginning_of_week - 1).strftime('%m/%d/%y') %> &ndash; <%= (Date.today.end_of_week - 1).strftime('%m/%d/%y') %>:
+        </div>
+        <div class="col-3 d-xl-none text-right">
+          <%= link_to '<i class="fa fa-times"></i>'.html_safe, ipad_timeclock_records_path, class: 'btn btn-sm btn-danger' %>
+        </div>
+      </div>
       <% if @timeclock_records.size == 0 %>
         <p>No records found for the current period.</p>
       <% else %>
         <%= render 'table' %>
       <% end %>
     </div>
-    <div class="col-12 col-sm-12 col-md-4 col-lg-3">
+    <div class="d-none d-xl-flex col-xl-3">
       <%= render 'flag_record' if @timeclock_records.size > 0 %>
     </div>
   </div>
