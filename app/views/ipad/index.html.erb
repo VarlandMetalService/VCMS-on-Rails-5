@@ -1,0 +1,45 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <%= link_to 'View Time Card', timeclock_records_path %>
+    </div>
+    <div class="col-12 col-sm-12" id="employee-number-screen">
+
+      <div class="row">
+
+        <div class="col-12 col-sm-12">
+          <p class="lead text-center">
+            Select employee from dropdown or enter number and click &ldquo;enter&rdquo;:
+          </p>
+          <%= form_with url: { controller: :ipad, action: :enter_pin}, local: true, method: 'get' do |f| %>
+            <div class="row">
+              <div class="col-4"></div>
+              <div class="col-12 col-sm-4 col-sm-offset-4">
+                <div class="form-group">
+                  <%= select_tag 'employees', options_from_collection_for_select(User.all, :employee_number, :number_and_name), {include_blank: true, class: 'form-control', id: 'employee-number-dropdown'} %>
+                </div>
+                <div class="form-group employee-number-error-container">
+                  <%= f.text_field :employee_number, {maxlength: 3, class: 'form-control text-center', id: 'employee-number-field', autofocus: true} %>
+
+                </div>
+              </div>
+              <div class="col-4"></div>
+              <div class="col-4"></div>
+              <div class="col-12 col-sm-4 col-sm-offset-3">
+                <%= render 'keypad' %>
+
+                <div class="text-center">
+                  <%= link_to 'Clocked In Right Now', clocked_in_timeclock_records_path, class: 'btn btn-lg btn-primary' %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+
+
+      </div>
+
+    </div>
+  </div>
+  <div id="status-message" class="text-success bg-success"></div>
+</div>

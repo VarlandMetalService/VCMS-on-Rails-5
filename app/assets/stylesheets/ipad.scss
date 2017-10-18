@@ -1,0 +1,24 @@
+// Place all the styles related to the Ipad controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.vcms-ipad {
+  .keypad {
+    padding: 0 30px;
+  }
+
+  .keypad .row > div{
+    padding: 0;
+    text-align: center;
+  }
+
+  .keypad-button {
+    font-size: 24px;
+    line-height: 75px;
+    text-align: center;
+    height: 75px;
+    width: 75px;
+    padding: 0;
+    border-radius: 100%;
+  }
+}

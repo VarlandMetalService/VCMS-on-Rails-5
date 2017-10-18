@@ -1,0 +1,3 @@
+module IpadHelper
+
+end

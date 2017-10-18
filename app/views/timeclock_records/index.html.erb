@@ -7,7 +7,7 @@
           Time Card for week of <%= (Date.today.beginning_of_week - 1).strftime('%m/%d/%y') %> &ndash; <%= (Date.today.end_of_week - 1).strftime('%m/%d/%y') %>:
         </div>
         <div class="col-3 d-xl-none text-right">
-          <%= link_to '<i class="fa fa-times"></i>'.html_safe, ipad_timeclock_records_path, class: 'btn btn-sm btn-danger' %>
+          <%= link_to '<i class="fa fa-times"></i>'.html_safe, ipad_index_path, class: 'btn btn-sm btn-danger' %>
         </div>
       </div>
       <% if @timeclock_records.size == 0 %>

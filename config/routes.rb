@@ -1,10 +1,14 @@
 Rails.application.routes.draw do
 
+  resources :ipad do
+    collection do
+      get :enter_pin
+    end
+  end
   resources :timeclock_records do
     collection do
       get :reason_codes
       get :clocked_in
-      get :ipad
     end
   end
 
