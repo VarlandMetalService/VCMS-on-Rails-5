@@ -23,13 +23,13 @@
     <div class="col-4"></div>
     <div class="col-4"></div>
     <div class="col-12 col-sm-4 col-sm-offset-3">
-      <%= render 'keypad' %>
-      <div class="row">
-        <div class="col-3 text-center">
-          <%= link_to '<i class="fa fa-fw fa-chevron-left"></i> Back'.html_safe, ipad_index_path, class: 'btn btn-primary' %>
+      <%= render 'keypad', class: 'mb-2' %>
+      <div class="row text-center">
+        <div class="col-3">
+          <%= link_to '<i class="fa fa-fw fa-chevron-left"></i> Back'.html_safe, ipad_index_path, class: 'btn btn-default' %>
         </div>
-        <div class="col-9 text-center">
-          <%= link_to '<i class="fa fa-fw fa-clipboard"></i> View Time Card'.html_safe, timeclock_records_path(user_view: params[:employee_number]), class: 'btn btn-primary' %>
+        <div class="col-9">
+          <%= link_to '<i class="fa fa-fw fa-clipboard"></i> View Time Card'.html_safe, timeclock_records_path(user_view: params[:employee_number]), class: 'btn btn-primary float-right' %>
         </div>
       </div>
     </div>

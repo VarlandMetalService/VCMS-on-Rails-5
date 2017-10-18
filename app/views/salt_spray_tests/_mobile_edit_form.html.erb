@@ -85,14 +85,14 @@
   <div class="row">
     <% if @salt_spray_test.red_spot_reporter || (@salt_spray_test.white_spot_reporter && !@salt_spray_test.red_spec_exists?) %>
       <div class="text-center col-6">
-        <%= f.submit 'Continue Test', class: 'btn btn-sm btn-secondary' %>
+        <%= f.submit 'Continue Test', class: 'btn btn-sm btn-default' %>
       </div>
       <div class="text-center col-6">
         <%= f.submit 'Test Complete', class: 'btn btn-sm btn-danger' %>
       </div>
     <% else %>
       <div class="text-left col-6">
-        <%= f.submit 'No Spot Found', class: 'btn btn-sm btn-secondary' if !@salt_spray_test.red_spot_reporter %>
+        <%= f.submit 'No Spot Found', class: 'btn btn-sm btn-default' if !@salt_spray_test.red_spot_reporter %>
       </div>
       <div class="text-right col-6">
         <%= button_tag 'Red Spot Found', type: 'button', data: {toggle: 'modal', target: '#test-complete-modal', spot: 'red'}, class: 'btn btn-sm btn-danger open-submit-modal' if @salt_spray_test.white_spot_reporter || !@salt_spray_test.white_spec_exists? %>
@@ -124,7 +124,7 @@
             <h4>Is this test complete?</h4><br /><br />
             <div class="row">
               <div class="col-6">
-                <%= button_tag 'No', type: 'button', name: 'no', class: 'btn btn-secondary test-complete-confirm' %>
+                <%= button_tag 'No', type: 'button', name: 'no', class: 'btn btn-default test-complete-confirm' %>
               </div>
               <div class="col-6">
                 <%= button_tag 'Yes', type: 'button', name: 'yes', class: 'btn btn-success test-complete-confirm' %>

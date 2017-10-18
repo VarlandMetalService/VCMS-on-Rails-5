@@ -2,9 +2,9 @@ class TimeclockRecordsController < ApplicationController
   before_action :set_timeclock_record, only: [:show, :edit, :update, :destroy]
 
   def index
-    user_view = User.find_by_employee_number(params[:user_view]).id || current_user.id
-    @timeclock_records = TimeclockRecord.where('user_id = ?', user_view)
-    @flagged_records = TimeclockRecord.where('is_flagged = ?', true)
+    @employee = User.find_by_employee_number(params[:user_view]) || current_user
+    @timeclock_records = TimeclockRecord.where('user_id = ?', @employee.id)
+    @flagged_records = TimeclockRecord.where('user_id = ? AND is_flagged = ?', @employee.id, true)
   end
 
   def new

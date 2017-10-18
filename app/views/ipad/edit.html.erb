@@ -24,14 +24,13 @@
     <div class="col-12 col-sm-6 col-sm-offset-3">
       <%= render 'keypad' %>
 
-      <div class="text-center">
-        <button class="btn btn-default back-button btn-lg">
-          <i class="fa fa-fw fa-chevron-left"></i> Back
-        </button>
-        &nbsp;
-        <button class="btn btn-default time-card-button btn-lg">
-          <i class="fa fa-fw fa-clipboard"></i> View Time Card
-        </button>
+      <div class="row text-center">
+        <div class="col-3">
+          <%= link_to '<i class="fa fa-fw fa-chevron-left"></i> Back'.html_safe, new_ipad_path, class: 'btn btn-default' %>
+        </div>
+        <div class="col-9">
+          <%= link_to '<i class="fa fa-fw fa-clipboard"></i> View Time Card'.html_safe, timeclock_records_path(user_view: params[:employee_number]), class: 'btn btn-primary float-right' %>
+        </div>
       </div>
     </div>
 
