@@ -1,7 +1,7 @@
-<div class="col-12 col-sm-12" id="employee-pin-screen">
+<div class="col-12" id="employee-pin-screen">
 
   <div class="row">
-    <div class="col-12 col-sm-12">
+    <div class="col-12">
 
       <p class="lead text-center">
         <strong><%= @ipad_user.full_name %></strong>
@@ -14,8 +14,7 @@
 
   <%= form_with model: @ipad_user do |f| %>
     <div class="row">
-      <div class="col-sm-4"></div>
-      <div class="col-12 col-sm-4 col-sm-offset-4">
+      <div class="col-12 col-sm-4 offset-sm-4">
 
         <div class="form-group">
           <%= f.text_field :pin, {value: '', type: 'password', class: 'form-control text-center keypad-input', id: 'employee-change-pin-field' , maxlength: 4, autofocus: true, readonly: true} %>
@@ -29,14 +28,12 @@
     </div>
 
     <div class="row">
-      <div class="col-sm-4"></div>
-      <div class="col-12 col-sm-4 col-sm-offset-4">
+      <div class="col-12 col-sm-4 offset-sm-4">
 
         <%= render 'keypad' %>
 
         <div class="row text-center">
-          <div class="col-4"></div>
-          <div class="col-4 col-offset-4">
+          <div class="col-4 offset-4">
             <%= link_to '<i class="fa fa-times"></i> Cancel'.html_safe, employee_action_ipad_index_path(pin: @ipad_user.pin), class: 'btn btn-danger' %>
           </div>
         </div>

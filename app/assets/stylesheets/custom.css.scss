@@ -47,8 +47,7 @@ body {
   background-color: #fff;
 }
 
-
-// temporary fix until Bootstrap v4 Beta 2 is released
+// Fixes Bootstrap issue with collapse display
 .collapse {
   display: none;
   &.show {

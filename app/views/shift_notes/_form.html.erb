@@ -15,18 +15,18 @@
 
       <div class="row">
 
-        <div class="col-12 col-sm-12 col-md-6">
+        <div class="col-12 col-md-6">
 
           <div class="row">
 
-            <div class="col-12 col-sm-12 col-md-6">
+            <div class="col-12 col-md-6">
               <div class="form-group">
                 <%= f.label :note_on, required_field_label('Date:'), class: 'control-label' %>
                 <%= f.date_field :note_on, { value: format_date(@shift_note.note_on), class: "form-control datepicker#{' is-invalid' if @shift_note.errors[:note_on].any?}", required: 'required' } %>
               </div>
             </div>
 
-            <div class="col-12 col-sm-12 col-md-6">
+            <div class="col-12 col-md-6">
               <div class="form-group">
                 <%= f.label :shift, required_field_label('Shift:'), class: 'control-label' %>
                 <%= f.select :shift, options_for_select(ShiftNote.options_for_shift, @shift_note.shift), { include_blank: true }, { class: "form-control#{' is-invalid' if @shift_note.errors[:shift].any?}", required: 'required' } %>
@@ -37,14 +37,14 @@
 
           <div class="row">
 
-            <div class="col-12 col-sm-12 col-md-6">
+            <div class="col-12 col-md-6">
               <div class="form-group">
                 <%= f.label :note_type, 'Type:', class: 'control-label' %>
                 <%= f.select :note_type, options_for_select(ShiftNote.options_for_type, @shift_note.note_type), { include_blank: true }, { class: "form-control#{' is-invalid' if @shift_note.errors[:note_type].any?}" } %>
               </div>
             </div>
 
-            <div class="col-12 col-sm-12 col-md-6">
+            <div class="col-12 col-md-6">
               <div class="form-group">
                 <%= f.label :department, 'Department:', class: 'control-label' %>
                 <%= f.select :department, options_for_select(ShiftNote.options_for_department, @shift_note.department), { include_blank: true }, { class: "form-control#{' is-invalid' if @shift_note.errors[:department].any?}" } %>
@@ -79,7 +79,7 @@
 
         </div>
 
-        <div class="col-12 col-sm-12 col-md-6">
+        <div class="col-12 col-md-6">
           <p><strong>Attachments:</strong></p>
           <table class="table table-responsive table-bordered table-sm">
             <thead>

@@ -135,7 +135,7 @@
 
       <% case @document.content_type %>
       <% when 'video/mp4', 'video/quicktime' %>
-        <div class="col-12 col-sm-12 col-md-8 col-md-offset-2">
+        <div class="col-12 col-md-8 col-md-offset-2">
           <div class="embed-responsive embed-responsive-16by9 bottom-spacing">
             <video class="embed-responsive-item" controls src="<%= @document.file.url %>"></video>
           </div>
@@ -159,7 +159,7 @@
           </div>
         </div>
       <% when 'image/png', 'image/jpg', 'image/gif', 'image/tiff', 'image/jpeg' %>
-        <div class="col-12 col-sm-12 col-md-8 col-md-offset-2">
+        <div class="col-12 col-md-8 col-md-offset-2">
           <img class="img-fluid" src="<%= @document.file.url %>" />
         </div>
       <% end %>

@@ -63,7 +63,7 @@
       </div>
       <div class="row">
 
-        <div class="col-12 col-sm-12 col-md-6">
+        <div class="col-12 col-md-6">
           <div class="form-group">
             <%= f.label :email, required_field_label('Email:'), class: 'control-label' %>
             <%= f.email_field :email, { class: "form-control#{' is-invalid' if @user.errors[:email].any?}", required: 'required' } %>

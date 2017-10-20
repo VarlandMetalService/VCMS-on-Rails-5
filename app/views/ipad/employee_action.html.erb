@@ -1,6 +1,5 @@
 <div class="row">
-  <div class="col-3"></div>
-  <div class="col-12 col-sm-6 col-sm-offset-3" id="employee-action-screen">
+  <div class="col-12 col-sm-6 offset-sm-3" id="employee-action-screen">
 
     <p class="lead text-center"><strong><%= @ipad_user.full_name %></strong></p>
 
@@ -49,11 +48,11 @@
     <hr />
 
     <div class="form-group">
-      <%= link_to '<i class="fa fa-fw fa-clipboard"></i> View Time Card'.html_safe, timeclock_records_path(user_view: @ipad_user.employee_number), class: 'btn btn-block btn-lg btn-default' %>
+      <%= link_to '<i class="fa fa-fw fa-clipboard"></i> View Time Card'.html_safe, timeclock_records_path, class: 'btn btn-block btn-lg btn-default' %>
     </div>
 
     <div class="form-group">
-      <%= link_to '<i class="fa fa-fw fa-th"></i> Change Pin'.html_safe, change_pin_ipad_index_path(user_view: @ipad_user.employee_number), class: 'btn btn-block btn-lg btn-default' %>
+      <%= link_to '<i class="fa fa-fw fa-th"></i> Change Pin'.html_safe, change_pin_ipad_index_path, class: 'btn btn-block btn-lg btn-default' %>
     </div>
 
     <div class="form-group">
