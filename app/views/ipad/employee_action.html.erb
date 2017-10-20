@@ -2,8 +2,49 @@
   <div class="col-3"></div>
   <div class="col-12 col-sm-6 col-sm-offset-3" id="employee-action-screen">
 
-    <p class="lead text-center"><strong class="employee-name"><%= @ipad_user.full_name %></strong></p>
-    <%= action_buttons(@ipad_user.current_status) %>
+    <p class="lead text-center"><strong><%= @ipad_user.full_name %></strong></p>
+
+    <% case @ipad_user.current_status %>
+    <% when 'in' %>
+      <%= form_with model: @ipad_user do |f| %>
+        <div class="form-group">
+          <%= f.hidden_field :ipad_submit, value: true %>
+          <%= f.hidden_field :current_status, value: 'out' %>
+          <%= button_tag type: 'submit', class: 'btn btn-block btn-lg btn-danger' do %>
+            <i class="fa fa-fw fa-wrench"></i> End Work
+          <% end%>
+        </div>
+      <% end %>
+      <%= form_with model: @ipad_user do |f| %>
+        <div class="form-group">
+          <%= f.hidden_field :ipad_submit, value: true %>
+          <%= f.hidden_field :current_status, value: 'break' %>
+          <%= button_tag type: 'submit', class: 'btn btn-block btn-lg btn-warning' do %>
+            <i class="fa fa-fw fa-cutlery"></i> Start Break
+          <% end%>
+        </div>
+      <% end %>
+    <% when 'out' %>
+      <%= form_with model: @ipad_user do |f| %>
+        <div class="form-group">
+          <%= f.hidden_field :ipad_submit, value: true %>
+          <%= f.hidden_field :current_status, value: 'in' %>
+          <%= button_tag type: 'submit', class: 'btn btn-block btn-lg btn-success' do %>
+            <i class="fa fa-fw fa-wrench"></i> Start Work
+          <% end%>
+        </div>
+      <% end %>
+    <% when 'break' %>
+      <%= form_with model: @ipad_user do |f| %>
+        <div class="form-group">
+          <%= f.hidden_field :ipad_submit, value: true %>
+          <%= f.hidden_field :current_status, value: 'in' %>
+          <%= button_tag type: 'submit', class: 'btn btn-block btn-lg btn-primary' do %>
+            <i class="fa fa-fw fa-cutlery"></i> End Break
+          <% end%>
+        </div>
+      <% end %>
+    <% end %>
 
     <hr />
 

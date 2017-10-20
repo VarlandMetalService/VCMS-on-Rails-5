@@ -1,42 +1,48 @@
 <div class="col-12 col-sm-12" id="employee-pin-screen">
 
   <div class="row">
-
     <div class="col-12 col-sm-12">
-      <p class="text-center"><strong><%= @ipad_user.full_name %></strong></p>
+
       <p class="lead text-center">
+        <strong><%= @ipad_user.full_name %></strong>
+        <br />
         Please enter your PIN and click &ldquo;Enter&rdquo;:
       </p>
-      <%= form_with url: { controller: :ipad, action: :employee_action}, local: true, method: 'get' do |f| %>
-        <div class="row">
-          <div class="col-4"></div>
-          <div class="col-12 col-sm-4 col-sm-offset-4">
-            <div class="form-group employee-pin-error-container">
-              <%= f.text_field :pin, {type: 'password',maxlength: 4, class: 'form-control text-center keypad-input', id: 'employee-pin-field', autofocus: true, readonly: true} %>
-              <% if params[:error] %>
-                <p class='is-invalid'>Invalid Pin</p>
-              <% end %>
-            </div>
-          </div>
-          <div class="col-4"></div>
-          <div class="col-4"></div>
-          <div class="col-12 col-sm-4 col-sm-offset-3">
-            <%= render 'keypad', class: 'mb-2' %>
-            <div class="row text-center">
-              <div class="col-3">
-                <%= link_to '<i class="fa fa-fw fa-chevron-left"></i> Back'.html_safe, logout_ipad_index_path, class: 'btn btn-default' %>
-              </div>
-              <div class="col-9">
-                <%= link_to '<i class="fa fa-fw fa-clipboard"></i> View Time Card'.html_safe, timeclock_records_path(user_view: @ipad_user.employee_number), class: 'btn btn-primary float-right' %>
-              </div>
-            </div>
-          </div>
+
+    </div>
+  </div>
+
+  <%= form_with url: { controller: :ipad, action: :employee_action}, local: true, method: 'get' do |f| %>
+    <div class="row">
+      <div class="col-4"></div>
+      <div class="col-12 col-sm-4 col-sm-offset-4">
+
+        <div class="form-group employee-pin-error-container">
+          <%= f.text_field :pin, {type: 'password',maxlength: 4, class: 'form-control text-center keypad-input', id: 'employee-pin-field', autofocus: true, readonly: true} %>
+          <% if params[:error] %>
+            <p class='is-invalid'>Invalid Pin</p>
+          <% end %>
         </div>
-      <% end %>
+
+      </div>
     </div>
 
+    <div class="row">
+      <div class="col-4"></div>
+      <div class="col-12 col-sm-4 col-sm-offset-3">
 
+        <%= render 'keypad', class: 'mb-2' %>
+        <div class="row text-center">
+          <div class="col-3">
+            <%= link_to '<i class="fa fa-fw fa-chevron-left"></i> Back'.html_safe, logout_ipad_index_path, class: 'btn btn-default' %>
+          </div>
+          <div class="col-9">
+            <%= link_to '<i class="fa fa-fw fa-clipboard"></i> View Time Card'.html_safe, timeclock_records_path(user_view: @ipad_user.employee_number), class: 'btn btn-primary float-right' %>
+          </div>
+        </div>
 
-  </div>
+      </div>
+    </div>
+  <% end %>
 
 </div>

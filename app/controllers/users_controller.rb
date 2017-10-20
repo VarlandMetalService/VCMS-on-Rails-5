@@ -13,11 +13,18 @@ class UsersController < ApplicationController
   def update
     if @user.update user_params
       if params[:user][:ipad_submit]
+        if params[:user][:current_status]
+          session.delete(:ipad_user)
+          redirect_to controller: 'ipad', action: 'index' and return
+        end
         redirect_to controller: 'ipad', action: 'employee_action', pin: params[:user][:pin] and return
       end
       redirect_to users_url, notice: "Successfully updated <code>#{@user.full_name}</code>."
     else
       if params[:user][:ipad_submit]
+        if params[:user][:current_status]
+          redirect_to controller: 'ipad', action: 'employee_action', pin: params[:user][:pin], error: true and return
+        end
         redirect_to controller: 'ipad', action: 'change_pin', error: true and return
       end
       render :edit
@@ -35,7 +42,7 @@ private
   end
 
   def user_params
-    params.require(:user).permit(:username, :employee_number, :first_name, :last_name, :suffix, :initials, :email, :pin, :background_color, :text_color, :is_active)
+    params.require(:user).permit(:username, :employee_number, :first_name, :last_name, :suffix, :initials, :email, :pin, :current_status, :background_color, :text_color, :is_active)
   end
 
 end
