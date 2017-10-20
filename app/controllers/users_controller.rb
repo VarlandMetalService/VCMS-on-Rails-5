@@ -13,7 +13,7 @@ class UsersController < ApplicationController
   def update
     if @user.update user_params
       if params[:user][:ipad_submit]
-        redirect_to controller: 'ipad', action: 'new', pin: params[:user][:pin] and return
+        redirect_to controller: 'ipad', action: 'employee_action', pin: params[:user][:pin] and return
       end
       redirect_to users_url, notice: "Successfully updated <code>#{@user.full_name}</code>."
     else

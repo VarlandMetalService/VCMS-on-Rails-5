@@ -1,12 +1,14 @@
 Rails.application.routes.draw do
 
-  resources :ipad do
+  resources :ipad, only: [:index] do
     collection do
       get :enter_pin
+      get :employee_action
       get :change_pin
       get :logout
     end
   end
+
   resources :timeclock_records do
     collection do
       get :reason_codes
