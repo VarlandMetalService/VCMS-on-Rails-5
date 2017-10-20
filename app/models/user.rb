@@ -59,6 +59,10 @@ class User < ApplicationRecord
     length: { maximum: 255 },
     format: { with: VALID_EMAIL_REGEX },
     uniqueness: { case_sensitive: false }
+  validates :pin,
+    presence: true,
+    length: { is: 4 },
+    uniqueness: { case_sensitive: false }
 
   # Uses Net::HTTP to authenticate user on IBM System i.
   def authenticate(password = '')

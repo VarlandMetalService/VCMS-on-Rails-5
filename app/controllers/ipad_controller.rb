@@ -6,7 +6,7 @@ class IpadController < ApplicationController
     @ipad_user = User.find(session[:ipad_user_id])
     if(@ipad_user.pin != params[:pin])
       # TODO: Diplay error message, incorrect pin
-      redirect_to action: 'enter_pin'
+      redirect_to action: 'enter_pin', employee_number: @ipad_user.employee_number, error: true
     end
   end
 

@@ -18,27 +18,30 @@
       <div class="col-12 col-sm-4 col-sm-offset-4">
 
         <div class="form-group employee-pin-error-container">
-          <%= f.text_field :pin, {value: '', type: 'password', class: 'form-control text-center', id: 'employee-change-pin-field' , maxlength: 4, autofocus: true, readonly: true} %>
+          <%= f.text_field :pin, {value: '', type: 'password', class: 'form-control text-center keypad-input', id: 'employee-change-pin-field' , maxlength: 4, autofocus: true, readonly: true} %>
+          <% if params[:error] %>
+            <p class="is-invalid">PIN change failed. Please contact IT for help.</p>
+          <% end %>
+        </div>
+        <%= f.hidden_field :ipad_submit, value: true %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-4"></div>
+      <div class="col-12 col-sm-4 col-sm-offset-4">
+
+        <%= render 'keypad' %>
+
+        <div class="row text-center">
+          <div class="col-4"></div>
+          <div class="col-4">
+            <%= link_to '<i class="fa fa-times"></i> Cancel'.html_safe, new_ipad_path(pin: @ipad_user.pin), class: 'btn btn-danger' %>
+          </div>
         </div>
 
       </div>
     </div>
   <% end %>
-
-  <div class="row">
-    <div class="col-sm-4"></div>
-    <div class="col-12 col-sm-4 col-sm-offset-4">
-
-      <%= render 'keypad' %>
-
-      <div class="row text-center">
-        <div class="col-4"></div>
-        <div class="col-4">
-          <%= link_to '<i class="fa fa-times"></i> Cancel'.html_safe, '#', onclick: "history.back()", class: 'btn btn-danger' %>
-        </div>
-      </div>
-
-    </div>
-  </div>
 
 </div>
