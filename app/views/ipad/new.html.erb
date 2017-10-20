@@ -2,25 +2,21 @@
   <div class="col-3"></div>
   <div class="col-12 col-sm-6 col-sm-offset-3" id="employee-action-screen">
 
-    <p class="lead text-center"><strong class="employee-name"><%= @employee.full_name %></strong></p>
-    <%= action_buttons(@employee.current_status) %>
+    <p class="lead text-center"><strong class="employee-name"><%= @ipad_user.full_name %></strong></p>
+    <%= action_buttons(@ipad_user.current_status) %>
 
     <hr />
 
     <div class="form-group">
-      <%= link_to '<i class="fa fa-fw fa-clipboard"></i> View Time Card'.html_safe, timeclock_records_path(user_view: @employee.employee_number), class: 'btn btn-block btn-lg btn-default float-right' %>
+      <%= link_to '<i class="fa fa-fw fa-clipboard"></i> View Time Card'.html_safe, timeclock_records_path(user_view: @ipad_user.employee_number), class: 'btn btn-block btn-lg btn-default' %>
     </div>
 
     <div class="form-group">
-      <button class="btn btn-block btn-lg btn-default change-pin-button">
-        <i class="fa fa-fw fa-th"></i> Change Pin
-      </button>
+      <%= link_to '<i class="fa fa-fw fa-th"></i> Change Pin'.html_safe, change_pin_ipad_index_path(user_view: @ipad_user.employee_number), class: 'btn btn-block btn-lg btn-default' %>
     </div>
 
     <div class="form-group">
-      <button class="btn btn-block btn-lg btn-default logout-button">
-        <i class="fa fa-fw fa-ban"></i> Log Out
-      </button>
+      <%= link_to '<i class="fa fa-fw fa-ban"></i> Log Out'.html_safe, logout_ipad_index_path, class: 'btn btn-block btn-lg btn-default' %>
     </div>
 
   </div>

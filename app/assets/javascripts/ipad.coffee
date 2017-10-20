@@ -4,18 +4,26 @@
 
 $(document).on 'turbolinks:load', (event) ->
   $('.number-button').on 'touchend', ->
-    employeePin = $('#employee-number-field').val()
-    if employeePin.length < 3
+    employeePin = $(this).closest('form').find('.keypad-input').val()
+    employeePinField = $(this).closest('form').find('.keypad-input')
+    fieldLength = employeePinField.attr('maxlength')
+    if employeePin.length < fieldLength
       employeePin += $(this).text()
-      $('#employee-number-field').val(employeePin)
+      employeePinField.val(employeePin)
     return
 
   $('.bksp-button').on 'touchend', ->
-    employeePin = $('#employee-number-field').val()
+    employeePin = $(this).closest('form').find('.keypad-input').val()
+    employeePinField = $(this).closest('form').find('.keypad-input')
     if employeePin.length > 0
       employeePin = employeePin.substring(0, employeePin.length - 1)
-      $('#employee-number-field').val(employeePin)
+      employeePinField.val(employeePin)
     return
 
   $('.enter-button').on 'touchend', ->
+    $(this).closest('form').submit()
+
+  $('#employee-number-dropdown').on 'change', ->
+    employeePin = $(this).val().substring(0, 3)
+    $('#employee-number-field').val(employeePin)
     $(this).closest('form').submit()

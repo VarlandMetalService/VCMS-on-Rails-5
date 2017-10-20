@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   resources :ipad do
     collection do
       get :enter_pin
+      get :change_pin
+      get :logout
     end
   end
   resources :timeclock_records do
