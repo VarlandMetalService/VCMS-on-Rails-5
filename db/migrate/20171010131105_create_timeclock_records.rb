@@ -10,8 +10,8 @@ class CreateTimeclockRecords < ActiveRecord::Migration[5.1]
       t.string    :edit_ip_address
       t.bigint    :reason_code_id
       t.string    :notes
-      t.boolean   :is_locked
-      t.boolean   :is_flagged
+      t.boolean   :is_locked,           default: false
+      t.boolean   :is_flagged,          default: false
 
       t.timestamps
     end

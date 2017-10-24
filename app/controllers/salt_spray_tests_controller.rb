@@ -105,9 +105,6 @@ private
     if so_details = get_shop_order_details(shop_order_param)
       sub_from_api = so_details['sub']
 
-      my_logger.debug "so_details = " + so_details.to_s
-      my_logger.debug "sub = " + params[:salt_spray_test][:salt_spray_part_attributes][:sub]
-
       begin
         @salt_spray_test.salt_spray_part.customer = so_details['customer']
         @salt_spray_test.salt_spray_part.process = so_details['process']
@@ -127,7 +124,6 @@ private
 
       rescue => e
         @salt_spray_test.errors.add(:salt_spray_test, "Invalid shop order number.")
-        my_logger.error "Failed to find part information from shop order number - " + e.to_s
       end
     else
       if !params[:salt_spray_test][:salt_spray_part_attributes][:customer].blank?

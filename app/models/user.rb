@@ -27,11 +27,15 @@ class User < ApplicationRecord
                 foreign_key: 'entered_by'
   has_many      :salt_spray_tests,
                 foreign_key: 'put_on_by'
+  has_many      :timeclock_records
 
   accepts_nested_attributes_for   :assigned_permissions,
                                   reject_if: :all_blank,
                                   allow_destroy: true
   accepts_nested_attributes_for   :permissions
+  accepts_nested_attributes_for   :timeclock_records,
+                                  reject_if: :all_blank,
+                                  allow_destroy: true
 
   # Filters.
   before_save { self.email = email.downcase }
@@ -116,59 +120,6 @@ class User < ApplicationRecord
     end
   end
 
-  def update_status
-    # Find last clock record for user.
-    last_record = TimeclockRecord.where('user_id = ? AND is_deleted IS FALSE', self.id).order(timestamp: :desc).first
-
-    if !last_record
-      self.current_status = 'out'
-      self.status_timestamp = nil
-      self.save
-      return
-    end
-
-    # If last record was notes record, find previous record.
-    invalid_ids = []
-    while last_record.record_type == 'Notes'
-      invalid_ids << last_record.id
-      last_record = TimeclockRecord.where('user_id = ? AND is_deleted IS FALSE AND id NOT IN (?)', self.id, invalid_ids).order(timestamp: :desc).first
-
-      if last_record.nil?
-        self.current_status = 'out'
-        self.status_timestamp = nil
-        self.save
-        return
-      end
-    end
-
-    last_in = TimeclockRecord.where('user_id = ? AND record_type = ? AND is_deleted IS FALSE', self.id, 'Start Work').order(record_timestamp: :desc)
-
-    # If last record was clock out or in, update status.
-    case last_record.record_type
-    when 'Start Work'
-      self.current_status = 'in'
-      self.status_timestamp = last_record.record_timestamp
-      self.save
-      return
-    when 'End Work'
-      self.current_status = 'out'
-      self.status_timestamp = nil
-      self.save
-      return
-    when 'Start Break'
-      self.current_status = 'break'
-      self.status_timestamp = last_in.record_timestamp
-      self.save
-      return
-    when 'End Break'
-      self.current_status = 'in'
-      self.status_timestamp = last_in.record_timestamp
-      self.save
-      return
-    end
-
-  end
-
   def punch_clock(record_type, submit_type = 'pin', timestamp = DateTime.current)
 
     day = timestamp.strftime('%e')
@@ -203,25 +154,6 @@ class User < ApplicationRecord
     clock_record.record_timestamp = timestamp.strftime('%F')
     if !clock_record.save
       return false
-    end
-
-    case record_type
-    when 'Start Work'
-      self.current_status = 'in'
-      self.status_timestamp = timestamp.strftime('%F')
-      return self.save
-    when 'End Work'
-      self.current_status = 'out'
-      self.status_timestamp = nil
-      return self.save
-    when 'Start Break'
-      self.current_status = 'in'
-      self.status_timestamp = timestamp.strftime('%F')
-      return self.save
-    when 'End Break'
-      self.current_status = 'in'
-      self.status_timestamp = timestamp.strftime('%F')
-      return self.save
     end
 
   end

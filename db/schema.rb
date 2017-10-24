@@ -202,8 +202,8 @@ ActiveRecord::Schema.define(version: 20171010145317) do
     t.string "edit_ip_address"
     t.bigint "reason_code_id"
     t.string "notes"
-    t.boolean "is_locked"
-    t.boolean "is_flagged"
+    t.boolean "is_locked", default: false
+    t.boolean "is_flagged", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -217,7 +217,7 @@ ActiveRecord::Schema.define(version: 20171010145317) do
     t.string "initials"
     t.string "email"
     t.string "pin"
-    t.string "current_status"
+    t.string "current_status", default: "out"
     t.timestamp "status_timestamp"
     t.string "background_color"
     t.string "text_color"

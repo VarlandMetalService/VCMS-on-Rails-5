@@ -14,15 +14,15 @@
       <% @timeclock_records.each do |t| %>
         <tr data-id="<%= t.id %>" class="<%= 'info' if t.is_flagged %>">
           <td class="text-center">
-            <%= t.record_timestamp.strftime('%a, %m/%d') %>
-            <% if t.record_timestamp != t.updated_at.localtime %>
+            <%= t.record_timestamp.localtime.strftime('%a, %m/%d') %>
+            <% if t.record_timestamp.localtime.strftime('%a, %m/%d') != t.updated_at.localtime.strftime('%a, %m/%d') %>
               <br />
               <small class="text-muted"><%= t.updated_at.localtime.strftime('%a, %m/%d') %></small>
             <% end %>
           </td>
           <td class="text-center">
-            <%= t.record_timestamp.strftime('%l:%M %P') %>
-            <% if t.record_timestamp != t.updated_at.localtime %>
+            <%= t.record_timestamp.localtime.strftime('%l:%M %P') %>
+            <% if t.record_timestamp.localtime.strftime('%l:%M %P') != t.updated_at.localtime.strftime('%l:%M %P') %>
               <br />
               <small class="text-muted"><%= t.updated_at.localtime.strftime('%l:%M %P') %></small>
             <% end %>
