@@ -3,6 +3,14 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 $(document).on 'turbolinks:load', (event) ->
+
+  # Update IPad clock
+  setInterval (->
+    now = moment().format('ddd - MM/D - H:mm:ss a')
+    $('.live-clock').html(now)
+    return
+  ), 1000
+
   $('.number-button').on 'touchend', ->
     employeePin = $(this).closest('form').find('.keypad-input').val()
     employeePinField = $(this).closest('form').find('.keypad-input')
@@ -27,3 +35,5 @@ $(document).on 'turbolinks:load', (event) ->
     employeePin = $(this).val().substring(0, 3)
     $('#employee-number-field').val(employeePin)
     $(this).closest('form').submit()
+
+
