@@ -21,9 +21,6 @@
             </div>
             <div class="form-group">
               <%= f.text_field :employee_number, {maxlength: 3, class: 'form-control text-center keypad-input', id: 'employee-number-field', autofocus: true, readonly: true, required: true} %>
-              <% if params[:error] %>
-                <p class='is-invalid'>Invalid Employee Number</p>
-              <% end %>
             </div>
 
           </div>

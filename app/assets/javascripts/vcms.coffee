@@ -3,5 +3,5 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 $(document).on 'turbolinks:load', (event) ->
-  if window.location.href == 'http://localhost:3000/ipad'
+  if window.location.pathname == '/ipad' || window.location.pathname == '/ipad/enter_pin'
     $('.flash-message').fadeOut(3000)

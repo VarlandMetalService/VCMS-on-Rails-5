@@ -27,7 +27,7 @@ class UsersController < ApplicationController
       if params[:user][:ipad_submit]
         if params[:user][:current_status]
           flash[:error] = params[:user][:failure_message]
-          redirect_to controller: 'ipad', action: 'employee_action', pin: @user.pin, error: true and return
+          redirect_to controller: 'ipad', action: 'employee_action', pin: @user.pin and return
         end
         flash[:error] = params[:user][:failure_message]
         redirect_to controller: 'ipad', action: 'change_pin' and return

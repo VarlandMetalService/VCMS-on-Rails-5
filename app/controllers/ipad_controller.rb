@@ -3,15 +3,20 @@ class IpadController < ApplicationController
   end
 
   def enter_pin
-    redirect_to action: 'index', error: true and return if params[:employee_number].blank?
-    session[:ipad_user_id] = User.find_by_employee_number(params[:employee_number]).id
+    found_user = User.find_by_employee_number(params[:employee_number])
+    if params[:employee_number].blank? || !found_user
+      flash[:error] = 'Invalid Employee Number.'
+      redirect_to action: 'index' and return
+    end
+    session[:ipad_user_id] = found_user.id
     @ipad_user = User.find(session[:ipad_user_id])
   end
 
   def employee_action
     @ipad_user = User.find(session[:ipad_user_id])
-    if(@ipad_user.pin != params[:pin])
-      redirect_to action: 'enter_pin', employee_number: @ipad_user.employee_number, error: true
+    if @ipad_user.pin != params[:pin]
+      flash[:error] = 'Invalid PIN.'
+      redirect_to action: 'enter_pin', employee_number: @ipad_user.employee_number
     end
   end
 
