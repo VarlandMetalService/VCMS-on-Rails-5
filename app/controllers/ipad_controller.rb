@@ -20,6 +20,7 @@ class IpadController < ApplicationController
 
   def logout
     session.delete(:ipad_user_id)
+    flash[:notice] = 'You have successfully logged out.' unless params[:suppress_notice]
     redirect_to action: 'index'
   end
 

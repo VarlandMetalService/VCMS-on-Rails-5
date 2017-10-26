@@ -6,7 +6,7 @@ $(document).on 'turbolinks:load', (event) ->
 
   # Update IPad clock
   setInterval (->
-    now = moment().format('ddd - MM/D - H:mm:ss a')
+    now = moment().format('ddd - MM/D - h:mm:ss a')
     $('.live-clock').html(now)
     return
   ), 1000

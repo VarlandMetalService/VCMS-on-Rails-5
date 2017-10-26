@@ -32,7 +32,7 @@
         <%= render 'keypad' %>
         <div class="row text-center">
           <div class="col-3">
-            <%= link_to '<i class="fa fa-fw fa-chevron-left"></i> Back'.html_safe, logout_ipad_index_path, class: 'btn btn-default' %>
+            <%= link_to '<i class="fa fa-fw fa-chevron-left"></i> Back'.html_safe, logout_ipad_index_path(suppress_notice: true), class: 'btn btn-default' %>
           </div>
           <div class="col-9">
             <%= link_to '<i class="fa fa-fw fa-clipboard"></i> View Time Card'.html_safe, timeclock_records_path, class: 'btn btn-primary float-right' %>

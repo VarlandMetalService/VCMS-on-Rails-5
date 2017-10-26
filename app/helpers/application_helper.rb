@@ -96,4 +96,8 @@ module ApplicationHelper
     date ? date.strftime('%m/%d/%Y') : ''
   end
 
+  def current_local_time
+    DateTime.current.localtime.strftime('%l:%M %P')
+  end
+
 end

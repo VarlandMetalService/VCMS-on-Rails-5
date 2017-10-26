@@ -16,17 +16,21 @@ class UsersController < ApplicationController
       if params[:user][:ipad_submit]
         if params[:user][:current_status]
           session.delete(:ipad_user)
+          flash[:success] = params[:user][:success_message]
           redirect_to controller: 'ipad', action: 'index' and return
         end
+        flash[:success] = params[:user][:success_message]
         redirect_to controller: 'ipad', action: 'employee_action', pin: @user.pin and return
       end
       redirect_to users_url, notice: "Successfully updated <code>#{@user.full_name}</code>."
     else
       if params[:user][:ipad_submit]
         if params[:user][:current_status]
+          flash[:error] = params[:user][:failure_message]
           redirect_to controller: 'ipad', action: 'employee_action', pin: @user.pin, error: true and return
         end
-        redirect_to controller: 'ipad', action: 'change_pin', error: true and return
+        flash[:error] = params[:user][:failure_message]
+        redirect_to controller: 'ipad', action: 'change_pin' and return
       end
       render :edit
     end

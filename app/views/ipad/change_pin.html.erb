@@ -18,11 +18,10 @@
 
         <div class="form-group">
           <%= f.text_field :pin, {value: '', type: 'password', class: 'form-control text-center keypad-input', id: 'employee-change-pin-field' , maxlength: 4, autofocus: true, readonly: true} %>
-          <% if params[:error] %>
-            <p class="is-invalid">PIN change failed. Please contact IT for help.</p>
-          <% end %>
         </div>
         <%= f.hidden_field :ipad_submit, value: true %>
+        <%= f.hidden_field :success_message, value: "Successfully changed PIN" %>
+        <%= f.hidden_field :failure_message, value: "Failed to change PIN. Please contact IT for help." %>
 
       </div>
     </div>
