@@ -3,6 +3,7 @@ class IpadController < ApplicationController
   end
 
   def enter_pin
+    redirect_to action: 'index', error: true and return if params[:employee_number].blank?
     session[:ipad_user_id] = User.find_by_employee_number(params[:employee_number]).id
     @ipad_user = User.find(session[:ipad_user_id])
   end

@@ -58,6 +58,14 @@ body {
   }
 }
 
+.bg-warning {
+  background-color: #fcf8e3 !important;
+}
+
+.bg-danger {
+  background-color: #f2dede !important;
+}
+
 .bg-success {
   background-color: #dff0d8 !important;
 }
@@ -70,7 +78,6 @@ body {
   margin-bottom: $default-spacing;
   padding: $default-spacing;
   border: 1px solid rgb(221, 221, 221);
-  background-color: #fcf8e3;
 }
 
 .table-header {

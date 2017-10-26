@@ -20,7 +20,10 @@
               <%= select_tag 'employees', options_from_collection_for_select(User.all, :employee_number, :number_and_name), {include_blank: true, class: 'form-control', id: 'employee-number-dropdown'} %>
             </div>
             <div class="form-group">
-              <%= f.text_field :employee_number, {maxlength: 3, class: 'form-control text-center keypad-input', id: 'employee-number-field', autofocus: true, readonly: true} %>
+              <%= f.text_field :employee_number, {maxlength: 3, class: 'form-control text-center keypad-input', id: 'employee-number-field', autofocus: true, readonly: true, required: true} %>
+              <% if params[:error] %>
+                <p class='is-invalid'>Invalid Employee Number</p>
+              <% end %>
             </div>
 
           </div>
