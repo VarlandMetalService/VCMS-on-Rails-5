@@ -1,4 +1,4 @@
-<nav class="navbar fixed-top navbar-light bg-light navbar-expand-md justify-content-left py-0" role="navigation">
+<nav class="navbar fixed-top navbar-light bg-light navbar-expand-md justify-content-left py-0 mb-2" role="navigation">
   <div class="container-fluid">
     <div class="navbar-header">
       <%= link_to root_url, class: 'navbar-brand' do -%>
@@ -7,7 +7,7 @@
     </div>
     <div class="navbar-right">
       <div class="live-clock float-left pr-4"></div>
-      <button type="button" class="btn btn-default ipad-refresh"><i class="fa fa-refresh"></i></button>
+      <%= link_to '<i class="fa fa-refresh"></i>'.html_safe, '#', onClick: 'history.go(0)', class: 'btn btn-default mb-0'  %>
     </div>
   </div>
 </nav>

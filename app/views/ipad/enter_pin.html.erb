@@ -17,7 +17,7 @@
       <div class="col-12 col-sm-4 offset-sm-4">
 
         <div class="form-group">
-          <%= f.text_field :pin, {type: 'password',maxlength: 4, class: 'form-control text-center keypad-input', id: 'employee-pin-field', autofocus: true, readonly: true} %>
+          <%= f.text_field :pin, {type: 'password', maxlength: 4, class: 'form-control text-center keypad-input', id: 'employee-pin-field', autofocus: true, readonly: true} %>
           <% if params[:error] %>
             <p class='is-invalid'>Invalid Pin</p>
           <% end %>
