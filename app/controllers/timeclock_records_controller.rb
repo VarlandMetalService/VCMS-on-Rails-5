@@ -3,8 +3,9 @@ class TimeclockRecordsController < ApplicationController
 
   def index
     @employee = User.find_by_id session[:ipad_user_id] || current_user
-    @timeclock_records = TimeclockRecord.where('user_id = ?', @employee.id)
+    @timeclock_records = TimeclockRecord.where('user_id = ? AND record_timestamp >= ?', @employee.id, Date.today.beginning_of_week - 1).order(record_timestamp: :desc)
     @flagged_records = TimeclockRecord.where('user_id = ? AND is_flagged = ?', @employee.id, true)
+    @timed_redirect = true if params[:timed_redirect]
   end
 
   def new

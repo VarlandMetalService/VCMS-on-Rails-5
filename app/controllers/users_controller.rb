@@ -17,7 +17,7 @@ class UsersController < ApplicationController
         if params[:user][:current_status]
           session.delete(:ipad_user)
           flash[:success] = params[:user][:success_message]
-          redirect_to controller: 'ipad', action: 'index' and return
+          redirect_to controller: 'timeclock_records', action: 'index', timed_redirect: true and return
         end
         flash[:success] = params[:user][:success_message]
         redirect_to controller: 'ipad', action: 'employee_action', pin: @user.pin and return
