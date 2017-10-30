@@ -11,6 +11,7 @@ Rails.application.routes.draw do
 
   resources :timeclock_records do
     collection do
+      get :manage_records
       get :reason_codes
       get :clocked_in
     end

@@ -1,0 +1,49 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 col-md-9">
+      <% if @timeclock_records.size == 0 %>
+        <p>No editable records found.</p>
+      <% else %>
+        <%= form_with url: manage_records_timeclock_records_path, method: 'get', class: 'app-form' do |f| %>
+          <h3>Filter Options</h3>
+          <div class="row">
+            <div class="col-12 col-md-4">
+              <div class="form-group">
+                <%= f.label :with_period, 'Week:'  %>
+                <%#= f.select :with_period, TimeclockRecord.options_for_periods, { include_blank: true }, { class: 'form-control' } %>
+                <select class="form-control" name="filterPeriod">
+                  <option value="0">&nbsp;</option>
+                  <%#
+                  <?php foreach ($periods as $p) { ?>
+                    <option value="<?= $p->period_ending_date->format('U') ?>">
+                      <?= $p->period_start_date->format('m/d/y') ?> &ndash; <?= $p->period_ending_date->format('m/d/y') ?>
+                    </option>
+                  <? } ?>
+                  %>
+                </select>
+              </div>
+            </div>
+            <div class="col-12 col-md-4">
+              <div class="form-group">
+                <%= f.label :with_employee, 'Person:'  %>
+                <%= f.select :with_employee, User.options_for_employees, { include_blank: true }, { class: 'form-control' } %>
+              </div>
+            </div>
+            <div class="col-12 col-md-4">
+              <div class="form-group">
+                <%= f.label :with_notes, 'Notes:'  %>
+                <%= f.select :with_notes, TimeclockRecord.options_for_notes, { include_blank: true }, { class: 'form-control' } %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+        <%= render "edit_table" %>
+      <% end %>
+    </div>
+    <div class="col-12 col-md-3">
+      <%# Add Clock Record Form %>
+      <%= render 'add_record_form', timeclock_record: @timeclock_record %>
+      <%# Close Period Form (if access_level >= 3) %>
+    </div>
+  </div>
+</div>

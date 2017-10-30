@@ -1,5 +1,6 @@
 class TimeclockRecordsController < ApplicationController
   before_action :set_timeclock_record, only: [:show, :edit, :update, :destroy]
+  before_action :check_permission
 
   def index
     @employee = User.find_by_id session[:ipad_user_id] || current_user
@@ -21,7 +22,8 @@ class TimeclockRecordsController < ApplicationController
     if @timeclock_record.save
       redirect_to @timeclock_record, notice: 'Timeclock record was successfully created.'
     else
-      render :new
+      @timeclock_records = TimeclockRecord.all.order(record_timestamp: :desc)
+      render :manage_records
     end
   end
 
@@ -36,6 +38,11 @@ class TimeclockRecordsController < ApplicationController
   def destroy
     @timeclock_record.destroy
     redirect_to timeclock_records_url, notice: 'Timeclock record was successfully destroyed.'
+  end
+
+  def manage_records
+    @timeclock_record = TimeclockRecord.new
+    @timeclock_records = TimeclockRecord.all.order(record_timestamp: :desc)
   end
 
   def reason_codes
@@ -55,6 +62,10 @@ class TimeclockRecordsController < ApplicationController
     # Only allow a trusted parameter "white list" through.
     def timeclock_record_params
       params.require(:timeclock_record).permit(:user_id, :record_type, :record_timestamp, :submit_type, :reason_code_id, :ip_address, :edit_type, :edit_ip_address, :notes, :is_locked, :is_flagged)
+    end
+
+    def check_permission
+      require_permission 'sysadmin', 2
     end
 
 end

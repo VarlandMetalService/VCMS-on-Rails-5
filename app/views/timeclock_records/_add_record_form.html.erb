@@ -1,0 +1,50 @@
+<%= form_with model: timeclock_record, class: 'app-form' do |f| %>
+  <h3>Add Clock Record</h3>
+
+  <% if @timeclock_record.errors.any? %>
+    <div class="error_explanation text-danger">
+      <p><%= pluralize(timeclock_record.errors.count, "error") %> prevented this test from being saved:</p>
+      <ul>
+        <% @timeclock_record.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.hidden_field :submit_type, value: 'edit' %>
+    <%= f.hidden_field :ip_address, value: request.remote_ip %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :user_id, required_field_label('Employee:'), class: 'form-control-label' %>
+    <%= f.collection_select(:user_id, User.order('employee_number'), :id, :number_and_name, { include_blank: true }, { class: "form-control#{' is-invalid' if @timeclock_record.errors[:user_id].any?}", required: 'required' }) %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :record_type, required_field_label('Record Type:'), class: 'form-control-label' %>
+    <%= f.select :record_type, TimeclockRecord.options_for_record_type, { include_blank: true }, { class: 'form-control', required: true } %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :record_timestamp, required_field_label('Date/Time:') %>
+    <%= f.text_field :record_timestamp, { class: "form-control #{' is-invalid' if timeclock_record.errors[:record_timestamp].any?}", required: 'required' } %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :reason_code_id, required_field_label('Reason:') %>
+    <%= f.collection_select :reason_code_id, ReasonCode.all, :id, :code, { include_blank: true }, { class: 'form-control', required: true } %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :notes, 'Notes' %>
+    <%= f.text_area :notes, { class: 'form-control', rows: 5 } %>
+  </div>
+
+  <div class="form-group text-right">
+    <%= link_to 'Cancel', manage_records_timeclock_records_path, class: 'btn btn-link' %>
+    <%= f.submit 'Add Record', class: 'btn btn-default' %>
+  </div>
+
+<% end %>

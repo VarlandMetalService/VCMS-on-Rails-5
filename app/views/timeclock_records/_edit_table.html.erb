@@ -1,0 +1,51 @@
+<div class="table-responsive">
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th class="col-2 text-left">Employee</th>
+        <th class="col-1 text-center">Date</th>
+        <th class="col-1 text-center">Time</th>
+        <th class="col-1 text-center">Type</th>
+        <th class="col-2 text-left">Record Edited?</th>
+        <th class="col-3 text-left">Notes</th>
+        <th class="col-2 text-center">&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody class="filtered-table">
+      <% @timeclock_records.each do |t| %>
+        <tr data-id="<%= t.id %>" class="<%= 'info' if t.is_flagged %>">
+          <td class="text-center">
+            <%= t.user.employee_number %> - <%= t.user.full_name %>
+          </td>
+          <td class="text-center">
+            <%= t.record_timestamp.localtime.strftime('%a, %m/%d') %>
+          </td>
+          <td class="text-center">
+            <%= t.record_timestamp.localtime.strftime('%l:%M %P') %>
+          </td>
+          <td class="text-center <%= get_record_class(t.record_type) %>">
+            <%= t.record_type %>
+          </td>
+          <td class="text-left">
+            <% if t.edit_type %>
+              <small><strong>By:</strong></small> <%= t.user.full_name %>
+              <br />
+              <small><strong>When:</strong></small> <%= t.updated_at.localtime.strftime('%m/%d/%y %l:%M:%S %P') %>
+              <br />
+              <small><strong>Reason:</strong></small> <%= t.reason_code.code %>
+            <% end %>
+          </td>
+          <td class="text-left">
+            <% if t.edit_type && t.notes %>
+              <%= t.notes %>
+            <% end %>
+          </td>
+          <td class="text-center d-none d-xl-table-cell">
+            <%= link_to 'Edit', edit_timeclock_record_path(t), class: "btn btn-sm btn-default mr-2" %>
+            <%= link_to 'Delete', timeclock_record_path(t), data: { confirm: 'Are you sure?'}, method: 'delete', class: 'btn btn-sm btn-danger' if @access_level.access_level == 3 %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
