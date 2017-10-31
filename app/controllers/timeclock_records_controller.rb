@@ -23,6 +23,7 @@ class TimeclockRecordsController < ApplicationController
       redirect_to @timeclock_record, notice: 'Timeclock record was successfully created.'
     else
       @timeclock_records = TimeclockRecord.all.order(record_timestamp: :desc)
+      puts "Errors: #{@timeclock_record.errors.full_messages}"
       render :manage_records
     end
   end

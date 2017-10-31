@@ -28,7 +28,7 @@
   </div>
 
   <div class="form-group">
-    <%= f.label :record_timestamp, required_field_label('Date/Time:') %>
+    <%= f.label :record_timestamp, required_field_label('Date/Time:'), class: 'form-control-label' %>
     <%= f.text_field :record_timestamp, { class: "form-control #{' is-invalid' if timeclock_record.errors[:record_timestamp].any?}", required: 'required' } %>
   </div>
 
