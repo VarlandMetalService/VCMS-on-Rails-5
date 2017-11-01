@@ -36,9 +36,7 @@
             <% end %>
           </td>
           <td class="text-left">
-            <% if t.edit_type && t.notes %>
-              <%= t.notes %>
-            <% end %>
+            <%= t.notes %>
           </td>
           <td class="text-center d-none d-xl-table-cell">
             <%= link_to 'Edit', edit_timeclock_record_path(t), class: "btn btn-sm btn-default mr-2" %>

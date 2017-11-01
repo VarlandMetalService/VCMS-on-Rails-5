@@ -19,7 +19,7 @@
 
   <div class="form-group">
     <%= f.label :user_id, required_field_label('Employee:'), class: 'form-control-label' %>
-    <%= f.collection_select(:user_id, User.order('employee_number'), :id, :number_and_name, { include_blank: true }, { class: "form-control#{' is-invalid' if @timeclock_record.errors[:user_id].any?}", required: 'required' }) %>
+    <%= f.collection_select :user_id, User.order('employee_number'), :id, :number_and_name, { include_blank: true }, { class: "form-control#{' is-invalid' if @timeclock_record.errors[:user_id].any?}", required: 'required' } %>
   </div>
 
   <div class="form-group">

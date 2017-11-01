@@ -5,6 +5,13 @@ class TimeclockRecord < ApplicationRecord
   before_validation :check_datetime_format
   before_save :check_timestamp_buffer
 
+  validates :user,
+            presence: true
+  validates :record_type,
+            presence: true
+  validates :record_timestamp,
+            presence: true
+
   def self.options_for_record_type
     [
       ['Start Work', 'Start Work'],
@@ -18,7 +25,7 @@ class TimeclockRecord < ApplicationRecord
   def self.options_for_notes
     [
       ['Only Notes', '1'],
-      ['Hide Notes', '2'],
+      ['Hide Notes', '2']
     ]
   end
 
@@ -32,9 +39,8 @@ private
   end
 
   def check_datetime_format
-    # Time.zone.parse(record_timestamp.to_s) rescue
-    puts "TIMEZONE PARSE: #{Time.zone.parse(record_timestamp)}"
-    errors.add(:record_timestamp, 'must be a valid date/time')
+    puts "RECORD TIMESTAMP: #{record_timestamp.to_s}"
+    Time.zone.parse(record_timestamp.to_s) rescue errors.add(:record_timestamp, 'must be a valid date/time')
   end
 
 end

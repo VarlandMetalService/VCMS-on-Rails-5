@@ -17,8 +17,11 @@ class TimeclockRecordsController < ApplicationController
   end
 
   def create
+    puts "Date/Time BEFORE: #{params[:timeclock_record][:record_timestamp]}"
+    # DateTime.strptime(params[:timeclock_record][:record_timestamp], "%m-%d-%Y %H:%M:%S")
+    puts timeclock_record_params
     @timeclock_record = TimeclockRecord.new timeclock_record_params
-
+    puts "Date/Time AFTER: #{@timeclock_record.record_timestamp}"
     if @timeclock_record.save
       redirect_to @timeclock_record, notice: 'Timeclock record was successfully created.'
     else

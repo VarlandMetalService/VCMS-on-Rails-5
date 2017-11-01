@@ -16,7 +16,7 @@ gem 'uglifier',                     '>= 1.3.0'
 # gem 'therubyracer', platforms: :ruby
 
 # Project specific gems
-gem 'american_date'
+gem 'american_date',                :git => "git@github.com:/denisahearn/ruby-american_date.git"
 gem 'awesome_nested_set'
 gem 'bootstrap',                    '~> 4.0.0.beta2'
 gem 'bootstrap-datepicker-rails'
