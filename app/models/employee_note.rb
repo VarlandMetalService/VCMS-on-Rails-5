@@ -1,5 +1,7 @@
 class EmployeeNote < ApplicationRecord
 
+  after_initialize :set_date
+
   # Constants.
   VALID_IP_REGEX = /\A([1-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])(\.([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])){3}\z/i
 
@@ -86,8 +88,7 @@ class EmployeeNote < ApplicationRecord
     users.map { |u| [u.full_name, u.id] }
   end
 
-  def initialize(params = {})
-    super
+  def set_date(params = {})
     current_time = Time.new
     today = Date.today
     case current_time.hour

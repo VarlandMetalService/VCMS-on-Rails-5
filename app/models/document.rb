@@ -3,6 +3,7 @@ require 'rest-client'
 class Document < ApplicationRecord
 
   # Callbacks.
+  after_initialize :set_valid
   before_save :set_doc_update
   after_destroy :update_all_positions
 
@@ -80,8 +81,7 @@ class Document < ApplicationRecord
     ]
   end
 
-  def initialize(params = {})
-    super
+  def set_valid(params = {})
     self.is_valid = true
   end
 

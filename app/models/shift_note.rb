@@ -1,6 +1,7 @@
 class ShiftNote < ApplicationRecord
 
   # Callbacks.
+  after_initialize :set_date_and_shift
   after_update :send_author_follow_up
   after_create :send_specific_note_email
 
@@ -163,8 +164,7 @@ class ShiftNote < ApplicationRecord
     users.map { |u| [u.full_name, u.id] }
   end
 
-  def initialize(params = {})
-    super
+  def set_date_and_shift(params = {})
     current_time = Time.new
     today = Date.today
     case current_time.hour

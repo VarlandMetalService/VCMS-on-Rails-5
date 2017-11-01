@@ -1,5 +1,5 @@
 GIT
-  remote: git@github.com:/denisahearn/ruby-american_date.git
+  remote: git://github.com/denisahearn/ruby-american_date.git
   revision: 39679ececac7dc5d1f621ed6194b54403e669736
   specs:
     american_date (1.0.0)
