@@ -39,7 +39,7 @@
             <%= t.notes %>
           </td>
           <td class="text-center d-none d-xl-table-cell">
-            <%= link_to 'Edit', edit_timeclock_record_path(t), class: "btn btn-sm btn-default mr-2" %>
+            <%= link_to 'Edit', manage_records_timeclock_records_path(id: t), class: "btn btn-sm btn-default mr-2" %>
             <%= link_to 'Delete', timeclock_record_path(t), data: { confirm: 'Are you sure?'}, method: 'delete', class: 'btn btn-sm btn-danger' if @access_level.access_level == 3 %>
           </td>
         </tr>

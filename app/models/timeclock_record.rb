@@ -29,17 +29,27 @@ class TimeclockRecord < ApplicationRecord
     ]
   end
 
+  # Overrides attr_writer
+  def record_timestamp=(val)
+    val = val.to_datetime
+    buffer = 10.seconds
+    buffer_min = [1, 16, 31, 46]
+    val -= buffer if val.sec <= buffer && buffer_min.include?(val.to_datetime.min)
+    write_attribute(:record_timestamp, val)
+  end
+
 private
 
   def check_timestamp_buffer
     throw :abort if !self.record_timestamp
-    buffer = 10.seconds
-    buffer_min = [1, 16, 31, 46]
-    self.record_timestamp -= buffer if self.record_timestamp.sec <= buffer && buffer_min.include?(self.record_timestamp.min)
+    errors.add(:record_timestamp, 'must be a valid date/time') if ((DateTime.parse(self.record_timestamp) rescue ArgumentError) == ArgumentError)
+    # buffer = 10.seconds
+    # buffer_min = [1, 16, 31, 46]
+    # self.record_timestamp -= buffer if self.record_timestamp.sec <= buffer && buffer_min.include?(self.record_timestamp.min)
   end
 
   def check_datetime_format
-    puts "RECORD TIMESTAMP: #{record_timestamp.to_s}"
+
     Time.zone.parse(record_timestamp.to_s) rescue errors.add(:record_timestamp, 'must be a valid date/time')
   end
 

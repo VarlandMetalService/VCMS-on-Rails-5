@@ -8,7 +8,8 @@
       <%= form_with model: @ipad_user do |f| %>
         <div class="form-group">
           <%= f.hidden_field :record_type, value: 'End Work' %>
-          <%= f.hidden_field :record_timestamp, value: DateTime.current %>
+          <%#= f.hidden_field :record_timestamp, value: DateTime.current %>
+          <%= f.hidden_field :record_timestamp, value: "10/30/2017 5:31:02 am" %>
           <%= f.hidden_field :submit_type, value: 'pin' %>
           <%= f.hidden_field :ip_address, value: request.remote_ip %>
           <%= f.hidden_field :success_message, value: "Successfully clocked out at #{current_local_time}." %>
@@ -43,7 +44,8 @@
       <%= form_with model: @ipad_user do |f| %>
         <div class="form-group">
           <%= f.hidden_field :record_type, value: 'Start Work' %>
-          <%= f.hidden_field :record_timestamp, value: DateTime.current %>
+          <%#= f.hidden_field :record_timestamp, value: DateTime.current %>
+          <%= f.hidden_field :record_timestamp, value: "10/30/2017 5:31:02 am" %>
           <%= f.hidden_field :submit_type, value: 'pin' %>
           <%= f.hidden_field :ip_address, value: request.remote_ip %>
           <%= f.hidden_field :success_message, value: "Successfully clocked in at #{current_local_time}." %>

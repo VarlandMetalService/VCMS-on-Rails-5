@@ -13,9 +13,6 @@ class TimeclockRecordsController < ApplicationController
     @timeclock_record = TimeclockRecord.new
   end
 
-  def edit
-  end
-
   def create
     @timeclock_record = TimeclockRecord.new timeclock_record_params
     if @timeclock_record.save
@@ -41,7 +38,7 @@ class TimeclockRecordsController < ApplicationController
   end
 
   def manage_records
-    @timeclock_record = TimeclockRecord.new
+    @timeclock_record = params[:id] ? TimeclockRecord.find(params[:id]) : TimeclockRecord.new
     @timeclock_records = TimeclockRecord.all.order(record_timestamp: :desc)
   end
 
