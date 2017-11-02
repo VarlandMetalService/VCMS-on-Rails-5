@@ -1,9 +1,9 @@
-<%= form_with model: @timeclock_record, class: 'app-form' do |f| %>
+<%= form_with model: @timeclock_record, class: 'app-form', local: true do |f| %>
   <h3><%= params[:id] ? "Edit Clock Record" : "Add Clock Record" %></h3>
 
   <% if @timeclock_record.errors.any? %>
     <div class="error_explanation text-danger">
-      <p><%= pluralize(timeclock_record.errors.count, "error") %> prevented this test from being saved:</p>
+      <p><%= pluralize(@timeclock_record.errors.count, "error") %> prevented this test from being saved:</p>
       <ul>
         <% @timeclock_record.errors.full_messages.each do |msg| %>
           <li><%= msg %></li>

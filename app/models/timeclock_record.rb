@@ -3,7 +3,7 @@ class TimeclockRecord < ApplicationRecord
   belongs_to :reason_code, optional: true
 
   before_validation :check_datetime_format
-  before_save :check_timestamp_buffer
+  before_save :check_for_buffer
 
   validates :user,
             presence: true
@@ -29,28 +29,17 @@ class TimeclockRecord < ApplicationRecord
     ]
   end
 
-  # Overrides attr_writer
-  def record_timestamp=(val)
-    val = val.to_datetime
-    buffer = 10.seconds
-    buffer_min = [1, 16, 31, 46]
-    val -= buffer if val.sec <= buffer && buffer_min.include?(val.to_datetime.min)
-    write_attribute(:record_timestamp, val)
-  end
-
 private
 
-  def check_timestamp_buffer
-    throw :abort if !self.record_timestamp
-    errors.add(:record_timestamp, 'must be a valid date/time') if ((DateTime.parse(self.record_timestamp) rescue ArgumentError) == ArgumentError)
-    # buffer = 10.seconds
-    # buffer_min = [1, 16, 31, 46]
-    # self.record_timestamp -= buffer if self.record_timestamp.sec <= buffer && buffer_min.include?(self.record_timestamp.min)
+  def check_datetime_format
+    errors.add(:record_timestamp, 'must be a valid date/time') if ((DateTime.parse(record_timestamp) rescue ArgumentError) == ArgumentError)
+    throw :abort if !record_timestamp
   end
 
-  def check_datetime_format
-
-    Time.zone.parse(record_timestamp.to_s) rescue errors.add(:record_timestamp, 'must be a valid date/time')
+  def check_for_buffer
+    buffer = 10.seconds
+    buffer_min = [1, 16, 31, 46]
+    record_timestamp -= buffer if record_timestamp.sec <= buffer && buffer_min.include?(record_timestamp.min)
   end
 
 end
