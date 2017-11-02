@@ -32,14 +32,16 @@ class TimeclockRecord < ApplicationRecord
 private
 
   def check_datetime_format
-    errors.add(:record_timestamp, 'must be a valid date/time') if ((DateTime.parse(record_timestamp) rescue ArgumentError) == ArgumentError)
-    throw :abort if !record_timestamp
+    if self.record_timestamp.nil?
+      errors.add(:record_timestamp, 'must be a valid date/time')
+      throw :abort
+    end
   end
 
   def check_for_buffer
     buffer = 10.seconds
     buffer_min = [1, 16, 31, 46]
-    record_timestamp -= buffer if record_timestamp.sec <= buffer && buffer_min.include?(record_timestamp.min)
+    self.record_timestamp -= buffer if self.record_timestamp.sec <= buffer && buffer_min.include?(self.record_timestamp.min)
   end
 
 end

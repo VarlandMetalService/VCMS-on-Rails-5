@@ -30,7 +30,7 @@
 
   <div class="form-group">
     <%= f.label :record_timestamp, required_field_label('Date/Time:'), class: 'form-control-label' %>
-    <%= f.text_field :record_timestamp, { class: "form-control #{' is-invalid' if @timeclock_record.errors[:record_timestamp].any?}", required: 'required' } %>
+    <%= f.text_field :record_timestamp, { value: (@timeclock_record.record_timestamp.strftime("%m/%d/%Y %l:%M %P") if @timeclock_record.record_timestamp), class: "form-control #{' is-invalid' if @timeclock_record.errors[:record_timestamp].any?}", required: 'required' } %>
   </div>
 
   <div class="form-group">

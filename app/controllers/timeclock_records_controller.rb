@@ -9,10 +9,6 @@ class TimeclockRecordsController < ApplicationController
     @timed_redirect = true if params[:timed_redirect]
   end
 
-  def new
-    @timeclock_record = TimeclockRecord.new
-  end
-
   def create
     @timeclock_record = TimeclockRecord.new timeclock_record_params
     if @timeclock_record.save
@@ -51,12 +47,10 @@ class TimeclockRecordsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_timeclock_record
       @timeclock_record = TimeclockRecord.find(params[:id])
     end
 
-    # Only allow a trusted parameter "white list" through.
     def timeclock_record_params
       params.require(:timeclock_record).permit(:user_id, :record_type, :record_timestamp, :submit_type, :reason_code_id, :ip_address, :edit_type, :edit_ip_address, :notes, :is_locked, :is_flagged)
     end
