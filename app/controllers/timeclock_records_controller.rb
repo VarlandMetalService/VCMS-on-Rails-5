@@ -16,7 +16,7 @@ class TimeclockRecordsController < ApplicationController
   def create
     @timeclock_record = TimeclockRecord.new timeclock_record_params
     if @timeclock_record.save
-      redirect_to @timeclock_record, notice: 'Timeclock record was successfully created.'
+      redirect_to manage_records_timeclock_records_path, notice: 'Timeclock record was successfully created.' and return
     else
       @timeclock_records = TimeclockRecord.all.order(record_timestamp: :desc)
       puts "Errors: #{@timeclock_record.errors.full_messages}"
@@ -26,9 +26,11 @@ class TimeclockRecordsController < ApplicationController
 
   def update
     if @timeclock_record.update timeclock_record_params
-      redirect_to @timeclock_record, notice: 'Timeclock record was successfully updated.'
+      redirect_to manage_records_timeclock_records_path, notice: 'Timeclock record was successfully updated.'
     else
-      render :edit
+      @timeclock_records = TimeclockRecord.all.order(record_timestamp: :desc)
+      puts "Errors: #{@timeclock_record.errors.full_messages}"
+      render :manage_records
     end
   end
 
