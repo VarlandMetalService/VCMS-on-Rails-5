@@ -13,6 +13,7 @@ class IpadController < ApplicationController
   end
 
   def employee_action
+    @timeclock_record = TimeclockRecord.new
     @ipad_user = User.find(session[:ipad_user_id])
     if @ipad_user.pin != params[:pin]
       flash[:error] = 'Invalid PIN.'

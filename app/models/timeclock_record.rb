@@ -4,6 +4,7 @@ class TimeclockRecord < ApplicationRecord
 
   before_validation :check_datetime_format
   before_save :check_for_buffer
+  after_commit :update_user_status
 
   validates :user,
             presence: true
@@ -42,6 +43,25 @@ private
     buffer = 10.seconds
     buffer_min = [1, 16, 31, 46]
     self.record_timestamp -= buffer if self.record_timestamp.sec <= buffer && buffer_min.include?(self.record_timestamp.min)
+  end
+
+  def update_user_status
+
+    new_record = TimeclockRecord.where('user_id = ? AND record_type != ?', user_id, 'Notes').order("record_timestamp").last
+    if new_record.nil?
+      self.user.update_attribute(:current_status, 'in')
+      return
+    end
+
+    case new_record.record_type
+    when 'Start Work', 'End Break'
+      user.update_attribute(:current_status, 'in') if user.current_status != 'in'
+    when 'End Work'
+      user.update_attribute(:current_status, 'out') if user.current_status != 'out'
+    when 'Start Break'
+      user.update_attribute(:current_status, 'break') if user.current_status != 'break'
+    end
+
   end
 
 end

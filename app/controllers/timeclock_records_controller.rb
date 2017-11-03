@@ -10,10 +10,20 @@ class TimeclockRecordsController < ApplicationController
   end
 
   def create
+    puts "PARAMS: #{timeclock_record_params}"
     @timeclock_record = TimeclockRecord.new timeclock_record_params
     if @timeclock_record.save
+      if params[:timeclock_record][:ipad_submit]
+        session.delete(:ipad_user)
+        flash[:success] = params[:timeclock_record][:success_message]
+        redirect_to controller: 'timeclock_records', action: 'index', timed_redirect: true and return
+      end
       redirect_to manage_records_timeclock_records_path, notice: 'Timeclock record was successfully created.' and return
     else
+      if params[:timeclock_record][:ipad_submit]
+        flash[:error] = params[:timeclock_record][:failure_message]
+        redirect_to controller: 'ipad', action: 'employee_action', pin: params[:timeclock_record][:user_pin] and return
+      end
       @timeclock_records = TimeclockRecord.all.order(record_timestamp: :desc)
       render :manage_records
     end
