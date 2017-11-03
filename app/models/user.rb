@@ -28,6 +28,7 @@ class User < ApplicationRecord
   has_many      :salt_spray_tests,
                 foreign_key: 'put_on_by'
   has_many      :timeclock_records
+  has_many      :periods
 
   accepts_nested_attributes_for   :assigned_permissions,
                                   reject_if: :all_blank,

@@ -30,12 +30,13 @@ class TimeclockRecordsController < ApplicationController
 
   def destroy
     @timeclock_record.destroy
-    redirect_to timeclock_records_url, notice: 'Timeclock record was successfully destroyed.'
+    redirect_to timeclock_records_url, notice: 'Timeclock record was successfully deleted.'
   end
 
   def manage_records
     @timeclock_record = params[:id] ? TimeclockRecord.find(params[:id]) : TimeclockRecord.new
     @timeclock_records = TimeclockRecord.all.order(record_timestamp: :desc)
+    @closable_periods = Period.where('period_start_date < ? AND is_closed IS FALSE', Date.current)
   end
 
   def reason_codes

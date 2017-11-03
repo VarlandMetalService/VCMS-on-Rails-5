@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :period
+
   resources :ipad, only: [:index] do
     collection do
       get :enter_pin

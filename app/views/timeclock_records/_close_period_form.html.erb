@@ -1,0 +1,14 @@
+<%# For each closable period, display a form with a single button that closes that period %>
+<div class="app-form">
+  <h3>Close Period</h3>
+  <p>Use the following buttons to close a period and prevent any further changes to records within the period:</p>
+  <% @closable_periods.each do |p| %>
+    <%= form_with model: p do |f| %>
+      <%= f.hidden_field :is_closed, value: true %>
+      <%= f.hidden_field :user_id, value: current_user.id %>
+      <%= f.hidden_field :closed_at, value: Time.current %>
+      <%= f.hidden_field :ip_address, value: request.remote_ip %>
+      <%= f.submit "#{p.period_start_date.strftime("%m/%d/%Y")} - #{p.period_end_date.strftime("%m/%d/%Y")}", class: 'btn btn-default btn-block' %>
+    <% end %>
+  <% end %>
+</div>

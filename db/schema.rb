@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171010145317) do
+ActiveRecord::Schema.define(version: 20171103140912) do
 
   create_table "assigned_permissions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "user_id"
@@ -100,6 +100,17 @@ ActiveRecord::Schema.define(version: 20171010145317) do
     t.datetime "updated_at", null: false
     t.text "raw_data"
     t.index ["hashed_data"], name: "index_opto_messages_on_hashed_data", unique: true
+  end
+
+  create_table "periods", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.date "period_start_date"
+    t.date "period_end_date"
+    t.boolean "is_closed", default: false
+    t.bigint "user_id"
+    t.datetime "closed_at"
+    t.string "ip_address"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "permissions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

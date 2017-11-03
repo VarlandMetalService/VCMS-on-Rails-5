@@ -43,7 +43,9 @@
     <div class="col-12 col-md-3">
       <% render_action = params[:id] ? "update" : "create" %>
       <%= render 'form', locals: { path: { controller: "timeclock_records", action: render_action } } %>
-      <%# Close Period Form (if access_level >= 3) %>
+      <% if @access_level.access_level >= 3 && closable_periods_exist? %>
+        <%= render 'close_period_form' %>
+      <% end %>
     </div>
   </div>
 </div>
