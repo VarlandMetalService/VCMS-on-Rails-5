@@ -9,18 +9,8 @@
           <div class="row">
             <div class="col-12 col-md-4">
               <div class="form-group">
-                <%= f.label :with_period, 'Week:'  %>
-                <%#= f.select :with_period, TimeclockRecord.options_for_periods, { include_blank: true }, { class: 'form-control' } %>
-                <select class="form-control" name="filterPeriod">
-                  <option value="0">&nbsp;</option>
-                  <%#
-                  <?php foreach ($periods as $p) { ?>
-                    <option value="<?= $p->period_ending_date->format('U') ?>">
-                      <?= $p->period_start_date->format('m/d/y') ?> &ndash; <?= $p->period_ending_date->format('m/d/y') ?>
-                    </option>
-                  <? } ?>
-                  %>
-                </select>
+                <%= f.label :with_week, 'Week:'  %>
+                <%= f.select :with_week, TimeclockRecord.options_for_period, { include_blank: true }, { class: 'form-control' } %>
               </div>
             </div>
             <div class="col-12 col-md-4">
@@ -36,8 +26,16 @@
               </div>
             </div>
           </div>
+          <div class="row">
+            <div class="col-12">
+              <%= link_to 'Reset Filter', manage_records_timeclock_records_path, class: 'btn-link btn-sm' %>
+              <%= f.submit 'Filter', class: 'float-right' %>
+            </div>
+          </div>
         <% end %>
-        <%= render "edit_table" %>
+        <div class="manage-records-table">
+          <%= render "edit_table" %>
+        </div>
       <% end %>
     </div>
     <div class="col-12 col-md-3">

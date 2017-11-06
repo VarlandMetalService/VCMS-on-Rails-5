@@ -17,6 +17,24 @@ class TimeclockRecord < ApplicationRecord
   validates :record_timestamp,
             presence: true
 
+  scope :with_employee, ->(values) {
+    where user_id: [*values]
+  }
+  scope :with_week, ->(values) {
+    where('record_timestamp > ? AND record_timestamp < ?', Period.find_by_id(values).period_start_date, Period.find_by_id(values).period_end_date)
+  }
+  scope :with_notes, ->(has_notes) {
+    if has_notes == '1'
+      where('record_type = ?', 'Notes')
+    else
+      where('record_type != ?', 'Notes')
+    end
+  }
+
+  def self.options_for_period
+    Period.where('is_closed IS FALSE').order('period_start_date').map { |p| ["#{p.period_start_date.strftime('%m/%d/%Y')} - #{p.period_end_date.strftime('%m/%d/%Y')}", p.id] }
+  end
+
   def self.options_for_record_type
     [
       ['Start Work', 'Start Work'],
@@ -55,7 +73,6 @@ private
   end
 
   def update_user_status
-
     new_record = TimeclockRecord.where('user_id = ? AND record_type != ?', user_id, 'Notes').order("record_timestamp").last
     if new_record.nil?
       self.user.update_attribute(:current_status, 'in')
@@ -70,7 +87,6 @@ private
     when 'Start Break'
       user.update_attribute(:current_status, 'break') if user.current_status != 'break'
     end
-
   end
 
 end

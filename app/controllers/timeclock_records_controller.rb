@@ -2,6 +2,10 @@ class TimeclockRecordsController < ApplicationController
   before_action :set_timeclock_record, only: [:show, :edit, :update, :destroy]
   before_action :check_permission
 
+  has_scope :with_employee
+  has_scope :with_week
+  has_scope :with_notes
+
   def index
     @employee = User.find_by_id session[:ipad_user_id] || current_user
     @timeclock_records = TimeclockRecord.where('user_id = ? AND record_timestamp >= ?', @employee.id, Date.today.beginning_of_week - 1).order(record_timestamp: :desc)
@@ -50,7 +54,12 @@ class TimeclockRecordsController < ApplicationController
     @closable_periods = Period.where('period_end_date < ? AND is_closed IS FALSE', Date.current)
     open_periods = Period.where('is_closed IS FALSE')
     time_start = open_periods.size == 0 ? Time.current : open_periods.order(period_start_date: :asc).first.period_start_date
-    @timeclock_records = TimeclockRecord.where('record_timestamp > ?', time_start + 1).order(record_timestamp: :desc)
+    @timeclock_records = apply_scopes(TimeclockRecord).where('record_timestamp > ?', time_start + 1).order(record_timestamp: :desc)
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def reason_codes
