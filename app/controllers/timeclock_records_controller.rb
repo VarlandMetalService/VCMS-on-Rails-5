@@ -45,8 +45,10 @@ class TimeclockRecordsController < ApplicationController
 
   def manage_records
     @timeclock_record = params[:id] ? TimeclockRecord.find(params[:id]) : TimeclockRecord.new
-    @timeclock_records = TimeclockRecord.all.order(record_timestamp: :desc)
     @closable_periods = Period.where('period_start_date < ? AND is_closed IS FALSE', Date.current)
+    time_start = @closable_periods.size == 0 ? Time.current : @closable_periods.order(period_start_date: :asc).first.period_start_date
+    time_end = @closable_periods.size == 0 ? Time.current : @closable_periods.order(period_end_date: :desc).first.period_end_date
+    @timeclock_records = TimeclockRecord.where('record_timestamp > ? AND record_timestamp < ?', time_start, time_end).order(record_timestamp: :desc)
   end
 
   def reason_codes

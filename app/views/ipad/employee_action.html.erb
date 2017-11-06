@@ -18,7 +18,7 @@
         <%= f.hidden_field :user_pin, value: @ipad_user.pin %>
         <%= button_tag type: 'submit', class: "btn btn-block btn-lg btn-#{get_color(@ipad_user.current_status)}" do %>
           <i class="fa fa-fw fa-<%= get_icon(@ipad_user.current_status) %>"></i> <%= get_record_type(@ipad_user.current_status) %>
-        <% end%>
+        <% end %>
       </div>
     <% end %>
     <% if @ipad_user.current_status == 'in' %>
@@ -37,7 +37,7 @@
           <%= f.hidden_field :user_pin, value: @ipad_user.pin %>
           <%= button_tag type: 'submit', class: 'btn btn-block btn-lg btn-warning' do %>
             <i class="fa fa-fw fa-cutlery"></i> Start Break
-          <% end%>
+          <% end %>
         </div>
       <% end %>
     <% end %>
