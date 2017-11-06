@@ -1,4 +1,8 @@
 class TimeclockRecord < ApplicationRecord
+
+  # Default scoping.
+  default_scope { where 'is_deleted IS FALSE' }
+
   belongs_to :user
   belongs_to :reason_code, optional: true
 
@@ -28,6 +32,11 @@ class TimeclockRecord < ApplicationRecord
       ['Only Notes', '1'],
       ['Hide Notes', '2']
     ]
+  end
+
+  def soft_delete
+    self.is_deleted = true
+    save
   end
 
 private

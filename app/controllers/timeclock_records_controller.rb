@@ -10,7 +10,6 @@ class TimeclockRecordsController < ApplicationController
   end
 
   def create
-    puts "PARAMS: #{timeclock_record_params}"
     @timeclock_record = TimeclockRecord.new timeclock_record_params
     if @timeclock_record.save
       if params[:timeclock_record][:ipad_submit]
@@ -39,15 +38,18 @@ class TimeclockRecordsController < ApplicationController
   end
 
   def destroy
-    @timeclock_record.destroy
-    redirect_to timeclock_records_url, notice: 'Timeclock record was successfully deleted.'
+    if @timeclock_record.soft_delete
+      redirect_to manage_records_timeclock_records_path, notice: 'Timeclock record was successfully deleted.'
+    else
+      redirect_to manage_records_timeclock_records_path, notice: 'Failed to delete record. Contact IT for help.'
+    end
   end
 
   def manage_records
     @timeclock_record = params[:id] ? TimeclockRecord.find(params[:id]) : TimeclockRecord.new
     @closable_periods = Period.where('period_end_date < ? AND is_closed IS FALSE', Date.current)
-    time_start = @closable_periods.size == 0 ? Time.current : @closable_periods.order(period_start_date: :asc).first.period_start_date
-    # time_end = @closable_periods.size == 0 ? Time.current : @closable_periods.order(period_end_date: :desc).first.period_end_date
+    open_periods = Period.where('is_closed IS FALSE')
+    time_start = open_periods.size == 0 ? Time.current : open_periods.order(period_start_date: :asc).first.period_start_date
     @timeclock_records = TimeclockRecord.where('record_timestamp > ?', time_start + 1).order(record_timestamp: :desc)
   end
 
@@ -65,7 +67,7 @@ private
   end
 
   def timeclock_record_params
-    params.require(:timeclock_record).permit(:user_id, :record_type, :record_timestamp, :submit_type, :reason_code_id, :ip_address, :edit_type, :edit_ip_address, :notes, :is_locked, :is_flagged)
+    params.require(:timeclock_record).permit(:user_id, :record_type, :record_timestamp, :submit_type, :reason_code_id, :ip_address, :edit_type, :edit_ip_address, :notes, :is_locked, :is_flagged, :is_deleted)
   end
 
   def check_permission

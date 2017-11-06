@@ -12,7 +12,7 @@ class CreateTimeclockRecords < ActiveRecord::Migration[5.1]
       t.string    :notes
       t.boolean   :is_locked,           default: false
       t.boolean   :is_flagged,          default: false
-
+      t.boolean   :is_deleted,          default: false
       t.timestamps
     end
   end
