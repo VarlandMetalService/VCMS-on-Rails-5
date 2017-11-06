@@ -25,7 +25,7 @@ module TimeclockRecordsHelper
   end
 
   def closable_periods_exist?
-    Period.where('period_start_date < ? AND is_closed IS FALSE', Date.current).size > 0
+    Period.where('period_end_date < ? AND is_closed IS FALSE', Date.current).size > 0
   end
 
 end

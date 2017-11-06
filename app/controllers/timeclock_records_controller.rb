@@ -45,10 +45,10 @@ class TimeclockRecordsController < ApplicationController
 
   def manage_records
     @timeclock_record = params[:id] ? TimeclockRecord.find(params[:id]) : TimeclockRecord.new
-    @closable_periods = Period.where('period_start_date < ? AND is_closed IS FALSE', Date.current)
+    @closable_periods = Period.where('period_end_date < ? AND is_closed IS FALSE', Date.current)
     time_start = @closable_periods.size == 0 ? Time.current : @closable_periods.order(period_start_date: :asc).first.period_start_date
-    time_end = @closable_periods.size == 0 ? Time.current : @closable_periods.order(period_end_date: :desc).first.period_end_date
-    @timeclock_records = TimeclockRecord.where('record_timestamp > ? AND record_timestamp < ?', time_start, time_end).order(record_timestamp: :desc)
+    # time_end = @closable_periods.size == 0 ? Time.current : @closable_periods.order(period_end_date: :desc).first.period_end_date
+    @timeclock_records = TimeclockRecord.where('record_timestamp > ?', time_start + 1).order(record_timestamp: :desc)
   end
 
   def reason_codes
@@ -59,17 +59,17 @@ class TimeclockRecordsController < ApplicationController
     @clocked_in = User.all.where('current_status != ?', 'out').order(:employee_number)
   end
 
-  private
-    def set_timeclock_record
-      @timeclock_record = TimeclockRecord.find(params[:id])
-    end
+private
+  def set_timeclock_record
+    @timeclock_record = TimeclockRecord.find(params[:id])
+  end
 
-    def timeclock_record_params
-      params.require(:timeclock_record).permit(:user_id, :record_type, :record_timestamp, :submit_type, :reason_code_id, :ip_address, :edit_type, :edit_ip_address, :notes, :is_locked, :is_flagged)
-    end
+  def timeclock_record_params
+    params.require(:timeclock_record).permit(:user_id, :record_type, :record_timestamp, :submit_type, :reason_code_id, :ip_address, :edit_type, :edit_ip_address, :notes, :is_locked, :is_flagged)
+  end
 
-    def check_permission
-      require_permission 'sysadmin', 2
-    end
+  def check_permission
+    require_permission 'sysadmin', 2
+  end
 
 end
