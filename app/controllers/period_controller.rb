@@ -1,6 +1,5 @@
 class PeriodController < ApplicationController
   before_action :set_closable_period, only: [:update]
-  before_action :check_permission
 
   def update
     if @closeable_period.update closeable_period_params
@@ -19,10 +18,6 @@ private
 
   def closeable_period_params
     params.require(:period).permit(:period_start_date, :period_end_date, :is_closed, :user_id, :closed_at, :ip_address)
-  end
-
-  def check_permission
-    require_permission 'sysadmin', 2
   end
 
 end

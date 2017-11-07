@@ -52,9 +52,8 @@ class TimeclockRecordsController < ApplicationController
   def manage_records
     @timeclock_record = params[:id] ? TimeclockRecord.find(params[:id]) : TimeclockRecord.new
     @closable_periods = Period.where('period_end_date < ? AND is_closed IS FALSE', Date.current)
-    open_periods = Period.where('is_closed IS FALSE')
-    time_start = open_periods.size == 0 ? Time.current : open_periods.order(period_start_date: :asc).first.period_start_date
-    @timeclock_records = apply_scopes(TimeclockRecord).where('record_timestamp > ?', time_start + 1).order(record_timestamp: :desc)
+    time_start = Period.where('is_closed IS FALSE').order(period_start_date: :asc).first.period_start_date
+    @timeclock_records = apply_scopes(TimeclockRecord).where('record_timestamp >= ?', time_start).order(record_timestamp: :desc)
 
     respond_to do |format|
       format.html
@@ -71,16 +70,17 @@ class TimeclockRecordsController < ApplicationController
   end
 
 private
+
+  def check_permission
+    require_permission 'timeclock_records', 2
+  end
+
   def set_timeclock_record
     @timeclock_record = TimeclockRecord.find(params[:id])
   end
 
   def timeclock_record_params
     params.require(:timeclock_record).permit(:user_id, :record_type, :record_timestamp, :submit_type, :reason_code_id, :ip_address, :edit_type, :edit_ip_address, :notes, :is_locked, :is_flagged, :is_deleted)
-  end
-
-  def check_permission
-    require_permission 'sysadmin', 2
   end
 
 end

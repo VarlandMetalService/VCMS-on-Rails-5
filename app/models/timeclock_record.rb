@@ -21,7 +21,7 @@ class TimeclockRecord < ApplicationRecord
     where user_id: [*values]
   }
   scope :with_week, ->(values) {
-    where('record_timestamp > ? AND record_timestamp < ?', Period.find_by_id(values).period_start_date, Period.find_by_id(values).period_end_date)
+    where('record_timestamp >= ? AND record_timestamp <= ?', Period.find_by_id(values).period_start_date, Period.find_by_id(values).period_end_date - 1)
   }
   scope :with_notes, ->(has_notes) {
     if has_notes == '1'

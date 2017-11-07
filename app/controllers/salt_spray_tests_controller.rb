@@ -142,12 +142,12 @@ private
                                               attachments_attributes: [:id, :content_type, :file, :_destroy])
   end
 
-  def set_salt_spray_test
-    @salt_spray_test = SaltSprayTest.find params[:id]
+  def check_user_permission
+    check_permission 'salt_spray_tests'
   end
 
-  def check_user_permission
-    check_permission 'employee_notes'
+  def set_salt_spray_test
+    @salt_spray_test = SaltSprayTest.find params[:id]
   end
 
 end

@@ -28,12 +28,12 @@ class UsersController < ApplicationController
 
 private
 
-  def set_user
-    @user = User.find params[:id]
-  end
-
   def check_permission
     require_permission 'sysadmin', 3
+  end
+
+  def set_user
+    @user = User.find params[:id]
   end
 
   def user_params

@@ -25,8 +25,8 @@
                   <% g[:count] += 1 %>
                   <div class="list-group-item<%= ' warning' if u.current_status == 'break' %>">
                     <div class="row">
-                      <div class="col-8 text-left"><%= u.full_name %></div>
-                      <div class="col-4 text-right"><%= u.timeclock_records.last.record_timestamp.localtime.strftime('%l:%M %P') %></div>
+                      <div class="col-7 text-left"><%= u.full_name %></div>
+                      <div class="col-5 text-right"><%= u.timeclock_records.last.record_timestamp.localtime.strftime('%l:%M %P') %></div>
                     </div>
                   </div>
                 <% end %>

@@ -34,12 +34,12 @@ class CategoriesController < ApplicationController
 
 private
 
-  def set_category
-    @category = Category.find params[:id]
-  end
-
   def check_permission
     require_permission 'documents', 3
+  end
+
+  def set_category
+    @category = Category.find params[:id]
   end
 
   def category_params
