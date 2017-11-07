@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
   resources :period
+  resources :reason_codes
 
   resources :ipad, only: [:index] do
     collection do

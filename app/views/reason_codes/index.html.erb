@@ -1,0 +1,37 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 col-md-8 col-lg-9">
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th class="col-8">Code</th>
+              <th class="col-2 text-center">Requires Notes?</th>
+              <th class="col-2 text-center"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @reason_codes.each do |c| %>
+              <tr data-id="<%= c.id %>" data-code="<%= c.code %>" data-notes="<%= c.requires_notes %>">
+                <td class="">
+                  <%= c.code %>
+                </td>
+                <td class="text-center">
+                  <%= check_box_tag 'Requires Notes?', c.id, c.requires_notes %>
+                </td>
+                <td class="text-center">
+                  <%= link_to 'Edit', reason_codes_path(id: c.id), class: "btn btn-sm btn-default mr-2" %>
+                  <%= link_to 'Delete', reason_code_path(c.id), data: { confirm: 'Are you sure?'}, method: 'delete', class: 'btn btn-sm btn-danger' if @access_level.access_level == 3 %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="col-12 col-md-4 col-lg-3">
+      <% render_action = params[:id] ? "update" : "create" %>
+      <%= render 'form', locals: { path: { controller: "reason_codes", action: render_action } } %>
+    </div>
+  </div>
+</div>

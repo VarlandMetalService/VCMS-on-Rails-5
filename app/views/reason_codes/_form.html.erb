@@ -1,0 +1,30 @@
+<%= form_with model: @reason_code, class: 'app-form', local: true do |f| %>
+  <h3><%= params[:id] ? "Edit #{@reason_code.code}" : "Add Reason Code" %></h3>
+
+  <% if @reason_code.errors.any? %>
+    <div class="error_explanation text-danger">
+      <p><%= pluralize(@reason_code.errors.count, "error") %> prevented this test from being saved:</p>
+      <ul>
+        <% @reason_code.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :code, required_field_label('Code:'), class: 'form-control-label' %>
+    <%= f.text_field :code, { class: "form-control #{' is-invalid' if @reason_code.errors[:code].any?}", required: 'required' } %>
+  </div>
+
+  <div class="form-group">
+    <%= f.radio_button :is_required, { class: "form-control #{' is-invalid' if @reason_code.errors[:code].any?}", required: 'required' } %>
+    <%= f.label :is_required, 'Requires notes?', class: 'form-control-label' %>
+  </div>
+
+  <div class="form-group text-right">
+    <%= link_to 'Cancel', reason_codes_path, class: 'btn btn-link' %>
+    <%= f.submit params[:id] ? "Update Code" : "Add Code", class: 'btn btn-default' %>
+  </div>
+
+<% end %>

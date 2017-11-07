@@ -1,5 +1,5 @@
 class TimeclockRecordsController < ApplicationController
-  before_action :set_timeclock_record, only: [:show, :edit, :update, :destroy]
+  before_action :set_timeclock_record, only: [:update, :destroy]
   before_action :check_permission
 
   has_scope :with_employee
@@ -16,14 +16,14 @@ class TimeclockRecordsController < ApplicationController
   def create
     @timeclock_record = TimeclockRecord.new timeclock_record_params
     if @timeclock_record.save
-      if params[:timeclock_record][:ipad_submit]
+      if params[:timeclock_record][:ipad_submit] # Successful clock punch from IPad
         session.delete(:ipad_user)
         flash[:success] = params[:timeclock_record][:success_message]
         redirect_to controller: 'timeclock_records', action: 'index', timed_redirect: true and return
       end
       redirect_to manage_records_timeclock_records_path, notice: 'Timeclock record was successfully created.' and return
     else
-      if params[:timeclock_record][:ipad_submit]
+      if params[:timeclock_record][:ipad_submit] # Failed clock punch from IPad
         flash[:error] = params[:timeclock_record][:failure_message]
         redirect_to controller: 'ipad', action: 'employee_action', pin: params[:timeclock_record][:user_pin] and return
       end
@@ -62,6 +62,7 @@ class TimeclockRecordsController < ApplicationController
   end
 
   def reason_codes
+    @reason_code = params[:id] ? ReasonCode.find(params[:id]) : ReasonCode.new
     @reason_codes = ReasonCode.all.order(code: :asc)
   end
 
