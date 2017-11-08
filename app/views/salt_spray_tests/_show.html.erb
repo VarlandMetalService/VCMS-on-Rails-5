@@ -1,42 +1,50 @@
-<table class="table table-bordered table-sm">
-  <thead>
-    <tr>
-      <td><strong>Shop Order</strong></td>
-      <td><%= @salt_spray_part.shop_order_number %></td>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><strong>Part ID</strong></td>
-      <td><%= @salt_spray_part.part_number %></td>
-    </tr>
-    <tr>
-      <td><strong>Customer</strong></td>
-      <td><%= @salt_spray_part.customer %></td>
-    </tr>
-    <tr>
-      <td><strong>Process</strong></td>
-      <td><%= @salt_spray_part.process %></td>
-    </tr>
-    <tr>
-      <td><strong>Sub ID</strong></td>
-      <td class="mobile-text-overflow"><%= @salt_spray_part.sub %></td>
-    </tr>
-    <tr>
-      <td><strong>White Spec</strong></td>
-      <td><%= @salt_spray_part.white_spec %></td>
-    </tr>
-    <tr>
-      <td><strong>Red Spec</strong></td>
-      <td><%= @salt_spray_part.red_spec %></td>
-    </tr>
-    <tr>
-      <td><strong>Part Area</strong></td>
-      <td><%= @salt_spray_part.part_area %></td>
-    </tr>
-    <tr>
-      <td><strong>ft<sup>3</sup> Per Pound</strong></td>
-      <td><%= number_with_precision(@salt_spray_part.ft_cubed_per_pound, strip_insignificant_zeros: true) %></td>
-    </tr>
-  </tbody>
-</table>
+<% if params[:has_attachment] %>
+  <div class="text-center">
+    <% @attachments.each do |a| %>
+      <%= show_attachment(a) %> <br /><br />
+    <% end %>
+  </div>
+<% else %>
+  <table class="table table-bordered table-sm">
+    <thead>
+      <tr>
+        <td><strong>Shop Order</strong></td>
+        <td><%= @salt_spray_part.shop_order_number %></td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Part ID</strong></td>
+        <td><%= @salt_spray_part.part_number %></td>
+      </tr>
+      <tr>
+        <td><strong>Customer</strong></td>
+        <td><%= @salt_spray_part.customer %></td>
+      </tr>
+      <tr>
+        <td><strong>Process</strong></td>
+        <td><%= @salt_spray_part.process %></td>
+      </tr>
+      <tr>
+        <td><strong>Sub ID</strong></td>
+        <td class="mobile-text-overflow"><%= @salt_spray_part.sub %></td>
+      </tr>
+      <tr>
+        <td><strong>White Spec</strong></td>
+        <td><%= @salt_spray_part.white_spec %></td>
+      </tr>
+      <tr>
+        <td><strong>Red Spec</strong></td>
+        <td><%= @salt_spray_part.red_spec %></td>
+      </tr>
+      <tr>
+        <td><strong>Part Area</strong></td>
+        <td><%= @salt_spray_part.part_area %></td>
+      </tr>
+      <tr>
+        <td><strong>ft<sup>3</sup> Per Pound</strong></td>
+        <td><%= number_with_precision(@salt_spray_part.ft_cubed_per_pound, strip_insignificant_zeros: true) %></td>
+      </tr>
+    </tbody>
+  </table>
+<% end %>

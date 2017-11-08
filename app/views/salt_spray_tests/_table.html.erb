@@ -47,8 +47,9 @@
       <% if @access_level.access_level == 3 and action_name != 'archived_tests' -%>
         <div class="col-md-1 d-none d-md-table-cell"><%= t.comments %></div>
         <div class="col-md-1 text-center hidden-print d-none d-md-table-cell">
-          <%= link_to 'Edit Test', edit_salt_spray_test_path(t), class: "btn btn-sm btn-primary#{' disabled' if t.date_on.blank?}" %><br />
-          <%= link_to 'Delete Test', salt_spray_test_path(t), data: { confirm: 'Are you sure?'}, method: 'delete', class: 'btn btn-sm btn-danger' %>
+          <%= link_to 'Edit', edit_salt_spray_test_path(t), class: "btn btn-sm btn-default mr-2#{' disabled' if t.date_on.blank?}" %>
+          <%= link_to 'Delete', salt_spray_test_path(t), data: { confirm: 'Are you sure?'}, method: 'delete', class: 'btn btn-sm btn-danger' %><br />
+          <%= link_to "Attachments (#{t.attachments.size})", salt_spray_test_path(t.id, has_attachment: true), remote: true, class: 'btn btn-sm btn-link' if t.attachments.size > 0 %>
         </div>
       <% else %>
         <div class="col-md-2 d-none d-md-table-cell"><%= t.comments %></div>

@@ -79,6 +79,7 @@ class SaltSprayTestsController < ApplicationController
 
   def show
     @salt_spray_part = SaltSprayPart.find params[:id]
+    @attachments = SaltSprayTest.find_by_id(params[:id]).attachments
   end
 
   def test_complete

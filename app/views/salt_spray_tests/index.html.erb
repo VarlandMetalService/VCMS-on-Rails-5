@@ -21,7 +21,7 @@
         <%= link_to 'New Test <i class="fa fa-plus"></i>'.html_safe, new_salt_spray_test_path, :class => "btn btn-success btn-sm" %>
       </div>
       <div class="col-6 text-right">
-        <%= link_to 'View Archived Tests', archived_tests_salt_spray_tests_path, :class => "btn btn-sm btn-info" %>
+        <%= link_to 'View Archived Tests', archived_tests_salt_spray_tests_path, :class => "btn btn-sm btn-primary" %>
       </div>
     </div>
     <% if @salt_spray_tests.size == 0 -%>
@@ -39,7 +39,7 @@
           <!-- Modal content-->
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title">Shop Order Information</h5>
+              <h5 class="modal-title">Salt Spray Information</h5>
               <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
