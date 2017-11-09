@@ -13,7 +13,7 @@
 </div>
 <div class="card bg-light">
   <div class="card-body">
-    <%= form_with model: @salt_spray_test, url: salt_spray_tests_path, local: true do |f| %>
+    <%= form_with model: @salt_spray_test, url: salt_spray_tests_path do |f| %>
 
       <% if @salt_spray_test.errors.any? %>
         <div class="error_explanation text-danger">
@@ -95,8 +95,7 @@
                   <%= s.text_field :load_weight, disabled: true, class: 'form-control' %>
                 </div>
               </div>
-              <div class="col-md-1"></div>
-              <div class="col-md-5">
+              <div class="col-md-5 offset-md-1">
                 <div class="form-group">
                   <%= s.label :white_spec, 'White Spec:', class: 'form-control-label' %><br />
                   <%= s.text_field :white_spec, disabled: true, class: 'form-control' %>
