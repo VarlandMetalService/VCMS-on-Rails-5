@@ -39,8 +39,7 @@
             <%= f.select :put_on_by, reporters_for_select, {include_blank: true}, {class: 'form-control'} %>
           </div>
         </div>
-        <div class="col-md-1"></div>
-        <div class="col-md-2">
+        <div class="col-md-2 offset-md-1">
           <div class="form-group">
             <%= f.label :date_with_white, class: 'form-control-label' %>
             <%= f.text_field :date_w_white, class: 'datepicker form-control', value: format_date(@salt_spray_test.date_w_white), disabled: !@salt_spray_test.white_spec_exists? %>
@@ -50,8 +49,7 @@
             <%= f.select :who_called_white, reporters_for_select, {include_blank: true}, {disabled: !@salt_spray_test.white_spec_exists?, class: 'form-control'} %>
           </div>
         </div>
-        <div class="col-md-1"></div>
-        <div class="col-md-2">
+        <div class="col-md-2 offset-md-1">
           <div class="form-group">
             <%= f.label :date_with_red, class: 'form-control-label' %>
             <%= f.text_field :date_w_red, class: 'datepicker form-control', value: format_date(@salt_spray_test.date_w_red), disabled: !@salt_spray_test.red_spec_exists? %>
@@ -59,6 +57,29 @@
           <div class="form-group">
             <%= f.label :who_called_red, 'Red spot reporter', class: 'form-control-label' %>
             <%= f.select :who_called_red, reporters_for_select, {include_blank: true}, {disabled: !@salt_spray_test.red_spec_exists?, class: 'form-control'} %>
+          </div>
+        </div>
+        <div class="col-md-2 offset-md-1">
+          <div class="form-group">
+            <p>Process Steps:</p>
+            <table class="table-responsive table-sm">
+              <tbody id="salt_spray_processes">
+                <%= f.fields_for :salt_spray_process_steps do |process| %>
+                  <%= render 'process_fields', f: process %>
+                <% end %>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td class="text-center">
+                    <%= link_to_add_association 'Add Process Step', f, :salt_spray_process_steps,
+                                                                    :class => 'btn btn-sm btn-success',
+                                                                    :'data-association-insertion-node' => '#salt_spray_processes',
+                                                                    :'data-association-insertion-method' => 'append',
+                                                                    :partial => 'process_fields' %>
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
           </div>
         </div>
       </div>

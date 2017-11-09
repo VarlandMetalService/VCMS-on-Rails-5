@@ -45,11 +45,13 @@
           <% end %>
           <div class="form-group">
             <%= f.label :comments, 'Comments:', class: 'form-control-label' %><br />
-            <%= f.text_field :comments, class: 'form-control' %>
+            <%= f.text_area :comments, class: 'form-control' %>
           </div>
+          <%= f.hidden_field :date_on, value: DateTime.current %>
+          <%= f.hidden_field :put_on_by, value: current_user.id %>
+          <%= f.hidden_field :checked, value: true %>
         </div>
-        <div class="col-md-1"></div>
-        <div class="col-md-3">
+        <div class="col-md-3 offset-md-1">
           <div class="form-group">
             <p>Process Steps:</p>
             <table class="table-responsive table-sm">

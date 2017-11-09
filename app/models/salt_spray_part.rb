@@ -4,7 +4,6 @@ class SaltSprayPart < ApplicationRecord
   belongs_to :salt_spray_test
 
   validates :shop_order_number,
-            uniqueness: {scope: [:load_number, :sub], message: ", load number, and sub have already been used."},
             presence: true,
             length: { is: 6 }
 
