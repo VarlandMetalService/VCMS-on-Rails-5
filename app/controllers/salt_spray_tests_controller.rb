@@ -1,7 +1,7 @@
 class SaltSprayTestsController < ApplicationController
 
   before_action :set_salt_spray_test, only: [:edit, :update, :destroy]
-  before_action :check_user_permission
+  # before_action :check_user_permission
 
   has_scope :sorted_by
   has_scope :with_shop_order_number
