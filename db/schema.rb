@@ -145,7 +145,6 @@ ActiveRecord::Schema.define(version: 20171103140912) do
     t.decimal "ft_cubed_per_pound", precision: 10, scale: 4
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["shop_order_number", "load_number", "sub"], name: "shop_order_unique_index", unique: true
   end
 
   create_table "salt_spray_process_steps", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

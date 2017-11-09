@@ -11,25 +11,17 @@
     <div class="row">
       <div class="col-6">
         <%= f.label :hours_wo_white, "Hours w/o white <br /> (spec):".html_safe %><br />
-        <% if @salt_spray_test.white_spec_exists? %>
-          <div class="white_hours <%= @salt_spray_test.get_pass_fail('white') %>">
-            <%= @salt_spray_test.calculate_rust_hours(@salt_spray_test.date_w_white) %>
-            (<%= @salt_spray_test.salt_spray_part.white_spec %>)
-          </div>
-        <% else %>
-          N/A
-        <% end %>
+        <div class="white_hours <%= @salt_spray_test.get_pass_fail('white') if @salt_spray_test.white_spec_exists? %>">
+          <%= @salt_spray_test.calculate_rust_hours(@salt_spray_test.date_w_white) %>
+          (<%= @salt_spray_test.white_spec_exists? ? @salt_spray_test.salt_spray_part.white_spec : 'N/A' %>)
+        </div>
       </div>
       <div class="col-6">
         <%= f.label :hours_wo_red, "Hours w/o red <br /> (spec):".html_safe %><br />
-        <% if @salt_spray_test.red_spec_exists? %>
-          <div class="red_hours <%= @salt_spray_test.get_pass_fail('red') %>">
-            <%= @salt_spray_test.calculate_rust_hours(@salt_spray_test.date_w_red) %>
-            (<%= @salt_spray_test.salt_spray_part.red_spec %>)
-          </div>
-        <% else %>
-          N/A
-        <% end %>
+        <div class="red_hours <%= @salt_spray_test.get_pass_fail('red') if @salt_spray_test.red_spec_exists? %>">
+          <%= @salt_spray_test.calculate_rust_hours(@salt_spray_test.date_w_red) %>
+          (<%= @salt_spray_test.red_spec_exists? ? @salt_spray_test.salt_spray_part.red_spec : 'N/A' %>)
+        </div>
       </div>
     </div>
     <hr />

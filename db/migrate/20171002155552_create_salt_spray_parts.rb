@@ -18,6 +18,5 @@ class CreateSaltSprayParts < ActiveRecord::Migration[5.1]
       t.timestamps                      null: false
     end
 
-    add_index :salt_spray_parts, [:shop_order_number, :load_number, :sub], unique: true, name: 'shop_order_unique_index'
   end
 end

@@ -13,7 +13,7 @@
 </div>
 <div class="card bg-light">
   <div class="card-body">
-    <%= form_with model: @salt_spray_test, url: salt_spray_tests_path do |f| %>
+    <%= form_with model: @salt_spray_test, url: salt_spray_tests_path, local: true do |f| %>
 
       <% if @salt_spray_test.errors.any? %>
         <div class="error_explanation text-danger">
@@ -39,14 +39,14 @@
               <%= s.text_field :load_number, class: 'form-control' %>
             </div>
             <div class="form-group">
-              <%= s.label :sub, 'Sub:', class: 'form-control-label' %><br />
-              <%= s.text_field :sub, class: 'form-control' %>
-            </div>
-            <div class="form-group">
               <%= s.label :dept, 'Department:', class: 'form-control-label' %><br />
               <%= s.text_field :dept, class: 'form-control' %>
             </div>
           <% end %>
+          <div class="form-group">
+            <%= f.label :comments, 'Comments:', class: 'form-control-label' %><br />
+            <%= f.text_field :comments, class: 'form-control' %>
+          </div>
         </div>
         <div class="col-md-1"></div>
         <div class="col-md-3">
