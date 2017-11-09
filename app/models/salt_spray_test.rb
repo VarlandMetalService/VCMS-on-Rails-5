@@ -94,7 +94,7 @@ class SaltSprayTest < ApplicationRecord
     if spot_date
       return subtract_time_get_hours(spot_date.to_time, self.date_on.to_time)
     else
-      return subtract_time_get_hours(DateTime.current.to_time, self.date_on.to_time)
+      return subtract_time_get_hours(DateTime.current.to_time, self.date_on)
     end
   end
 

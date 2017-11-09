@@ -1,51 +1,64 @@
 <div id="salt_spray_test_results">
   <div class="row table-header">
-    <% if action_name != 'archived_tests' %><div class="col-4 col-md-1 text-center"></div><% end %>
+    <% if action_name != 'archived_tests' %><div class="col-4 col-md-1 text-center d-md-none"></div><% end %>
     <div class="col-3 col-md-1 text-center bold-sm">Shop Order </div>
-    <div class="col-3 col-md-1 text-center bold-sm">Sub</div>
     <div class="col-md-1 text-center d-none d-md-table-cell">Part ID</div>
     <div class="col-2 col-md-1 text-center bold-sm">Proc.</div>
     <div class="col-md-1 text-center d-none d-md-table-cell">Department</div>
-    <div class="col-md-1 d-none d-md-table-cell">Report Info</div> <!-- put_on_by, date_on, date_off -->
-    <div class="col-md-1 d-none d-md-table-cell">White Spots</div> <!-- date_w_white, who_called_white -->
-    <div class="col-md-1 d-none d-md-table-cell">Red Spots</div> <!-- date_w_red, who_called_red -->
-    <div class="col-md-1 d-none d-md-table-cell">Load Info</div> <!-- barrel_number, load_weight -->
-    <div class="col-md-<%= action_name == 'archived_tests' ? '2' : '1' %> d-none d-md-table-cell">Comments</div>
-    <div class="col-md-1 text-center hidden-print d-none d-md-table-cell">Options</div>
+    <div class="col-md-1 d-none d-md-table-cell">Date On</div> <!-- put_on_by, date_on, date_off -->
+    <div class="col-md-1 d-none d-md-table-cell">White Rust</div> <!-- date_w_white, who_called_white -->
+    <div class="col-md-1 d-none d-md-table-cell">Red Rust</div> <!-- date_w_red, who_called_red -->
+    <div class="col-md-3 d-none d-md-table-cell">Comments</div>
+    <div class="col-md-2 text-center hidden-print d-none d-md-table-cell">Options</div>
   </div>
   <% @salt_spray_tests.each do |t| -%>
     <div class="row">
       <% if !t.checked %><div class="col-4 text-center d-md-none"><%= link_to 'Update', edit_salt_spray_test_path(t), class: 'btn btn-primary btn-sm btn-mobile' %></div><% end %>
-      <% if action_name != 'archived_tests' %><div class="col-4 col-md-1 text-center<%= ' d-none d-md-table-cell' if !t.checked %>"><%= check_box_tag 'checked', t.id, t.checked, class: 'test-checkbox' %></div><% end %>
+      <% if action_name != 'archived_tests' %><div class="col-4 col-md-1 text-center d-md-none<%#= ' d-none d-md-table-cell' if !t.checked %>"><%= check_box_tag 'checked', t.id, t.checked, class: 'test-checkbox' %></div><% end %>
       <div class="col-3 col-md-1 text-center"><%= link_to t.salt_spray_part.shop_order_number, salt_spray_test_path(t.salt_spray_part), remote: true %><br /> <small>Load: <%= t.salt_spray_part.load_number %></small></div>
-      <div class="col-3 col-md-1 mobile-text-overflow"><%= t.salt_spray_part.sub %></div>
       <div class="col-md-1 text-center d-none d-md-table-cell"><%= t.salt_spray_part.part_number %></div>
       <div class="col-2 col-md-1 text-center process"><%= t.salt_spray_part.process %></div>
       <div class="col-md-1 text-center d-none d-md-table-cell"><%= t.salt_spray_part.dept %></div>
       <div class="col-md-1 d-none d-md-table-cell">
         <% unless t.date_on.blank? %><small><strong>Date on: </strong></small><br /><%= t.date_on.strftime('%m/%d/%Y') %><br /><% end %>
         <% unless t.date_off.blank? %><small><strong>Date off: </strong></small><br /><%= t.date_off.strftime('%m/%d/%Y') %><br /><% end %>
-        <% unless t.put_on_by.blank? %><small><strong>Put on by: </strong></small><br /><%= t.salt_spray_tester.full_name %><br /><br /><% end %>
+        <% unless t.put_on_by.blank? %><small><strong>Put on by: </strong></small><br /><%= t.salt_spray_tester.full_name %><br /><% end %>
+        <small><strong>Hours On: </strong></small><br /><%= t.calculate_rust_hours(nil) %><br /><br />
       </div>
       <div class="col-md-1 d-none d-md-table-cell">
-        <% unless t.date_w_white.blank? %><small><strong>Date of first spot: </strong></small><br /><%= t.date_w_white.strftime('%m/%d/%Y') %><% end %>
-        <% unless t.white_spot_reporter.blank? %><br /><small><strong>Reporter: </strong></small><br /><%= t.white_spot_reporter.full_name %><% end %>
+        <% unless t.date_w_white.blank? %><small><strong>Date marked: </strong></small><br /><%= t.date_w_white.strftime('%m/%d/%Y') %><% end %>
+        <% unless t.white_spot_reporter.blank? %><br /><small><strong>Reporter: </strong></small><br /><%= t.white_spot_reporter.full_name %><br /><% end %>
+        <% unless t.date_w_white.blank? %><small><strong>Hours w/o White: </strong></small><br /><%= t.calculate_rust_hours(t.date_w_white) %><br /><br /><% end %>
       </div>
       <div class="col-md-1 d-none d-md-table-cell">
-        <% unless t.date_w_red.blank? %><small><strong>Date of first spot: </strong></small><br /><%= t.date_w_red.strftime('%m/%d/%Y') %><% end %>
-        <% unless t.red_spot_reporter.blank? %><br /><small><strong>Reporter: </strong></small><br /><%= t.red_spot_reporter.full_name %><% end %>
+        <% unless t.date_w_red.blank? %><small><strong>Date marked: </strong></small><br /><%= t.date_w_red.strftime('%m/%d/%Y') %><% end %>
+        <% unless t.red_spot_reporter.blank? %><br /><small><strong>Reporter: </strong></small><br /><%= t.red_spot_reporter.full_name %><br /><% end %>
+        <% unless t.date_w_red.blank? %><small><strong>Hours w/o Red: </strong></small><br /><%= t.calculate_rust_hours(t.date_w_red) %><br /><br /><% end %>
       </div>
-      <div class="col-md-1 d-none d-md-table-cell">
-        <small><strong>Barrel #: </strong></small><%= t.salt_spray_part.barrel_number %><br />
-        <small><strong>Load Weight: </strong><%= number_with_precision(t.salt_spray_part.load_weight, strip_insignificant_zeros: true) %></small>
+      <div class="col-md-3 d-none d-md-table-cell">
+        <%= t.comments %>
       </div>
-      <div class="col-md-<%= action_name == 'archived_tests' ? '2' : '1' %> d-none d-md-table-cell"><%= t.comments %></div>
-      <div class="col-md-1 text-center hidden-print d-none d-md-table-cell">
+      <div class="col-md-2 text-center hidden-print d-none d-md-table-cell">
         <% if @access_level.access_level == 3 and action_name != 'archived_tests' -%>
           <%= link_to 'Edit', edit_salt_spray_test_path(t), class: "btn btn-sm btn-default mr-2#{' disabled' if t.date_on.blank?}" %>
           <%= link_to 'Delete', salt_spray_test_path(t), data: { confirm: 'Are you sure?'}, method: 'delete', class: 'btn btn-sm btn-danger' %><br />
+          <% if !t.date_w_white %>
+            <%= form_with model: t, local: true do |f| %>
+              <%= f.hidden_field :date_w_white, value: DateTime.current %>
+              <%= f.hidden_field :who_called_white, value: current_user.id %>
+              <%= f.submit 'Mark White', class: 'btn btn-sm btn-warning' %>
+            <% end %>
+          <% end %>
+          <% if !t.date_w_red %>
+            <%= form_with model: t, local: true do |f| %>
+              <%= f.hidden_field :date_w_red, value: DateTime.current %>
+              <%= f.hidden_field :who_called_red, value: current_user.id %>
+              <%= f.hidden_field :is_archived, value: true %>
+              <%= f.submit 'Mark Red', class: 'btn btn-sm btn-warning' %>
+            <% end %>
+          <% end %>
         <% end %>
-        <%= link_to "Attachments (#{t.attachments.size})", salt_spray_test_path(t.id, has_attachment: true), remote: true, class: 'btn btn-sm btn-link' if t.attachments.size > 0 %>
+        <%= link_to "View Attachments (#{t.attachments.size})", salt_spray_test_path(t.id, has_attachment: true), remote: true, class: 'btn btn-sm btn-info' if t.attachments.size > 0 %>
       </div>
     </div>
   <% end %>
