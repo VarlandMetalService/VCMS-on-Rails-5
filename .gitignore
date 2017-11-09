@@ -19,7 +19,3 @@ dump.rdb
 
 # Ignore all attathments.
 /public/uploads/*
-
-# Ignore private files.
-/config/database.yml
-/config/secrets.yml
