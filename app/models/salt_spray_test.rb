@@ -61,10 +61,10 @@ class SaltSprayTest < ApplicationRecord
 
   def update_spot(current_user_id, spot_type)
     if spot_type == 'white'
-      self.date_w_white = DateTime.current
+      self.date_w_white = Date.current
       self.who_called_white = current_user_id
     elsif(spot_type == 'red')
-      self.date_w_red = DateTime.current
+      self.date_w_red = Date.current
       self.who_called_red = current_user_id
     end
   end
@@ -94,7 +94,7 @@ class SaltSprayTest < ApplicationRecord
     if spot_date
       return subtract_time_get_hours(spot_date.to_time, self.date_on.to_time)
     else
-      return subtract_time_get_hours(DateTime.current.to_time, self.date_on)
+      return subtract_time_get_hours(Date.current.to_time, self.date_on)
     end
   end
 

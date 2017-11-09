@@ -47,7 +47,7 @@
             <%= f.label :comments, 'Comments:', class: 'form-control-label' %><br />
             <%= f.text_area :comments, class: 'form-control' %>
           </div>
-          <%= f.hidden_field :date_on, value: DateTime.current %>
+          <%= f.hidden_field :date_on, value: Date.current %>
           <%= f.hidden_field :put_on_by, value: current_user.id %>
           <%= f.hidden_field :checked, value: true %>
         </div>

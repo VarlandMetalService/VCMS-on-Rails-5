@@ -44,21 +44,26 @@
           <%= link_to 'Delete', salt_spray_test_path(t), data: { confirm: 'Are you sure?'}, method: 'delete', class: 'btn btn-sm btn-danger' %><br />
           <% if !t.date_w_white %>
             <%= form_with model: t, local: true do |f| %>
-              <%= f.hidden_field :date_w_white, value: DateTime.current %>
+              <%= f.hidden_field :date_w_white, value: Date.current %>
               <%= f.hidden_field :who_called_white, value: current_user.id %>
               <%= f.submit 'Mark White', class: 'btn btn-sm btn-warning' %>
             <% end %>
           <% end %>
           <% if !t.date_w_red %>
             <%= form_with model: t, local: true do |f| %>
-              <%= f.hidden_field :date_w_red, value: DateTime.current %>
+              <%= f.hidden_field :date_w_red, value: Date.current %>
               <%= f.hidden_field :who_called_red, value: current_user.id %>
-              <%= f.hidden_field :is_archived, value: true %>
               <%= f.submit 'Mark Red', class: 'btn btn-sm btn-warning' %>
             <% end %>
           <% end %>
+          <% if t.date_w_red && t.date_w_white %>
+            <%= form_with model: t, local: true do |f| %>
+              <%= f.hidden_field :is_archived, value: true %>
+              <%= f.submit 'Archive Test', class: 'btn btn-sm btn-info' %>
+            <% end %>
+          <% end %>
         <% end %>
-        <%= link_to "View Attachments (#{t.attachments.size})", salt_spray_test_path(t.id, has_attachment: true), remote: true, class: 'btn btn-sm btn-info' if t.attachments.size > 0 %>
+        <%= link_to "View Attachments (#{t.attachments.size})", salt_spray_test_path(t.id, has_attachment: true), remote: true, class: 'btn btn-sm btn-link' if t.attachments.size > 0 %>
       </div>
     </div>
   <% end %>

@@ -54,7 +54,7 @@ class SaltSprayTestsController < ApplicationController
     when 'Red Spot Found'
       @salt_spray_test.update_spot(current_user.id, 'red')
     when 'Test Complete'
-      @salt_spray_test.date_off = DateTime.current
+      @salt_spray_test.date_off = Date.current
       @salt_spray_test.is_archived = true
     end
 
