@@ -23,7 +23,7 @@
         <% unless t.date_on.blank? %><small><strong>Date on: </strong></small><br /><%= t.date_on.strftime('%m/%d/%Y') %><br /><% end %>
         <% unless t.date_off.blank? %><small><strong>Date off: </strong></small><br /><%= t.date_off.strftime('%m/%d/%Y') %><br /><% end %>
         <% unless t.put_on_by.blank? %><small><strong>Put on by: </strong></small><br /><%= t.salt_spray_tester.full_name %><br /><% end %>
-        <small><strong>Hours On: </strong></small><br /><%= t.calculate_rust_hours(nil) %><br /><br />
+        <small><strong>Hours On: </strong></small><br /><%= t.calculate_rust_hours(false) %><br /><br />
       </div>
       <div class="col-md-1 d-none d-md-table-cell">
         <% unless t.date_w_white.blank? %><small><strong>Date marked: </strong></small><br /><%= t.date_w_white.strftime('%m/%d/%Y') %><% end %>
