@@ -7,3 +7,7 @@ timedRedirect = () ->
 
 $(document).on 'turbolinks:load', ->
   setTimeout timedRedirect, 3000 if $('.timed-redirect').length
+
+  $('.flag-record-btn').on 'click', ->
+    $('.flag-record-cell').css('background-color', "")
+    $(this).closest('.flag-record-cell').css('background-color', '#fcf8e3')

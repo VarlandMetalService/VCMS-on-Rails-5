@@ -1,0 +1,4 @@
+<% js = escape_javascript(
+  render(partial: 'flag_record_form')
+)%>
+$('.flag-record').html("<%= js %>");

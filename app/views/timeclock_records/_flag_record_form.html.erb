@@ -1,0 +1,11 @@
+<%= form_with model: @timeclock_record, local: true do |f| %>
+  <%= f.hidden_field :is_flagged, value: true %>
+  <div class="form-group">
+    <strong><%= f.label :note_to_supervisor, 'Notes:' %></strong><br />
+    <%= f.text_area :note_to_supervisor, rows: 5, required: true, class: 'form-control' %>
+  </div>
+  <div class="form-group text-right">
+    <%= link_to 'Cancel', timeclock_records_path, class: 'btn btn-link' %>
+    <%= f.submit "Flag Record", class: 'btn btn-default' %>
+  </div>
+<% end %>

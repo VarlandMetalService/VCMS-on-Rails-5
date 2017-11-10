@@ -8,9 +8,15 @@ class TimeclockRecordsController < ApplicationController
 
   def index
     @employee = User.find_by_id session[:ipad_user_id] || current_user
+    @timeclock_record = TimeclockRecord.find(params[:id]) if params[:id]
     @timeclock_records = TimeclockRecord.where('user_id = ? AND record_timestamp >= ?', @employee.id, Date.today.beginning_of_week - 1).order(record_timestamp: :desc)
     @flagged_records = TimeclockRecord.where('user_id = ? AND is_flagged = ?', @employee.id, true)
     @timed_redirect = true if params[:timed_redirect]
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def create
@@ -34,8 +40,16 @@ class TimeclockRecordsController < ApplicationController
 
   def update
     if @timeclock_record.update timeclock_record_params
+      if params[:timeclock_record][:is_flagged]
+        #TODO: Create ActionMailer and send email to appropriate supervisor
+        redirect_to timeclock_records_path, notice: 'Timeclock record was successfully flagged.' and return
+      end
       redirect_to manage_records_timeclock_records_path, notice: 'Timeclock record was successfully updated.'
     else
+      if params[:timeclock_record][:is_flagged]
+        @timeclock_record.errors.add('could not be flagged. Please contact IT for help.')
+        render :timeclock_records
+      end
       @timeclock_records = TimeclockRecord.all.order(record_timestamp: :desc)
       render :manage_records
     end
