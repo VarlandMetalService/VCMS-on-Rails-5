@@ -122,8 +122,8 @@ ActiveRecord::Schema.define(version: 20171103140912) do
 
   create_table "reason_codes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "code"
-    t.boolean "requires_notes"
-    t.boolean "is_deleted"
+    t.boolean "requires_notes", default: false
+    t.boolean "is_deleted", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

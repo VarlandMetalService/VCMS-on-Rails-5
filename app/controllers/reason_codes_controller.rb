@@ -8,11 +8,11 @@ class ReasonCodesController < ApplicationController
   end
 
   def create
-    @reason_code = TimeclockRecord.new reason_code_params
+    @reason_code = ReasonCode.new reason_code_params
     if @reason_code.save
       redirect_to reason_codes_path, notice: 'Reason code was successfully created.' and return
     else
-      @reason_codes = TimeclockRecord.all.order(record_timestamp: :desc)
+      @reason_codes = ReasonCode.all.order(code: :asc)
       render :reason_codes
     end
   end
@@ -21,7 +21,7 @@ class ReasonCodesController < ApplicationController
     if @reason_code.update reason_code_params
       redirect_to reason_codes_path, notice: 'Reason code was successfully updated.'
     else
-      @reason_codes = TimeclockRecord.all.order(record_timestamp: :desc)
+      @reason_codes = ReasonCode.all.order(code: :asc)
       render :reason_codes
     end
   end
@@ -45,7 +45,7 @@ private
   end
 
   def reason_code_params
-    params.require(:timeclock_record).permit(:code, :requires_notes, :is_deleted)
+    params.require(:reason_code).permit(:code, :requires_notes, :is_deleted)
   end
 
 end

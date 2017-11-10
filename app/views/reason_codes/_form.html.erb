@@ -18,8 +18,8 @@
   </div>
 
   <div class="form-group">
-    <%= f.radio_button :is_required, { class: "form-control #{' is-invalid' if @reason_code.errors[:code].any?}", required: 'required' } %>
-    <%= f.label :is_required, 'Requires notes?', class: 'form-control-label' %>
+    <%= f.check_box :requires_notes, { class: "#{'is-invalid' if @reason_code.errors[:code].any?}" } %>
+    <%= f.label :requires_notes, 'Requires notes?', class: 'form-control-label' %>
   </div>
 
   <div class="form-group text-right">
