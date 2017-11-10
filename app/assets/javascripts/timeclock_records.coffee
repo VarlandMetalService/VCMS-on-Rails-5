@@ -7,4 +7,3 @@ timedRedirect = () ->
 
 $(document).on 'turbolinks:load', ->
   setTimeout timedRedirect, 3000 if $('.timed-redirect').length
-

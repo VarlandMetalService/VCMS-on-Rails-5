@@ -5,7 +5,7 @@ class ReasonCode < ApplicationRecord
   default_scope { where 'is_deleted IS FALSE'}
 
   def self.options_for_code
-    ReasonCode.all.where('is_deleted IS FALSE').order(:code)
+    ReasonCode.all.where('is_deleted IS FALSE').order(code: :asc)
   end
 
   def soft_delete

@@ -16,6 +16,11 @@ class TimeclockRecord < ApplicationRecord
             presence: true
   validates :record_timestamp,
             presence: true
+  validates :reason_code,
+            presence: true
+  validates :notes,
+            presence: { message: "is required for this Reason Code"},
+            if: lambda { |o| o.reason_code.requires_notes }
 
   scope :with_employee, ->(values) {
     where user_id: [*values]
