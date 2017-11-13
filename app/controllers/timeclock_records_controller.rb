@@ -39,7 +39,8 @@ class TimeclockRecordsController < ApplicationController
   end
 
   def update
-    if @timeclock_record.update timeclock_record_params
+    # if @timeclock_record.update timeclock_record_params
+    if false
       if params[:timeclock_record][:is_flagged]
         #TODO: Create ActionMailer and send email to appropriate supervisor
         redirect_to timeclock_records_path, notice: 'Timeclock record was successfully flagged.' and return
@@ -47,8 +48,12 @@ class TimeclockRecordsController < ApplicationController
       redirect_to manage_records_timeclock_records_path, notice: 'Timeclock record was successfully updated.'
     else
       if params[:timeclock_record][:is_flagged]
-        @timeclock_record.errors.add('could not be flagged. Please contact IT for help.')
-        render :timeclock_records
+        #TODO: Fix this, needs to render timeclock_record index and show error on flag_record form
+        @timeclock_record.errors.add(:timeclock_record, 'Record could not be flagged. Please contact IT for help.')
+        @employee = User.find_by_id session[:ipad_user_id] || current_user
+        @timeclock_records = TimeclockRecord.where('user_id = ? AND record_timestamp >= ?', @employee.id, Date.today.beginning_of_week - 1).order(record_timestamp: :desc)
+        @flagged_records = TimeclockRecord.where('user_id = ? AND is_flagged = ?', @employee.id, true)
+        render 'index' and return
       end
       @timeclock_records = TimeclockRecord.all.order(record_timestamp: :desc)
       render :manage_records
