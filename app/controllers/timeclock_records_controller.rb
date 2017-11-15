@@ -34,16 +34,18 @@ class TimeclockRecordsController < ApplicationController
         redirect_to controller: 'ipad', action: 'employee_action', pin: params[:timeclock_record][:user_pin] and return
       end
       @timeclock_records = TimeclockRecord.all.order(record_timestamp: :desc)
+      @closable_periods = Period.where('period_end_date < ? AND is_closed IS FALSE', Date.current)
       render :manage_records
     end
   end
 
   def update
-    # if @timeclock_record.update timeclock_record_params
-    if false
+    if @timeclock_record.update timeclock_record_params
+    # if false
       if params[:timeclock_record][:is_flagged]
         #TODO: Create ActionMailer and send email to appropriate supervisor
-        redirect_to timeclock_records_path, notice: 'Timeclock record was successfully flagged.' and return
+        FlaggedRecordMailer.flagged_record_email(@timeclock_record, params[:timeclock_record][:note_to_supervisor]).deliver
+        redirect_to timeclock_records_path, notice: 'Note successfully sent to supervisor.' and return
       end
       redirect_to manage_records_timeclock_records_path, notice: 'Timeclock record was successfully updated.'
     else
@@ -56,6 +58,7 @@ class TimeclockRecordsController < ApplicationController
         render 'index' and return
       end
       @timeclock_records = TimeclockRecord.all.order(record_timestamp: :desc)
+      @closable_periods = Period.where('period_end_date < ? AND is_closed IS FALSE', Date.current)
       render :manage_records
     end
   end

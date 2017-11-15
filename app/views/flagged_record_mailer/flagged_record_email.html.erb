@@ -1,0 +1,15 @@
+<p><%= @user.full_name %> has flagged the following time clock record:</p>
+<ul>
+  <li>
+    <small>Date/Time:</small>
+    <strong><%= @record_timestamp.strftime('%m/%d/%Y %H:%M %P') %></strong>
+  </li>
+  <li>
+    <small>Type:</small>
+    <strong><%= @record_type %></strong>
+  </li>
+</ul>
+<p><%= @user.first_name %> entered the following notes:</p>
+<blockquote>
+  <p><%= @notes %></p>
+</blockquote>
