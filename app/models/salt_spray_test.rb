@@ -1,7 +1,7 @@
 class SaltSprayTest < ApplicationRecord
 
   # Default scoping.
-  default_scope { where 'is_deleted IS FALSE' }
+  default_scope { where 'deleted_at IS NULL' }
 
   # Associations.
   has_one       :salt_spray_part
@@ -54,7 +54,7 @@ class SaltSprayTest < ApplicationRecord
   end
 
   def delete_test(current_user_id)
-    self.is_deleted = true
+    self.deleted_at = DateTime.current
     self.deleted_by = current_user_id
     save
   end
