@@ -79,7 +79,7 @@ class SaltSprayTest < ApplicationRecord
       spec_test = self.white_spec
       spot_date = self.marked_white_at
     when 'red'
-      spec_test = self.salt_spray_part.red_spec
+      spec_test = self.red_spec
       spot_date = self.marked_red_at
     end
 
@@ -134,7 +134,7 @@ class SaltSprayTest < ApplicationRecord
   end
 
   def red_spec_exists?
-    return self.salt_spray_part.red_spec != 0
+    return self.red_spec != 0
   end
 
 end

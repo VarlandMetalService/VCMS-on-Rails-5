@@ -10,6 +10,7 @@ class CreateSaltSprayTests < ActiveRecord::Migration[5.1]
       t.decimal :part_area,             precision: 10, scale: 4
       t.decimal :density,    precision: 10, scale: 4
       t.integer :white_spec
+      t.integer :red_spec
       t.bigint :put_on_by
       t.datetime :put_on_at
       t.datetime :pulled_off_at

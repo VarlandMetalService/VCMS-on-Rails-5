@@ -19,7 +19,7 @@
         <%= f.label :hours_wo_red, "Hours w/o red <br /> (spec):".html_safe %><br />
         <div class="red_hours <%= @salt_spray_test.get_pass_fail('red') if @salt_spray_test.red_spec_exists? %>">
           <%= @salt_spray_test.calculate_rust_hours(@salt_spray_test.marked_red_at) %>
-          (<%= @salt_spray_test.red_spec_exists? ? @salt_spray_test.salt_spray_part.red_spec : 'N/A' %>)
+          (<%= @salt_spray_test.red_spec_exists? ? @salt_spray_test.red_spec : 'N/A' %>)
         </div>
       </div>
     </div>
