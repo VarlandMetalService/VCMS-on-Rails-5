@@ -128,25 +128,6 @@ ActiveRecord::Schema.define(version: 20171103140912) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "salt_spray_parts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.bigint "salt_spray_test_id"
-    t.bigint "shop_order_number"
-    t.integer "load_number"
-    t.string "customer"
-    t.string "process"
-    t.string "part_number"
-    t.string "sub"
-    t.integer "white_spec"
-    t.integer "red_spec"
-    t.integer "dept"
-    t.integer "barrel_number"
-    t.decimal "load_weight", precision: 10, scale: 4
-    t.decimal "part_area", precision: 10, scale: 4
-    t.decimal "ft_cubed_per_pound", precision: 10, scale: 4
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "salt_spray_process_steps", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "salt_spray_test_id"
     t.string "name"
@@ -165,23 +146,36 @@ ActiveRecord::Schema.define(version: 20171103140912) do
   end
 
   create_table "salt_spray_tests", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.boolean "checked"
+    t.bigint "shop_order_number"
+    t.integer "load_number"
+    t.string "customer"
+    t.string "process_code"
+    t.string "part_number"
+    t.string "sub"
+    t.decimal "part_area", precision: 10, scale: 4
+    t.decimal "density", precision: 10, scale: 4
+    t.integer "white_spec"
+    t.integer "red_spec"
+    t.integer "dept"
+    t.decimal "load_weight", precision: 10, scale: 4
     t.bigint "put_on_by"
-    t.datetime "date_on"
-    t.datetime "date_off"
+    t.datetime "put_on_at"
+    t.datetime "pulled_off_at"
+    t.bigint "pulled_off_by"
     t.text "comments"
-    t.datetime "date_w_white"
-    t.bigint "who_called_white"
-    t.datetime "date_w_red"
-    t.bigint "who_called_red"
-    t.boolean "is_deleted", default: false
+    t.datetime "marked_white_at"
+    t.bigint "marked_white_by"
+    t.datetime "marked_red_at"
+    t.bigint "marked_red_by"
+    t.bigint "flagged_by"
+    t.boolean "is_special"
+    t.datetime "deleted_at"
     t.bigint "deleted_by"
-    t.boolean "is_archived", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["marked_red_by"], name: "fk_rails_818a3fe6c3"
+    t.index ["marked_white_by"], name: "fk_rails_eb9b825c87"
     t.index ["put_on_by"], name: "fk_rails_94de30c9f6"
-    t.index ["who_called_red"], name: "fk_rails_3300f3e27a"
-    t.index ["who_called_white"], name: "fk_rails_7c92d74d57"
   end
 
   create_table "shift_notes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -243,9 +237,9 @@ ActiveRecord::Schema.define(version: 20171103140912) do
   add_foreign_key "assigned_permissions", "users"
   add_foreign_key "employee_notes", "users", column: "employee"
   add_foreign_key "employee_notes", "users", column: "entered_by"
+  add_foreign_key "salt_spray_tests", "users", column: "marked_red_by"
+  add_foreign_key "salt_spray_tests", "users", column: "marked_white_by"
   add_foreign_key "salt_spray_tests", "users", column: "put_on_by"
-  add_foreign_key "salt_spray_tests", "users", column: "who_called_red"
-  add_foreign_key "salt_spray_tests", "users", column: "who_called_white"
   add_foreign_key "shift_notes", "users", column: "entered_by"
   add_foreign_key "shift_notes", "users", column: "supervisor_id"
 end
