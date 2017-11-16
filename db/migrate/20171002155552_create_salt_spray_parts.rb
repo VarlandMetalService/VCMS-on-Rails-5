@@ -12,7 +12,7 @@ class CreateSaltSprayParts < ActiveRecord::Migration[5.1]
 
 
       t.integer :barrel_number
-      t.decimal :load_weight,   precision: 10, scale: 4
+
 
 
       t.timestamps                      null: false

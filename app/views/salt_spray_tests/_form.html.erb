@@ -100,20 +100,11 @@
               <%= f.label :red_spec, 'Red Spec:', class: 'form-control-label' %><br />
               <%= f.text_field :red_spec, disabled: true, class: 'form-control' %>
             </div>
-          </div>
-          <%= f.fields_for :salt_spray_part do |s| %>
-            <div class="row">
-              <div class="col-md-5">
-
-                <div class="form-group">
-                  <%= s.label :load_weight, 'Load Weight:', class: 'form-control-label' %><br />
-                  <%= s.text_field :load_weight, disabled: true, class: 'form-control' %>
-                </div>
-              </div>
-
-              <div class="col-md-1"></div>
+            <div class="form-group">
+              <%= f.label :load_weight, 'Load Weight:', class: 'form-control-label' %><br />
+              <%= f.text_field :load_weight, disabled: true, class: 'form-control' %>
             </div>
-          <% end %>
+          </div>
         </div>
       </div>
       <br />
