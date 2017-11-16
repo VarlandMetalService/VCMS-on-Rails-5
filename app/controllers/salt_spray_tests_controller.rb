@@ -54,7 +54,7 @@ class SaltSprayTestsController < ApplicationController
     when 'Red Spot Found'
       @salt_spray_test.update_spot(current_user.id, 'red')
     when 'Test Complete'
-      @salt_spray_test.date_off = Date.current
+      @salt_spray_test.pulled_off_at = Date.current
       @salt_spray_test.is_archived = true
     end
 
@@ -135,7 +135,7 @@ private
   end
 
   def salt_spray_test_params
-    params.require(:salt_spray_test).permit(:shop_order, :put_on_at, :date_off, :is_archived,
+    params.require(:salt_spray_test).permit(:shop_order, :put_on_at, :pulled_off_at, :is_archived,
                                               :put_on_by, :barrel_number, :load_weight, :date_w_red, :date_w_white, :who_called_red, :who_called_white, :comments,
                                               salt_spray_part_attributes: [:id, :shop_order_number, :load_number, :sub, :customer, :process,
                                               :part_number, :load_weight, :dept, :white_spec, :red_spec, :part_area, :ft_cubed_per_pound],

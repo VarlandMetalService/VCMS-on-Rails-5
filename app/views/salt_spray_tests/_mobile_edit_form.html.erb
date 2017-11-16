@@ -93,7 +93,7 @@
           <%= f.submit 'White Spot Found', class: 'btn btn-sm btn-danger submit-white' if !@salt_spray_test.white_spot_reporter && @salt_spray_test.white_spec_exists? %>
         <% end %>
       </div>
-      <%= f.hidden_field :date_off, value: nil, class: 'form-submit-date-off' %>
+      <%= f.hidden_field :pulled_off_at, value: nil, class: 'form-submit-date-off' %>
       <%= f.hidden_field :is_archived, value: false, class: 'form-submit-archived' %>
       <%= f.submit 'White Spot Found', class: 'btn btn-sm btn-danger test-complete-white' %>
       <%= f.submit 'Red Spot Found', class: 'btn btn-sm btn-danger test-complete-red' %>
