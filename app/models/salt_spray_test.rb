@@ -11,7 +11,7 @@ class SaltSprayTest < ApplicationRecord
                 optional: true
   belongs_to    :white_spot_reporter,
                 class_name: 'User',
-                foreign_key: 'who_called_white',
+                foreign_key: 'marked_white_by',
                 optional: true
   belongs_to    :red_spot_reporter,
                 class_name: 'User',
@@ -62,7 +62,7 @@ class SaltSprayTest < ApplicationRecord
   def update_spot(current_user_id, spot_type)
     if spot_type == 'white'
       self.marked_white_at = Date.current
-      self.who_called_white = current_user_id
+      self.marked_white_by = current_user_id
     elsif(spot_type == 'red')
       self.date_w_red = Date.current
       self.who_called_red = current_user_id

@@ -6,7 +6,7 @@ class CreateSaltSprayTests < ActiveRecord::Migration[5.1]
       t.datetime :pulled_off_at
       t.text :comments
       t.datetime :marked_white_at
-      t.bigint :who_called_white
+      t.bigint :marked_white_by
       t.datetime :date_w_red
       t.bigint :who_called_red
       t.boolean :is_deleted,    default: false
@@ -16,7 +16,7 @@ class CreateSaltSprayTests < ActiveRecord::Migration[5.1]
     end
 
     add_foreign_key :salt_spray_tests, :users, column: :put_on_by
-    add_foreign_key :salt_spray_tests, :users, column: :who_called_white
+    add_foreign_key :salt_spray_tests, :users, column: :marked_white_by
     add_foreign_key :salt_spray_tests, :users, column: :who_called_red
 
   end
