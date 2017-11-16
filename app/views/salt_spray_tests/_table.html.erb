@@ -7,7 +7,7 @@
     <div class="col-md-1 text-center d-none d-md-table-cell">Department</div>
     <div class="col-md-1 d-none d-md-table-cell">Date On</div> <!-- put_on_by, put_on_at, pulled_off_at -->
     <div class="col-md-1 d-none d-md-table-cell">White Rust</div> <!-- marked_white_at, marked_white_by -->
-    <div class="col-md-1 d-none d-md-table-cell">Red Rust</div> <!-- marked_red_at, who_called_red -->
+    <div class="col-md-1 d-none d-md-table-cell">Red Rust</div> <!-- marked_red_at, marked_red_by -->
     <div class="col-md-3 d-none d-md-table-cell">Comments</div>
     <div class="col-md-2 text-center hidden-print d-none d-md-table-cell">Options</div>
   </div>
@@ -50,7 +50,7 @@
           <% if !t.marked_red_at %>
             <%= form_with model: t, local: true do |f| %>
               <%= f.hidden_field :marked_red_at, value: Date.current %>
-              <%= f.hidden_field :who_called_red, value: current_user.id %>
+              <%= f.hidden_field :marked_red_by, value: current_user.id %>
               <%= f.submit 'Mark Red', class: 'btn btn-sm btn-warning' %>
             <% end %>
           <% end %>

@@ -53,8 +53,8 @@
             <%= f.text_field :marked_red_at, class: 'datepicker form-control', value: format_date(@salt_spray_test.marked_red_at) %>
           </div>
           <div class="form-group">
-            <%= f.label :who_called_red, 'Red spot reporter', class: 'form-control-label' %>
-            <%= f.select :who_called_red, reporters_for_select, {include_blank: true}, {class: 'form-control'} %>
+            <%= f.label :marked_red_by, 'Red spot reporter', class: 'form-control-label' %>
+            <%= f.select :marked_red_by, reporters_for_select, {include_blank: true}, {class: 'form-control'} %>
           </div>
         </div>
         <div class="col-md-2 offset-md-1">

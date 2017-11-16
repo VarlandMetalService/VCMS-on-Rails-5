@@ -15,7 +15,7 @@ class SaltSprayTest < ApplicationRecord
                 optional: true
   belongs_to    :red_spot_reporter,
                 class_name: 'User',
-                foreign_key: 'who_called_red',
+                foreign_key: 'marked_red_by',
                 optional: true
   has_many      :attachments,
                 as: :attachable,
@@ -65,7 +65,7 @@ class SaltSprayTest < ApplicationRecord
       self.marked_white_by = current_user_id
     elsif(spot_type == 'red')
       self.marked_red_at = Date.current
-      self.who_called_red = current_user_id
+      self.marked_red_by = current_user_id
     end
   end
 
