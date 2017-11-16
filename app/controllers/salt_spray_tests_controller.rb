@@ -135,7 +135,7 @@ private
   def salt_spray_test_params
     params.require(:salt_spray_test).permit(:shop_order, :put_on_at, :pulled_off_at, :put_on_by, :barrel_number, :load_weight,
                                               :marked_red_at, :marked_white_at, :marked_red_by, :marked_white_by, :comments, :shop_order_number,
-                                              salt_spray_part_attributes: [:id, :load_number, :sub, :customer, :process,
+                                              :load_number, salt_spray_part_attributes: [:id, :sub, :customer, :process,
                                               :part_number, :load_weight, :dept, :white_spec, :red_spec, :part_area, :ft_cubed_per_pound],
                                               salt_spray_process_steps_attributes: [:id, :name, :_destroy],
                                               attachments_attributes: [:id, :content_type, :file, :_destroy])
