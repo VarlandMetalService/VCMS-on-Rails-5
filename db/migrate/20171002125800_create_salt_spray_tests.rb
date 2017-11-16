@@ -11,7 +11,6 @@ class CreateSaltSprayTests < ActiveRecord::Migration[5.1]
       t.bigint :marked_red_by
       t.datetime :deleted_at
       t.bigint :deleted_by
-      t.boolean :is_archived,   default: false
       t.timestamps              null: false
     end
 

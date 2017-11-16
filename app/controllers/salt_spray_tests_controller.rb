@@ -11,7 +11,7 @@ class SaltSprayTestsController < ApplicationController
   has_scope :with_salt_spray_part_number
 
   def index
-    @salt_spray_tests = apply_scopes(SaltSprayTest).all.page(params[:page]).where("is_archived = ?", false)
+    @salt_spray_tests = apply_scopes(SaltSprayTest).all.page(params[:page]).where('pulled_off_at IS NULL')
 
     respond_to do |format|
       format.html
@@ -55,7 +55,6 @@ class SaltSprayTestsController < ApplicationController
       @salt_spray_test.update_spot(current_user.id, 'red')
     when 'Test Complete'
       @salt_spray_test.pulled_off_at = Date.current
-      @salt_spray_test.is_archived = true
     end
 
     if @salt_spray_test.update(salt_spray_test_params)
@@ -90,7 +89,7 @@ class SaltSprayTestsController < ApplicationController
   end
 
   def archived_tests
-    @salt_spray_tests = apply_scopes(SaltSprayTest).all.page(params[:page]).where('is_archived = ?', true)
+    @salt_spray_tests = apply_scopes(SaltSprayTest).all.page(params[:page]).where('pulled_off_at IS NOT NULL')
 
     respond_to do |format|
       format.html
@@ -135,8 +134,8 @@ private
   end
 
   def salt_spray_test_params
-    params.require(:salt_spray_test).permit(:shop_order, :put_on_at, :pulled_off_at, :is_archived,
-                                              :put_on_by, :barrel_number, :load_weight, :marked_red_at, :marked_white_at, :marked_red_by, :marked_white_by, :comments,
+    params.require(:salt_spray_test).permit(:shop_order, :put_on_at, :pulled_off_at, :put_on_by, :barrel_number, :load_weight,
+                                              :marked_red_at, :marked_white_at, :marked_red_by, :marked_white_by, :comments,
                                               salt_spray_part_attributes: [:id, :shop_order_number, :load_number, :sub, :customer, :process,
                                               :part_number, :load_weight, :dept, :white_spec, :red_spec, :part_area, :ft_cubed_per_pound],
                                               salt_spray_process_steps_attributes: [:id, :name, :_destroy],

@@ -56,7 +56,7 @@
           <% end %>
           <% if t.marked_red_at && t.marked_white_at %>
             <%= form_with model: t, local: true do |f| %>
-              <%= f.hidden_field :is_archived, value: true %>
+              <%= f.hidden_field :pulled_off_at, value: Date.current %>
               <%= f.submit 'Mark Complete', class: 'btn btn-sm btn-info' %>
             <% end %>
           <% end %>
