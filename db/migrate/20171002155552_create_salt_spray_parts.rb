@@ -13,7 +13,7 @@ class CreateSaltSprayParts < ActiveRecord::Migration[5.1]
       t.integer :dept
       t.integer :barrel_number
       t.decimal :load_weight,   precision: 10, scale: 4
-      t.decimal :part_area,             precision: 10, scale: 4
+
       t.decimal :ft_cubed_per_pound,    precision: 10, scale: 4
       t.timestamps                      null: false
     end
