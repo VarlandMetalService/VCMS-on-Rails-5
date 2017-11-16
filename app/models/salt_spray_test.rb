@@ -4,7 +4,6 @@ class SaltSprayTest < ApplicationRecord
   default_scope { where 'deleted_at IS NULL' }
 
   # Associations.
-  has_one       :salt_spray_part
   belongs_to    :salt_spray_tester,
                 class_name: 'User',
                 foreign_key: 'put_on_by',
@@ -26,7 +25,6 @@ class SaltSprayTest < ApplicationRecord
   accepts_nested_attributes_for   :attachments,
                                     reject_if: :all_blank,
                                     allow_destroy: true
-  accepts_nested_attributes_for   :salt_spray_part
   accepts_nested_attributes_for   :salt_spray_process_steps,
                                     reject_if: :all_blank,
                                     allow_destroy: true

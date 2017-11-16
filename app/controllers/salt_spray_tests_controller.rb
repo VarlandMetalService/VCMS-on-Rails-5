@@ -8,7 +8,7 @@ class SaltSprayTestsController < ApplicationController
   has_scope :with_put_on_by
   has_scope :with_put_on_at_gte
   has_scope :with_put_on_at_lte
-  has_scope :with_salt_spray_part_number
+  has_scope :with_part_number
 
   def index
     @salt_spray_tests = apply_scopes(SaltSprayTest).all.page(params[:page]).where('pulled_off_at IS NULL')
@@ -24,7 +24,6 @@ class SaltSprayTestsController < ApplicationController
 
   def new
     @salt_spray_test = SaltSprayTest.new
-    @salt_spray_test.build_salt_spray_part
   end
 
   def edit
@@ -135,9 +134,8 @@ private
   def salt_spray_test_params
     params.require(:salt_spray_test).permit(:shop_order, :put_on_at, :pulled_off_at, :put_on_by, :barrel_number, :load_weight,
                                               :marked_red_at, :marked_white_at, :marked_red_by, :marked_white_by, :comments, :shop_order_number,
-                                              :load_number, :customer, :process_code, :part_number, :sub, :part_area, :density, :white_spec, :red_spec,
-                                              :dept, salt_spray_part_attributes: [:id],
-                                              salt_spray_process_steps_attributes: [:id, :name, :_destroy],
+                                              :load_number, :customer, :process_code, :part_number, :sub, :part_area, :density, :white_spec,
+                                              :red_spec, :dept, salt_spray_process_steps_attributes: [:id, :name, :_destroy],
                                               attachments_attributes: [:id, :content_type, :file, :_destroy])
   end
 
