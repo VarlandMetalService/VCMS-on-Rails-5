@@ -91,6 +91,10 @@
             <%= f.label :part_area, 'Part Area:', class: 'form-control-label' %><br />
             <%= f.text_field :part_area, disabled: true, class: 'form-control' %>
           </div>
+          <div class="form-group">
+            <%= s.label :density, 'ft<sup>3</sup> Per Pound:'.html_safe, class: 'form-control-label' %><br />
+            <%= s.text_field :density, disabled: true, class: 'form-control' %>
+          </div>
           <%= f.fields_for :salt_spray_part do |s| %>
             <div class="row">
               <div class="col-md-5">
@@ -112,10 +116,7 @@
                   <%= s.text_field :red_spec, disabled: true, class: 'form-control' %>
                 </div>
 
-                <div class="form-group">
-                  <%= s.label :ft_cubed_per_pound, 'ft<sup>3</sup> Per Pound:'.html_safe, class: 'form-control-label' %><br />
-                  <%= s.text_field :ft_cubed_per_pound, disabled: true, class: 'form-control' %>
-                </div>
+
               </div>
               <div class="col-md-1"></div>
             </div>
