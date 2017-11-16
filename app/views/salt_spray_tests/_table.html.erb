@@ -7,7 +7,7 @@
     <div class="col-md-1 text-center d-none d-md-table-cell">Department</div>
     <div class="col-md-1 d-none d-md-table-cell">Date On</div> <!-- put_on_by, put_on_at, pulled_off_at -->
     <div class="col-md-1 d-none d-md-table-cell">White Rust</div> <!-- marked_white_at, marked_white_by -->
-    <div class="col-md-1 d-none d-md-table-cell">Red Rust</div> <!-- date_w_red, who_called_red -->
+    <div class="col-md-1 d-none d-md-table-cell">Red Rust</div> <!-- marked_red_at, who_called_red -->
     <div class="col-md-3 d-none d-md-table-cell">Comments</div>
     <div class="col-md-2 text-center hidden-print d-none d-md-table-cell">Options</div>
   </div>
@@ -29,9 +29,9 @@
         <% unless t.marked_white_at.blank? %><small><strong>Hours w/o White: </strong></small><br /><%= t.calculate_rust_hours(t.marked_white_at) %><br /><br /><% end %>
       </div>
       <div class="col-md-1 d-none d-md-table-cell">
-        <% unless t.date_w_red.blank? %><small><strong>Date marked: </strong></small><br /><%= t.date_w_red.strftime('%m/%d/%Y') %><% end %>
+        <% unless t.marked_red_at.blank? %><small><strong>Date marked: </strong></small><br /><%= t.marked_red_at.strftime('%m/%d/%Y') %><% end %>
         <% unless t.red_spot_reporter.blank? %><br /><small><strong>Reporter: </strong></small><br /><%= t.red_spot_reporter.full_name %><br /><% end %>
-        <% unless t.date_w_red.blank? %><small><strong>Hours w/o Red: </strong></small><br /><%= t.calculate_rust_hours(t.date_w_red) %><br /><br /><% end %>
+        <% unless t.marked_red_at.blank? %><small><strong>Hours w/o Red: </strong></small><br /><%= t.calculate_rust_hours(t.marked_red_at) %><br /><br /><% end %>
       </div>
       <div class="col-md-3 d-none d-md-table-cell">
         <%= t.comments %>
@@ -47,14 +47,14 @@
               <%= f.submit 'Mark White', class: 'btn btn-sm btn-warning' %>
             <% end %>
           <% end %>
-          <% if !t.date_w_red %>
+          <% if !t.marked_red_at %>
             <%= form_with model: t, local: true do |f| %>
-              <%= f.hidden_field :date_w_red, value: Date.current %>
+              <%= f.hidden_field :marked_red_at, value: Date.current %>
               <%= f.hidden_field :who_called_red, value: current_user.id %>
               <%= f.submit 'Mark Red', class: 'btn btn-sm btn-warning' %>
             <% end %>
           <% end %>
-          <% if t.date_w_red && t.marked_white_at %>
+          <% if t.marked_red_at && t.marked_white_at %>
             <%= form_with model: t, local: true do |f| %>
               <%= f.hidden_field :is_archived, value: true %>
               <%= f.submit 'Mark Complete', class: 'btn btn-sm btn-info' %>

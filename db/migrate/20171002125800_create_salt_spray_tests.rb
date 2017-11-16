@@ -7,7 +7,7 @@ class CreateSaltSprayTests < ActiveRecord::Migration[5.1]
       t.text :comments
       t.datetime :marked_white_at
       t.bigint :marked_white_by
-      t.datetime :date_w_red
+      t.datetime :marked_red_at
       t.bigint :who_called_red
       t.boolean :is_deleted,    default: false
       t.bigint :deleted_by

@@ -64,7 +64,7 @@ class SaltSprayTest < ApplicationRecord
       self.marked_white_at = Date.current
       self.marked_white_by = current_user_id
     elsif(spot_type == 'red')
-      self.date_w_red = Date.current
+      self.marked_red_at = Date.current
       self.who_called_red = current_user_id
     end
   end
@@ -76,7 +76,7 @@ class SaltSprayTest < ApplicationRecord
       spot_date = self.marked_white_at
     when 'red'
       spec_test = self.salt_spray_part.red_spec
-      spot_date = self.date_w_red
+      spot_date = self.marked_red_at
     end
 
     if spec_test == 0
@@ -110,7 +110,7 @@ class SaltSprayTest < ApplicationRecord
       reporter = self.white_spot_reporter
     when 'red'
       return 'N/A' if !self.red_spec_exists?
-      spot_date = self.date_w_red
+      spot_date = self.marked_red_at
       reporter = self.red_spot_reporter
     end
 
