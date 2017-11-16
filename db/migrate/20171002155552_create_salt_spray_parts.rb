@@ -4,7 +4,7 @@ class CreateSaltSprayParts < ActiveRecord::Migration[5.1]
       t.bigint :salt_spray_test_id
 
 
-      t.string :customer
+
       t.string :process
       t.string :part_number
       t.string :sub

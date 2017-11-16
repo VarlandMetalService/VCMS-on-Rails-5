@@ -105,7 +105,7 @@ private
       sub_from_api = so_details['sub']
 
       begin
-        @salt_spray_test.salt_spray_part.customer = so_details['customer']
+        @salt_spray_test.customer = so_details['customer']
         @salt_spray_test.salt_spray_part.process = so_details['process']
         @salt_spray_test.salt_spray_part.part_number = so_details['part']
         if !params[:salt_spray_test][:salt_spray_part_attributes][:sub].blank?
@@ -125,7 +125,7 @@ private
         @salt_spray_test.errors.add(:salt_spray_test, "Invalid shop order number.")
       end
     else
-      if !params[:salt_spray_test][:salt_spray_part_attributes][:customer].blank?
+      if !params[:salt_spray_test][:customer].blank?
         return true
       end
       return false
@@ -135,7 +135,7 @@ private
   def salt_spray_test_params
     params.require(:salt_spray_test).permit(:shop_order, :put_on_at, :pulled_off_at, :put_on_by, :barrel_number, :load_weight,
                                               :marked_red_at, :marked_white_at, :marked_red_by, :marked_white_by, :comments, :shop_order_number,
-                                              :load_number, salt_spray_part_attributes: [:id, :sub, :customer, :process,
+                                              :load_number, :customer, salt_spray_part_attributes: [:id, :sub, :process,
                                               :part_number, :load_weight, :dept, :white_spec, :red_spec, :part_area, :ft_cubed_per_pound],
                                               salt_spray_process_steps_attributes: [:id, :name, :_destroy],
                                               attachments_attributes: [:id, :content_type, :file, :_destroy])
