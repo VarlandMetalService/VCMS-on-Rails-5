@@ -14,7 +14,7 @@
   <% @salt_spray_tests.each do |t| -%>
     <div class="row">
       <div class="col-3 col-md-1 text-center"><%= link_to t.shop_order_number, salt_spray_test_path(t), remote: true %><br /> <small>Load: <%= t.load_number %></small></div>
-      <div class="col-md-1 text-center d-none d-md-table-cell"><%= t.salt_spray_part.part_number %></div>
+      <div class="col-md-1 text-center d-none d-md-table-cell"><%= t.part_number %></div>
       <div class="col-2 col-md-1 text-center process"><%= t.process %></div>
       <div class="col-md-1 text-center d-none d-md-table-cell"><%= t.salt_spray_part.dept %></div>
       <div class="col-md-1 d-none d-md-table-cell">

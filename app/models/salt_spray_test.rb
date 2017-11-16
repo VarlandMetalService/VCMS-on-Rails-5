@@ -48,6 +48,10 @@ class SaltSprayTest < ApplicationRecord
     order sort_option
   }
 
+  def self.options_for_part_number
+    SaltSprayTest.distinct.pluck(:part_number).sort!
+  end
+
   def self.options_for_put_on_by
     users = User.where id: SaltSprayTest.distinct.pluck(:put_on_by)
     users.map { |u| [u.full_name, u.id] }

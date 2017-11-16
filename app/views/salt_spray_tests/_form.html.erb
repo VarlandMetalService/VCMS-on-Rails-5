@@ -83,15 +83,16 @@
             <%= f.label :process, 'Process:', class: 'form-control-label' %><br />
             <%= f.text_field :process, disabled: true, class: 'form-control' %>
           </div>
+          <div class="form-group">
+            <%= f.label :part_number, 'Part ID:', class: 'form-control-label' %><br />
+            <%= f.text_field :part_number, disabled: true, class: 'form-control' %>
+          </div>
           <%= f.fields_for :salt_spray_part do |s| %>
             <div class="row">
               <div class="col-md-5">
 
 
-                <div class="form-group">
-                  <%= s.label :part_number, 'Part ID:', class: 'form-control-label' %><br />
-                  <%= s.text_field :part_number, disabled: true, class: 'form-control' %>
-                </div>
+
                 <div class="form-group">
                   <%= s.label :load_weight, 'Load Weight:', class: 'form-control-label' %><br />
                   <%= s.text_field :load_weight, disabled: true, class: 'form-control' %>
