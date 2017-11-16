@@ -4,6 +4,7 @@ class CreateSaltSprayTests < ActiveRecord::Migration[5.1]
       t.bigint :shop_order_number
       t.integer :load_number
       t.string :customer
+      t.string :process_code
       t.bigint :put_on_by
       t.datetime :put_on_at
       t.datetime :pulled_off_at
