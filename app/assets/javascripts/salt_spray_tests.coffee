@@ -13,20 +13,6 @@ $(document).on 'turbolinks:load', (event) ->
   $(document).ajaxSuccess ->
     colorTable()
 
-  # Manage Salt Spray Test "checked" functionality
-  $('#salt_spray_test_results').on 'click', '.test-checkbox', (event) ->
-    $.ajax
-      cache: false
-      type: 'PUT'
-      url: 'salt_spray_tests/' + $(event.target).val()
-      data: salt_spray_test: {checked: $(event.target).is(':checked')}
-      dataType: 'script'
-      success: setTimeout (->
-          colorTable()
-          return
-        ), 1000
-    return
-
   # Manual entry modal functionality
   $(document).on 'click', '.manual-entry-yes', ->
     $('.manual-entry-inputs input').prop({

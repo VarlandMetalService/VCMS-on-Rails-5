@@ -1,7 +1,6 @@
 class CreateSaltSprayTests < ActiveRecord::Migration[5.1]
   def change
     create_table :salt_spray_tests do |t|
-      t.boolean :checked
       t.bigint :put_on_by
       t.datetime :date_on
       t.datetime :date_off

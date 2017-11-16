@@ -26,7 +26,6 @@
         </div>
       <% end %>
 
-      <%= f.hidden_field :checked, :value => false %>
       <div class="row">
         <div class="col-md-2">
           <%= f.fields_for :salt_spray_part do |s| %>
@@ -49,7 +48,6 @@
           </div>
           <%= f.hidden_field :date_on, value: Date.current %>
           <%= f.hidden_field :put_on_by, value: current_user.id %>
-          <%= f.hidden_field :checked, value: true %>
         </div>
         <div class="col-md-3 offset-md-1">
           <div class="form-group">

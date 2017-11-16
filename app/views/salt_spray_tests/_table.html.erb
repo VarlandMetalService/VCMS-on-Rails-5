@@ -13,17 +13,15 @@
   </div>
   <% @salt_spray_tests.each do |t| -%>
     <div class="row">
-      <% if !t.checked %><div class="col-4 text-center d-md-none"><%= link_to 'Update', edit_salt_spray_test_path(t), class: 'btn btn-primary btn-sm btn-mobile' %></div><% end %>
-      <% if action_name != 'archived_tests' %><div class="col-4 col-md-1 text-center d-md-none<%#= ' d-none d-md-table-cell' if !t.checked %>"><%= check_box_tag 'checked', t.id, t.checked, class: 'test-checkbox' %></div><% end %>
       <div class="col-3 col-md-1 text-center"><%= link_to t.salt_spray_part.shop_order_number, salt_spray_test_path(t.salt_spray_part), remote: true %><br /> <small>Load: <%= t.salt_spray_part.load_number %></small></div>
       <div class="col-md-1 text-center d-none d-md-table-cell"><%= t.salt_spray_part.part_number %></div>
       <div class="col-2 col-md-1 text-center process"><%= t.salt_spray_part.process %></div>
       <div class="col-md-1 text-center d-none d-md-table-cell"><%= t.salt_spray_part.dept %></div>
       <div class="col-md-1 d-none d-md-table-cell">
-        <small><strong>Date on: </strong></small><br /><%= t.date_on.strftime('%m/%d/%Y') %><br />
+        <%= t.date_on.strftime('%m/%d/%Y') %><br />
         <% unless t.date_off.blank? %><small><strong>Date off: </strong></small><br /><%= t.date_off.strftime('%m/%d/%Y') %><br /><% end %>
-        <small><strong>Put on by: </strong></small><br /><%= t.salt_spray_tester.full_name %><br />
-        <small><strong>Hours On: </strong></small><br /><%= t.calculate_rust_hours(false) %><br /><br />
+        <small><strong>By: </strong></small><%= t.salt_spray_tester.full_name %><br />
+        <small><strong>Hours On: </strong></small><%= t.calculate_rust_hours(false) %><br /><br />
       </div>
       <div class="col-md-1 d-none d-md-table-cell">
         <% unless t.date_w_white.blank? %><small><strong>Date marked: </strong></small><br /><%= t.date_w_white.strftime('%m/%d/%Y') %><% end %>
@@ -59,7 +57,7 @@
           <% if t.date_w_red && t.date_w_white %>
             <%= form_with model: t, local: true do |f| %>
               <%= f.hidden_field :is_archived, value: true %>
-              <%= f.submit 'Archive Test', class: 'btn btn-sm btn-info' %>
+              <%= f.submit 'Mark Complete', class: 'btn btn-sm btn-info' %>
             <% end %>
           <% end %>
         <% end %>
