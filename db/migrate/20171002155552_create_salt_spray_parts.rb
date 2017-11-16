@@ -7,7 +7,7 @@ class CreateSaltSprayParts < ActiveRecord::Migration[5.1]
 
 
 
-      t.string :sub
+
       t.integer :white_spec
       t.integer :red_spec
       t.integer :dept
