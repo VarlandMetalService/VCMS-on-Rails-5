@@ -5,7 +5,7 @@ class CreateSaltSprayTests < ActiveRecord::Migration[5.1]
       t.datetime :put_on_at
       t.datetime :pulled_off_at
       t.text :comments
-      t.datetime :date_w_white
+      t.datetime :marked_white_at
       t.bigint :who_called_white
       t.datetime :date_w_red
       t.bigint :who_called_red

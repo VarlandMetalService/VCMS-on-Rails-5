@@ -61,7 +61,7 @@ class SaltSprayTest < ApplicationRecord
 
   def update_spot(current_user_id, spot_type)
     if spot_type == 'white'
-      self.date_w_white = Date.current
+      self.marked_white_at = Date.current
       self.who_called_white = current_user_id
     elsif(spot_type == 'red')
       self.date_w_red = Date.current
@@ -73,7 +73,7 @@ class SaltSprayTest < ApplicationRecord
     case spot_type
     when 'white'
       spec_test = self.salt_spray_part.white_spec
-      spot_date = self.date_w_white
+      spot_date = self.marked_white_at
     when 'red'
       spec_test = self.salt_spray_part.red_spec
       spot_date = self.date_w_red
@@ -106,7 +106,7 @@ class SaltSprayTest < ApplicationRecord
     case spot_type
     when 'white'
       return 'N/A' if !self.white_spec_exists?
-      spot_date = self.date_w_white
+      spot_date = self.marked_white_at
       reporter = self.white_spot_reporter
     when 'red'
       return 'N/A' if !self.red_spec_exists?

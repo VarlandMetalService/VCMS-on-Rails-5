@@ -6,7 +6,7 @@
     <div class="col-2 col-md-1 text-center bold-sm">Proc.</div>
     <div class="col-md-1 text-center d-none d-md-table-cell">Department</div>
     <div class="col-md-1 d-none d-md-table-cell">Date On</div> <!-- put_on_by, put_on_at, pulled_off_at -->
-    <div class="col-md-1 d-none d-md-table-cell">White Rust</div> <!-- date_w_white, who_called_white -->
+    <div class="col-md-1 d-none d-md-table-cell">White Rust</div> <!-- marked_white_at, who_called_white -->
     <div class="col-md-1 d-none d-md-table-cell">Red Rust</div> <!-- date_w_red, who_called_red -->
     <div class="col-md-3 d-none d-md-table-cell">Comments</div>
     <div class="col-md-2 text-center hidden-print d-none d-md-table-cell">Options</div>
@@ -24,9 +24,9 @@
         <small><strong>Hours On: </strong></small><%= t.calculate_rust_hours(false) %><br /><br />
       </div>
       <div class="col-md-1 d-none d-md-table-cell">
-        <% unless t.date_w_white.blank? %><small><strong>Date marked: </strong></small><br /><%= t.date_w_white.strftime('%m/%d/%Y') %><% end %>
+        <% unless t.marked_white_at.blank? %><small><strong>Date marked: </strong></small><br /><%= t.marked_white_at.strftime('%m/%d/%Y') %><% end %>
         <% unless t.white_spot_reporter.blank? %><br /><small><strong>Reporter: </strong></small><br /><%= t.white_spot_reporter.full_name %><br /><% end %>
-        <% unless t.date_w_white.blank? %><small><strong>Hours w/o White: </strong></small><br /><%= t.calculate_rust_hours(t.date_w_white) %><br /><br /><% end %>
+        <% unless t.marked_white_at.blank? %><small><strong>Hours w/o White: </strong></small><br /><%= t.calculate_rust_hours(t.marked_white_at) %><br /><br /><% end %>
       </div>
       <div class="col-md-1 d-none d-md-table-cell">
         <% unless t.date_w_red.blank? %><small><strong>Date marked: </strong></small><br /><%= t.date_w_red.strftime('%m/%d/%Y') %><% end %>
@@ -40,9 +40,9 @@
         <% if @access_level.access_level == 3 and action_name != 'archived_tests' -%>
           <%= link_to 'Edit', edit_salt_spray_test_path(t), class: "btn btn-sm btn-default mr-2" %>
           <%= link_to 'Delete', salt_spray_test_path(t), data: { confirm: 'Are you sure?'}, method: 'delete', class: 'btn btn-sm btn-danger' %><br />
-          <% if !t.date_w_white %>
+          <% if !t.marked_white_at %>
             <%= form_with model: t, local: true do |f| %>
-              <%= f.hidden_field :date_w_white, value: Date.current %>
+              <%= f.hidden_field :marked_white_at, value: Date.current %>
               <%= f.hidden_field :who_called_white, value: current_user.id %>
               <%= f.submit 'Mark White', class: 'btn btn-sm btn-warning' %>
             <% end %>
@@ -54,7 +54,7 @@
               <%= f.submit 'Mark Red', class: 'btn btn-sm btn-warning' %>
             <% end %>
           <% end %>
-          <% if t.date_w_red && t.date_w_white %>
+          <% if t.date_w_red && t.marked_white_at %>
             <%= form_with model: t, local: true do |f| %>
               <%= f.hidden_field :is_archived, value: true %>
               <%= f.submit 'Mark Complete', class: 'btn btn-sm btn-info' %>
