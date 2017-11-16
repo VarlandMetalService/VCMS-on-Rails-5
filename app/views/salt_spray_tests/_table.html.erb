@@ -5,7 +5,7 @@
     <div class="col-md-1 text-center d-none d-md-table-cell">Part ID</div>
     <div class="col-2 col-md-1 text-center bold-sm">Proc.</div>
     <div class="col-md-1 text-center d-none d-md-table-cell">Department</div>
-    <div class="col-md-1 d-none d-md-table-cell">Date On</div> <!-- put_on_by, date_on, date_off -->
+    <div class="col-md-1 d-none d-md-table-cell">Date On</div> <!-- put_on_by, put_on_at, date_off -->
     <div class="col-md-1 d-none d-md-table-cell">White Rust</div> <!-- date_w_white, who_called_white -->
     <div class="col-md-1 d-none d-md-table-cell">Red Rust</div> <!-- date_w_red, who_called_red -->
     <div class="col-md-3 d-none d-md-table-cell">Comments</div>
@@ -18,7 +18,7 @@
       <div class="col-2 col-md-1 text-center process"><%= t.salt_spray_part.process %></div>
       <div class="col-md-1 text-center d-none d-md-table-cell"><%= t.salt_spray_part.dept %></div>
       <div class="col-md-1 d-none d-md-table-cell">
-        <%= t.date_on.strftime('%m/%d/%Y') %><br />
+        <%= t.put_on_at.strftime('%m/%d/%Y') %><br />
         <% unless t.date_off.blank? %><small><strong>Date off: </strong></small><br /><%= t.date_off.strftime('%m/%d/%Y') %><br /><% end %>
         <small><strong>By: </strong></small><%= t.salt_spray_tester.full_name %><br />
         <small><strong>Hours On: </strong></small><%= t.calculate_rust_hours(false) %><br /><br />

@@ -38,11 +38,11 @@ class SaltSprayTest < ApplicationRecord
   scope :with_put_on_by, ->(values) {
     where put_on_by: [*values]
   }
-  scope :with_date_on_gte, lambda { |reference_time|
-    where('salt_spray_tests.date_on >= ?', reference_time.to_date)
+  scope :with_put_on_at_gte, lambda { |reference_time|
+    where('salt_spray_tests.put_on_at >= ?', reference_time.to_date)
   }
-  scope :with_date_on_lte, lambda { |reference_time|
-    where('salt_spray_tests.date_on <= ?', reference_time.to_date)
+  scope :with_put_on_at_lte, lambda { |reference_time|
+    where('salt_spray_tests.put_on_at <= ?', reference_time.to_date)
   }
   scope :sorted_by, ->(sort_option) {
     order sort_option
@@ -92,9 +92,9 @@ class SaltSprayTest < ApplicationRecord
 
   def calculate_rust_hours(spot_date)
     if spot_date
-      return subtract_time_get_hours(spot_date.to_time, self.date_on.to_time)
+      return subtract_time_get_hours(spot_date.to_time, self.put_on_at.to_time)
     else
-      return subtract_time_get_hours(Date.current.to_time, self.date_on)
+      return subtract_time_get_hours(Date.current.to_time, self.put_on_at)
     end
   end
 

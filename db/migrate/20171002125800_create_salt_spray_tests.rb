@@ -2,7 +2,7 @@ class CreateSaltSprayTests < ActiveRecord::Migration[5.1]
   def change
     create_table :salt_spray_tests do |t|
       t.bigint :put_on_by
-      t.datetime :date_on
+      t.datetime :put_on_at
       t.datetime :date_off
       t.text :comments
       t.datetime :date_w_white

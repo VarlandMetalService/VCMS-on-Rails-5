@@ -6,8 +6,8 @@ class SaltSprayTestsController < ApplicationController
   has_scope :sorted_by
   has_scope :with_shop_order_number
   has_scope :with_put_on_by
-  has_scope :with_date_on_gte
-  has_scope :with_date_on_lte
+  has_scope :with_put_on_at_gte
+  has_scope :with_put_on_at_lte
   has_scope :with_salt_spray_part_number
 
   def index
@@ -135,7 +135,7 @@ private
   end
 
   def salt_spray_test_params
-    params.require(:salt_spray_test).permit(:shop_order, :date_on, :date_off, :is_archived,
+    params.require(:salt_spray_test).permit(:shop_order, :put_on_at, :date_off, :is_archived,
                                               :put_on_by, :barrel_number, :load_weight, :date_w_red, :date_w_white, :who_called_red, :who_called_white, :comments,
                                               salt_spray_part_attributes: [:id, :shop_order_number, :load_number, :sub, :customer, :process,
                                               :part_number, :load_weight, :dept, :white_spec, :red_spec, :part_area, :ft_cubed_per_pound],
