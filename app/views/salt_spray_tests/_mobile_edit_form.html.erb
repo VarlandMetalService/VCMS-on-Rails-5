@@ -12,7 +12,7 @@
         <%= f.label :hours_wo_white, "Hours w/o white <br /> (spec):".html_safe %><br />
         <div class="white_hours <%= @salt_spray_test.get_pass_fail('white') if @salt_spray_test.white_spec_exists? %>">
           <%= @salt_spray_test.calculate_rust_hours(@salt_spray_test.marked_white_at) %>
-          (<%= @salt_spray_test.white_spec_exists? ? @salt_spray_test.salt_spray_part.white_spec : 'N/A' %>)
+          (<%= @salt_spray_test.white_spec_exists? ? @salt_spray_test.white_spec : 'N/A' %>)
         </div>
       </div>
       <div class="col-6">

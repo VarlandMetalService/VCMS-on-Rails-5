@@ -76,7 +76,7 @@ class SaltSprayTest < ApplicationRecord
   def get_pass_fail(spot_type)
     case spot_type
     when 'white'
-      spec_test = self.salt_spray_part.white_spec
+      spec_test = self.white_spec
       spot_date = self.marked_white_at
     when 'red'
       spec_test = self.salt_spray_part.red_spec
@@ -130,7 +130,7 @@ class SaltSprayTest < ApplicationRecord
   end
 
   def white_spec_exists?
-    return self.salt_spray_part.white_spec != 0
+    return self.white_spec != 0
   end
 
   def red_spec_exists?
