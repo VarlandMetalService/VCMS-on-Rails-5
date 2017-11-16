@@ -1,6 +1,7 @@
 class CreateSaltSprayTests < ActiveRecord::Migration[5.1]
   def change
     create_table :salt_spray_tests do |t|
+      t.bigint :shop_order_number
       t.bigint :put_on_by
       t.datetime :put_on_at
       t.datetime :pulled_off_at

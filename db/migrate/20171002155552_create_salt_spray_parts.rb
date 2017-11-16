@@ -2,7 +2,7 @@ class CreateSaltSprayParts < ActiveRecord::Migration[5.1]
   def change
     create_table :salt_spray_parts do |t|
       t.bigint :salt_spray_test_id
-      t.bigint :shop_order_number
+
       t.integer :load_number
       t.string :customer
       t.string :process

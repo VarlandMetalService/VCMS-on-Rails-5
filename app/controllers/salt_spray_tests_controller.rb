@@ -1,6 +1,6 @@
 class SaltSprayTestsController < ApplicationController
 
-  before_action :set_salt_spray_test, only: [:edit, :update, :destroy]
+  before_action :set_salt_spray_test, only: [:edit, :update, :show, :destroy]
   before_action :check_user_permission
 
   has_scope :sorted_by
@@ -77,7 +77,6 @@ class SaltSprayTestsController < ApplicationController
   end
 
   def show
-    @salt_spray_part = SaltSprayPart.find params[:id]
     @attachments = SaltSprayTest.find_by_id(params[:id]).attachments
   end
 
@@ -100,7 +99,7 @@ class SaltSprayTestsController < ApplicationController
 private
 
   def add_shop_order_details
-    shop_order_param = params[:salt_spray_test][:salt_spray_part_attributes][:shop_order_number]
+    shop_order_param = params[:salt_spray_test][:shop_order_number]
 
     if so_details = get_shop_order_details(shop_order_param)
       sub_from_api = so_details['sub']
@@ -135,8 +134,8 @@ private
 
   def salt_spray_test_params
     params.require(:salt_spray_test).permit(:shop_order, :put_on_at, :pulled_off_at, :put_on_by, :barrel_number, :load_weight,
-                                              :marked_red_at, :marked_white_at, :marked_red_by, :marked_white_by, :comments,
-                                              salt_spray_part_attributes: [:id, :shop_order_number, :load_number, :sub, :customer, :process,
+                                              :marked_red_at, :marked_white_at, :marked_red_by, :marked_white_by, :comments, :shop_order_number,
+                                              salt_spray_part_attributes: [:id, :load_number, :sub, :customer, :process,
                                               :part_number, :load_weight, :dept, :white_spec, :red_spec, :part_area, :ft_cubed_per_pound],
                                               salt_spray_process_steps_attributes: [:id, :name, :_destroy],
                                               attachments_attributes: [:id, :content_type, :file, :_destroy])

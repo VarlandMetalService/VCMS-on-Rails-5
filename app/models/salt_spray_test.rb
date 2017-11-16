@@ -33,7 +33,7 @@ class SaltSprayTest < ApplicationRecord
 
   # Scopes.
   scope :with_shop_order_number, lambda { |shop_orders|
-    joins(:salt_spray_part).where("salt_spray_parts.shop_order_number like ?", "#{shop_orders}%")
+    where("shop_order_number like ?", "#{shop_orders}%")
   }
   scope :with_put_on_by, ->(values) {
     where put_on_by: [*values]
