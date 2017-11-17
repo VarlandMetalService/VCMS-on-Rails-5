@@ -22,7 +22,7 @@ class CreateSaltSprayTests < ActiveRecord::Migration[5.1]
       t.datetime :marked_red_at
       t.bigint :marked_red_by
       t.bigint :flagged_by
-      t.boolean :is_special
+      t.boolean :is_sample,    default: false
       t.datetime :deleted_at
       t.bigint :deleted_by
       t.timestamps              null: false
