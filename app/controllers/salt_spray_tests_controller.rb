@@ -35,7 +35,7 @@ class SaltSprayTestsController < ApplicationController
 
     if add_shop_order_details
       if @salt_spray_test.save
-        redirect_to action: 'index'
+        redirect_to action: 'edit', id: @salt_spray_test.id
       else
         render 'new'
       end
