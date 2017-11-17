@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171103140912) do
+ActiveRecord::Schema.define(version: 20171117133422) do
 
   create_table "assigned_permissions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "user_id"
@@ -51,6 +51,15 @@ ActiveRecord::Schema.define(version: 20171103140912) do
     t.bigint "category_id", null: false
     t.bigint "document_id", null: false
     t.index ["category_id", "document_id"], name: "index_categories_documents_on_category_id_and_document_id"
+  end
+
+  create_table "comments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.text "content"
+    t.string "commentable_type"
+    t.bigint "commentable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id"
   end
 
   create_table "documents", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -162,7 +171,6 @@ ActiveRecord::Schema.define(version: 20171103140912) do
     t.datetime "put_on_at"
     t.datetime "pulled_off_at"
     t.bigint "pulled_off_by"
-    t.text "comments"
     t.datetime "marked_white_at"
     t.bigint "marked_white_by"
     t.datetime "marked_red_at"

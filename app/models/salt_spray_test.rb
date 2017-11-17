@@ -19,10 +19,16 @@ class SaltSprayTest < ApplicationRecord
   has_many      :attachments,
                 as: :attachable,
                 dependent: :destroy
+  has_one       :comment,
+                as: :commentable,
+                dependent: :destroy
   has_many      :salt_spray_process_steps,
                 inverse_of: :salt_spray_test
 
   accepts_nested_attributes_for   :attachments,
+                                    reject_if: :all_blank,
+                                    allow_destroy: true
+  accepts_nested_attributes_for   :comment,
                                     reject_if: :all_blank,
                                     allow_destroy: true
   accepts_nested_attributes_for   :salt_spray_process_steps,

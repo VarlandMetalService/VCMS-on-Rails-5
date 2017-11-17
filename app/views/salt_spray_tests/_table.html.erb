@@ -34,7 +34,7 @@
         <% unless t.marked_red_at.blank? %><small><strong>Hours w/o Red: </strong></small><br /><%= t.calculate_rust_hours(t.marked_red_at) %><br /><br /><% end %>
       </div>
       <div class="col-md-3 d-none d-md-table-cell">
-        <%= t.comments %>
+        <%= t.comment.content if t.comment %>
       </div>
       <div class="col-md-2 text-center hidden-print d-none d-md-table-cell">
         <% if @access_level.access_level == 3 and action_name != 'archived_tests' -%>
