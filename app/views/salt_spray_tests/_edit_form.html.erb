@@ -59,32 +59,19 @@
         </div>
         <div class="col-md-2 offset-md-1">
           <div class="form-group">
-            <p>Process Steps:</p>
-            <table class="table-responsive table-sm">
-              <tbody id="salt_spray_processes">
-                <%= f.fields_for :salt_spray_process_steps do |process| %>
-                  <%= render 'process_fields', f: process %>
-                <% end %>
-              </tbody>
-              <tfoot>
-                <tr>
-                  <td class="text-center">
-                    <%= link_to_add_association 'Add Process Step', f, :salt_spray_process_steps,
-                                                                    :class => 'btn btn-sm btn-success',
-                                                                    :'data-association-insertion-node' => '#salt_spray_processes',
-                                                                    :'data-association-insertion-method' => 'append',
-                                                                    :partial => 'process_fields' %>
-                  </td>
-                </tr>
-              </tfoot>
-            </table>
+            <%= f.label :dept, 'Department:', class: 'form-control-label' %><br />
+            <%= f.text_field :dept, class: 'form-control' %>
+          </div>
+          <div class="form-group">
+            <%= f.label :comments, 'Comments:', class: 'form-control-label' %><br />
+            <%= f.text_area :comments, class: 'form-control' %>
           </div>
         </div>
+
       </div>
       <div class="row">
         <div class="col-md-3">
           <div class="form-group">
-            <br />
             <%= f.label nil, 'Attachments' %><br />
             <div id="salt_spray_attachments">
               <%= f.fields_for :attachments do |attachment| %>
@@ -102,15 +89,7 @@
         </div>
         <div class="col-md-3">
           <div class="form-group">
-            <br />
-            <%= f.label :comments %><br />
-            <%= f.text_area :comments %>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3 offset-md-1">
-          <div class="form-group">
-            <p>Process Steps:</p>
+            <%= f.label nil, 'Process Steps' %><br />
             <table class="table-responsive table-sm">
               <tbody id="salt_spray_processes">
                 <%= f.fields_for :salt_spray_process_steps do |process| %>
@@ -131,52 +110,43 @@
             </table>
           </div>
         </div>
-
+      </div>
+      <div class="col-md-6 manual-entry-inputs display-none">
         <div class="form-group">
-          <%= f.label :dept, 'Department:', class: 'form-control-label' %><br />
-          <%= f.text_field :dept, class: 'form-control' %>
+          <%= f.label :customer, 'Customer:', class: 'form-control-label' %><br />
+          <%= f.text_field :customer, disabled: true, class: 'form-control' %>
         </div>
         <div class="form-group">
-          <%= f.label :comments, 'Comments:', class: 'form-control-label' %><br />
-          <%= f.text_area :comments, class: 'form-control' %>
+          <%= f.label :process_code, 'Process:', class: 'form-control-label' %><br />
+          <%= f.text_field :process_code, disabled: true, class: 'form-control' %>
         </div>
-
-        <div class="col-md-6 manual-entry-inputs display-none">
+        <div class="form-group">
+          <%= f.label :part_number, 'Part ID:', class: 'form-control-label' %><br />
+          <%= f.text_field :part_number, disabled: true, class: 'form-control' %>
+        </div>
+        <div class="form-group">
+          <%= f.label :part_area, 'Part Area:', class: 'form-control-label' %><br />
+          <%= f.text_field :part_area, disabled: true, class: 'form-control' %>
+        </div>
+        <div class="form-group">
+          <%= f.label :density, 'ft<sup>3</sup> Per Pound:'.html_safe, class: 'form-control-label' %><br />
+          <%= f.text_field :density, disabled: true, class: 'form-control' %>
+        </div>
+        <div class="col-md-5 offset-md-1">
           <div class="form-group">
-            <%= f.label :customer, 'Customer:', class: 'form-control-label' %><br />
-            <%= f.text_field :customer, disabled: true, class: 'form-control' %>
+            <%= f.label :white_spec, 'White Spec:', class: 'form-control-label' %><br />
+            <%= f.text_field :white_spec, disabled: true, class: 'form-control' %>
           </div>
           <div class="form-group">
-            <%= f.label :process_code, 'Process:', class: 'form-control-label' %><br />
-            <%= f.text_field :process_code, disabled: true, class: 'form-control' %>
+            <%= f.label :red_spec, 'Red Spec:', class: 'form-control-label' %><br />
+            <%= f.text_field :red_spec, disabled: true, class: 'form-control' %>
           </div>
           <div class="form-group">
-            <%= f.label :part_number, 'Part ID:', class: 'form-control-label' %><br />
-            <%= f.text_field :part_number, disabled: true, class: 'form-control' %>
-          </div>
-          <div class="form-group">
-            <%= f.label :part_area, 'Part Area:', class: 'form-control-label' %><br />
-            <%= f.text_field :part_area, disabled: true, class: 'form-control' %>
-          </div>
-          <div class="form-group">
-            <%= f.label :density, 'ft<sup>3</sup> Per Pound:'.html_safe, class: 'form-control-label' %><br />
-            <%= f.text_field :density, disabled: true, class: 'form-control' %>
-          </div>
-          <div class="col-md-5 offset-md-1">
-            <div class="form-group">
-              <%= f.label :white_spec, 'White Spec:', class: 'form-control-label' %><br />
-              <%= f.text_field :white_spec, disabled: true, class: 'form-control' %>
-            </div>
-            <div class="form-group">
-              <%= f.label :red_spec, 'Red Spec:', class: 'form-control-label' %><br />
-              <%= f.text_field :red_spec, disabled: true, class: 'form-control' %>
-            </div>
-            <div class="form-group">
-              <%= f.label :load_weight, 'Load Weight:', class: 'form-control-label' %><br />
-              <%= f.text_field :load_weight, disabled: true, class: 'form-control' %>
-            </div>
+            <%= f.label :load_weight, 'Load Weight:', class: 'form-control-label' %><br />
+            <%= f.text_field :load_weight, disabled: true, class: 'form-control' %>
           </div>
         </div>
+      </div>
       <div class="form-group">
         <br />
         <%= f.submit 'Edit Salt Spray Test', class: 'btn btn-primary' %>
