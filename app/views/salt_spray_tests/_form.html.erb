@@ -13,7 +13,7 @@
 </div>
 <div class="card bg-light">
   <div class="card-body">
-    <%= form_with model: @salt_spray_test, url: salt_spray_tests_path do |f| %>
+    <%= form_with model: @salt_spray_test, url: salt_spray_tests_path, local: true do |f| %>
 
       <% if @salt_spray_test.errors.any? %>
         <div class="error_explanation text-danger">

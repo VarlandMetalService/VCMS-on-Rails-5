@@ -33,17 +33,10 @@ class SaltSprayTestsController < ApplicationController
   def create
     @salt_spray_test = SaltSprayTest.new salt_spray_test_params
 
-    if add_shop_order_details
-      if @salt_spray_test.save
-        redirect_to action: 'edit', id: @salt_spray_test.id
-      else
-        render 'new'
-      end
+    if @salt_spray_test.save
+      redirect_to action: 'edit', id: @salt_spray_test.id
     else
-      # Render "Unable to find shop order" modal
-      respond_to do |format|
-        format.js {render 'salt_spray_tests/manual_entry_modal.js.erb'}
-      end
+      render 'new'
     end
   end
 
@@ -98,29 +91,6 @@ class SaltSprayTestsController < ApplicationController
   end
 
 private
-
-  def add_shop_order_details
-    shop_order_param = params[:salt_spray_test][:shop_order_number]
-
-    if so_details = get_shop_order_details(shop_order_param)
-      begin
-        @salt_spray_test.customer = so_details['customer']
-        @salt_spray_test.process_code = so_details['process']
-        @salt_spray_test.part_number = so_details['part']
-        @salt_spray_test.sub = so_details['sub']
-        @salt_spray_test.white_spec = so_details['saltSprayWhite']
-        @salt_spray_test.red_spec = so_details['saltSprayRed']
-        @salt_spray_test.part_area = so_details['pieceArea']
-        @salt_spray_test.density = so_details['poundsPerCubic']
-        @salt_spray_test.load_weight = so_details['loadWeight']
-
-      rescue => e
-        @salt_spray_test.errors.add(:salt_spray_test, "Invalid shop order number.")
-      end
-    else
-      return false
-    end
-  end
 
   def salt_spray_test_params
     params.require(:salt_spray_test).permit(:shop_order, :put_on_at, :pulled_off_at, :put_on_by, :barrel_number,

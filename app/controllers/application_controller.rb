@@ -1,5 +1,3 @@
-require 'rest-client'
-
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
@@ -30,18 +28,6 @@ protected
       redirect_to(login_url) and return
     end
     session.delete(:return_to)
-  end
-
-  # Uses Net::HTTP to retrieve shop order details
-  def get_shop_order_details(shop_order = '')
-    begin
-      response = RestClient.get 'http://api.varland.com/v1/so_details?so=' + shop_order
-
-      return JSON.parse(response)
-    rescue => e
-      logger.debug("ERROR (ApplicationController - shop_order_details): #{e.message}")
-      false
-    end
   end
 
   def my_logger

@@ -1,6 +1,7 @@
 class SaltSprayTest < ApplicationRecord
 
   before_save :standardize_times
+  before_create :add_shop_order_details
 
   # Default scoping.
   default_scope { where 'deleted_at IS NULL' }
@@ -161,6 +162,29 @@ private
     end
     if self.pulled_off_at.present?
       self.pulled_off_at = self.pulled_off_at.noon
+    end
+  end
+
+  def add_shop_order_details
+    if so_details = get_shop_order_details(self.shop_order_number)
+      begin
+        self.customer = so_details['customer']
+        self.process_code = so_details['process']
+        self.part_number = so_details['part']
+        self.sub = so_details['sub']
+        self.white_spec = so_details['saltSprayWhite']
+        self.red_spec = so_details['saltSprayRed']
+        self.part_area = so_details['pieceArea']
+        self.density = so_details['poundsPerCubic']
+        self.load_weight = so_details['loadWeight']
+
+      rescue => e
+        self.errors.add(:salt_spray_test, "invalid shop order number.")
+        throw :abort
+      end
+    else
+      self.errors.add(:salt_spray_test, "unable to find shop order details.")
+      throw :abort
     end
   end
 
