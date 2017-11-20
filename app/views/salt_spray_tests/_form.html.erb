@@ -40,7 +40,7 @@
             <%= f.check_box :is_sample %>
             <%= f.label :is_sample, 'Sample Test?', class: 'form-control-label' %>
           </div>
-          <%= f.hidden_field :put_on_at, value: Date.current.noon %>
+          <%= f.hidden_field :put_on_at, value: Date.current %>
           <%= f.hidden_field :put_on_by, value: current_user.id %>
         </div>
       </div>

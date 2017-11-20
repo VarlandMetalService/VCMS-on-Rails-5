@@ -1,5 +1,7 @@
 class SaltSprayTest < ApplicationRecord
 
+  before_save :standardize_times
+
   # Default scoping.
   default_scope { where 'deleted_at IS NULL' }
 
@@ -73,10 +75,10 @@ class SaltSprayTest < ApplicationRecord
 
   def update_spot(current_user_id, spot_type)
     if spot_type == 'white'
-      self.marked_white_at = Date.current.noon
+      self.marked_white_at = Date.current
       self.marked_white_by = current_user_id
     elsif(spot_type == 'red')
-      self.marked_red_at = Date.current.noon
+      self.marked_red_at = Date.current
       self.marked_red_by = current_user_id
     end
   end
@@ -143,6 +145,23 @@ class SaltSprayTest < ApplicationRecord
 
   def red_spec_exists?
     return self.red_spec != 0
+  end
+
+private
+
+  def standardize_times
+    if self.put_on_at.present?
+      self.put_on_at = self.put_on_at.noon
+    end
+    if self.marked_white_at.present?
+      self.marked_white_at = self.marked_white_at.noon
+    end
+    if self.marked_red_at.present?
+      self.marked_red_at = self.marked_red_at.noon
+    end
+    if self.pulled_off_at.present?
+      self.pulled_off_at = self.pulled_off_at.noon
+    end
   end
 
 end

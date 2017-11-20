@@ -5,11 +5,12 @@
     <div class="col-md-1 text-center d-none d-md-table-cell">Part ID</div>
     <div class="col-2 col-md-1 text-center bold-sm">Proc.</div>
     <div class="col-md-1 text-center d-none d-md-table-cell">Department</div>
-    <div class="col-md-1 d-none d-md-table-cell">Date On</div> <!-- put_on_by, put_on_at, pulled_off_at -->
+    <div class="col-md-1 d-none d-md-table-cell">Date On</div>
+    <% if action_name == 'archived_tests' %><div class="col-md-1 d-none d-md-table-cell">Date Off</div><% end %>
     <div class="col-md-1 d-none d-md-table-cell">White Rust</div> <!-- marked_white_at, marked_white_by -->
     <div class="col-md-1 d-none d-md-table-cell">Red Rust</div> <!-- marked_red_at, marked_red_by -->
     <div class="col-md-3 d-none d-md-table-cell">Comments</div>
-    <div class="col-md-2 text-center hidden-print d-none d-md-table-cell">Options</div>
+    <div class="col-md-<%= action_name == 'archived_tests' ? 1 : 2 %> text-center hidden-print d-none d-md-table-cell">Options</div>
   </div>
   <% @salt_spray_tests.each do |t| -%>
     <div class="row">
@@ -20,10 +21,15 @@
       <div class="col-md-1 d-none d-md-table-cell">
         <%= t.put_on_at.strftime('%m/%d/%Y') %><br />
         <small><strong>On By: </strong></small><%= t.salt_spray_tester.full_name %><br />
-        <% unless t.pulled_off_at.blank? %><small><strong>Date off: </strong></small><br /><%= t.pulled_off_at.strftime('%m/%d/%Y') %><br /><% end %>
-        <% unless t.pulled_off_by.blank? %><small><strong>Off By: </strong></small><%= t.pulled_off_by.full_name %><br /><% end %>
+
         <small><strong>Hours On: </strong></small><%= t.calculate_rust_hours(t.pulled_off_at) %><br /><br />
       </div>
+      <% unless t.pulled_off_at.blank? %>
+        <div class="col-md-1 d-none d-md-table-cell">
+          <small><strong>Date off: </strong></small><br /><%= t.pulled_off_at.strftime('%m/%d/%Y') %><br />
+          <small><strong>Off By: </strong></small><%= t.pulled_off_by.full_name %><br />
+        </div>
+      <% end %>
       <div class="col-md-1 d-none d-md-table-cell">
         <% unless t.marked_white_at.blank? %><small><strong>Date marked: </strong></small><br /><%= t.marked_white_at.strftime('%m/%d/%Y') %><% end %>
         <% unless t.white_spot_reporter.blank? %><br /><small><strong>Reporter: </strong></small><br /><%= t.white_spot_reporter.full_name %><br /><% end %>
@@ -37,7 +43,7 @@
       <div class="col-md-3 d-none d-md-table-cell">
         <%= t.comment.content if t.comment %>
       </div>
-      <div class="col-md-2 text-center hidden-print d-none d-md-table-cell">
+      <div class="col-md-<%= action_name == 'archived_tests' ? 1 : 2 %> text-center hidden-print d-none d-md-table-cell">
         <% if @access_level.access_level == 3 and action_name != 'archived_tests' -%>
           <%= link_to 'Edit', edit_salt_spray_test_path(t), class: "btn btn-sm btn-default mr-2" %>
           <%= link_to 'Delete', salt_spray_test_path(t), data: { confirm: 'Are you sure?'}, method: 'delete', class: 'btn btn-sm btn-danger' %><br />

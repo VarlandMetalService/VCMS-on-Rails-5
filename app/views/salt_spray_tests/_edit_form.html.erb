@@ -39,22 +39,30 @@
         </div>
         <div class="col-md-2 offset-md-1">
           <div class="form-group">
-            <%= f.label :date_with_white, class: 'form-control-label' %>
+            <%= f.label :date_with_white, 'Date marked white', class: 'form-control-label' %>
             <%= f.text_field :marked_white_at, class: 'datepicker form-control', value: format_date(@salt_spray_test.marked_white_at) %>
           </div>
           <div class="form-group">
-            <%= f.label :marked_white_by, 'White spot reporter', class: 'form-control-label' %>
+            <%= f.label :marked_white_by, 'White rust reporter', class: 'form-control-label' %>
             <%= f.select :marked_white_by, reporters_for_select, {include_blank: true}, {class: 'form-control'} %>
+          </div>
+          <div class="form-group">
+            <%= f.label :white_spec, 'White Spec:', class: 'form-control-label' %><br />
+            <%= f.number_field :white_spec, class: 'form-control' %>
           </div>
         </div>
         <div class="col-md-2 offset-md-1">
           <div class="form-group">
-            <%= f.label :date_with_red, class: 'form-control-label' %>
+            <%= f.label :date_with_red, 'Date marked red', class: 'form-control-label' %>
             <%= f.text_field :marked_red_at, class: 'datepicker form-control', value: format_date(@salt_spray_test.marked_red_at) %>
           </div>
           <div class="form-group">
-            <%= f.label :marked_red_by, 'Red spot reporter', class: 'form-control-label' %>
+            <%= f.label :marked_red_by, 'Red rust reporter', class: 'form-control-label' %>
             <%= f.select :marked_red_by, reporters_for_select, {include_blank: true}, {class: 'form-control'} %>
+          </div>
+          <div class="form-group">
+            <%= f.label :red_spec, 'Red Spec:', class: 'form-control-label' %><br />
+            <%= f.number_field :red_spec, class: 'form-control' %>
           </div>
         </div>
         <div class="col-md-2 offset-md-1">
@@ -69,7 +77,6 @@
             <% end %>
           </div>
         </div>
-
       </div>
       <div class="row">
         <div class="col-md-3">
@@ -134,19 +141,9 @@
           <%= f.label :density, 'Density:', class: 'form-control-label' %><br />
           <%= f.number_field :density, disabled: true, class: 'form-control', step: :any %>
         </div>
-        <div class="col-md-5 offset-md-1">
-          <div class="form-group">
-            <%= f.label :white_spec, 'White Spec:', class: 'form-control-label' %><br />
-            <%= f.number_field :white_spec, disabled: true, class: 'form-control' %>
-          </div>
-          <div class="form-group">
-            <%= f.label :red_spec, 'Red Spec:', class: 'form-control-label' %><br />
-            <%= f.number_field :red_spec, disabled: true, class: 'form-control' %>
-          </div>
-          <div class="form-group">
-            <%= f.label :load_weight, 'Load Weight:', class: 'form-control-label' %><br />
-            <%= f.number_field :load_weight, disabled: true, class: 'form-control', step: :any %>
-          </div>
+        <div class="form-group">
+          <%= f.label :load_weight, 'Load Weight:', class: 'form-control-label' %><br />
+          <%= f.number_field :load_weight, disabled: true, class: 'form-control', step: :any %>
         </div>
       </div>
       <div class="form-group">
