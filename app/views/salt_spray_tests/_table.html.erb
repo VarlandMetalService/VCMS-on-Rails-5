@@ -19,9 +19,10 @@
       <div class="col-md-1 text-center d-none d-md-table-cell"><%= t.dept %></div>
       <div class="col-md-1 d-none d-md-table-cell">
         <%= t.put_on_at.strftime('%m/%d/%Y') %><br />
+        <small><strong>On By: </strong></small><%= t.salt_spray_tester.full_name %><br />
         <% unless t.pulled_off_at.blank? %><small><strong>Date off: </strong></small><br /><%= t.pulled_off_at.strftime('%m/%d/%Y') %><br /><% end %>
-        <small><strong>By: </strong></small><%= t.salt_spray_tester.full_name %><br />
-        <small><strong>Hours On: </strong></small><%= t.calculate_rust_hours(false) %><br /><br />
+        <% unless t.pulled_off_by.blank? %><small><strong>Off By: </strong></small><%= t.pulled_off_by.full_name %><br /><% end %>
+        <small><strong>Hours On: </strong></small><%= t.calculate_rust_hours(t.pulled_off_at) %><br /><br />
       </div>
       <div class="col-md-1 d-none d-md-table-cell">
         <% unless t.marked_white_at.blank? %><small><strong>Date marked: </strong></small><br /><%= t.marked_white_at.strftime('%m/%d/%Y') %><% end %>

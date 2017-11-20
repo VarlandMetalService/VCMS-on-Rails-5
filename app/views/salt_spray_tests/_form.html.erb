@@ -29,18 +29,18 @@
       <div class="row">
         <div class="col-md-2">
           <div class="form-group">
-            <%= f.label :shop_order_number, 'Shop Order:', class: 'form-control-label' %><br />
+            <%= f.label :shop_order_number, required_field_label('Shop Order:'), class: 'form-control-label' %><br />
             <%= f.text_field :shop_order_number, required: 'required', class: 'form-control' %>
           </div>
           <div class="form-group">
-            <%= f.label :load_number, 'Load Number:', class: 'form-control-label' %><br />
-            <%= f.text_field :load_number, class: 'form-control' %>
+            <%= f.label :load_number, required_field_label('Load Number:'), class: 'form-control-label' %><br />
+            <%= f.text_field :load_number, required: 'required', class: 'form-control' %>
           </div>
           <div class="form-group">
             <%= f.check_box :is_sample %>
             <%= f.label :is_sample, 'Sample Test?', class: 'form-control-label' %>
           </div>
-          <%= f.hidden_field :put_on_at, value: Date.current %>
+          <%= f.hidden_field :put_on_at, value: Date.current.noon %>
           <%= f.hidden_field :put_on_by, value: current_user.id %>
         </div>
       </div>

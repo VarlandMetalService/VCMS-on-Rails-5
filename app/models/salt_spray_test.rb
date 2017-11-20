@@ -8,6 +8,10 @@ class SaltSprayTest < ApplicationRecord
                 class_name: 'User',
                 foreign_key: 'put_on_by',
                 optional: true
+  belongs_to    :pulled_off_by,
+                class_name: 'User',
+                foreign_key: 'pulled_off_by',
+                optional: true
   belongs_to    :white_spot_reporter,
                 class_name: 'User',
                 foreign_key: 'marked_white_by',
@@ -69,10 +73,10 @@ class SaltSprayTest < ApplicationRecord
 
   def update_spot(current_user_id, spot_type)
     if spot_type == 'white'
-      self.marked_white_at = Date.current
+      self.marked_white_at = Date.current.noon
       self.marked_white_by = current_user_id
     elsif(spot_type == 'red')
-      self.marked_red_at = Date.current
+      self.marked_red_at = Date.current.noon
       self.marked_red_by = current_user_id
     end
   end
@@ -102,7 +106,7 @@ class SaltSprayTest < ApplicationRecord
     if spot_date
       return subtract_time_get_hours(spot_date.to_time, self.put_on_at.to_time)
     else
-      return subtract_time_get_hours(Date.current.to_time, self.put_on_at)
+      return subtract_time_get_hours(Date.current.to_time.noon, self.put_on_at)
     end
   end
 
