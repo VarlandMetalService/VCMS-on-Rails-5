@@ -102,19 +102,11 @@ private
     shop_order_param = params[:salt_spray_test][:shop_order_number]
 
     if so_details = get_shop_order_details(shop_order_param)
-      sub_from_api = so_details['sub']
-
       begin
         @salt_spray_test.customer = so_details['customer']
         @salt_spray_test.process_code = so_details['process']
         @salt_spray_test.part_number = so_details['part']
-        if !params[:salt_spray_test][:sub].blank?
-          if !sub_from_api.blank?
-            @salt_spray_test.sub = params[:salt_spray_test][:sub] + ', ' + sub_from_api
-          end
-        else
-          @salt_spray_test.sub = sub_from_api
-        end
+        @salt_spray_test.sub = so_details['sub']
         @salt_spray_test.white_spec = so_details['saltSprayWhite']
         @salt_spray_test.red_spec = so_details['saltSprayRed']
         @salt_spray_test.part_area = so_details['pieceArea']
@@ -125,9 +117,6 @@ private
         @salt_spray_test.errors.add(:salt_spray_test, "Invalid shop order number.")
       end
     else
-      if !params[:salt_spray_test][:customer].blank?
-        return true
-      end
       return false
     end
   end

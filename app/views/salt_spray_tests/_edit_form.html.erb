@@ -128,24 +128,24 @@
         </div>
         <div class="form-group">
           <%= f.label :part_area, 'Part Area:', class: 'form-control-label' %><br />
-          <%= f.text_field :part_area, disabled: true, class: 'form-control' %>
+          <%= f.number_field :part_area, disabled: true, class: 'form-control', step: :any %>
         </div>
         <div class="form-group">
           <%= f.label :density, 'ft<sup>3</sup> Per Pound:'.html_safe, class: 'form-control-label' %><br />
-          <%= f.text_field :density, disabled: true, class: 'form-control' %>
+          <%= f.number_field :density, disabled: true, class: 'form-control', step: :any %>
         </div>
         <div class="col-md-5 offset-md-1">
           <div class="form-group">
             <%= f.label :white_spec, 'White Spec:', class: 'form-control-label' %><br />
-            <%= f.text_field :white_spec, disabled: true, class: 'form-control' %>
+            <%= f.number_field :white_spec, disabled: true, class: 'form-control' %>
           </div>
           <div class="form-group">
             <%= f.label :red_spec, 'Red Spec:', class: 'form-control-label' %><br />
-            <%= f.text_field :red_spec, disabled: true, class: 'form-control' %>
+            <%= f.number_field :red_spec, disabled: true, class: 'form-control' %>
           </div>
           <div class="form-group">
             <%= f.label :load_weight, 'Load Weight:', class: 'form-control-label' %><br />
-            <%= f.text_field :load_weight, disabled: true, class: 'form-control' %>
+            <%= f.number_field :load_weight, disabled: true, class: 'form-control', step: :any %>
           </div>
         </div>
       </div>
