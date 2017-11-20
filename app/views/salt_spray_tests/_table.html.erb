@@ -20,25 +20,25 @@
       <div class="col-md-1 text-center d-none d-md-table-cell"><%= t.dept %></div>
       <div class="col-md-1 d-none d-md-table-cell">
         <%= t.put_on_at.strftime('%m/%d/%Y') %><br />
-        <small><strong>On By: </strong></small><%= t.salt_spray_tester.full_name %><br />
+        <small><strong>By: </strong></small><%= t.salt_spray_tester.full_name %><br />
 
         <small><strong>Hours On: </strong></small><%= t.calculate_rust_hours(t.pulled_off_at) %><br /><br />
       </div>
       <% unless t.pulled_off_at.blank? %>
         <div class="col-md-1 d-none d-md-table-cell">
-          <small><strong>Date off: </strong></small><br /><%= t.pulled_off_at.strftime('%m/%d/%Y') %><br />
-          <small><strong>Off By: </strong></small><%= t.pulled_off_by.full_name %><br />
+         <%= t.pulled_off_at.strftime('%m/%d/%Y') %><br />
+          <small><strong>By: </strong></small><%= t.pulled_off_by.full_name %><br />
         </div>
       <% end %>
       <div class="col-md-1 d-none d-md-table-cell">
-        <% unless t.marked_white_at.blank? %><small><strong>Date marked: </strong></small><br /><%= t.marked_white_at.strftime('%m/%d/%Y') %><% end %>
-        <% unless t.white_spot_reporter.blank? %><br /><small><strong>Reporter: </strong></small><br /><%= t.white_spot_reporter.full_name %><br /><% end %>
-        <% unless t.marked_white_at.blank? %><small><strong>Hours w/o White: </strong></small><br /><%= t.calculate_rust_hours(t.marked_white_at) %><br /><br /><% end %>
+        <% unless t.marked_white_at.blank? %><%= t.marked_white_at.strftime('%m/%d/%Y') %><% end %>
+        <% unless t.white_spot_reporter.blank? %><br /><small><strong>By: </strong></small><%= t.white_spot_reporter.full_name %><br /><% end %>
+        <% unless t.marked_white_at.blank? %><small><strong>Hours w/o: </strong></small><%= t.calculate_rust_hours(t.marked_white_at) %><br /><br /><% end %>
       </div>
       <div class="col-md-1 d-none d-md-table-cell">
-        <% unless t.marked_red_at.blank? %><small><strong>Date marked: </strong></small><br /><%= t.marked_red_at.strftime('%m/%d/%Y') %><% end %>
-        <% unless t.red_spot_reporter.blank? %><br /><small><strong>Reporter: </strong></small><br /><%= t.red_spot_reporter.full_name %><br /><% end %>
-        <% unless t.marked_red_at.blank? %><small><strong>Hours w/o Red: </strong></small><br /><%= t.calculate_rust_hours(t.marked_red_at) %><br /><br /><% end %>
+        <% unless t.marked_red_at.blank? %><%= t.marked_red_at.strftime('%m/%d/%Y') %><% end %>
+        <% unless t.red_spot_reporter.blank? %><br /><small><strong>By: </strong></small><%= t.red_spot_reporter.full_name %><br /><% end %>
+        <% unless t.marked_red_at.blank? %><small><strong>Hours w/o: </strong></small><%= t.calculate_rust_hours(t.marked_red_at) %><br /><br /><% end %>
       </div>
       <div class="col-md-3 d-none d-md-table-cell">
         <%= t.comment.content if t.comment %>
@@ -48,14 +48,14 @@
           <%= link_to 'Edit', edit_salt_spray_test_path(t), class: "btn btn-sm btn-default mr-2" %>
           <%= link_to 'Delete', salt_spray_test_path(t), data: { confirm: 'Are you sure?'}, method: 'delete', class: 'btn btn-sm btn-danger' %><br />
           <% if !t.marked_white_at %>
-            <%= form_with model: t, local: true do |f| %>
+            <%= form_with model: t, class: 'btn-form', local: true do |f| %>
               <%= f.hidden_field :marked_white_at, value: Date.current %>
               <%= f.hidden_field :marked_white_by, value: current_user.id %>
               <%= f.submit 'Mark White', class: 'btn btn-sm btn-warning' %>
             <% end %>
           <% end %>
           <% if !t.marked_red_at %>
-            <%= form_with model: t, local: true do |f| %>
+            <%= form_with model: t, class: 'btn-form', local: true do |f| %>
               <%= f.hidden_field :marked_red_at, value: Date.current %>
               <%= f.hidden_field :marked_red_by, value: current_user.id %>
               <%= f.submit 'Mark Red', class: 'btn btn-sm btn-warning' %>

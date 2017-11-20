@@ -93,6 +93,10 @@ body {
   }
 }
 
+.btn-form {
+  display: inline-flex;
+}
+
 .filter-form {
   margin-bottom: $default-spacing;
   padding: $default-spacing;
