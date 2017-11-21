@@ -27,20 +27,20 @@
       <% end %>
 
       <div class="row">
-        <div class="col-md-2">
+        <div class="col-md-3">
           <div class="form-group">
             <%= f.label :put_on_at, class: 'form-control-label' %>
-            <%= f.text_field :put_on_at, class: 'datepicker form-control', value: format_date(@salt_spray_test.put_on_at) %>
+            <%= f.datetime_local_field :put_on_at, class: 'form-control', value: iso_no_timezone(@salt_spray_test.put_on_at) %>
           </div>
           <div class="form-group">
             <%= f.label :put_on_by, class: 'form-control-label' %>
             <%= f.select :put_on_by, reporters_for_select, {include_blank: true}, {class: 'form-control'} %>
           </div>
         </div>
-        <div class="col-md-2 offset-md-1">
+        <div class="col-md-3">
           <div class="form-group">
             <%= f.label :date_with_white, 'Date marked white', class: 'form-control-label' %>
-            <%= f.text_field :marked_white_at, class: 'datepicker form-control', value: format_date(@salt_spray_test.marked_white_at) %>
+            <%= f.datetime_local_field :marked_white_at, class: 'form-control', value: iso_no_timezone(@salt_spray_test.marked_white_at) %>
           </div>
           <div class="form-group">
             <%= f.label :marked_white_by, 'White rust reporter', class: 'form-control-label' %>
@@ -51,10 +51,10 @@
             <%= f.number_field :white_spec, class: 'form-control' %>
           </div>
         </div>
-        <div class="col-md-2 offset-md-1">
+        <div class="col-md-3">
           <div class="form-group">
             <%= f.label :date_with_red, 'Date marked red', class: 'form-control-label' %>
-            <%= f.text_field :marked_red_at, class: 'datepicker form-control', value: format_date(@salt_spray_test.marked_red_at) %>
+            <%= f.datetime_local_field :marked_red_at, class: 'form-control', value: iso_no_timezone(@salt_spray_test.marked_red_at) %>
           </div>
           <div class="form-group">
             <%= f.label :marked_red_by, 'Red rust reporter', class: 'form-control-label' %>
@@ -65,7 +65,7 @@
             <%= f.number_field :red_spec, class: 'form-control' %>
           </div>
         </div>
-        <div class="col-md-2 offset-md-1">
+        <div class="col-md-3">
           <div class="form-group">
             <%= f.label :dept, 'Department:', class: 'form-control-label' %><br />
             <%= f.text_field :dept, class: 'form-control' %>

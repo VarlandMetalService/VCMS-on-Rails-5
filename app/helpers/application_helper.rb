@@ -96,6 +96,10 @@ module ApplicationHelper
     date ? date.strftime('%m/%d/%Y') : ''
   end
 
+  def iso_no_timezone(value)
+    value ? value.strftime("%Y-%m-%dT%H:%M:%S.%L") : ''
+  end
+
   def current_local_time
     DateTime.current.localtime.strftime('%l:%M %P')
   end
