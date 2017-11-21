@@ -13,7 +13,7 @@
 
     <% else -%>
 
-      <%= form_with url: opto_messages_path, class: 'filter-form bg-warning hidden-print' , method: 'get' do |f| %>
+      <%= form_with url: opto_messages_path, class: 'filter-form bg-warning hidden-print', method: 'get' do |f| %>
 
         <div class="row">
 
@@ -27,14 +27,14 @@
           <div class="col-12 col-sm-4 col-md-2">
             <div class="form-group">
               <%= f.label :with_date_gte, 'Starting Date:' %>
-              <%= f.date_field :with_date_gte, class: 'form-control datepicker'  %>
+              <%= f.text_field :with_date_gte, class: 'form-control datepicker'  %>
             </div>
           </div>
 
           <div class="col-12 col-sm-4 col-md-2">
             <div class="form-group">
               <%= f.label :with_date_lte, 'Ending Date:' %>
-              <%= f.date_field :with_date_lte, class: 'form-control datepicker'  %>
+              <%= f.text_field :with_date_lte, class: 'form-control datepicker'  %>
             </div>
           </div>
 
