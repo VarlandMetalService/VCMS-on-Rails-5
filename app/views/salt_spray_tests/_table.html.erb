@@ -1,9 +1,9 @@
 <div id="salt_spray_test_results">
   <div class="row table-header">
-    <div class="col-3 col-md-1 text-center bold-sm">Shop Order </div>
+    <div class="col-9 col-md-1 text-center bold-sm">Shop Order </div>
     <div class="col-md-1 text-center d-none d-md-table-cell">Part ID</div>
-    <div class="col-2 col-md-1 text-center bold-sm">Proc.</div>
-    <div class="col-md-1 text-center d-none d-md-table-cell">Department</div>
+    <div class="col-3 col-md-1 text-center bold-sm">Proc.</div>
+    <div class="col-md-1 text-center d-none d-md-table-cell">Dept</div>
     <div class="col-md-1 d-none d-md-table-cell">Date On</div>
     <% if action_name == 'archived_tests' %><div class="col-md-1 d-none d-md-table-cell">Date Off</div><% end %>
     <div class="col-md-1 d-none d-md-table-cell">White Rust</div> <!-- marked_white_at, marked_white_by -->
@@ -13,9 +13,9 @@
   </div>
   <% @salt_spray_tests.each do |t| -%>
     <div class="row">
-      <div class="col-3 col-md-1 text-center"><%= link_to t.shop_order_number, salt_spray_test_path(t), remote: true %><br /> <small>Load: <%= t.load_number %></small></div>
+      <div class="col-9 col-md-1 text-center shop-order"><%= link_to t.shop_order_number, salt_spray_test_path(t), remote: true %><br /> <small>Load: <%= t.load_number %></small></div>
       <div class="col-md-1 text-center d-none d-md-table-cell"><%= t.part_number %></div>
-      <div class="col-2 col-md-1 text-center process"><%= t.process_code %></div>
+      <div class="col-3 col-md-1 text-center process"><%= t.process_code %></div>
       <div class="col-md-1 text-center d-none d-md-table-cell"><%= t.dept %></div>
       <div class="col-md-1 d-none d-md-table-cell">
         <%= t.put_on_at.strftime('%m/%d/%Y') %><br />
