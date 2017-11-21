@@ -49,11 +49,14 @@ class SaltSprayTest < ApplicationRecord
   scope :with_put_on_by, ->(values) {
     where put_on_by: [*values]
   }
+  scope :with_part_number, lambda { |part_numbers|
+    where("part_number like ?", "#{part_numbers}%")
+  }
   scope :with_put_on_at_gte, lambda { |reference_time|
-    where('salt_spray_tests.put_on_at >= ?', reference_time.to_date)
+    where('put_on_at >= ?', reference_time.to_date)
   }
   scope :with_put_on_at_lte, lambda { |reference_time|
-    where('salt_spray_tests.put_on_at <= ?', reference_time.to_date)
+    where('put_on_at <= ?', reference_time.to_date + 1)
   }
   scope :sorted_by, ->(sort_option) {
     order sort_option

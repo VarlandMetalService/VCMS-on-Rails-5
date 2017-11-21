@@ -3,12 +3,12 @@ class SaltSprayTestsController < ApplicationController
   before_action :set_salt_spray_test, only: [:edit, :update, :show, :destroy]
   before_action :check_user_permission
 
-  has_scope :sorted_by
   has_scope :with_shop_order_number
   has_scope :with_put_on_by
+  has_scope :with_part_number
   has_scope :with_put_on_at_gte
   has_scope :with_put_on_at_lte
-  has_scope :with_part_number
+  has_scope :sorted_by
 
   def index
     @salt_spray_tests = apply_scopes(SaltSprayTest).all.page(params[:page]).where('pulled_off_at IS NULL')
