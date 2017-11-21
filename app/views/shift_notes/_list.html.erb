@@ -1,50 +1,52 @@
 <p><%= page_entries_info shift_notes %></p>
 
-<table class="table table-responsive table-bordered table-striped">
-  <thead>
-    <tr>
-      <th class="col-1 text-center">Date</th>
-      <th class="col-1 text-center">Shift</th>
-      <th class="col-1 text-center">By</th>
-      <th class="col-1 text-center">Department</th>
-      <th class="col-1 text-center">Type</th>
-      <th class="col-4">Notes</th>
-      <th class="col-2">Attachments</th>
-      <th class="col-1 text-center hidden-print">Options</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% shift_notes.each do |n| -%>
-      <tr>
-        <td class="text-center"><%= n.note_on.strftime '%m/%d/%y' %></td>
-        <td class="text-center"><%= n.shift %></td>
-        <td class="text-center"><%= n.author.full_name %></td>
-        <td class="text-center"><%= department_name(n.department) %></td>
-        <td class="text-center"><%= n.note_type %></td>
-        <td>
-          <%= format_line_breaks n.notes %>
-          <% unless n.supervisor_notes.blank? -%>
-            <br />
-            <br />
-            <small><strong class="text-uppercase">Follow Up by <%= n.supervisor.full_name %> on <%= n.supervisor_notes_at.strftime('%m/%d/%y') %>:</strong></small><br />
-            <%= format_line_breaks n.supervisor_notes %>
-          <% end %>
-        </td>
-        <td>
-          <% n.attachments.each do |a| -%>
-            <p><%= show_attachment a %></p>
-          <% end %>
-        </td>
-        <td class="text-center hidden-print">
-          <% if access_level == 3 || current_user == n.author -%>
-            <%= link_to 'Edit', edit_shift_note_path(n), class: 'btn btn-sm btn-default'  %>
-            <%= link_to 'Delete', n, method: :delete, class: 'btn btn-sm btn-danger', data: { confirm: 'Are you sure you want to delete this note?' }  %>
-          <% end %>
-        </td>
+<div class="table-responsive">
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr class="row m-0">
+        <th class="d-inline-block col-1 text-center">Date</th>
+        <th class="d-inline-block col-1 text-center">Shift</th>
+        <th class="d-inline-block col-2 text-center">By</th>
+        <th class="d-inline-block col-1 text-center">Dept</th>
+        <th class="d-inline-block col-1 text-center">Type</th>
+        <th class="d-inline-block col-3">Notes</th>
+        <th class="d-inline-block col-2">Attachments</th>
+        <th class="d-inline-block col-1 text-center hidden-print">Options</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% shift_notes.each do |n| -%>
+        <tr class="row m-0">
+          <td class="d-inline-block col-1 text-center"><%= n.note_on.strftime '%m/%d/%y' %></td>
+          <td class="d-inline-block col-1 text-center"><%= n.shift %></td>
+          <td class="d-inline-block col-2 text-center"><%= n.author.full_name %></td>
+          <td class="d-inline-block col-1 text-center"><%= department_name(n.department) %></td>
+          <td class="d-inline-block col-1 text-center"><%= n.note_type %></td>
+          <td class="d-inline-block col-3">
+            <%= format_line_breaks n.notes %>
+            <% unless n.supervisor_notes.blank? -%>
+              <br />
+              <br />
+              <small><strong class="text-uppercase">Follow Up by <%= n.supervisor.full_name %> on <%= n.supervisor_notes_at.strftime('%m/%d/%y') %>:</strong></small><br />
+              <%= format_line_breaks n.supervisor_notes %>
+            <% end %>
+          </td>
+          <td class="d-inline-block col-2">
+            <% n.attachments.each do |a| -%>
+              <p><%= show_attachment a %></p>
+            <% end %>
+          </td>
+          <td class="d-inline-block col-1 text-center hidden-print">
+            <% if access_level == 3 || current_user == n.author -%>
+              <%= link_to 'Edit', edit_shift_note_path(n), class: 'btn btn-sm btn-default'  %>
+              <%= link_to 'Delete', n, method: :delete, class: 'btn btn-sm btn-danger', data: { confirm: 'Are you sure you want to delete this note?' }  %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
 
 <div class="hidden-print">
   <%= will_paginate shift_notes, renderer: BootstrapPagination::Rails %>

@@ -40,14 +40,14 @@
           <div class="col-12 col-sm-4 col-md-2">
             <div class="form-group">
               <%= f.label :with_date_gte, 'Starting Date:' %>
-              <%= f.date_field :with_date_gte, class: 'form-control datepicker' %>
+              <%= f.text_field :with_date_gte, class: 'form-control datepicker' %>
             </div>
           </div>
 
           <div class="col-6 col-sm-4 col-md-2">
             <div class="form-group">
               <%= f.label :with_date_lte, 'Ending Date:' %>
-              <%= f.date_field :with_date_lte, class: 'form-control datepicker' %>
+              <%= f.text_field :with_date_lte, class: 'form-control datepicker' %>
             </div>
           </div>
 
@@ -101,7 +101,9 @@
 
       <% end %>
 
-      <div id="results"><%= render partial: 'shift_notes/list', locals: { shift_notes: @shift_notes, current_user: @current_user, access_level: @access_level.access_level } %></div>
+      <div id="results">
+        <%= render partial: 'list', locals: { shift_notes: @shift_notes, current_user: @current_user, access_level: @access_level.access_level } %>
+      </div>
 
     <% end %>
 

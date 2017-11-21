@@ -14,28 +14,30 @@
 
     <p><%= page_entries_info @permissions %></p>
 
-    <table class="table table-responsive table-bordered table-striped">
-      <thead>
-        <tr>
-          <th class="col-2">ID</th>
-          <th class="col-8">Description</th>
-          <th class="col-1 text-center">User Count</th>
-          <th class="col-1 text-center hidden-print">Options</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @permissions.each do |p| -%>
-          <tr>
-            <td><%= p.permission %></td>
-            <td><%= p.description %></td>
-            <td class="text-center"><%= p.assigned_permissions.size %></td>
-            <td class="text-center hidden-print">
-              <%= link_to 'Edit', edit_permission_path(p), class: 'btn btn-sm btn-default'  %>
-            </td>
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr class="row m-0">
+            <th class="d-inline-block col-3">ID</th>
+            <th class="d-inline-block col-7">Description</th>
+            <th class="d-inline-block col-1 text-center">User Count</th>
+            <th class="d-inline-block col-1 text-center hidden-print">Options</th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          <% @permissions.each do |p| -%>
+            <tr class="row m-0">
+              <td class="d-inline-block col-3"><%= p.permission %></td>
+              <td class="d-inline-block col-7"><%= p.description %></td>
+              <td class="d-inline-block col-1 text-center"><%= p.assigned_permissions.size %></td>
+              <td class="d-inline-block col-1 text-center hidden-print">
+                <%= link_to 'Edit', edit_permission_path(p), class: 'btn btn-sm btn-default'  %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
 
     <div class="hidden-print">
       <%= will_paginate @permissions, renderer: BootstrapPagination::Rails %>

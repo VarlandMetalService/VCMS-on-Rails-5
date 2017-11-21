@@ -1,36 +1,36 @@
 <div class="table-responsive">
   <table class="table table-bordered table-condensed">
     <thead>
-      <tr>
-          <th class="col-2 col-xl-1 text-center">Date</th>
-          <th class="col-2 col-xl-1 text-center">Time</th>
-          <th class="col-2 text-center">Record Type</th>
-          <th class="col-3 text-left">Edit Info</th>
-          <th class="col-3 col-xl-4 text-left">Notes</th>
-          <th class="col-1 text-center d-none d-xl-table-cell"></th>
+      <tr class="row m-0">
+        <th class="d-inline-block col-1 col-xl-1 text-center">Date</th>
+        <th class="d-inline-block col-2 col-xl-1 text-center">Time</th>
+        <th class="d-inline-block col-2 text-center">Record Type</th>
+        <th class="d-inline-block col-3 text-left">Edit Info</th>
+        <th class="d-inline-block col-3 col-xl-4 text-left">Notes</th>
+        <th class="d-inline-block col-1 text-center d-none d-xl-table-cell"></th>
       </tr>
     </thead>
     <tbody class="filtered-table">
       <% @timeclock_records.each do |t| %>
-        <tr data-id="<%= t.id %>" class="<%= 'info' if t.is_flagged %>">
-          <td class="text-center">
+        <tr data-id="<%= t.id %>" class="row m-0<%= 'info' if t.is_flagged %>">
+          <td class="d-inline-block col-1 col-xl-1 text-center">
             <%= t.record_timestamp.localtime.strftime('%a, %m/%d') %>
             <% if t.record_timestamp.localtime.strftime('%a, %m/%d') != t.updated_at.localtime.strftime('%a, %m/%d') %>
               <br />
               <small class="text-muted"><%= t.updated_at.localtime.strftime('%a, %m/%d') %></small>
             <% end %>
           </td>
-          <td class="text-center">
+          <td class="d-inline-block col-2 col-xl-1 text-center">
             <%= t.record_timestamp.localtime.strftime('%l:%M %P') %>
             <% if t.record_timestamp.localtime.strftime('%l:%M %P') != t.updated_at.localtime.strftime('%l:%M %P') %>
               <br />
               <small class="text-muted"><%= t.updated_at.localtime.strftime('%l:%M %P') %></small>
             <% end %>
           </td>
-          <td class="text-center <%= get_record_class(t.record_type) %>">
+          <td class="d-inline-block col-2 text-center <%= get_record_class(t.record_type) %>">
             <%= t.record_type %>
           </td>
-          <td class="text-left">
+          <td class="d-inline-block col-3 text-left">
             <% if t.edit_type %>
               <small><strong>By:</strong></small> <%= t.user.full_name %>
               <br />
@@ -39,12 +39,12 @@
               <small><strong>Reason:</strong></small> <%= t.reason_code.code %>
             <% end %>
           </td>
-          <td class="text-left">
+          <td class="d-inline-block col-3 col-xl-4 text-left">
             <% if t.edit_type && t.notes %>
               <%= t.notes %>
             <% end %>
           </td>
-          <td class="text-center d-none d-xl-table-cell flag-record-cell">
+          <td class="d-inline-block col-1 text-center d-none d-xl-table-cell flag-record-cell">
             <%= link_to 'Flag', timeclock_records_path(id: t), remote: true, class: "btn btn-sm btn-default flag-record-btn" %>
           </td>
         </tr>
