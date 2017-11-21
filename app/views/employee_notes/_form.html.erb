@@ -25,7 +25,7 @@
         <div class="col-12 col-sm-4 col-md-2">
           <div class="form-group">
             <%= f.label :note_on, required_field_label('Date:'), class: 'control-label' %>
-            <%= f.date_field :note_on, {value: format_date(@employee_note.note_on), class: "form-control datepicker#{' is-invalid' if @employee_note.errors[:note_on].any?}", required: 'required' } %>
+            <%= f.text_field :note_on, {value: format_date(@employee_note.note_on), class: "form-control datepicker#{' is-invalid' if @employee_note.errors[:note_on].any?}", required: 'required' } %>
           </div>
         </div>
 
@@ -57,7 +57,7 @@
         <div class="col-12 col-sm-4 col-md-2 offset-md-6">
           <div class="form-group">
             <%= f.label :follow_up_on, 'Follow Up Date:', class: 'control-label' %>
-            <%= f.date_field :follow_up_on, { value: format_date(@employee_note.follow_up_on), class: "form-control datepicker#{' is-invalid' if @employee_note.errors[:follow_up_on].any?}" } %>
+            <%= f.text_field :follow_up_on, { value: format_date(@employee_note.follow_up_on), class: "form-control datepicker#{' is-invalid' if @employee_note.errors[:follow_up_on].any?}" } %>
           </div>
         </div>
 
