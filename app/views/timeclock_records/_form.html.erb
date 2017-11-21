@@ -29,7 +29,7 @@
 
   <div class="form-group">
     <%= f.label :record_timestamp, required_field_label('Date/Time:'), class: 'form-control-label' %>
-    <%= f.datetime_local_field :record_timestamp, { value: iso_no_timezone(@timeclock_record.record_timestamp), class: "form-control #{' is-invalid' if @timeclock_record.errors[:record_timestamp].any?}", required: 'required' } %>
+    <%= f.datetime_local_field :record_timestamp, { value: format_datetime_local(@timeclock_record.record_timestamp), class: "form-control #{' is-invalid' if @timeclock_record.errors[:record_timestamp].any?}", required: 'required' } %>
   </div>
 
   <div class="form-group">

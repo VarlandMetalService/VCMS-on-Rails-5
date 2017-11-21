@@ -96,7 +96,7 @@ module ApplicationHelper
     date ? date.strftime('%m/%d/%Y') : ''
   end
 
-  def iso_no_timezone(value)
+  def format_datetime_local(value)
     value ? value.strftime("%Y-%m-%dT%H:%M:%S.%L") : ''
   end
 
