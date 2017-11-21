@@ -1,32 +1,32 @@
 <div class="table-responsive">
   <table class="table table-bordered table-condensed">
     <thead>
-      <tr>
-        <th class="col-2 text-left">Employee</th>
-        <th class="col-1 text-center">Date</th>
-        <th class="col-1 text-center">Time</th>
-        <th class="col-1 text-center">Type</th>
-        <th class="col-2 text-left">Record Edited?</th>
-        <th class="col-3 text-left">Notes</th>
-        <th class="col-2 text-center">&nbsp;</th>
+      <tr class="row m-0">
+        <th class="d-inline-block col-2 text-left">Employee</th>
+        <th class="d-inline-block col-1 text-center">Date</th>
+        <th class="d-inline-block col-1 text-center">Time</th>
+        <th class="d-inline-block col-1 text-center">Type</th>
+        <th class="d-inline-block col-2 text-left">Record Edited?</th>
+        <th class="d-inline-block col-3 text-left">Notes</th>
+        <th class="d-inline-block col-2 text-center">&nbsp;</th>
       </tr>
     </thead>
     <tbody class="filtered-table">
       <% @timeclock_records.each do |t| %>
-        <tr data-id="<%= t.id %>" class="<%= 'info' if t.is_flagged %>">
-          <td class="text-center">
+        <tr class="row m-0" data-id="<%= t.id %>" class="<%= 'info' if t.is_flagged %>">
+          <td class="d-inline-block col-2 text-center">
             <%= t.user.employee_number %> - <%= t.user.full_name %>
           </td>
-          <td class="text-center">
+          <td class="d-inline-block col-1 text-center">
             <%= t.record_timestamp.localtime.strftime('%a, %m/%d') %>
           </td>
-          <td class="text-center">
+          <td class="d-inline-block col-1 text-center">
             <%= t.record_timestamp.localtime.strftime('%l:%M %P') %>
           </td>
-          <td class="text-center <%= get_record_class(t.record_type) %>">
+          <td class="d-inline-block col-1 text-center <%= get_record_class(t.record_type) %>">
             <%= t.record_type %>
           </td>
-          <td class="text-left">
+          <td class="d-inline-block col-2 text-left">
             <% if t.edit_type %>
               <small><strong>By:</strong></small> <%= t.user.full_name %>
               <br />
@@ -35,10 +35,10 @@
               <small><strong>Reason:</strong></small> <%= t.reason_code.code %>
             <% end %>
           </td>
-          <td class="text-left">
+          <td class="d-inline-block col-3 text-left">
             <%= t.notes %>
           </td>
-          <td class="text-center">
+          <td class="d-inline-block col-2 text-center">
             <%= link_to 'Edit', manage_records_timeclock_records_path(id: t), class: "btn btn-sm btn-default mr-2" %>
             <%= link_to 'Delete', timeclock_record_path(t), data: { confirm: 'Are you sure?'}, method: 'delete', class: 'btn btn-sm btn-danger' if @access_level.access_level == 3 %>
           </td>
