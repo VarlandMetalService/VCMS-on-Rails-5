@@ -6,7 +6,8 @@ class Attachment < ApplicationRecord
 
   # Associations.
   belongs_to      :attachable,
-                  polymorphic: true
+                  polymorphic: true,
+                  optional: true
 
   accepts_nested_attributes_for   :attachable,
                                   reject_if: :all_blank
