@@ -8,10 +8,21 @@ colorTable = () ->
     $(this).closest('.row').find('div').addClass 'row-color-' + $(this).text()
     return
 
+
+
 $(document).on 'turbolinks:load', (event) ->
   colorTable()
   $(document).ajaxSuccess ->
     colorTable()
+
+  # Show/Hide Filter Form
+  $('.display-filter').on 'click', ->
+    if $(this).html() == 'Show Filter'
+      $(this).html('Hide Filter')
+    else
+      $(this).html('Show Filter')
+    $('.filter-form').toggle();
+
 
   # Manual entry modal functionality
   $(document).on 'click', '.manual-entry-yes', ->
@@ -61,4 +72,6 @@ $(document).on 'turbolinks:load', (event) ->
     $(this).removeClass 'has-focus'
     return
   return
+
+
 

@@ -19,7 +19,14 @@
 
   <div class="col-12">
 
-    <%= link_to 'Add Employee Note', new_employee_note_path, class: 'btn btn-success btn-sm' %>
+    <div class="row d-none d-md-flex">
+      <div class="col-6">
+        <%= link_to 'Add Employee Note', new_employee_note_path, class: 'btn btn-success btn-sm' %>
+      </div>
+      <div class="col-6 text-right">
+        <button class="btn btn-sm btn-warning display-filter">Show Filter</button>
+      </div>
+    </div>
 
     <% if @employee_notes.size == 0 -%>
 

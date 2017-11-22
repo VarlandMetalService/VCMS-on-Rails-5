@@ -18,7 +18,14 @@
 
   <div class="col-12">
 
-    <%= link_to 'Add Shift Note', new_shift_note_path, class: 'btn btn-success btn-sm' %>
+    <div class="row d-none d-md-flex">
+      <div class="col-6">
+        <%= link_to 'Add Shift Note', new_shift_note_path, class: 'btn btn-success btn-sm' %>
+      </div>
+      <div class="col-6 text-right">
+        <button class="btn btn-sm btn-warning display-filter">Show Filter</button>
+      </div>
+    </div>
 
     <% if @shift_notes.size == 0 -%>
 

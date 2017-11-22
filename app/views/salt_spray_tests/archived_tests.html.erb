@@ -19,7 +19,8 @@
     <div class="col-12">
       <div class="row d-none d-md-flex">
         <div class="col-12 text-right">
-          <%= link_to 'View Active Tests', salt_spray_tests_path, :class => "btn btn-sm btn-primary"%>
+          <button class="btn btn-sm btn-warning display-filter">Show Filter</button>
+          <%= link_to 'View Active Tests', salt_spray_tests_path, class: "btn btn-sm btn-primary"%>
         </div>
       </div>
 
@@ -29,7 +30,7 @@
 
       <% else -%>
 
-        <%= form_with url: archived_tests_salt_spray_tests_path, class: 'filter-form bg-warning' , method: 'get' do |f| %>
+        <%= form_with url: archived_tests_salt_spray_tests_path, class: 'filter-form bg-warning', method: 'get' do |f| %>
           <div class="row">
             <div class="col-md-2">
               <div class="form-group">
