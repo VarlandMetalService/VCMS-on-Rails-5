@@ -51,21 +51,11 @@ class EmployeeNote < ApplicationRecord
   scope :with_entered_by, ->(values) {
     where entered_by: [*values]
   }
-  scope :with_date_gte, ->(value) {
-    begin
-      date = Date.strptime(value, '%m/%d/%Y')
-      where 'note_on >= ?', date.strftime('%Y-%m-%d')
-    rescue
-      return
-    end
+  scope :with_date_gte, lambda { |reference_time|
+    where 'note_on >= ?', reference_time.to_date
   }
-  scope :with_date_lte, ->(value) {
-    begin
-      date = Date.strptime(value, '%m/%d/%Y')
-      where 'note_on <= ?', date.strftime('%Y-%m-%d')
-    rescue
-      return
-    end
+  scope :with_date_lte, lambda { |reference_time|
+    where 'note_on < ?', reference_time.to_date + 1
   }
 
   def self.options_for_type

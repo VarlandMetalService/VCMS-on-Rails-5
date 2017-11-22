@@ -13,13 +13,11 @@ class OptoMessage < ApplicationRecord
   scope :search_query, ->(query) {
     where 'message like ?', "%#{query}%"
   }
-  scope :with_date_gte, ->(value) {
-    timestamp = Time.zone.parse(value)
-    where 'message_at >= ?', timestamp.utc
+  scope :with_date_gte, lambda { |reference_time|
+    where 'message_at >= ?', reference_time.to_date
   }
-  scope :with_date_lte, ->(value) {
-    timestamp = Time.zone.parse(value)
-    where 'message_at <= ?', timestamp.utc
+  scope :with_date_lte, lambda { |reference_time|
+    where 'message_at < ?', reference_time.to_date + 1
   }
   scope :with_department, ->(values) {
     where department: [*values]

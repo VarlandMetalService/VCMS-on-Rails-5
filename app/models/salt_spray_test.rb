@@ -53,10 +53,10 @@ class SaltSprayTest < ApplicationRecord
     where("part_number like ?", "#{part_numbers}%")
   }
   scope :with_put_on_at_gte, lambda { |reference_time|
-    where('put_on_at >= ?', reference_time.to_date)
+    where 'put_on_at >= ?', reference_time.to_date
   }
   scope :with_put_on_at_lte, lambda { |reference_time|
-    where('put_on_at <= ?', reference_time.to_date + 1)
+    where 'put_on_at < ?', reference_time.to_date + 1
   }
   scope :sorted_by, ->(sort_option) {
     order sort_option
