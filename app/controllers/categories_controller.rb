@@ -1,16 +1,8 @@
 class CategoriesController < ApplicationController
   before_action :check_permission
-  before_action :set_category, only: [:move_up, :move_down, :edit, :update]
+  before_action :set_category, only: [:edit, :update, :move_up, :move_down]
 
   def edit
-  end
-
-  def update
-    if @category.update category_params
-      redirect_to documents_path
-    else
-      render :edit
-    end
   end
 
   def create
@@ -19,6 +11,14 @@ class CategoriesController < ApplicationController
       redirect_to documents_url, notice: "Successfully added <code>#{@category.name}</code>.".html_safe
     else
       redirect_to documents_url, flash: { error: "Error adding <code>#{@category.name}</code>. Please try again or contact IT for help.".html_safe }
+    end
+  end
+
+  def update
+    if @category.update category_params
+      redirect_to documents_path
+    else
+      render :edit
     end
   end
 

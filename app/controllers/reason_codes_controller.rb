@@ -1,6 +1,6 @@
 class ReasonCodesController < ApplicationController
-  before_action :set_reason_code, only: [:update, :destroy]
   before_action :check_permission
+  before_action :set_reason_code, only: [:update, :destroy]
 
   def index
     @reason_code = params[:id] ? ReasonCode.find(params[:id]) : ReasonCode.new

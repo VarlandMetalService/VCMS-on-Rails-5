@@ -1,6 +1,6 @@
 class ShiftNotesController < ApplicationController
-  before_action :set_note, only: [:edit, :update, :destroy]
   before_action :check_permission
+  before_action :set_note, only: [:edit, :update, :destroy]
 
   has_scope :search_query
   has_scope :with_date_gte
@@ -19,6 +19,9 @@ class ShiftNotesController < ApplicationController
     @shift_note = ShiftNote.new
   end
 
+  def edit
+  end
+
   def create
     @shift_note = ShiftNote.new shift_note_params
     @shift_note.author = current_user
@@ -28,9 +31,6 @@ class ShiftNotesController < ApplicationController
     else
       render 'new'
     end
-  end
-
-  def edit
   end
 
   def update
@@ -64,6 +64,6 @@ private
 
   def shift_note_params
     params.require(:shift_note).permit(:note_on, :shift, :department, :note_type, :notes, :supervisor_notes,
-                                        attachments_attributes: [:id, :content_type, :file, :_destroy])
+                                       attachments_attributes: [:id, :content_type, :file, :_destroy])
   end
 end

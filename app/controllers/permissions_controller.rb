@@ -1,7 +1,6 @@
 class PermissionsController < ApplicationController
-
-  before_action :set_permission, only: [:edit, :update]
   before_action :check_permission
+  before_action :set_permission, only: [:edit, :update]
 
   def index
     @permissions = Permission.order('permission').page(params[:page])
@@ -20,12 +19,12 @@ class PermissionsController < ApplicationController
 
 private
 
-  def set_permission
-    @permission = Permission.find params[:id]
-  end
-
   def check_permission
     require_permission 'sysadmin', 3
+  end
+
+  def set_permission
+    @permission = Permission.find params[:id]
   end
 
   def permission_params

@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
-
-  before_action :set_user, only: [:edit, :update]
   before_action :check_permission
+  before_action :set_user, only: [:edit, :update]
 
   def index
     @users = User.all.page(params[:page]).order(:employee_number)
@@ -37,9 +36,9 @@ private
   end
 
   def user_params
-    params.require(:user).permit(:username, :employee_number, :first_name, :last_name, :suffix, :initials, :email, :pin, :current_status,
-                                 :background_color, :text_color, :is_active, timeclock_records_attributes: [:id, :record_type,
-                                 :record_timestamp, :submit_type, :ip_address])
+    params.require(:user).permit(:username, :employee_number, :first_name, :last_name, :suffix, :initials,
+                                 :email, :pin, :current_status, :background_color, :text_color, :is_active,
+                                 timeclock_records_attributes: [:id, :record_type, :record_timestamp, :submit_type, :ip_address])
   end
 
 end

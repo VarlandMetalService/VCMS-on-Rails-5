@@ -1,9 +1,8 @@
 require 'rest-client'
 
 class DocumentsController < ApplicationController
-
-  before_action :set_document, only: [:edit, :update, :destroy, :show]
   before_action :check_user_permission
+  before_action :set_document, only: [:show, :edit, :update, :destroy]
   skip_before_action :require_login
 
   has_scope :search_query
@@ -11,7 +10,6 @@ class DocumentsController < ApplicationController
   has_scope :with_date_lte
 
   def index
-
     @documents = apply_scopes(Document).all.page(params[:page])
     @category = Category.new
     @upload_document = Document.new
@@ -26,6 +24,12 @@ class DocumentsController < ApplicationController
     end
   end
 
+  def show
+  end
+
+  def edit
+  end
+
   def create
     @document = Document.new document_params
     categories = params[:document][:category_ids].reject!(&:empty?)
@@ -38,20 +42,6 @@ class DocumentsController < ApplicationController
     end
   end
 
-  def show
-  end
-
-  def edit
-  end
-
-  def destroy
-    if @document.destroy
-      redirect_to documents_url, notice: 'Successfully deleted document.'
-    else
-      redirect_to documents_url, flash: { error: 'Error deleting document. Please contact IT.' }
-    end
-  end
-
   def update
     if @document.update document_params
       categories = params[:document][:category_ids].reject!(&:empty?)
@@ -60,6 +50,14 @@ class DocumentsController < ApplicationController
       redirect_to @document, notice: "Successfully updated #{@document.name}."
     else
       render :show
+    end
+  end
+
+  def destroy
+    if @document.destroy
+      redirect_to documents_url, notice: 'Successfully deleted document.'
+    else
+      redirect_to documents_url, flash: { error: 'Error deleting document. Please contact IT.' }
     end
   end
 
@@ -112,7 +110,8 @@ private
   end
 
   def document_params
-    params.require(:document).permit(:name, :document_updated_on, :content_type, :file, :_destroy, :google_url, :google_id, :google_contents, :google_updated_at, :category_ids, :exclude_from_newest)
+    params.require(:document).permit(:name, :document_updated_on, :content_type, :file, :_destroy, :google_url, :google_id,
+                                     :google_contents, :google_updated_at, :category_ids, :exclude_from_newest)
   end
 
 end

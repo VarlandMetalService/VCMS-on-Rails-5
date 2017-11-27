@@ -1,4 +1,5 @@
 class IpadController < ApplicationController
+
   def index
   end
 

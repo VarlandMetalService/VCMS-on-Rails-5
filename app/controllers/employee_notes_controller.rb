@@ -1,6 +1,6 @@
 class EmployeeNotesController < ApplicationController
-  before_action :set_note, only: [:edit, :update, :destroy]
   before_action :check_permission
+  before_action :set_note, only: [:edit, :update, :destroy]
 
   has_scope :search_query
   has_scope :with_employee
@@ -27,6 +27,9 @@ class EmployeeNotesController < ApplicationController
     @employee_note = EmployeeNote.new
   end
 
+  def edit
+  end
+
   def create
     @employee_note = EmployeeNote.new employee_note_params
     @employee_note.author = current_user
@@ -38,7 +41,12 @@ class EmployeeNotesController < ApplicationController
     end
   end
 
-  def edit
+  def update
+    if @employee_note.update employee_note_params
+      redirect_to employee_notes_url, notice: 'Successfully updated employee note.'
+    else
+      render :edit
+    end
   end
 
   def destroy
@@ -46,14 +54,6 @@ class EmployeeNotesController < ApplicationController
       redirect_to employee_notes_url, notice: 'Successfully deleted employee note.'
     else
       redirect_to employee_notes_url, flash: { error: 'Error deleting employee note. Please contact IT.' }
-    end
-  end
-
-  def update
-    if @employee_note.update employee_note_params
-      redirect_to employee_notes_url, notice: 'Successfully updated employee note.'
-    else
-      render :edit
     end
   end
 

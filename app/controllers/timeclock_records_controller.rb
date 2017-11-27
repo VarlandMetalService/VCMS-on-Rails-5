@@ -1,9 +1,9 @@
 class TimeclockRecordsController < ApplicationController
-  before_action :set_timeclock_record, only: [:update, :destroy]
   before_action :check_permission
+  before_action :set_timeclock_record, only: [:update, :destroy]
 
-  has_scope :with_employee
   has_scope :with_week
+  has_scope :with_employee
   has_scope :with_notes
 
   def index
@@ -43,7 +43,6 @@ class TimeclockRecordsController < ApplicationController
     if @timeclock_record.update timeclock_record_params
     # if false
       if params[:timeclock_record][:is_flagged]
-        #TODO: Create ActionMailer and send email to appropriate supervisor
         FlaggedRecordMailer.flagged_record_email(@timeclock_record, params[:timeclock_record][:note_to_supervisor]).deliver
         redirect_to timeclock_records_path, notice: 'Note successfully sent to supervisor.' and return
       end
@@ -103,7 +102,8 @@ private
   end
 
   def timeclock_record_params
-    params.require(:timeclock_record).permit(:user_id, :record_type, :record_timestamp, :submit_type, :reason_code_id, :ip_address, :edit_type, :edit_ip_address, :notes, :is_locked, :is_flagged, :is_deleted)
+    params.require(:timeclock_record).permit(:user_id, :record_type, :record_timestamp, :submit_type, :reason_code_id, :ip_address,
+                                             :edit_type, :edit_ip_address, :notes, :is_locked, :is_flagged, :is_deleted)
   end
 
 end

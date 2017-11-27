@@ -1,7 +1,6 @@
 class SaltSprayTestsController < ApplicationController
-
-  before_action :set_salt_spray_test, only: [:edit, :update, :show, :destroy]
   before_action :check_user_permission
+  before_action :set_salt_spray_test, only: [:show, :edit, :update, :destroy]
 
   has_scope :with_shop_order_number
   has_scope :with_put_on_by
@@ -20,6 +19,7 @@ class SaltSprayTestsController < ApplicationController
   end
 
   def show
+    @attachments = SaltSprayTest.find_by_id(params[:id]).attachments
   end
 
   def new
@@ -70,10 +70,6 @@ class SaltSprayTestsController < ApplicationController
     end
   end
 
-  def show
-    @attachments = SaltSprayTest.find_by_id(params[:id]).attachments
-  end
-
   def test_complete
     respond_to do |format|
       format.html
@@ -92,6 +88,14 @@ class SaltSprayTestsController < ApplicationController
 
 private
 
+  def check_user_permission
+    check_permission 'salt_spray_tests'
+  end
+
+  def set_salt_spray_test
+    @salt_spray_test = SaltSprayTest.find params[:id]
+  end
+
   def salt_spray_test_params
     params.require(:salt_spray_test).permit(:shop_order, :put_on_at, :pulled_off_at, :put_on_by, :barrel_number,
                                               :marked_red_at, :marked_white_at, :marked_red_by, :marked_white_by,
@@ -100,14 +104,6 @@ private
                                               salt_spray_process_steps_attributes: [:id, :name, :_destroy],
                                               attachments_attributes: [:id, :content_type, :file, :_destroy],
                                               comment_attributes: [:id, :content, :_destroy])
-  end
-
-  def check_user_permission
-    check_permission 'salt_spray_tests'
-  end
-
-  def set_salt_spray_test
-    @salt_spray_test = SaltSprayTest.find params[:id]
   end
 
 end
