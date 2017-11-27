@@ -11,16 +11,17 @@ class FlaggedRecordMailer < ApplicationMailer
 
 private
   def get_supervisor(employee_number)
-    if employee_number >= 600
-      ['gail.krauser@varland.com']
-    elsif employee_number >= 400
-      ['greg.turner@varland.com', 'terry.marshall@varland.com']
-    elsif employee_number >= 300
-      ['brian.mangold@varland.com']
-    elsif employee_number >= 200
-      ['ted.mckeehan@varland.com', 'cliff.queen@varland.com']
-    else
-      ['vmsforemen@gmail.com']
-    end
+    'brendan.ryan@varland.com'
+    # if employee_number >= 600
+    #   ['gail.krauser@varland.com']
+    # elsif employee_number >= 400
+    #   ['greg.turner@varland.com', 'terry.marshall@varland.com']
+    # elsif employee_number >= 300
+    #   ['brian.mangold@varland.com']
+    # elsif employee_number >= 200
+    #   ['ted.mckeehan@varland.com', 'cliff.queen@varland.com']
+    # else
+    #   ['vmsforemen@gmail.com']
+    # end
   end
 end

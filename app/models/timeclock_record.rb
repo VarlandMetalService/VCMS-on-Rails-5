@@ -20,13 +20,13 @@ class TimeclockRecord < ApplicationRecord
             presence: true
   validates :notes,
             presence: { message: "is required for this Reason Code"},
-            if: lambda { |o| o.reason_code.requires_notes }
+            if: lambda { |o| o.reason_code.requires_notes? }
 
-  scope :with_employee, ->(values) {
-    where user_id: [*values]
-  }
   scope :with_week, ->(values) {
     where('record_timestamp >= ? AND record_timestamp <= ?', Period.find_by_id(values).period_start_date, Period.find_by_id(values).period_end_date - 1)
+  }
+  scope :with_employee, ->(values) {
+    where user_id: [*values]
   }
   scope :with_notes, ->(has_notes) {
     if has_notes == '1'
@@ -55,11 +55,6 @@ class TimeclockRecord < ApplicationRecord
       ['Only Notes', '1'],
       ['Hide Notes', '2']
     ]
-  end
-
-  def soft_delete
-    self.is_deleted = true
-    save
   end
 
 private
@@ -92,6 +87,11 @@ private
     when 'Start Break'
       user.update_attribute(:current_status, 'break') if user.current_status != 'break'
     end
+  end
+
+  def soft_delete
+    self.is_deleted = true
+    save
   end
 
 end

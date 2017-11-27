@@ -1,4 +1,4 @@
-<%= form_with model: @timeclock_record, local: true do |f| %>
+<%= form_with model: @timeclock_record do |f| %>
   <% if @timeclock_record.errors.any? %>
     <div class="error_explanation text-danger">
       <p><%= pluralize(@timeclock_record.errors.count, "error") %> prevented this test from being saved:</p>

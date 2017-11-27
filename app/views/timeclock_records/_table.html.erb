@@ -7,12 +7,12 @@
         <th class="d-inline-block col-2 text-center">Record Type</th>
         <th class="d-inline-block col-3 text-left">Edit Info</th>
         <th class="d-inline-block col-3 col-xl-4 text-left">Notes</th>
-        <th class="d-inline-block col-1 text-center d-none d-xl-table-cell"></th>
+        <th class="d-inline-block col-1 text-center d-none"></th>
       </tr>
     </thead>
     <tbody class="filtered-table">
       <% @timeclock_records.each do |t| %>
-        <tr data-id="<%= t.id %>" class="row m-0<%= 'info' if t.is_flagged %>">
+        <tr data-id="<%= t.id %>" class="row m-0<%= ' info' if t.is_flagged %>">
           <td class="d-inline-block col-1 col-xl-1 text-center">
             <%= t.record_timestamp.localtime.strftime('%a, %m/%d') %>
             <% if t.record_timestamp.localtime.strftime('%a, %m/%d') != t.updated_at.localtime.strftime('%a, %m/%d') %>

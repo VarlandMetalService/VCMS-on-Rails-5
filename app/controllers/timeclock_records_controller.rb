@@ -49,21 +49,23 @@ class TimeclockRecordsController < ApplicationController
       redirect_to manage_records_timeclock_records_path, notice: 'Timeclock record was successfully updated.'
     else
       if params[:timeclock_record][:is_flagged]
-        #TODO: Fix this, needs to render timeclock_record index and show error on flag_record form
         @timeclock_record.errors.add(:timeclock_record, 'Record could not be flagged. Please contact IT for help.')
         @employee = User.find_by_id session[:ipad_user_id] || current_user
-        @timeclock_records = TimeclockRecord.where('user_id = ? AND record_timestamp >= ?', @employee.id, Date.today.beginning_of_week - 1).order(record_timestamp: :desc)
+        time_start = Period.where('is_closed IS FALSE').order(period_start_date: :asc).first.period_start_date
+        @timeclock_records = apply_scopes(TimeclockRecord).where('record_timestamp >= ?', time_start).order(record_timestamp: :desc)
         @flagged_records = TimeclockRecord.where('user_id = ? AND is_flagged = ?', @employee.id, true)
         render 'index' and return
       end
-      @timeclock_records = TimeclockRecord.all.order(record_timestamp: :desc)
+      puts "ERRORS: #{@timeclock_record.errors.messages}"
+      time_start = Period.where('is_closed IS FALSE').order(period_start_date: :asc).first.period_start_date
+      @timeclock_records = apply_scopes(TimeclockRecord).where('record_timestamp >= ?', time_start).order(record_timestamp: :desc)
       @closable_periods = Period.where('period_end_date < ? AND is_closed IS FALSE', Date.current)
-      render :manage_records
+      render 'manage_records'
     end
   end
 
   def destroy
-    if @timeclock_record.soft_delete
+    if @timeclock_record.send(:soft_delete)
       redirect_to manage_records_timeclock_records_path, notice: 'Timeclock record was successfully deleted.'
     else
       redirect_to manage_records_timeclock_records_path, notice: 'Failed to delete record. Contact IT for help.'
