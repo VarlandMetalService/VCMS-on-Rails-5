@@ -42,32 +42,36 @@
         <%= t.comment.content if t.comment %>
       </div>
       <div class="col-md-<%= action_name == 'archived_tests' ? 1 : 2 %> text-center hidden-print d-none d-md-table-cell">
-        <% if @access_level.access_level == 3 and action_name != 'archived_tests' -%>
-          <%= link_to 'Edit', edit_salt_spray_test_path(t), class: "btn btn-sm btn-default mr-2" %>
-          <%= link_to 'Delete', salt_spray_test_path(t), data: { confirm: 'Are you sure?'}, method: 'delete', class: 'btn btn-sm btn-danger' %><br />
-          <% if !t.marked_white_at %>
-            <%= form_with model: t, class: 'btn-form', local: true do |f| %>
-              <%= f.hidden_field :marked_white_at, value: Date.current %>
-              <%= f.hidden_field :marked_white_by, value: current_user.id %>
-              <%= f.submit 'Mark White', class: 'btn btn-sm btn-warning' %>
+
+        <a href="#" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions</a>
+        <div class="dropdown-menu text-center">
+          <% if @access_level.access_level == 3 and action_name != 'archived_tests' -%>
+            <%= link_to 'Edit', edit_salt_spray_test_path(t), class: "dropdown-item" %>
+            <% if !t.marked_white_at %>
+              <%= form_with model: t, local: true do |f| %>
+                <%= f.hidden_field :marked_white_at, value: Date.current %>
+                <%= f.hidden_field :marked_white_by, value: current_user.id %>
+                <%= f.submit 'Mark White', class: 'btn-form dropdown-item' %>
+              <% end %>
             <% end %>
-          <% end %>
-          <% if !t.marked_red_at %>
-            <%= form_with model: t, class: 'btn-form', local: true do |f| %>
-              <%= f.hidden_field :marked_red_at, value: Date.current %>
-              <%= f.hidden_field :marked_red_by, value: current_user.id %>
-              <%= f.submit 'Mark Red', class: 'btn btn-sm btn-warning' %>
+            <% if !t.marked_red_at %>
+              <%= form_with model: t, local: true do |f| %>
+                <%= f.hidden_field :marked_red_at, value: Date.current %>
+                <%= f.hidden_field :marked_red_by, value: current_user.id %>
+                <%= f.submit 'Mark Red', class: 'btn-form dropdown-item' %>
+              <% end %>
             <% end %>
-            <br>
-          <% end %>
-          <% if t.marked_red_at && t.marked_white_at %>
-            <%= form_with model: t, local: true do |f| %>
-              <%= f.hidden_field :pulled_off_at, value: Date.current %>
-              <%= f.hidden_field :pulled_off_by, value: current_user.id %>
-              <%= f.submit 'Mark Complete', class: 'btn btn-sm btn-info' %>
+            <% if t.marked_red_at && t.marked_white_at %>
+              <%= form_with model: t, local: true do |f| %>
+                <%= f.hidden_field :pulled_off_at, value: Date.current %>
+                <%= f.hidden_field :pulled_off_by, value: current_user.id %>
+                <%= f.submit 'Mark Complete', class: 'btn-form dropdown-item' %>
+              <% end %>
             <% end %>
+            <div class="dropdown-divider"></div>
+            <%= link_to 'Delete', salt_spray_test_path(t), data: { confirm: 'Are you sure?'}, method: 'delete', class: 'text-danger dropdown-item' %>
           <% end %>
-        <% end %>
+        </div><br>
         <%= link_to "View Attachments (#{t.attachments.size})", salt_spray_test_path(t.id, has_attachment: true), remote: true, class: 'btn btn-sm btn-link' if t.attachments.size > 0 %>
       </div>
     </div>

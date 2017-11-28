@@ -84,20 +84,6 @@ class ShiftNote < ApplicationRecord
     users.map { |u| [u.full_name, u.id] }
   end
 
-  def self.options_for_department
-    [
-      ['Dept. 3', '3'],
-      ['Dept. 4', '4'],
-      ['Dept. 5', '5'],
-      ['Dept. 6', '6'],
-      ['Dept. 7', '7'],
-      ['Dept. 8', '8'],
-      ['Dept. 10', '10'],
-      ['Dept. 12', '12'],
-      ['Waste Water', '30']
-    ]
-  end
-
   def self.options_for_type
     [
       ['IT', 'IT'],

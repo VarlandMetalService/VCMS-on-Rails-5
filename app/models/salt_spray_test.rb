@@ -1,13 +1,10 @@
 class SaltSprayTest < ApplicationRecord
 
-  # Callbacks.
   before_save :standardize_times
   before_create :add_shop_order_details
 
-  # Default scoping.
   default_scope { where 'deleted_at IS NULL' }
 
-  # Associations.
   belongs_to    :salt_spray_tester,
                 class_name: 'User',
                 foreign_key: 'put_on_by',
@@ -43,7 +40,6 @@ class SaltSprayTest < ApplicationRecord
                                     reject_if: :all_blank,
                                     allow_destroy: true
 
-  # Scopes.
   scope :with_shop_order_number, lambda { |shop_orders|
     where("shop_order_number like ?", "#{shop_orders}%")
   }
