@@ -2,16 +2,12 @@ class EmployeeNote < ApplicationRecord
 
   after_initialize :set_date
 
-  # Constants.
   VALID_IP_REGEX = /\A([1-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])(\.([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])){3}\z/i
 
-  # Default scoping.
   default_scope { order(note_on: :desc) }
 
-  # Pagination.
   self.per_page = 50
 
-  # Associations.
   belongs_to    :subject,
                 class_name: 'User',
                 foreign_key: 'employee'
@@ -19,7 +15,6 @@ class EmployeeNote < ApplicationRecord
                 class_name: 'User',
                 foreign_key: 'entered_by'
 
-  # Validations.
   validates :subject,
             presence: true
   validates :entered_by,
@@ -35,21 +30,17 @@ class EmployeeNote < ApplicationRecord
   validates :notes,
             presence: true
 
-  # Scopes.
-  scope :sorted_by, ->(sort_option) {
-    reorder sort_option
-  }
   scope :search_query, ->(query) {
     where 'notes like ? or follow_up like ?', "%#{query}%", "%#{query}%"
   }
   scope :with_employee, ->(values) {
     where employee: [*values]
   }
-  scope :with_note_type, ->(values) {
-    where note_type: [*values]
-  }
   scope :with_entered_by, ->(values) {
     where entered_by: [*values]
+  }
+  scope :with_note_type, ->(values) {
+    where note_type: [*values]
   }
   scope :with_date_gte, lambda { |reference_time|
     where 'note_on >= ?', reference_time.to_date
@@ -57,6 +48,14 @@ class EmployeeNote < ApplicationRecord
   scope :with_date_lte, lambda { |reference_time|
     where 'note_on < ?', reference_time.to_date + 1
   }
+  scope :sorted_by, ->(sort_option) {
+    reorder sort_option
+  }
+
+  def self.options_for_entered_by
+    users = User.where id: EmployeeNote.all.distinct.pluck(:entered_by)
+    users.map { |u| [u.full_name, u.id] }
+  end
 
   def self.options_for_type
     [
@@ -73,10 +72,7 @@ class EmployeeNote < ApplicationRecord
     ]
   end
 
-  def self.options_for_entered_by
-    users = User.where id: EmployeeNote.all.distinct.pluck(:entered_by)
-    users.map { |u| [u.full_name, u.id] }
-  end
+private
 
   def set_date(params = {})
     current_time = Time.new

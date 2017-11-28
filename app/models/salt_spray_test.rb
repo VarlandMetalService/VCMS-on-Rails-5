@@ -1,5 +1,6 @@
 class SaltSprayTest < ApplicationRecord
 
+  # Callbacks.
   before_save :standardize_times
   before_create :add_shop_order_details
 

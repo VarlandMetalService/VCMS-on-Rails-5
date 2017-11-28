@@ -1,15 +1,9 @@
 class OptoMessage < ApplicationRecord
 
-  # Default scoping.
   default_scope { order(message_at: :desc) }
 
-  # Pagination.
   self.per_page = 50
 
-  # Scopes.
-  scope :sorted_by, ->(sort_option) {
-    reorder sort_option
-  }
   scope :search_query, ->(query) {
     where 'message like ?', "%#{query}%"
   }
@@ -19,14 +13,11 @@ class OptoMessage < ApplicationRecord
   scope :with_date_lte, lambda { |reference_time|
     where 'message_at < ?', reference_time.to_date + 1
   }
+  scope :sorted_by, ->(sort_option) {
+    reorder sort_option
+  }
   scope :with_department, ->(values) {
     where department: [*values]
-  }
-  scope :with_shop_order, ->(values) {
-    where shop_order: [*values]
-  }
-  scope :with_load, ->(values) {
-    where load: [*values]
   }
   scope :with_lane, ->(values) {
     where lane: [*values]
@@ -36,6 +27,12 @@ class OptoMessage < ApplicationRecord
   }
   scope :with_barrel, ->(values) {
     where barrel: [*values]
+  }
+  scope :with_shop_order, ->(values) {
+    where shop_order: [*values]
+  }
+  scope :with_load, ->(values) {
+    where load: [*values]
   }
   scope :with_type, ->(values) {
     return if values == [""]

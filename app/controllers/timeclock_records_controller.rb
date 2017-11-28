@@ -41,7 +41,6 @@ class TimeclockRecordsController < ApplicationController
 
   def update
     if @timeclock_record.update timeclock_record_params
-    # if false
       if params[:timeclock_record][:is_flagged]
         FlaggedRecordMailer.flagged_record_email(@timeclock_record, params[:timeclock_record][:note_to_supervisor]).deliver
         redirect_to timeclock_records_path, notice: 'Note successfully sent to supervisor.' and return
@@ -56,7 +55,6 @@ class TimeclockRecordsController < ApplicationController
         @flagged_records = TimeclockRecord.where('user_id = ? AND is_flagged = ?', @employee.id, true)
         render 'index' and return
       end
-      puts "ERRORS: #{@timeclock_record.errors.messages}"
       time_start = Period.where('is_closed IS FALSE').order(period_start_date: :asc).first.period_start_date
       @timeclock_records = apply_scopes(TimeclockRecord).where('record_timestamp >= ?', time_start).order(record_timestamp: :desc)
       @closable_periods = Period.where('period_end_date < ? AND is_closed IS FALSE', Date.current)

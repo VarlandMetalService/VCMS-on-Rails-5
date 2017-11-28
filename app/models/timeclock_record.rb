@@ -1,14 +1,13 @@
 class TimeclockRecord < ApplicationRecord
 
-  # Default scoping.
+  before_validation :check_datetime_format
+  before_save :check_for_buffer
+  after_commit :update_user_status
+
   default_scope { where 'is_deleted IS FALSE' }
 
   belongs_to :user
   belongs_to :reason_code, optional: true
-
-  before_validation :check_datetime_format
-  before_save :check_for_buffer
-  after_commit :update_user_status
 
   validates :user,
             presence: true

@@ -9,19 +9,19 @@
           <div class="row">
             <div class="col-12 col-md-4">
               <div class="form-group">
-                <%= f.label :with_week, 'Week:'  %>
+                <%= f.label :with_week, 'Week:' %>
                 <%= f.select :with_week, TimeclockRecord.options_for_period, { include_blank: true }, { class: 'form-control' } %>
               </div>
             </div>
             <div class="col-12 col-md-4">
               <div class="form-group">
-                <%= f.label :with_employee, 'Person:'  %>
+                <%= f.label :with_employee, 'Person:' %>
                 <%= f.select :with_employee, User.options_for_employees, { include_blank: true }, { class: 'form-control' } %>
               </div>
             </div>
             <div class="col-12 col-md-4">
               <div class="form-group">
-                <%= f.label :with_notes, 'Notes:'  %>
+                <%= f.label :with_notes, 'Notes:' %>
                 <%= f.select :with_notes, TimeclockRecord.options_for_notes, { include_blank: true }, { class: 'form-control' } %>
               </div>
             </div>

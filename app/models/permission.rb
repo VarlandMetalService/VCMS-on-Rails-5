@@ -1,9 +1,9 @@
 class Permission < ApplicationRecord
 
-  # Pagination.
+  before_save :format_values
+
   self.per_page = 50
 
-  # Associations.
   has_many      :assigned_permissions,
                 -> { includes(:user).order('users.employee_number ASC') }
   has_many      :users,
@@ -15,14 +15,16 @@ class Permission < ApplicationRecord
                                   allow_destroy: true
   accepts_nested_attributes_for   :users
 
-  # Filters.
-  before_save { self.permission = permission.downcase }
-
-  # Validations.
   validates :permission,
             presence: true,
             uniqueness: { case_sensitive: false }
   validates :description,
             presence: true
+
+private
+
+  def format_values
+    self.permission = permission.downcase
+  end
 
 end

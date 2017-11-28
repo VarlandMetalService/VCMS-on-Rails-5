@@ -8,6 +8,8 @@ class ReasonCode < ApplicationRecord
     ReasonCode.all.where('is_deleted IS FALSE').order(code: :asc)
   end
 
+private
+
   def soft_delete
     self.is_deleted = true
     save

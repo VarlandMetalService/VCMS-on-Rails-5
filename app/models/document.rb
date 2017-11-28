@@ -2,23 +2,19 @@ require 'rest-client'
 
 class Document < ApplicationRecord
 
-  # Callbacks.
   after_initialize :set_valid
   before_save :set_doc_update
   after_destroy :update_all_positions
 
-  # Default scoping.
   default_scope { where 'is_valid IS TRUE' }
   default_scope { order(document_updated_on: :desc) }
 
-  # Pagination.
   self.per_page = 100
 
-  # CarrierWave uploader support.
+  # CarrierWave uploader support
   mount_uploader    :file,
                     FileUploader
 
-  # Associations.
   has_and_belongs_to_many   :categories
   belongs_to                :user,
                             foreign_key: 'added_by'
@@ -27,7 +23,6 @@ class Document < ApplicationRecord
                                   reject_if: :all_blank,
                                   allow_destroy: false
 
-  # Validations.
   validates :name,
             presence: true
   validates :user,
@@ -35,10 +30,6 @@ class Document < ApplicationRecord
   validates :content_type,
             presence: true
 
-  # Scopes.
-  scope :sorted_by, ->(sort_option) {
-    order sort_option
-  }
   scope :search_query, ->(query) {
     return if query.blank?
     cond_text = Array.new
@@ -48,10 +39,6 @@ class Document < ApplicationRecord
       cond_values << "%#{w}%" << "%#{w}%"
     }
     where cond_text.join(' AND '), *cond_values
-  }
-  scope :with_category, ->(values) {
-    return if values == [""]
-    joins(:categories).where(categories: { id: values })
   }
   scope :with_date_gte, lambda { |reference_time|
     where 'document_updated_on >= ?', reference_time.to_date
@@ -63,26 +50,11 @@ class Document < ApplicationRecord
     where 'exclude_from_newest IS FALSE'
   }
 
-  # Select options for sorted by.
   def self.options_for_sorted_by
     [
       ['Date (newest first)', 'document_updated_on DESC'],
       ['Date (oldest first)', 'document_updated_on']
     ]
-  end
-
-  def set_valid(params = {})
-    self.is_valid = true
-  end
-
-  def update_all_positions
-    Category.update_positions
-  end
-
-  def set_doc_update
-    if self.document_updated_on.nil?
-      self.document_updated_on = Date.today
-    end
   end
 
   def lookup_google_info
@@ -117,6 +89,22 @@ class Document < ApplicationRecord
       self.document_updated_on = Date.today
     end
     self.save!
+  end
+
+private
+
+  def set_valid(params = {})
+    self.is_valid = true
+  end
+
+  def set_doc_update
+    if self.document_updated_on.nil?
+      self.document_updated_on = Date.today
+    end
+  end
+
+  def update_all_positions
+    Category.update_positions
   end
 
 end

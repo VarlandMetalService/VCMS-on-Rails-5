@@ -1,6 +1,5 @@
 class AssignedPermission < ApplicationRecord
 
-  # Associations.
   belongs_to      :user
   belongs_to      :permission
 
@@ -9,12 +8,10 @@ class AssignedPermission < ApplicationRecord
   accepts_nested_attributes_for   :user,
                                   reject_if: :all_blank
 
-  # Validations.
   validates :user_id,
             uniqueness: { scope: :permission_id,
                           message: 'cannot be assigned more than once' }
 
-  # Select options for value.
   def self.options_for_value label_set = false
     case label_set
       when 1      # Employee Notes

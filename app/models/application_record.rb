@@ -14,4 +14,5 @@ class ApplicationRecord < ActiveRecord::Base
       false
     end
   end
+
 end

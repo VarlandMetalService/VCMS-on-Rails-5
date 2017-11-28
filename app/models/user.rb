@@ -2,13 +2,12 @@ require 'rest-client'
 
 class User < ApplicationRecord
 
-  # Constants.
+  before_save :format_values
+
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
-  # Pagination.
   self.per_page = 50
 
-  # Associations.
   has_many      :documents,
                 foreign_key: 'added_by'
   has_many      :employee_notes,
@@ -38,11 +37,6 @@ class User < ApplicationRecord
                                   reject_if: :all_blank,
                                   allow_destroy: true
 
-  # Filters.
-  before_save { self.email = email.downcase }
-  before_save { self.username = username.downcase }
-
-  # Validations.
   validates :username,
     presence: true,
     length: { maximum: 10 },
@@ -69,17 +63,8 @@ class User < ApplicationRecord
     length: { is: 4 },
     uniqueness: { case_sensitive: false }
 
-  # Uses Net::HTTP to authenticate user on IBM System i.
-  def authenticate(password = '')
-    begin
-      response = RestClient.get 'http://api.varland.com/v1/auth', params: { user: self.username,
-                                                                            password: password }
-
-      response == '1' ? true : false
-    rescue => e
-      logger.debug("ERROR (User Model - authenticate): #{e.message}")
-      false
-    end
+  def self.options_for_employees
+    order('employee_number').map { |u| ["#{u.employee_number} - #{u.full_name}", u.id] }
   end
 
   def self.from_omniauth(access_token)
@@ -96,8 +81,17 @@ class User < ApplicationRecord
     end
   end
 
-  def self.options_for_employees
-    order('employee_number').map { |u| ["#{u.employee_number} - #{u.full_name}", u.id] }
+  # TODO: Use Net::HTTP (instead of RestClient) to authenticate user on IBM System i.
+  def authenticate(password = '')
+    begin
+      response = RestClient.get 'http://api.varland.com/v1/auth', params: { user: self.username,
+                                                                            password: password }
+
+      response == '1' ? true : false
+    rescue => e
+      logger.debug("ERROR (User Model - authenticate): #{e.message}")
+      false
+    end
   end
 
   def full_name
@@ -121,6 +115,7 @@ class User < ApplicationRecord
     end
   end
 
+  # TODO: Reformat/Replace this method (most of it is already performed elsewhere)
   def punch_clock(record_type, submit_type = 'pin', timestamp = DateTime.current)
 
     day = timestamp.strftime('%e')
@@ -157,6 +152,13 @@ class User < ApplicationRecord
       return false
     end
 
+  end
+
+private
+
+  def format_values
+    self.email = email.downcase
+    self.username = username.downcase
   end
 
 end

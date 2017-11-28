@@ -1,10 +1,9 @@
 class Attachment < ApplicationRecord
 
-  # CarrierWave uploader support.
+  # CarrierWave uploader support
   mount_uploader  :file,
   FileUploader
 
-  # Associations.
   belongs_to      :attachable,
                   polymorphic: true,
                   optional: true
