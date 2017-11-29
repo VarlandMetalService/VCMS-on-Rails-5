@@ -94,7 +94,7 @@ class SaltSprayTest < ApplicationRecord
       spot_date = self.marked_red_at
     end
 
-    if spec_test == 0
+    if spec_test.nil? || spec_test == 0
       return
     end
 
@@ -152,6 +152,10 @@ class SaltSprayTest < ApplicationRecord
     return self.is_sample || (self.white_spec == 0 && self.red_spec == 0)
   end
 
+  def is_custom_order?
+    return self.shop_order_number == 111
+  end
+
 private
 
   def standardize_times
@@ -170,25 +174,27 @@ private
   end
 
   def add_shop_order_details
-    if so_details = get_shop_order_details(self.shop_order_number)
-      begin
-        self.customer = so_details['customer']
-        self.process_code = so_details['process']
-        self.part_number = so_details['part']
-        self.sub = so_details['sub']
-        self.white_spec = so_details['saltSprayWhite']
-        self.red_spec = so_details['saltSprayRed']
-        self.part_area = so_details['pieceArea']
-        self.density = so_details['poundsPerCubic']
-        self.load_weight = so_details['loadWeight']
+    if !is_custom_order?
+      if so_details = get_shop_order_details(self.shop_order_number)
+        begin
+          self.customer = so_details['customer']
+          self.process_code = so_details['process']
+          self.part_number = so_details['part']
+          self.sub = so_details['sub']
+          self.white_spec = so_details['saltSprayWhite']
+          self.red_spec = so_details['saltSprayRed']
+          self.part_area = so_details['pieceArea']
+          self.density = so_details['poundsPerCubic']
+          self.load_weight = so_details['loadWeight']
 
-      rescue => e
-        self.errors.add(:salt_spray_test, "invalid shop order number.")
+        rescue => e
+          self.errors.add(:salt_spray_test, "invalid shop order number.")
+          throw :abort
+        end
+      else
+        self.errors.add(:salt_spray_test, "unable to find shop order details.")
         throw :abort
       end
-    else
-      self.errors.add(:salt_spray_test, "unable to find shop order details.")
-      throw :abort
     end
   end
 

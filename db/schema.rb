@@ -163,8 +163,8 @@ ActiveRecord::Schema.define(version: 20171117133422) do
     t.string "sub"
     t.decimal "part_area", precision: 10, scale: 4
     t.decimal "density", precision: 10, scale: 4
-    t.integer "white_spec"
-    t.integer "red_spec"
+    t.integer "white_spec", default: 0
+    t.integer "red_spec", default: 0
     t.integer "dept"
     t.decimal "load_weight", precision: 10, scale: 4
     t.bigint "put_on_by"
