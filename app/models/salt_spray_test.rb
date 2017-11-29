@@ -148,6 +148,10 @@ class SaltSprayTest < ApplicationRecord
     return self.red_spec != 0
   end
 
+  def can_edit_spec?
+    return self.is_sample || (self.white_spec == 0 && self.red_spec == 0)
+  end
+
 private
 
   def standardize_times

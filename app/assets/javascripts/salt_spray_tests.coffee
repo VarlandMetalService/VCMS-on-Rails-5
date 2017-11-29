@@ -8,8 +8,6 @@ colorTable = () ->
     $(this).closest('.row').find('div').addClass 'row-color-' + $(this).text()
     return
 
-
-
 $(document).on 'turbolinks:load', (event) ->
   colorTable()
   $(document).ajaxSuccess ->
@@ -23,6 +21,15 @@ $(document).on 'turbolinks:load', (event) ->
       $(this).html('Show Filter')
     $('.filter-form').toggle();
 
+  # Clear Marked White Field
+  $('.clear-white').on 'click', ->
+    $('.marked-white-date').val('')
+    $('.marked-white-reporter').val('')
+
+  # Clear Marked Red Field
+  $('.clear-red').on 'click', ->
+    $('.marked-red-date').val('')
+    $('.marked-red-reporter').val('')
 
   # Manual entry modal functionality
   $(document).on 'click', '.manual-entry-yes', ->

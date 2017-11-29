@@ -36,33 +36,40 @@
             <%= f.label :put_on_by, class: 'form-control-label' %>
             <%= f.select :put_on_by, reporters_for_select, {include_blank: true}, {class: 'form-control'} %>
           </div>
+
         </div>
         <div class="col-md-3">
           <div class="form-group">
             <%= f.label :date_with_white, 'Date marked white', class: 'form-control-label' %>
-            <%= f.datetime_local_field :marked_white_at, class: 'form-control', value: format_datetime_local(@salt_spray_test.marked_white_at) %>
+            <%= f.datetime_local_field :marked_white_at, class: 'form-control marked-white-date', value: format_datetime_local(@salt_spray_test.marked_white_at) %>
           </div>
           <div class="form-group">
-            <%= f.label :marked_white_by, 'White rust reporter', class: 'form-control-label' %>
-            <%= f.select :marked_white_by, reporters_for_select, {include_blank: true}, {class: 'form-control'} %>
+            <%= f.label :marked_white_by, 'Marked white by', class: 'form-control-label' %>
+            <%= f.select :marked_white_by, reporters_for_select, {include_blank: true}, {class: 'form-control marked-white-reporter'} %>
+          </div>
+          <div class="form-group">
+            <div class="btn btn-sm btn-link clear-white">Clear 'Marked White' Values</div>
           </div>
           <div class="form-group">
             <%= f.label :white_spec, 'White Spec:', class: 'form-control-label' %><br />
-            <%= f.number_field :white_spec, class: 'form-control' %>
+            <%= f.number_field :white_spec, class: 'form-control white-spec-field', disabled: !@salt_spray_test.can_edit_spec? %>
           </div>
         </div>
         <div class="col-md-3">
           <div class="form-group">
             <%= f.label :date_with_red, 'Date marked red', class: 'form-control-label' %>
-            <%= f.datetime_local_field :marked_red_at, class: 'form-control', value: format_datetime_local(@salt_spray_test.marked_red_at) %>
+            <%= f.datetime_local_field :marked_red_at, class: 'form-control marked-red-date', value: format_datetime_local(@salt_spray_test.marked_red_at) %>
           </div>
           <div class="form-group">
-            <%= f.label :marked_red_by, 'Red rust reporter', class: 'form-control-label' %>
-            <%= f.select :marked_red_by, reporters_for_select, {include_blank: true}, {class: 'form-control'} %>
+            <%= f.label :marked_red_by, 'Marked red by', class: 'form-control-label' %>
+            <%= f.select :marked_red_by, reporters_for_select, {include_blank: true}, {class: 'form-control marked-red-reporter'} %>
+          </div>
+          <div class="form-group">
+            <div class="btn btn-sm btn-link clear-red">Clear 'Marked Red' Values</div>
           </div>
           <div class="form-group">
             <%= f.label :red_spec, 'Red Spec:', class: 'form-control-label' %><br />
-            <%= f.number_field :red_spec, class: 'form-control' %>
+            <%= f.number_field :red_spec, class: 'form-control white-spec-field', disabled: !@salt_spray_test.can_edit_spec? %>
           </div>
         </div>
         <div class="col-md-3">
