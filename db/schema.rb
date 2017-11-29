@@ -183,6 +183,7 @@ ActiveRecord::Schema.define(version: 20171117133422) do
     t.datetime "updated_at", null: false
     t.index ["marked_red_by"], name: "fk_rails_818a3fe6c3"
     t.index ["marked_white_by"], name: "fk_rails_eb9b825c87"
+    t.index ["pulled_off_by"], name: "fk_rails_6125442cc0"
     t.index ["put_on_by"], name: "fk_rails_94de30c9f6"
   end
 
@@ -247,6 +248,7 @@ ActiveRecord::Schema.define(version: 20171117133422) do
   add_foreign_key "employee_notes", "users", column: "entered_by"
   add_foreign_key "salt_spray_tests", "users", column: "marked_red_by"
   add_foreign_key "salt_spray_tests", "users", column: "marked_white_by"
+  add_foreign_key "salt_spray_tests", "users", column: "pulled_off_by"
   add_foreign_key "salt_spray_tests", "users", column: "put_on_by"
   add_foreign_key "shift_notes", "users", column: "entered_by"
   add_foreign_key "shift_notes", "users", column: "supervisor_id"

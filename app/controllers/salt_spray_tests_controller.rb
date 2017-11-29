@@ -41,6 +41,7 @@ class SaltSprayTestsController < ApplicationController
   end
 
   def update
+    # For mobile submit
     case params[:commit]
     when 'White Spot Found'
       @salt_spray_test.update_spot(current_user.id, 'white')

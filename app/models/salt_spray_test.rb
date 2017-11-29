@@ -9,7 +9,7 @@ class SaltSprayTest < ApplicationRecord
                 class_name: 'User',
                 foreign_key: 'put_on_by',
                 optional: true
-  belongs_to    :pulled_off_by,
+  belongs_to    :test_completed_by,
                 class_name: 'User',
                 foreign_key: 'pulled_off_by',
                 optional: true
