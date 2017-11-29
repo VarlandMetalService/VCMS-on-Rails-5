@@ -9,7 +9,7 @@
     <div class="col-md-1 d-none d-md-table-cell">White Rust</div> <!-- marked_white_at, marked_white_by -->
     <div class="col-md-1 d-none d-md-table-cell">Red Rust</div> <!-- marked_red_at, marked_red_by -->
     <div class="col-md-3 d-none d-md-table-cell">Comments</div>
-    <div class="col-md-<%= action_name == 'archived_tests' ? 1 : 2 %> text-center hidden-print d-none d-md-table-cell">Options</div>
+    <div class="col-md-<%= action_name == 'archived_tests' ? 1 : 2 %> text-center hidden-print d-none d-md-table-cell"></div>
   </div>
   <% @salt_spray_tests.each do |t| -%>
     <div class="row">
@@ -46,7 +46,7 @@
         <a href="#" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions</a>
         <div class="dropdown-menu text-center">
           <% if @access_level.access_level == 3 and action_name != 'archived_tests' -%>
-            <%= link_to 'Edit', edit_salt_spray_test_path(t), class: "dropdown-item" %>
+            <%= link_to 'Edit', edit_salt_spray_test_path(t), class: "dropdown-item text-info" %>
             <% if !t.marked_white_at %>
               <%= form_with model: t, local: true do |f| %>
                 <%= f.hidden_field :marked_white_at, value: Date.current %>
@@ -61,7 +61,7 @@
                 <%= f.submit 'Mark Red', class: 'btn-form dropdown-item' %>
               <% end %>
             <% end %>
-            <% if t.marked_red_at && t.marked_white_at %>
+            <% if t.marked_red_at || t.marked_white_at %>
               <%= form_with model: t, local: true do |f| %>
                 <%= f.hidden_field :pulled_off_at, value: Date.current %>
                 <%= f.hidden_field :pulled_off_by, value: current_user.id %>
