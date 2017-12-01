@@ -1,0 +1,71 @@
+<div class="row">
+  <div class="col-12">
+    <% if @salt_spray_test.is_sample %><label class="text-danger"><strong>SAMPLE TEST</strong></label> - <% end %>
+    <label><strong>Shop Order:</strong></label>
+    <span><%= @salt_spray_test.shop_order_number %></span>
+    <label class="ml-3"><strong>Load:</strong></label>
+    <span><%= @salt_spray_test.load_number %></span>
+  </div>
+</div>
+<div class="card bg-light">
+  <div class="card-body">
+    <%= form_with model: @salt_spray_test do |f| %>
+
+      <% if @salt_spray_test.errors.any? %>
+        <div id="error_explanation">
+          <h2>
+            <%= pluralize(@salt_spray_test.errors.count, "error") %> prohibited
+            this article from being saved:
+          </h2>
+          <ul>
+            <% @salt_spray_test.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+            <%= f.label nil, 'Comments:', class: 'form-control-label' %><br />
+            <%= f.fields_for :comments do |c| %>
+              <div class="row form-group comment-group">
+                <div class="col-9 pr-0">
+                  <%= c.text_area :content, class: 'form-control' %>
+                </div>
+                <div class="col-3 px-0">
+                  <div class="btn btn-sm btn-link clear-comment">Clear</div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+        <!--
+        <div class="col-md-3">
+          <div class="form-group">
+            <%#= f.label nil, 'Attachments' %><br />
+            <div id="salt_spray_attachments">
+              <%#= f.fields_for :attachments do |attachment| %>
+                <%#= render 'attachment_fields', f: attachment %>
+              <%# end %>
+            </div>
+            <div>
+              <%#= link_to_add_association 'Add Attachment', f, :attachments,
+                                          :class => 'btn btn-sm btn-success text-right',
+                                          :'data-association-insertion-node' => '#salt_spray_attachments',
+                                          :'data-association-insertion-method' => 'append',
+                                          :partial => 'new_attachment_fields' %>
+            </div>
+          </div>
+        </div>
+        -->
+      </div>
+      <div class="form-group">
+        <br />
+        <%= f.submit 'Add Comment', class: 'btn btn-primary' %>
+        <%= link_to 'Cancel', salt_spray_tests_path, class: 'btn btn-link' %>
+      </div>
+    <% end %>
+  </div>
+</div>

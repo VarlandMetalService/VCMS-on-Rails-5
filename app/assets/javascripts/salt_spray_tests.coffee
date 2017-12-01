@@ -31,6 +31,10 @@ $(document).on 'turbolinks:load', (event) ->
     $('.marked-red-date').val('')
     $('.marked-red-reporter').val('')
 
+  # Clear Comment Field
+  $('.clear-comment').on 'click', ->
+    $(this).closest('.row').find('textarea').val('')
+
   # Manual entry modal functionality
   $(document).on 'click', '.manual-entry-yes', ->
     $('.manual-entry-inputs input').prop({

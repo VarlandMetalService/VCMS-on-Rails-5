@@ -51,12 +51,12 @@
     <div class="col-12">
       <p><strong>Attachments:</strong></p>
       <div id="salt_spray_attachments">
-        <%= f.fields_for :attachments do |attachment| %>
-          <%= render 'attachment_fields', f: attachment %>
-        <% end %>
+        <%#= f.fields_for :attachments do |attachment| %>
+          <%#= render 'attachment_fields', f: attachment %>
+        <%# end %>
       </div>
       <div>
-        <%= link_to_add_association 'Add Attachment', f, :attachments,
+        <%#= link_to_add_association 'Add Attachment', f, :attachments,
                                     :class => 'btn btn-sm btn-success text-right',
                                     :'data-association-insertion-node' => '#salt_spray_attachments',
                                     :'data-association-insertion-method' => 'append',

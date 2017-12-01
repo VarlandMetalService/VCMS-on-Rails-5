@@ -76,32 +76,9 @@
             <%= f.label :dept, 'Department:', class: 'form-control-label' %><br />
             <%= f.select :dept, SaltSprayTest.options_for_plating_department, {include_blank: true}, {class: 'form-control'} %>
           </div>
-          <div class="form-group">
-            <%= f.fields_for :comment do |c| %>
-              <%= c.label :content, 'Comments:', class: 'form-control-label' %><br />
-              <%= c.text_area :content, class: 'form-control' %>
-            <% end %>
-          </div>
         </div>
       </div>
       <div class="row">
-        <div class="col-md-3">
-          <div class="form-group">
-            <%= f.label nil, 'Attachments' %><br />
-            <div id="salt_spray_attachments">
-              <%= f.fields_for :attachments do |attachment| %>
-                <%= render 'attachment_fields', f: attachment %>
-              <% end %>
-            </div>
-            <div>
-              <%= link_to_add_association 'Add Attachment', f, :attachments,
-                                          :class => 'btn btn-sm btn-success text-right',
-                                          :'data-association-insertion-node' => '#salt_spray_attachments',
-                                          :'data-association-insertion-method' => 'append',
-                                          :partial => 'new_attachment_fields' %>
-            </div>
-          </div>
-        </div>
         <div class="col-md-3">
           <div class="form-group">
             <%= f.label nil, 'Process Steps' %><br />

@@ -1,6 +1,6 @@
 class SaltSprayTestsController < ApplicationController
   before_action :check_user_permission
-  before_action :set_salt_spray_test, only: [:show, :edit, :update, :destroy]
+  before_action :set_salt_spray_test, only: [:show, :edit, :update, :destroy, :add_comment]
 
   has_scope :with_shop_order_number
   has_scope :with_put_on_by
@@ -27,7 +27,6 @@ class SaltSprayTestsController < ApplicationController
   end
 
   def edit
-    @salt_spray_test.build_comment if @salt_spray_test.comment.nil?
   end
 
   def create
@@ -71,6 +70,10 @@ class SaltSprayTestsController < ApplicationController
     end
   end
 
+  def add_comment
+    @salt_spray_test.comments.build
+  end
+
   def test_complete
     respond_to do |format|
       format.html
@@ -103,8 +106,9 @@ private
                                             :shop_order_number, :load_number, :customer, :process_code, :part_number, :sub,
                                             :load_weight, :part_area, :density, :white_spec, :red_spec, :dept, :is_sample,
                                             salt_spray_process_steps_attributes: [:id, :name, :_destroy],
-                                            attachments_attributes: [:id, :content_type, :file, :_destroy],
-                                            comment_attributes: [:id, :content, :_destroy])
+
+                                            comments_attributes: [:id, :content, :_destroy])
+                                            # attachments_attributes: [:id, :content_type, :file, :_destroy],
   end
 
 end

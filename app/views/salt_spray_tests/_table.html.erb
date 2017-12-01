@@ -39,7 +39,12 @@
         <% unless t.marked_red_at.blank? %><small><strong>Hours w/o: </strong></small><%= t.calculate_rust_hours(t.marked_red_at) %><% end %>
       </div>
       <div class="col-md-3 d-none d-md-table-cell">
-        <%= t.comment.content if t.comment %>
+        <% t.comments.each do |comment| %>
+          <p>&bull; <%= comment.content %></p>
+        <% end %>
+        <% if action_name != 'archived_tests' %>
+          <%= link_to 'Add Comment', add_comment_salt_spray_test_path(t), class: 'btn btn-sm btn-success' %>
+        <% end %>
       </div>
       <div class="col-md-<%= action_name == 'archived_tests' ? 1 : 2 %> text-center hidden-print d-none d-md-table-cell">
 
@@ -72,7 +77,7 @@
             <%= link_to 'Delete', salt_spray_test_path(t), data: { confirm: 'Are you sure?'}, method: 'delete', class: 'text-danger dropdown-item' %>
           <% end %>
         </div><br>
-        <%= link_to "View Attachments (#{t.attachments.size})", salt_spray_test_path(t.id, has_attachment: true), remote: true, class: 'btn btn-sm btn-link' if t.attachments.size > 0 %>
+        <%#= link_to "View Attachments (#{t.comments.size})", salt_spray_test_path(t.id, has_attachment: true), remote: true, class: 'btn btn-sm btn-link' if t.comments.size > 0 %>
       </div>
     </div>
   <% end %>

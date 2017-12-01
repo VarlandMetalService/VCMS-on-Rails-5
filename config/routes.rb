@@ -38,6 +38,7 @@ Rails.application.routes.draw do
       get 'archived_tests'
     end
     member do
+      get 'add_comment'
       get 'test_complete'
     end
   end
