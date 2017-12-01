@@ -21,18 +21,12 @@ class SaltSprayTest < ApplicationRecord
                 class_name: 'User',
                 foreign_key: 'marked_red_by',
                 optional: true
-  # has_many      :attachments,
-  #               as: :attachable,
-  #               dependent: :destroy
   has_many      :comments,
                 as: :commentable,
                 dependent: :destroy
   has_many      :salt_spray_process_steps,
                 inverse_of: :salt_spray_test
 
-  # accepts_nested_attributes_for   :attachments,
-  #                                   reject_if: :all_blank,
-  #                                   allow_destroy: true
   accepts_nested_attributes_for   :comments,
                                     reject_if: :all_blank,
                                     allow_destroy: true

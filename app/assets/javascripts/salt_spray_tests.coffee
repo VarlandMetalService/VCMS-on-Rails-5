@@ -35,6 +35,12 @@ $(document).on 'turbolinks:load', (event) ->
   $('.clear-comment').on 'click', ->
     $(this).closest('.row').find('textarea').val('')
 
+  # Toggle view of attachments for corresponding comment
+  $('.comment-attachments').on 'click', ->
+    $(".view-comment-attachments").addClass('display-none')
+    commentIndex = $(this).prop('for').match(/\d+/)
+    $(".view-comment-attachments:eq(" + commentIndex + ")").toggleClass('display-none')
+
   # Manual entry modal functionality
   $(document).on 'click', '.manual-entry-yes', ->
     $('.manual-entry-inputs input').prop({

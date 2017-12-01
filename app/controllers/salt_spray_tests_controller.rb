@@ -106,8 +106,7 @@ private
                                             :shop_order_number, :load_number, :customer, :process_code, :part_number, :sub,
                                             :load_weight, :part_area, :density, :white_spec, :red_spec, :dept, :is_sample,
                                             salt_spray_process_steps_attributes: [:id, :name, :_destroy],
-
-                                            comments_attributes: [:id, :content, :_destroy])
+                                            comments_attributes: [:id, :content, :_destroy, attachments_attributes: [:id, :content_type, :file, :_destroy]])
                                             # attachments_attributes: [:id, :content_type, :file, :_destroy],
   end
 

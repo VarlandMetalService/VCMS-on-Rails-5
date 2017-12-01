@@ -35,31 +35,34 @@
                   <%= c.text_area :content, class: 'form-control' %>
                 </div>
                 <div class="col-3 px-0">
+                  <%= c.label :content, 'Add Attachment(s)', class: "btn btn-sm btn-link text-success comment-attachments" %>
                   <div class="btn btn-sm btn-link clear-comment">Clear</div>
                 </div>
               </div>
             <% end %>
           </div>
         </div>
-        <!--
-        <div class="col-md-3">
+        <div class="col-md-6 offset-3">
           <div class="form-group">
-            <%#= f.label nil, 'Attachments' %><br />
-            <div id="salt_spray_attachments">
-              <%#= f.fields_for :attachments do |attachment| %>
-                <%#= render 'attachment_fields', f: attachment %>
-              <%# end %>
-            </div>
-            <div>
-              <%#= link_to_add_association 'Add Attachment', f, :attachments,
-                                          :class => 'btn btn-sm btn-success text-right',
-                                          :'data-association-insertion-node' => '#salt_spray_attachments',
-                                          :'data-association-insertion-method' => 'append',
-                                          :partial => 'new_attachment_fields' %>
-            </div>
+            <%= f.fields_for :comments do |c| %>
+              <div class=" view-comment-attachments display-none">
+                <%= c.label nil, 'Attachments' %><br />
+                <div class="salt_spray_attachments">
+                  <%= c.fields_for :attachments do |attachment| %>
+                    <%= render 'attachment_fields', f: attachment %>
+                  <% end %>
+                </div>
+                <div>
+                  <%= link_to_add_association 'Add Attachment', c, :attachments,
+                                              :class => 'btn btn-sm btn-success text-right',
+                                              :'data-association-insertion-node' => ".salt_spray_attachments:eq(#{c.options[:child_index] - @salt_spray_test.comments.size})",
+                                              :'data-association-insertion-method' => 'append',
+                                              :partial => 'new_attachment_fields' %>
+                </div>
+              </div>
+            <% end %>
           </div>
         </div>
-        -->
       </div>
       <div class="form-group">
         <br />
