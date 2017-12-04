@@ -7,7 +7,7 @@
   // Mobile only
   @media (max-width:600px) {
 
-    .mobile-text-overflow {
+    .prevent-text-overflow {
       max-height: 105px;
     }
 
@@ -29,14 +29,13 @@
   #salt_spray_test_results div.row > div{
     border: 1px solid lightgray;
     padding: 10px;
-    max-height: 200px;
   }
 
   #part_info td{
     max-width: 181px;
   }
 
-  .mobile-text-overflow {
+  .prevent-text-overflow {
     overflow: hidden;
     overflow-wrap: break-word;
     word-wrap: break-word;

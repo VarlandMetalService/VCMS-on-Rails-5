@@ -1,5 +1,5 @@
 <% if params[:has_attachment] %>
-  <div class="text-center">
+  <div class="text-center prevent-text-overflow">
     <% @comments.each do |c| %>
       <% if c.attachments.size > 0 %>
         Comment: <%= c.content %><br />
@@ -32,7 +32,7 @@
       </tr>
       <tr>
         <td><strong>Sub ID</strong></td>
-        <td class="mobile-text-overflow"><%= @salt_spray_test.sub %></td>
+        <td class="prevent-text-overflow"><%= @salt_spray_test.sub %></td>
       </tr>
       <tr>
         <td><strong>White Spec</strong></td>

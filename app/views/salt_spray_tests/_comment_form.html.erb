@@ -33,9 +33,12 @@
               <div class="row form-group comment-group">
                 <div class="col-9 pr-0">
                   <%= c.text_area :content, class: 'form-control' %>
+                  content_blank? <%= c.object.content.blank? %><br />
+                  attachment_size <%= c.object.attachments.size %>
                 </div>
                 <div class="col-3 px-0">
-                  <%= c.label :content, 'Add Attachment(s)', class: "btn btn-sm btn-link text-success comment-attachments" %>
+                  <% attachments_text = c.object.attachments.size > 0 ? 'Edit Attachment(s)' : 'Add Attachment(s)' %>
+                  <%= c.label :content, attachments_text, class: "btn btn-sm btn-link text-success comment-attachments" %>
                   <div class="btn btn-sm btn-link clear-comment">Clear</div>
                 </div>
               </div>
@@ -45,7 +48,7 @@
         <div class="col-md-6 offset-3">
           <div class="form-group">
             <%= f.fields_for :comments do |c| %>
-              <div class=" view-comment-attachments display-none">
+              <div class="view-comment-attachments display-none">
                 <%= c.label nil, 'Attachments' %><br />
                 <div class="salt_spray_attachments">
                   <%= c.fields_for :attachments do |attachment| %>
