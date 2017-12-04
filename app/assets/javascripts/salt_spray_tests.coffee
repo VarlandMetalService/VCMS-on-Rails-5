@@ -38,6 +38,7 @@ $(document).on 'turbolinks:load', (event) ->
   # Toggle view of attachments for corresponding comment
   $('.comment-attachments').on 'click', ->
     $(".view-comment-attachments").addClass('display-none')
+    # NOTE: Clean this up if possible, not sure that this is very stable
     commentIndex = $(this).prop('for').match(/\d+/)
     $(".view-comment-attachments:eq(" + commentIndex + ")").toggleClass('display-none')
 

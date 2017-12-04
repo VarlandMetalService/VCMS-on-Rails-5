@@ -19,7 +19,7 @@ class SaltSprayTestsController < ApplicationController
   end
 
   def show
-    @attachments = SaltSprayTest.find_by_id(params[:id]).attachments
+    @comments = SaltSprayTest.find_by_id(params[:id]).comments
   end
 
   def new
