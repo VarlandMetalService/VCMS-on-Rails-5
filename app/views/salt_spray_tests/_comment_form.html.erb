@@ -55,7 +55,7 @@
                             (current version is hard to follow and could be troublesome) -->
                   <%= link_to_add_association 'Add Attachment', c, :attachments,
                                               :class => 'btn btn-sm btn-success text-right',
-                                              :'data-association-insertion-node' => ".salt_spray_attachments:eq(#{c.options[:child_index] - @salt_spray_test.comments.size})",
+                                              :'data-association-insertion-node' => ".salt_spray_attachments:eq(#{c.index - @salt_spray_test.comments.size})",
                                               :'data-association-insertion-method' => 'append',
                                               :partial => 'new_attachment_fields' %>
                 </div>

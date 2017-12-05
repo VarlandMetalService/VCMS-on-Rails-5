@@ -150,6 +150,10 @@ class SaltSprayTest < ApplicationRecord
     return self.shop_order_number == 111
   end
 
+  def ready_to_archive?
+    self.marked_white_at && self.marked_red_at
+  end
+
 private
 
   def standardize_times
