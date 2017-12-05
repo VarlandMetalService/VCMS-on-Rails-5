@@ -23,7 +23,9 @@
         <%= link_to 'Add Shift Note', new_shift_note_path, class: 'btn btn-success btn-sm' %>
       </div>
       <div class="col-6 text-right">
-        <button class="btn btn-sm btn-warning display-filter">Show Filter</button>
+        <% if @shift_notes.size != 0 -%>
+          <button class="btn btn-sm btn-warning display-filter">Hide Filter</button>
+        <% end %>
       </div>
     </div>
 

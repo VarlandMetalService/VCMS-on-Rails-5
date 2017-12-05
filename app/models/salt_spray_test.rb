@@ -135,19 +135,19 @@ class SaltSprayTest < ApplicationRecord
   end
 
   def white_spec_exists?
-    return self.white_spec != 0
+    self.white_spec != 0
   end
 
   def red_spec_exists?
-    return self.red_spec != 0
+    self.red_spec != 0
   end
 
   def can_edit_spec?
-    return self.is_sample || (self.white_spec == 0 && self.red_spec == 0)
+    self.is_sample || (self.white_spec == 0 && self.red_spec == 0)
   end
 
   def is_custom_order?
-    return self.shop_order_number == 111
+    self.shop_order_number == 111
   end
 
   def ready_to_archive?

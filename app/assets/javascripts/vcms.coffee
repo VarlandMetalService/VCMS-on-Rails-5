@@ -5,3 +5,11 @@
 $(document).on 'turbolinks:load', (event) ->
   if window.location.pathname == '/ipad' || window.location.pathname == '/ipad/enter_pin'
     $('.flash-message').fadeOut(3000)
+
+  # Show/Hide Filter Form
+  $('.display-filter').on 'click', ->
+    if $(this).html() == 'Show Filter'
+      $(this).html('Hide Filter')
+    else
+      $(this).html('Show Filter')
+    $('.filter-form').toggle();

@@ -9,7 +9,9 @@
 
     <div class="row d-none d-md-flex">
       <div class="col-12 text-right">
-        <button class="btn btn-sm btn-warning display-filter">Show Filter</button>
+        <% if @opto_messages.size != 0 -%>
+          <button class="btn btn-sm btn-warning display-filter">Hide Filter</button>
+        <% end %>
       </div>
     </div>
 

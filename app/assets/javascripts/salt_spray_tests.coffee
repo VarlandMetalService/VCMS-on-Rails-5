@@ -13,14 +13,6 @@ $(document).on 'turbolinks:load', (event) ->
   $(document).ajaxSuccess ->
     colorTable()
 
-  # Show/Hide Filter Form
-  $('.display-filter').on 'click', ->
-    if $(this).html() == 'Show Filter'
-      $(this).html('Hide Filter')
-    else
-      $(this).html('Show Filter')
-    $('.filter-form').toggle();
-
   # Clear Marked White Field
   $('.clear-white').on 'click', ->
     $('.marked-white-date').val('')
