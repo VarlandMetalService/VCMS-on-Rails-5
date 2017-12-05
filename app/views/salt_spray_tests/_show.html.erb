@@ -2,7 +2,7 @@
   <div class="text-center prevent-text-overflow">
     <% @comments.each do |c| %>
       <% if c.attachments.size > 0 %>
-        Comment: <%= c.content %><br />
+        <%= c.content %><br />
         <% c.attachments.each do |a| %>
           <%= show_attachment(a) %> <br /><br />
         <% end %>

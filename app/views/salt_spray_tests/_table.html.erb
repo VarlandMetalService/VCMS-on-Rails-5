@@ -40,7 +40,9 @@
       </div>
       <div class="col-md-3 d-none d-md-table-cell">
         <% t.comments.each do |comment| %>
-          <p>&bull; <%= comment.content %></p>
+          <% if comment.content.present? %>
+            <p>&bull; <%= comment.content %></p>
+          <% end %>
         <% end %>
         <% if action_name != 'archived_tests' %>
           <%= link_to 'Add Comment', add_comment_salt_spray_test_path(t), class: 'btn btn-sm btn-success' %>

@@ -39,8 +39,8 @@ $(document).on 'turbolinks:load', (event) ->
   $('.comment-attachments').on 'click', ->
     $(".view-comment-attachments").addClass('display-none')
     # NOTE: Clean this up if possible, not sure that this is very stable
-    commentIndex = $(this).prop('for').match(/\d+/)
-    $(".view-comment-attachments:eq(" + commentIndex + ")").toggleClass('display-none')
+    commentIndex = $(this).prop('for').match(/\d+/) # Extracts the index number from the Rails label helper 'for' property
+    $(".view-comment-attachments:eq(" + commentIndex + ")").removeClass('display-none')
 
   # Manual entry modal functionality
   $(document).on 'click', '.manual-entry-yes', ->
