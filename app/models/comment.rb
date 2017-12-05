@@ -14,7 +14,6 @@ class Comment < ApplicationRecord
 private
 
   def check_for_blank(attachment = nil)
-    puts "DEBUG: #{self.content.blank?} : #{self.attachments.size}"
     self.destroy if self.content.blank? && self.attachments.size == 0
   end
 end

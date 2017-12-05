@@ -24,17 +24,14 @@
           </ul>
         </div>
       <% end %>
-
+      <%= f.label nil, 'Comments:', class: 'form-control-label' %><br />
       <div class="row">
-        <div class="col-md-3">
-          <div class="form-group">
-            <%= f.label nil, 'Comments:', class: 'form-control-label' %><br />
-            <%= f.fields_for :comments do |c| %>
+        <%= f.fields_for :comments do |c| %>
+          <div class="col-md-3">
+            <div class="form-group">
               <div class="row form-group comment-group">
                 <div class="col-9 pr-0">
-                  <%= c.text_area :content, class: 'form-control' %>
-                  content_blank? <%= c.object.content.blank? %><br />
-                  attachment_size <%= c.object.attachments.size %>
+                  <%= c.text_area :content, rows: 5, class: 'form-control' %>
                 </div>
                 <div class="col-3 px-0">
                   <% attachments_text = c.object.attachments.size > 0 ? 'Edit Attachment(s)' : 'Add Attachment(s)' %>
@@ -42,12 +39,10 @@
                   <div class="btn btn-sm btn-link clear-comment">Clear</div>
                 </div>
               </div>
-            <% end %>
+            </div>
           </div>
-        </div>
-        <div class="col-md-6 offset-3">
-          <div class="form-group">
-            <%= f.fields_for :comments do |c| %>
+          <div class="col-md-6 offset-3">
+            <div class="form-group">
               <div class="view-comment-attachments display-none">
                 <%= c.label nil, 'Attachments' %><br />
                 <div class="salt_spray_attachments">
@@ -57,7 +52,7 @@
                 </div>
                 <div>
                   <!-- NOTE: If possible, find another solution for data-association-insertion-node
-                             (current version is hard to follow and could be troublesome) -->
+                            (current version is hard to follow and could be troublesome) -->
                   <%= link_to_add_association 'Add Attachment', c, :attachments,
                                               :class => 'btn btn-sm btn-success text-right',
                                               :'data-association-insertion-node' => ".salt_spray_attachments:eq(#{c.options[:child_index] - @salt_spray_test.comments.size})",
@@ -65,9 +60,9 @@
                                               :partial => 'new_attachment_fields' %>
                 </div>
               </div>
-            <% end %>
+            </div>
           </div>
-        </div>
+        <% end %>
       </div>
       <div class="form-group">
         <br />
