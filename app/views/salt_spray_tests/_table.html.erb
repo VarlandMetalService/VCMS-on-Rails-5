@@ -77,7 +77,7 @@
             <%= link_to 'Delete', salt_spray_test_path(t), data: { confirm: 'Are you sure?'}, method: 'delete', class: 'text-danger dropdown-item' %>
           <% end %>
         </div><br>
-        <%= link_to "View Attachments", salt_spray_test_path(t.id, has_attachment: true), remote: true, class: 'btn btn-sm btn-link' if t.comments.size > 0 %>
+        <%= link_to "View Attachments", salt_spray_test_path(t.id, has_attachment: true), remote: true, class: 'btn btn-sm btn-link' if has_attachments(t) %>
       </div>
     </div>
   <% end %>

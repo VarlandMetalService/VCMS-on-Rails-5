@@ -5,4 +5,8 @@ module SaltSprayTestsHelper
     User.all.collect {|u| [ u.full_name, u.id ]}
   end
 
+  def has_attachments(record)
+    record.comments.any? {|comment| comment.attachments.size > 0}
+  end
+
 end
