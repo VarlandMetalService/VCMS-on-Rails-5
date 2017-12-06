@@ -103,7 +103,7 @@ private
 
   def timeclock_record_params
     params.require(:timeclock_record).permit(:user_id, :record_type, :record_timestamp, :submit_type, :reason_code_id, :ip_address,
-                                             :edit_type, :edit_ip_address, :notes, :is_locked, :is_flagged, :is_deleted)
+                                             :edit_type, :edit_ip_address, :notes, :is_locked, :is_flagged, :is_deleted, :submit_location)
   end
 
 end

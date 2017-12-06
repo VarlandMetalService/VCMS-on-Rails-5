@@ -1,4 +1,5 @@
 class TimeclockRecord < ApplicationRecord
+  attr_accessor :submit_location
 
   before_validation :check_datetime_format
   before_save :check_for_buffer
@@ -16,10 +17,11 @@ class TimeclockRecord < ApplicationRecord
   validates :record_timestamp,
             presence: true
   validates :reason_code,
-            presence: true
+            presence: true,
+            if: :desktop_submit
   validates :notes,
             presence: { message: "is required for this Reason Code"},
-            if: lambda { |o| o.reason_code.requires_notes? }
+            if: lambda { |o| :desktop_submit && o.reason_code && o.reason_code.requires_notes? }
 
   scope :with_week, ->(values) {
     where('record_timestamp >= ? AND record_timestamp <= ?', Period.find_by_id(values).period_start_date, Period.find_by_id(values).period_end_date - 1)
@@ -91,6 +93,10 @@ private
   def soft_delete
     self.is_deleted = true
     save
+  end
+
+  def desktop_submit
+    submit_location != 'ipad'
   end
 
 end
