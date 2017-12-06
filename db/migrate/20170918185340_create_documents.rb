@@ -5,7 +5,7 @@ class CreateDocuments < ActiveRecord::Migration[5.1]
     create_table :documents do |t|
       t.integer     :added_by
       t.string      :name
-      t.boolean     :is_valid
+      t.boolean     :is_valid,              default: true
       t.string      :content_type
       t.string      :file
       t.string      :google_url,            default: nil

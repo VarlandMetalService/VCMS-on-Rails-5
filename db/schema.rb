@@ -65,7 +65,7 @@ ActiveRecord::Schema.define(version: 20171117133422) do
   create_table "documents", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "added_by"
     t.string "name"
-    t.boolean "is_valid"
+    t.boolean "is_valid", default: true
     t.string "content_type"
     t.string "file"
     t.string "google_url"

@@ -79,9 +79,9 @@ private
     today = Date.today
     case current_time.hour
       when 0..6
-        self.note_on = today - 1
+        self.note_on ||= today - 1
       when 7..23
-        self.note_on = today
+        self.note_on ||= today
     end
   end
 

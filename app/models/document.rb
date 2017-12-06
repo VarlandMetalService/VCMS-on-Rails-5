@@ -2,7 +2,6 @@ require 'rest-client'
 
 class Document < ApplicationRecord
 
-  after_initialize :set_valid
   before_save :set_doc_update
   after_destroy :update_all_positions
 
@@ -92,10 +91,6 @@ class Document < ApplicationRecord
   end
 
 private
-
-  def set_valid(params = {})
-    self.is_valid = true
-  end
 
   def set_doc_update
     if self.document_updated_on.nil?

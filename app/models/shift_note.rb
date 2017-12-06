@@ -115,17 +115,17 @@ private
     today = Date.today
     case current_time.hour
       when 0..6
-        self.shift = 3
-        self.note_on = today - 1
+        self.shift ||= 3
+        self.note_on ||= today - 1
       when 7..14
-        self.shift = 1
-        self.note_on = today
+        self.shift ||= 1
+        self.note_on ||= today
       when 13..22
-        self.shift = 2
-        self.note_on = today
+        self.shift ||= 2
+        self.note_on ||= today
       when 23
-        self.shift = 3
-        self.note_on = today
+        self.shift ||= 3
+        self.note_on ||= today
     end
   end
 
