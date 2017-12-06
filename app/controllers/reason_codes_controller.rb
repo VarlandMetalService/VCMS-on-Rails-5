@@ -27,7 +27,7 @@ class ReasonCodesController < ApplicationController
   end
 
   def destroy
-    if @reason_code.send(:soft_delete)
+    if @reason_code.update_attribute(:is_deleted, true)
       redirect_to reason_codes_path, notice: 'Reason code was successfully deleted.'
     else
       redirect_to reason_codes_path, notice: 'Failed to delete reason code. Contact IT for help.'

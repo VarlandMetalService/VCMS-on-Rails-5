@@ -63,7 +63,7 @@ class TimeclockRecordsController < ApplicationController
   end
 
   def destroy
-    if @timeclock_record.send(:soft_delete)
+    if @timeclock_record.update_attribute(:is_deleted, true)
       redirect_to manage_records_timeclock_records_path, notice: 'Timeclock record was successfully deleted.'
     else
       redirect_to manage_records_timeclock_records_path, notice: 'Failed to delete record. Contact IT for help.'

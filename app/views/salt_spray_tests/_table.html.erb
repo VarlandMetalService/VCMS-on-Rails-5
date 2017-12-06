@@ -14,7 +14,7 @@
   <% @salt_spray_tests.each do |t| -%>
     <div class="row">
       <div class="col-9 col-md-1 text-center shop-order"><%= link_to t.shop_order_number, salt_spray_test_path(t), remote: true %><br /> <small>Load: <%= t.load_number %></small></div>
-      <div class="col-md-1 text-center d-none d-md-table-cell"><%= t.part_number %></div>
+      <div class="col-md-1 text-center d-none d-md-table-cell prevent-text-overflow"><%= t.part_number %></div>
       <div class="col-3 col-md-1 text-center process"><%= t.process_code %></div>
       <div class="col-md-1 text-center d-none d-md-table-cell"><%= t.dept %></div>
       <div class="col-md-1 d-none d-md-table-cell">
@@ -45,7 +45,7 @@
           <% end %>
         <% end %>
         <% if action_name != 'archived_tests' %>
-          <%= link_to 'Add Comment', add_comment_salt_spray_test_path(t), class: 'btn btn-sm btn-success' %>
+          <%= link_to 'Add Comment/Attachments', add_comment_salt_spray_test_path(t), class: 'btn btn-sm btn-success' %>
         <% end %>
       </div>
       <div class="col-md-<%= action_name == 'archived_tests' ? 1 : 2 %> text-center hidden-print d-none d-md-table-cell">

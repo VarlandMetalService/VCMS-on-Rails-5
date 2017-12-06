@@ -90,10 +90,7 @@ private
     end
   end
 
-  def soft_delete
-    self.is_deleted = true
-    save
-  end
+
 
   def desktop_submit
     submit_location != 'ipad'
