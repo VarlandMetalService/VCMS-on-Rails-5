@@ -22,7 +22,7 @@
             <div class="col-12 col-md-6">
               <div class="form-group">
                 <%= f.label :note_on, required_field_label('Date:'), class: 'control-label' %>
-                <%= f.text_field :note_on, { value: format_date(@shift_note.note_on), class: "form-control datepicker#{' is-invalid' if @shift_note.errors[:note_on].any?}", required: 'required' } %>
+                <%= f.date_field :note_on, { value: @shift_note.note_on, class: "form-control#{' is-invalid' if @shift_note.errors[:note_on].any?}", required: 'required' } %>
               </div>
             </div>
 

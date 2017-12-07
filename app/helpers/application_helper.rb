@@ -92,10 +92,6 @@ module ApplicationHelper
     link_to "#{attachment.file_identifier}".html_safe, "http://vcms.varland.com#{attachment.file.url}", target: '_blank'
   end
 
-  def format_date(date)
-    date ? date.strftime('%m/%d/%Y') : ''
-  end
-
   def format_datetime_local(value)
     value ? value.strftime("%Y-%m-%dT%H:%M:%S.%L") : ''
   end

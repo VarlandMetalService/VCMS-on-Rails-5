@@ -62,7 +62,7 @@
 
                         <div class="form-group">
                           <%= f.label :document_updated_on, 'Date:', class: 'control-label' %>
-                          <%= f.text_field :document_updated_on, { value: format_date(@document.document_updated_on), class: "form-control datepicker#{' is-invalid' if @document.errors[:document_updated_on].any?}" } %>
+                          <%= f.date_field :document_updated_on, { value: @document.document_updated_on, class: "form-control#{' is-invalid' if @document.errors[:document_updated_on].any?}" } %>
                           <% if @document.google_url.nil? %>
                             <span class="help-block"><small>You may update the document's date to change sorting as needed.</small></span>
                           <% else %>
