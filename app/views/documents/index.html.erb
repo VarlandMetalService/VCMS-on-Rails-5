@@ -44,13 +44,13 @@
             <div class="col-6">
               <div class="form-group">
                 <%= f.label :with_date_gte, 'Starting Date:' %>
-                <%= f.text_field :with_date_gte, autocomplete: :off, class: 'form-control datepicker'  %>
+                <%= f.date_field :with_date_gte, autocomplete: :off, class: 'form-control'  %>
               </div>
             </div>
             <div class="col-6">
               <div class="form-group">
                 <%= f.label :with_date_lte, 'Ending Date:' %>
-                <%= f.text_field :with_date_lte, autocomplete: :off, class: 'form-control datepicker'  %>
+                <%= f.date_field :with_date_lte, autocomplete: :off, class: 'form-control'  %>
               </div>
             </div>
           </div>

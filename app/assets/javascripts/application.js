@@ -18,5 +18,4 @@
 //= require cocoon
 //= require moment
 //= require bootstrap-sprockets
-//= require bootstrap-datepicker
 //= require_tree .
