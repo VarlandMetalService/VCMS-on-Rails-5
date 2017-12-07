@@ -7,7 +7,7 @@
 
   <div class="col-12">
 
-    <div class="row d-none d-md-flex">
+    <div class="row">
       <div class="col-12 text-right">
         <% if @opto_messages.size != 0 -%>
           <%= filter_btn %>
@@ -128,7 +128,12 @@
 
       <% end %>
 
-      <div id="results"><%= render partial: 'opto_messages/list', locals: { opto_messages: @opto_messages, current_user: @current_user, access_level: @access_level.access_level } %></div>
+      <div id="results" class="d-none d-md-block">
+        <%= render partial: 'list', locals: { opto_messages: @opto_messages, current_user: @current_user, access_level: @access_level.access_level } %>
+      </div>
+      <div class="d-md-none">
+        <%= render partial: 'mobile_list', locals: { opto_messages: @opto_messages, current_user: @current_user, access_level: @access_level.access_level } %>
+      </div>
 
     <% end %>
 
