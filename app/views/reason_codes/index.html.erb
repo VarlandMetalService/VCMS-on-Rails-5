@@ -1,25 +1,25 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-12 col-md-8 col-lg-9">
+    <div class="col-12 col-md-8 col-lg-9 order-2 order-md-1">
       <div class="table-responsive">
         <table class="table table-bordered table-striped">
           <thead>
             <tr class="row m-0">
-              <th class="d-inline-block col-7">Code</th>
-              <th class="d-inline-block col-2 text-center">Requires Notes?</th>
-              <th class="d-inline-block col-3 text-center"></th>
+              <th class="d-inline-block col-5 col-md-7">Code</th>
+              <th class="d-inline-block col-3 col-md-2 text-center">Requires Notes?</th>
+              <th class="d-inline-block col-4 col-md-3 text-center"></th>
             </tr>
           </thead>
           <tbody>
             <% @reason_codes.each do |c| %>
               <tr class="row m-0" data-id="<%= c.id %>" data-code="<%= c.code %>" data-notes="<%= c.requires_notes %>">
-                <td class="d-inline-block col-7">
+                <td class="d-inline-block col-5 col-md-7">
                   <%= c.code %>
                 </td>
-                <td class="d-inline-block col-2 text-center">
+                <td class="d-inline-block col-3 col-md-2 text-center">
                   <%= check_box_tag 'Requires Notes?', c.id, c.requires_notes %>
                 </td>
-                <td class="d-inline-block col-3 text-center">
+                <td class="d-inline-block col-4 col-md-3 text-center">
                   <%= link_to 'Edit', reason_codes_path(id: c.id), class: "btn btn-sm btn-default mr-2" %>
                   <%= link_to 'Delete', reason_code_path(c.id), data: { confirm: 'Are you sure?'}, method: 'delete', class: 'btn btn-sm btn-danger' if @access_level.access_level == 3 %>
                 </td>
@@ -29,7 +29,7 @@
         </table>
       </div>
     </div>
-    <div class="col-12 col-md-4 col-lg-3">
+    <div class="col-12 col-md-4 col-lg-3 order-1 order-md-2">
       <% render_action = params[:id] ? "update" : "create" %>
       <%= render 'form', locals: { path: { controller: "reason_codes", action: render_action } } %>
     </div>
