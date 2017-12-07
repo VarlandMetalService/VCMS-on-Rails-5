@@ -1,6 +1,6 @@
 class ShiftNote < ApplicationRecord
 
-  after_initialize :set_date_and_shift
+  after_initialize :set_date_and_shift, if: :new_record?
   after_create :send_specific_note_email
   after_update :send_author_follow_up
 
