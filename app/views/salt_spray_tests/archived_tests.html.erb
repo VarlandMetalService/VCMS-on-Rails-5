@@ -20,7 +20,7 @@
       <div class="row d-none d-md-flex">
         <div class="col-12 text-right">
           <% if @salt_spray_tests.size != 0 -%>
-            <button class="btn btn-sm btn-warning display-filter">Hide Filter</button>
+            <%= filter_btn %>
           <% end %>
           <%= link_to 'View Active Tests', salt_spray_tests_path, class: "btn btn-sm btn-primary"%>
         </div>

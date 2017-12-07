@@ -104,4 +104,8 @@ module ApplicationHelper
     DateTime.current.localtime.strftime('%l:%M %P')
   end
 
+  def filter_btn
+    "<button class='btn btn-sm btn-warning display-filter'>Show Filter</button>".html_safe
+  end
+
 end
