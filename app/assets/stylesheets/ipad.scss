@@ -3,6 +3,8 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .vcms-ipad {
+
+  // TODO: Test keypad layout on different screen sizes
   .keypad {
     padding: 10px 30px;
   }
@@ -22,8 +24,4 @@
     border-radius: 100%;
   }
 
-  .is-invalid {
-    color: red;
-    text-align: center;
-  }
 }

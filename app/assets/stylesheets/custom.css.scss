@@ -63,14 +63,13 @@ body {
   }
 }
 
+// Overrides Bootstrap bg colors
 .bg-warning {
   background-color: #fcf8e3 !important;
 }
-
 .bg-danger {
   background-color: #f2dede !important;
 }
-
 .bg-success {
   background-color: #dff0d8 !important;
 }
@@ -108,15 +107,6 @@ body {
   border: 1px solid rgb(221, 221, 221);
 }
 
-.documents-filter {
-  display: block;
-}
-
-.table-header {
-  font-weight: bold;
-  font-size: 15px;
-}
-
 .vertical-alignment-helper {
   display:table;
   height: 100%;
@@ -138,10 +128,6 @@ body {
   /* To center horizontally */
   margin: 0 auto;
   pointer-events: all;
-}
-
-.ipad-refresh {
-  margin-bottom: 0;
 }
 
 .live-clock {
