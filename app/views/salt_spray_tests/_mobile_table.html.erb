@@ -1,0 +1,18 @@
+<div class="table-responsive">
+  <table class="table table-bordered">
+    <thead>
+      <tr class="row m-0">
+        <th class="col-9 text-center bold-sm">Shop Order </th>
+        <th class="col-3 text-center bold-sm">Proc.</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @salt_spray_tests.each do |t| -%>
+        <tr class="row m-0">
+          <td class="col-9 text-center shop-order"><%= link_to t.shop_order_number, salt_spray_test_path(t), remote: true %><br /> <small>Load: <%= t.load_number %></small></td>
+          <td class="col-3 text-center process"><%= t.process_code %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

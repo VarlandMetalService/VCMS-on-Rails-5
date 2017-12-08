@@ -74,7 +74,12 @@
         </div>
       <% end %>
 
-      <%= render 'table' %>
+      <div class="d-none d-md-block">
+        <%= render 'table' %>
+      </div>
+      <div class="d-md-none">
+        <%= render 'mobile_table' %>
+      </div>
 
       <!-- Modal -->
       <div id="modal-window" class="modal fade" role="dialog">

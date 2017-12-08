@@ -154,6 +154,14 @@ class SaltSprayTest < ApplicationRecord
     self.marked_white_at && self.marked_red_at
   end
 
+  def marked_white?
+    self.marked_white_at && self.white_spot_reporter
+  end
+
+  def marked_red?
+    self.marked_red_at && self.red_spot_reporter
+  end
+
 private
 
   def standardize_times

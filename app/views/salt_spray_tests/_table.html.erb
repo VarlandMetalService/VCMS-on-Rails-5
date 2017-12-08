@@ -1,86 +1,97 @@
-<div id="salt_spray_test_results">
-  <div class="row table-header">
-    <div class="col-9 col-md-1 text-center bold-sm">Shop Order </div>
-    <div class="col-md-1 text-center d-none d-md-table-cell">Part ID</div>
-    <div class="col-3 col-md-1 text-center bold-sm">Proc.</div>
-    <div class="col-md-1 text-center d-none d-md-table-cell">Dept</div>
-    <div class="col-md-1 d-none d-md-table-cell">Date On</div>
-    <% if action_name == 'archived_tests' %><div class="col-md-1 d-none d-md-table-cell">Date Off</div><% end %>
-    <div class="col-md-1 d-none d-md-table-cell">White Rust</div> <!-- marked_white_at, marked_white_by -->
-    <div class="col-md-1 d-none d-md-table-cell">Red Rust</div> <!-- marked_red_at, marked_red_by -->
-    <div class="col-md-3 d-none d-md-table-cell">Comments</div>
-    <div class="col-md-<%= action_name == 'archived_tests' ? 1 : 2 %> text-center hidden-print d-none d-md-table-cell"></div>
-  </div>
-  <% @salt_spray_tests.each do |t| -%>
-    <div class="row">
-      <div class="col-9 col-md-1 text-center shop-order"><%= link_to t.shop_order_number, salt_spray_test_path(t), remote: true %><br /> <small>Load: <%= t.load_number %></small></div>
-      <div class="col-md-1 text-center d-none d-md-table-cell prevent-text-overflow"><%= t.part_number %></div>
-      <div class="col-3 col-md-1 text-center process"><%= t.process_code %></div>
-      <div class="col-md-1 text-center d-none d-md-table-cell"><%= t.dept %></div>
-      <div class="col-md-1 d-none d-md-table-cell">
-        <%= t.put_on_at.strftime('%m/%d/%Y') %><br />
-        <small><strong>By: </strong></small><%= t.salt_spray_tester.full_name %><br />
-        <small><strong>Hours On: </strong></small><%= t.calculate_rust_hours(t.pulled_off_at) %>
-      </div>
-      <% unless t.pulled_off_at.blank? %>
-        <div class="col-md-1 d-none d-md-table-cell">
-         <%= t.pulled_off_at.strftime('%m/%d/%Y') %><br />
-          <small><strong>By: </strong></small><%= t.test_completed_by.full_name %>
-        </div>
+<div id="salt_spray_test_results" class="table-responsive">
+  <table class="table table-bordered">
+    <thead>
+      <tr class="row m-0">
+        <th class="col-1 text-center">Shop Order </th>
+        <th class="col-1 text-center">Part ID</th>
+        <th class="col-1 text-center">Proc.</th>
+        <th class="col-1 text-center">Dept</th>
+        <th class="col-1">Date On</th>
+        <% if action_name == 'archived_tests' %>
+          <th class="col-1">Date Off</th>
+        <% end %>
+        <th class="col-1">White Rust</th> <!-- marked_white_at, marked_white_by -->
+        <th class="col-1">Red Rust</th> <!-- marked_red_at, marked_red_by -->
+        <th class="col-3">Comments</th>
+        <th class="col-<%= action_name == 'archived_tests' ? 1 : 2 %> text-center hidden-print"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @salt_spray_tests.each do |t| -%>
+        <tr class="row m-0">
+          <td class="col-1 text-center shop-order"><%= link_to t.shop_order_number, salt_spray_test_path(t), remote: true %><br /> <small>Load: <%= t.load_number %></small></td>
+          <td class="col-1 text-center prevent-text-overflow"><%= t.part_number %></td>
+          <td class="col-1 text-center process"><%= t.process_code %></td>
+          <td class="col-1 text-center"><%= t.dept %></td>
+          <td class="col-1">
+            <%= t.put_on_at.strftime('%m/%d/%Y') %><br />
+            <small><strong>By: </strong></small><%= t.salt_spray_tester.full_name %><br />
+            <small><strong>Hours On: </strong></small><%= t.calculate_rust_hours(t.pulled_off_at) %>
+          </td>
+          <% if t.pulled_off_at.present? %>
+            <td class="col-1">
+              <%= t.pulled_off_at.strftime('%m/%d/%Y') %><br />
+              <small><strong>By: </strong></small><%= t.test_completed_by.full_name %>
+            </td>
+          <% end %>
+          <td class="col-1">
+            <% if t.marked_white? %>
+              <%= t.marked_white_at.strftime('%m/%d/%Y') %><br />
+              <small><strong>By: </strong></small><%= t.white_spot_reporter.full_name %><br />
+              <small><strong>Hours w/o: </strong></small><%= t.calculate_rust_hours(t.marked_white_at) %>
+            <% end %>
+          </td>
+          <td class="col-1">
+            <% if t.marked_red? %>
+              <%= t.marked_red_at.strftime('%m/%d/%Y') %><br />
+              <small><strong>By: </strong></small><%= t.red_spot_reporter.full_name %><br />
+              <small><strong>Hours w/o: </strong></small><%= t.calculate_rust_hours(t.marked_red_at) %>
+            <% end %>
+          </td>
+          <td class="col-3">
+            <% t.comments.each do |comment| %>
+              <% if comment.content.present? %>
+                <p>&bull; <%= comment.content %></p>
+              <% end %>
+            <% end %>
+            <% if action_name != 'archived_tests' %>
+              <%= link_to 'Add Comment/Attachments', add_comment_salt_spray_test_path(t), class: 'btn btn-sm btn-success' %>
+            <% end %>
+          </td>
+          <td class="col-md-<%= action_name == 'archived_tests' ? 1 : 2 %> text-center hidden-print">
+            <a href="#" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions</a>
+            <div class="dropdown-menu text-center">
+              <% if @access_level.access_level == 3 and action_name != 'archived_tests' -%>
+                <%= link_to 'Edit', edit_salt_spray_test_path(t), class: "dropdown-item text-info" %>
+                <% if !t.marked_white_at %>
+                  <%= form_with model: t, local: true do |f| %>
+                    <%= f.hidden_field :marked_white_at, value: Date.current %>
+                    <%= f.hidden_field :marked_white_by, value: current_user.id %>
+                    <%= f.submit 'Mark White', class: 'btn-form dropdown-item' %>
+                  <% end %>
+                <% end %>
+                <% if !t.marked_red_at %>
+                  <%= form_with model: t, local: true do |f| %>
+                    <%= f.hidden_field :marked_red_at, value: Date.current %>
+                    <%= f.hidden_field :marked_red_by, value: current_user.id %>
+                    <%= f.submit 'Mark Red', class: 'btn-form dropdown-item' %>
+                  <% end %>
+                <% end %>
+                <% if t.marked_red_at || t.marked_white_at %>
+                  <%= form_with model: t, local: true do |f| %>
+                    <%= f.hidden_field :pulled_off_at, value: Date.current %>
+                    <%= f.hidden_field :pulled_off_by, value: current_user.id %>
+                    <%= f.submit 'Mark Complete', class: 'btn-form dropdown-item', data: {confirm: t.ready_to_archive? ? nil : 'Are you sure?'} %>
+                  <% end %>
+                <% end %>
+                <div class="dropdown-divider"></div>
+                <%= link_to 'Delete', salt_spray_test_path(t), data: { confirm: 'Are you sure?'}, method: 'delete', class: 'text-danger dropdown-item' %>
+              <% end %>
+            </div><br>
+            <%= link_to "View Attachments", salt_spray_test_path(t.id, has_attachment: true), remote: true, class: 'btn btn-sm btn-link' if has_attachments(t) %>
+          </td>
+        </tr>
       <% end %>
-      <div class="col-md-1 d-none d-md-table-cell">
-        <% unless t.marked_white_at.blank? %><%= t.marked_white_at.strftime('%m/%d/%Y') %><% end %>
-        <% unless t.white_spot_reporter.blank? %><br /><small><strong>By: </strong></small><%= t.white_spot_reporter.full_name %><br /><% end %>
-        <% unless t.marked_white_at.blank? %><small><strong>Hours w/o: </strong></small><%= t.calculate_rust_hours(t.marked_white_at) %><% end %>
-      </div>
-      <div class="col-md-1 d-none d-md-table-cell">
-        <% unless t.marked_red_at.blank? %><%= t.marked_red_at.strftime('%m/%d/%Y') %><% end %>
-        <% unless t.red_spot_reporter.blank? %><br /><small><strong>By: </strong></small><%= t.red_spot_reporter.full_name %><br /><% end %>
-        <% unless t.marked_red_at.blank? %><small><strong>Hours w/o: </strong></small><%= t.calculate_rust_hours(t.marked_red_at) %><% end %>
-      </div>
-      <div class="col-md-3 d-none d-md-table-cell">
-        <% t.comments.each do |comment| %>
-          <% if comment.content.present? %>
-            <p>&bull; <%= comment.content %></p>
-          <% end %>
-        <% end %>
-        <% if action_name != 'archived_tests' %>
-          <%= link_to 'Add Comment/Attachments', add_comment_salt_spray_test_path(t), class: 'btn btn-sm btn-success' %>
-        <% end %>
-      </div>
-      <div class="col-md-<%= action_name == 'archived_tests' ? 1 : 2 %> text-center hidden-print d-none d-md-table-cell">
-
-        <a href="#" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions</a>
-        <div class="dropdown-menu text-center">
-          <% if @access_level.access_level == 3 and action_name != 'archived_tests' -%>
-            <%= link_to 'Edit', edit_salt_spray_test_path(t), class: "dropdown-item text-info" %>
-            <% if !t.marked_white_at %>
-              <%= form_with model: t, local: true do |f| %>
-                <%= f.hidden_field :marked_white_at, value: Date.current %>
-                <%= f.hidden_field :marked_white_by, value: current_user.id %>
-                <%= f.submit 'Mark White', class: 'btn-form dropdown-item' %>
-              <% end %>
-            <% end %>
-            <% if !t.marked_red_at %>
-              <%= form_with model: t, local: true do |f| %>
-                <%= f.hidden_field :marked_red_at, value: Date.current %>
-                <%= f.hidden_field :marked_red_by, value: current_user.id %>
-                <%= f.submit 'Mark Red', class: 'btn-form dropdown-item' %>
-              <% end %>
-            <% end %>
-            <% if t.marked_red_at || t.marked_white_at %>
-              <%= form_with model: t, local: true do |f| %>
-                <%= f.hidden_field :pulled_off_at, value: Date.current %>
-                <%= f.hidden_field :pulled_off_by, value: current_user.id %>
-                <%= f.submit 'Mark Complete', class: 'btn-form dropdown-item', data: {confirm: t.ready_to_archive? ? nil : 'Are you sure?'} %>
-              <% end %>
-            <% end %>
-            <div class="dropdown-divider"></div>
-            <%= link_to 'Delete', salt_spray_test_path(t), data: { confirm: 'Are you sure?'}, method: 'delete', class: 'text-danger dropdown-item' %>
-          <% end %>
-        </div><br>
-        <%= link_to "View Attachments", salt_spray_test_path(t.id, has_attachment: true), remote: true, class: 'btn btn-sm btn-link' if has_attachments(t) %>
-      </div>
-    </div>
-  <% end %>
+    </tbody>
+  </table>
 </div>
