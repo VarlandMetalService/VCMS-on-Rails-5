@@ -51,7 +51,11 @@
           <td class="col-3">
             <% t.comments.each do |comment| %>
               <% if comment.content.present? %>
-                <p>&bull; <%= comment.content %></p>
+                <p>
+                  &bull; <%= comment.content %>
+                  <%= link_to 'Edit', edit_comment_salt_spray_test_path(t, comment_id: comment.id) %>
+                  <%= link_to 'Delete', delete_comment_salt_spray_test_path(t, comment_id: comment.id),  data: { confirm: 'Are you sure?' }, method: 'delete' %>
+                </p>
               <% end %>
             <% end %>
             <% if action_name != 'archived_tests' %>

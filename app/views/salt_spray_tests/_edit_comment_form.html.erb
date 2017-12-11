@@ -26,7 +26,7 @@
       <% end %>
       <%= f.label nil, 'Comments:', class: 'form-control-label' %><br />
       <div class="row">
-        <%= f.fields_for :comments, @salt_spray_test.comments.build do |c| %>
+        <%= f.fields_for :comments, @comment do |c| %>
           <div class="col-md-3">
             <div class="form-group">
               <div class="row form-group comment-group">
@@ -34,6 +34,8 @@
                   <%= c.text_area :content, rows: 5, class: 'form-control' %>
                 </div>
                 <div class="col-3 px-0">
+                  <% attachments_text = c.object.attachments.size > 0 ? 'Edit Attachment(s)' : 'Add Attachment(s)' %>
+                  <%= c.label :content, attachments_text, class: "btn btn-sm btn-link #{c.object.attachments.size > 0 ? 'text-warning' : 'text-success'} comment-attachments" %>
                   <div class="btn btn-sm btn-link clear-comment">Clear</div>
                 </div>
               </div>
@@ -53,7 +55,7 @@
                             (current version is hard to follow and could be troublesome) -->
                   <%= link_to_add_association 'Add Attachment', c, :attachments,
                                               :class => 'btn btn-sm btn-success text-right',
-                                              :'data-association-insertion-node' => ".salt_spray_attachments",
+                                              :'data-association-insertion-node' => ".salt_spray_attachments:eq(#{c.index - @salt_spray_test.comments.size})",
                                               :'data-association-insertion-method' => 'append',
                                               :partial => 'new_attachment_fields' %>
                 </div>

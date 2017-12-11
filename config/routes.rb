@@ -39,6 +39,8 @@ Rails.application.routes.draw do
     end
     member do
       get 'add_comment'
+      get 'edit_comment'
+      delete 'delete_comment'
       get 'test_complete'
     end
   end
