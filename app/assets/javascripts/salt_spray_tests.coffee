@@ -27,13 +27,6 @@ $(document).on 'turbolinks:load', (event) ->
   $('.clear-comment').on 'click', ->
     $(this).closest('.row').find('textarea').val('')
 
-  # Toggle view of attachments for corresponding comment
-  $('.comment-attachments').on 'click', ->
-    $(".view-comment-attachments").addClass('display-none')
-    # NOTE: Clean this up if possible, not sure that this is very stable
-    commentIndex = $(this).prop('for').match(/\d+/) # Extracts the index number from the Rails label helper 'for' property
-    $(".view-comment-attachments:eq(" + commentIndex + ")").removeClass('display-none')
-
   # Manual entry modal functionality
   $(document).on 'click', '.manual-entry-yes', ->
     $('.manual-entry-inputs input').prop({
