@@ -1,11 +1,15 @@
 <div class="salt-spray-comments">
   <% salt_spray_test.comments.each do |comment| %>
     <% if comment.content.present? %>
-      <p>
-        &bull; <%= comment.content %>
-        <%= link_to 'Edit', edit_comment_salt_spray_test_path(salt_spray_test, comment_id: comment.id) %>
-        <%= link_to 'Delete', delete_comment_salt_spray_test_path(salt_spray_test, comment_id: comment.id),  data: { confirm: 'Are you sure?' }, method: 'delete', class: 'text-danger' %>
-      </p>
+      <div class="row">
+        <div class="col-8">
+          &bull; <%= comment.content %>
+        </div>
+        <div class="col-4">
+          <%= link_to 'Edit', edit_comment_salt_spray_test_path(salt_spray_test, comment_id: comment.id), class: 'btn btn-sm btn-default' %>
+          <%= link_to 'Delete', delete_comment_salt_spray_test_path(salt_spray_test, comment_id: comment.id),  data: { confirm: 'Are you sure?' }, method: 'delete', class: 'btn btn-sm btn-danger' %>
+        </div>
+      </div>
     <% end %>
   <% end %>
 </div>
