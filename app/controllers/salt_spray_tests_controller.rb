@@ -1,6 +1,6 @@
 class SaltSprayTestsController < ApplicationController
   before_action :check_user_permission
-  before_action :set_salt_spray_test, only: [:show, :edit, :update, :destroy, :add_comment, :edit_comment, :delete_comment]
+  before_action :set_salt_spray_test, only: [:show, :edit, :update, :destroy, :add_comment, :edit_comment, :show_comments, :delete_comment]
 
   has_scope :with_shop_order_number
   has_scope :with_put_on_by
@@ -75,6 +75,9 @@ class SaltSprayTestsController < ApplicationController
 
   def edit_comment
     @comment = @salt_spray_test.comments.find(params[:comment_id])
+  end
+
+  def show_comments
   end
 
   def delete_comment

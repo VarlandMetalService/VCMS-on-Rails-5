@@ -49,15 +49,7 @@
             <% end %>
           </td>
           <td class="col-3">
-            <% t.comments.each do |comment| %>
-              <% if comment.content.present? %>
-                <p>
-                  &bull; <%= comment.content %>
-                  <%= link_to 'Edit', edit_comment_salt_spray_test_path(t, comment_id: comment.id) %>
-                  <%= link_to 'Delete', delete_comment_salt_spray_test_path(t, comment_id: comment.id),  data: { confirm: 'Are you sure?' }, method: 'delete', class: 'text-danger' %>
-                </p>
-              <% end %>
-            <% end %>
+            <%= link_to "View Comments", show_comments_salt_spray_test_path(t.id), remote: true, class: 'btn btn-sm btn-link' if has_comments(t) %><br />
             <% if action_name != 'archived_tests' %>
               <%= link_to 'Add Comment/Attachments', add_comment_salt_spray_test_path(t), class: 'btn btn-sm btn-success' %>
             <% end %>

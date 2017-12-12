@@ -9,4 +9,8 @@ module SaltSprayTestsHelper
     record.comments.any? {|comment| comment.attachments.size > 0}
   end
 
+  def has_comments(record)
+    record.comments.present?
+  end
+
 end
