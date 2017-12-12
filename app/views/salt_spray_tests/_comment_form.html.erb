@@ -24,10 +24,10 @@
           </ul>
         </div>
       <% end %>
-      <%= f.label nil, 'Comments:', class: 'form-control-label' %><br />
       <div class="row">
         <%= f.fields_for :comments, @salt_spray_test.comments.build do |c| %>
           <div class="col-md-3">
+            <%= f.label nil, 'Comment', class: 'form-control-label' %>
             <div class="form-group">
               <div class="row form-group comment-group">
                 <div class="col-9 pr-0">
