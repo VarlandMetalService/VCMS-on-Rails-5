@@ -56,25 +56,27 @@
         <th class="col-1 text-center">Shop Order </th>
         <th class="col-1 text-center">Part ID</th>
         <th class="col-1 text-center">Proc.</th>
-        <th class="col-1 text-center">Dept</th>
-        <th class="col-1">Date On</th>
+        <th class="col-2">Date On</th>
         <% if action_name == 'archived_tests' %>
           <th class="col-1">Date Off</th>
         <% end %>
-        <th class="col-1">White Rust</th> <!-- marked_white_at, marked_white_by -->
-        <th class="col-1">Red Rust</th> <!-- marked_red_at, marked_red_by -->
-        <th class="col-3">Comments</th>
-        <th class="col-<%= action_name == 'archived_tests' ? 1 : 2 %> text-center hidden-print"></th>
+        <th class="col-2">White Rust</th> <!-- marked_white_at, marked_white_by -->
+        <th class="col-2">Red Rust</th> <!-- marked_red_at, marked_red_by -->
+        <th class="col-2">Comments</th>
+        <th class="col-<%= action_name == 'archived_tests' ? 1 : 1 %> text-center hidden-print"></th>
       </tr>
     </thead>
     <tbody>
       <% @salt_spray_tests.each do |t| -%>
         <tr class="row m-0">
-          <td class="col-1 text-center shop-order"><%= link_to t.shop_order_number, salt_spray_test_path(t), remote: true %><br /> <small>Load: <%= t.load_number %></small></td>
+          <td class="col-1 text-center shop-order">
+            <%= link_to t.shop_order_number, salt_spray_test_path(t), remote: true %><br />
+            <small>Load: <%= t.load_number %></small><br />
+            <% if t.dept %><small>Dept: <%= t.dept %></small><% end %>
+          </td>
           <td class="col-1 text-center prevent-text-overflow"><%= t.part_number %></td>
           <td class="col-1 text-center process"><%= t.process_code %></td>
-          <td class="col-1 text-center"><%= t.dept %></td>
-          <td class="col-1">
+          <td class="col-2">
             <%= t.put_on_at.strftime('%m/%d/%Y') %><br />
             <small><strong>By: </strong></small><%= t.salt_spray_tester.full_name %><br />
             <small><strong>Hours On: </strong></small><%= t.calculate_rust_hours(t.pulled_off_at) %>
@@ -85,27 +87,27 @@
               <small><strong>By: </strong></small><%= t.test_completed_by.full_name %>
             </td>
           <% end %>
-          <td class="col-1">
+          <td class="col-2">
             <% if t.marked_white? %>
               <%= t.marked_white_at.strftime('%m/%d/%Y') %><br />
               <small><strong>By: </strong></small><%= t.white_spot_reporter.full_name %><br />
               <small><strong>Hours w/o: </strong></small><%= t.calculate_rust_hours(t.marked_white_at) %>
             <% end %>
           </td>
-          <td class="col-1">
+          <td class="col-2">
             <% if t.marked_red? %>
               <%= t.marked_red_at.strftime('%m/%d/%Y') %><br />
               <small><strong>By: </strong></small><%= t.red_spot_reporter.full_name %><br />
               <small><strong>Hours w/o: </strong></small><%= t.calculate_rust_hours(t.marked_red_at) %>
             <% end %>
           </td>
-          <td class="col-3">
+          <td class="col-2">
             <%= link_to "View Comments", show_comments_salt_spray_test_path(t.id), remote: true, class: 'btn btn-sm btn-link' if has_comments(t) %><br />
             <% if action_name != 'archived_tests' %>
               <%= link_to 'Add Comment/Attachments', add_comment_salt_spray_test_path(t), class: 'btn btn-sm btn-success' %>
             <% end %>
           </td>
-          <td class="col-md-<%= action_name == 'archived_tests' ? 1 : 2 %> text-center hidden-print">
+          <td class="col-md-<%= action_name == 'archived_tests' ? 1 : 1 %> text-center hidden-print">
             <a href="#" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions</a>
             <div class="dropdown-menu text-center">
               <% if @access_level.access_level == 3 and action_name != 'archived_tests' -%>

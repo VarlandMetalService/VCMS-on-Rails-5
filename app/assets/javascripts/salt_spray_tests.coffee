@@ -3,15 +3,15 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 # color Salt Spray Tests table based on process
-colorTable = () ->
-  $('.salt_spray_test_results').find('td.process').each ->
-    $(this).closest('.row').addClass 'row-color-' + $(this).text()
-    return
+# colorTable = () ->
+#   $('.salt_spray_test_results').find('td.process').each ->
+#     $(this).closest('.row').addClass 'row-color-' + $(this).text()
+#     return
 
 $(document).on 'turbolinks:load', (event) ->
-  colorTable()
-  $(document).ajaxSuccess ->
-    colorTable()
+  # colorTable()
+  # $(document).ajaxSuccess ->
+  #   colorTable()
 
   # Clear Marked White Field
   $('.clear-white').on 'click', ->
