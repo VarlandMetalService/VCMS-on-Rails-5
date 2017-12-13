@@ -57,11 +57,11 @@ class SaltSprayTest < ApplicationRecord
   }
 
   def self.options_for_part_number
-    self.distinct.pluck(:part_number).sort!
+    distinct.pluck(:part_number).sort!
   end
 
   def self.options_for_customer
-    self.distinct.pluck(:customer).sort!
+    distinct.pluck(:customer).sort!
   end
 
   def self.options_for_put_on_by
