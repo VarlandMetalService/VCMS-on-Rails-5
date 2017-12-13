@@ -49,17 +49,23 @@
           </div>
           <div class="col-md-2">
             <div class="form-group">
+              <%= f.label :with_customer, 'Customer:'  %>
+              <%= f.select :with_customer, @salt_spray_tests.options_for_customer, { include_blank: true }, { class: 'form-control' } %>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-group">
               <%= f.label :with_part_number, 'Part ID:'  %>
               <%= f.select :with_part_number, @salt_spray_tests.options_for_part_number, { include_blank: true }, { class: 'form-control' } %>
             </div>
           </div>
-          <div class="col-md-3">
+          <div class="col-md-2">
             <div class="form-group">
               <%= f.label :with_put_on_at_gte, 'Date On - Start:' %>
               <%= f.date_field :with_put_on_at_gte, class: 'form-control' %>
             </div>
           </div>
-          <div class="col-md-3">
+          <div class="col-md-2">
             <div class="form-group">
               <%= f.label :with_put_on_at_lte, 'Date On - End:' %>
               <%= f.date_field :with_put_on_at_lte, class: 'form-control' %>
