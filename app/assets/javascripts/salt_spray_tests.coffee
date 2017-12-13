@@ -4,8 +4,8 @@
 
 # color Salt Spray Tests table based on process
 colorTable = () ->
-  $('#salt_spray_test_results').find('div.process').each ->
-    $(this).closest('.row').find('div').addClass 'row-color-' + $(this).text()
+  $('.salt_spray_test_results').find('td.process').each ->
+    $(this).closest('.row').addClass 'row-color-' + $(this).text()
     return
 
 $(document).on 'turbolinks:load', (event) ->

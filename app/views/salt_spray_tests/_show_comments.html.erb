@@ -2,7 +2,7 @@
   <% salt_spray_test.comments.each do |comment| %>
     <% if comment.content.present? %>
       <div class="row">
-        <div class="col-8">
+        <div class="col-8 prevent-text-overflow">
           &bull; <%= comment.content %>
         </div>
         <div class="col-4">

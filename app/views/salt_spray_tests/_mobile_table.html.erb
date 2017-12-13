@@ -1,16 +1,40 @@
+<strong>Process:</strong>
+<div class="card card-body bg-light process-filter mb-3">
+  <ul class="nav nav-pills">
+    <li class="nav-item">
+      <a href="#" class="nav-link active" data-toggle="pill">TZ/STZ</a>
+    </li>
+    <li class="nav-item">
+      <a href="#" class="nav-link" data-toggle="pill">ZN</a>
+    </li>
+    <li class="nav-item">
+      <a href="#" class="nav-link" data-toggle="pill">SN</a>
+    </li>
+    <li class="nav-item">
+      <a href="#" class="nav-link" data-toggle="pill">LN/HN/SLN</a>
+    </li>
+    <li class="nav-item">
+      <a href="#" class="nav-link" data-toggle="pill">NI</a>
+    </li>
+    <li class="nav-item">
+      <a href="#" class="nav-link" data-toggle="pill">ZF</a>
+    </li>
+  </ul>
+</div>
 <div class="table-responsive">
   <table class="table table-bordered">
     <thead>
       <tr class="row m-0">
-        <th class="col-9 text-center">Shop Order </th>
-        <th class="col-3 text-center">Proc.</th>
+        <th class="col-9 text-center">Shop Order</th>
+        <th class="col-3">Load</th>
       </tr>
     </thead>
     <tbody>
       <% @salt_spray_tests.each do |t| -%>
         <tr class="row m-0">
-          <td class="col-9 text-center shop-order"><%= link_to t.shop_order_number, salt_spray_test_path(t), remote: true %><br /> <small>Load: <%= t.load_number %></small></td>
-          <td class="col-3 text-center process"><%= t.process_code %></td>
+          <td class="col-9 text-center shop-order"><%= link_to t.shop_order_number, edit_salt_spray_test_path(t) %></td>
+          <td class="col-3 text-center load-number"><%= t.load_number %></td>
+          <td class="d-none process"><%= t.process_code %></td>
         </tr>
       <% end %>
     </tbody>
