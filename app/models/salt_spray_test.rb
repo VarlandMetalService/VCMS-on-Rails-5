@@ -43,6 +43,9 @@ class SaltSprayTest < ApplicationRecord
   scope :with_part_number, lambda { |part_numbers|
     where("part_number like ?", "#{part_numbers}%")
   }
+  scope :with_process_code, lambda { |process_code|
+    where "process_code = ?", "#{process_code}"
+  }
   scope :with_put_on_at_gte, lambda { |reference_time|
     where 'put_on_at >= ?', reference_time.to_date
   }
@@ -54,7 +57,11 @@ class SaltSprayTest < ApplicationRecord
   }
 
   def self.options_for_part_number
-    SaltSprayTest.distinct.pluck(:part_number).sort!
+    distinct.pluck(:part_number).sort!
+  end
+
+  def self.options_for_process_code
+    distinct.pluck(:process_code).sort!
   end
 
   def self.options_for_put_on_by

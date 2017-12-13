@@ -1,4 +1,8 @@
 <% js = escape_javascript(
-  render(partial: 'table', locals: { salt_spray_tests: @salt_spray_tests })
+  if params[:mobile_filter]
+    render(partial: 'mobile_table', locals: { salt_spray_tests: @salt_spray_tests })
+  else
+    render(partial: 'table', locals: { salt_spray_tests: @salt_spray_tests })
+  end
 ) %>
-$("#salt_spray_test_results").html("<%= js %>");
+$(".salt_spray_test_results").html("<%= js %>");
