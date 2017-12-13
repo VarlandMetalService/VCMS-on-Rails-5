@@ -8,6 +8,7 @@ class SaltSprayTestsController < ApplicationController
   has_scope :with_put_on_at_gte
   has_scope :with_put_on_at_lte
   has_scope :with_process_code
+  has_scope :with_customer
   has_scope :sorted_by
 
   def index

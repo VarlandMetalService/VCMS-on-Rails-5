@@ -52,6 +52,9 @@ class SaltSprayTest < ApplicationRecord
   scope :with_put_on_at_lte, lambda { |reference_time|
     where 'put_on_at < ?', reference_time.to_date + 1
   }
+  scope :with_customer, lambda { |customers|
+    where 'customer like ?', "#{customers}%"
+  }
   scope :sorted_by, ->(sort_option) {
     order sort_option
   }
@@ -62,6 +65,10 @@ class SaltSprayTest < ApplicationRecord
 
   def self.options_for_process_code
     distinct.pluck(:process_code).sort!
+  end
+
+  def self.options_for_customer
+    distinct.pluck(:customer).sort!
   end
 
   def self.options_for_put_on_by
