@@ -32,47 +32,6 @@
 
       <% else -%>
 
-        <%= form_with url: archived_tests_salt_spray_tests_path, class: 'filter-form bg-warning', method: 'get' do |f| %>
-          <div class="row">
-            <div class="col-md-2">
-              <div class="form-group">
-                <%= f.label :with_shop_order_number, 'Shop Order:'  %>
-                <%= f.text_field :with_shop_order_number, class: 'form-control' %>
-              </div>
-            </div>
-            <div class="col-md-2">
-              <div class="form-group">
-                <%= f.label :with_put_on_by, 'Put On By:'  %>
-                <%= f.select :with_put_on_by, @salt_spray_tests.options_for_put_on_by, { include_blank: true }, { class: 'form-control' } %>
-              </div>
-            </div>
-            <div class="col-md-2">
-              <div class="form-group">
-                <%= f.label :with_part_number, 'Part ID:'  %>
-                <%= f.select :with_part_number, @salt_spray_tests.options_for_part_number, { include_blank: true }, { class: 'form-control' } %>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="form-group">
-                <%= f.label :with_put_on_at_gte, 'Date On - Start:' %>
-                <%= f.date_field :with_put_on_at_gte, class: 'form-control' %>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="form-group">
-                <%= f.label :with_put_on_at_lte, 'Date On - End:' %>
-                <%= f.date_field :with_put_on_at_lte, class: 'form-control' %>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-12">
-              <%= link_to 'Reset Filters', archived_tests_salt_spray_tests_url, class: 'btn btn-sm btn-link float-left' %>
-              <%= f.submit 'Filter', name: nil, class: 'float-right' %>
-            </div>
-          </div>
-        <% end %>
-
         <div class="archived-results">
           <%= render 'table' %>
         </div>

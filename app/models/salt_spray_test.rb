@@ -46,6 +46,9 @@ class SaltSprayTest < ApplicationRecord
   scope :with_process_code, lambda { |process_code|
     where "process_code = ?", "#{process_code}"
   }
+  scope :with_comments, ->(query) {
+    SaltSprayTest.joins(:comments).distinct.where('content like ?', "%#{query}%")
+  }
   scope :with_put_on_at_gte, lambda { |reference_time|
     where 'put_on_at >= ?', reference_time.to_date
   }
@@ -57,6 +60,12 @@ class SaltSprayTest < ApplicationRecord
   }
   scope :sorted_by, ->(sort_option) {
     order sort_option
+  }
+  scope :active, -> {
+    where 'pulled_off_at IS NULL'
+  }
+  scope :archived, -> {
+    where 'pulled_off_at IS NOT NULL'
   }
 
   def self.options_for_part_number
@@ -74,6 +83,13 @@ class SaltSprayTest < ApplicationRecord
   def self.options_for_put_on_by
     users = User.where id: SaltSprayTest.distinct.pluck(:put_on_by)
     users.map { |u| [u.full_name, u.id] }
+  end
+
+  def self.options_for_sorted_by
+    [
+      ['Date (oldest first)', 'put_on_at'],
+      ['Date (newest first)', 'put_on_at DESC']
+    ]
   end
 
   def delete_test(current_user_id)

@@ -102,7 +102,7 @@
             </table>
           </div>
         </div>
-        <div class="col-md-3 manual-entry-inputs">
+        <div class="col-md-3">
           <div class="form-group">
             <%= f.label :customer, 'Customer', class: 'form-control-label' %><br />
             <%= f.text_field :customer, disabled: !@salt_spray_test.is_custom_order?, class: 'form-control' %>
@@ -116,7 +116,7 @@
             <%= f.text_field :part_number, disabled: !@salt_spray_test.is_custom_order?, class: 'form-control' %>
           </div>
         </div>
-        <div class="col-md-3 manual-entry-inputs">
+        <div class="col-md-3">
           <div class="form-group">
             <%= f.label :part_area, 'Part Area', class: 'form-control-label' %><br />
             <%= f.number_field :part_area, disabled: !@salt_spray_test.is_custom_order?, class: 'form-control', step: :any %>

@@ -27,15 +27,6 @@ $(document).on 'turbolinks:load', (event) ->
   $('.clear-comment').on 'click', ->
     $(this).closest('.row').find('textarea').val('')
 
-  # Manual entry modal functionality
-  $(document).on 'click', '.manual-entry-yes', ->
-    $('.manual-entry-inputs input').prop({
-      required: true,
-      disabled: false
-    });
-    $('.manual-entry-inputs').removeClass('display-none');
-    $('#manual_entry_modal').modal('hide');
-
   # "Test Complete?" modal functionality
   $('.open-submit-modal').on 'click', (event) ->
     $('.test-complete-' + $(event.target).data('spot')).addClass('trigger-test-complete');

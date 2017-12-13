@@ -4,15 +4,16 @@ class SaltSprayTestsController < ApplicationController
 
   has_scope :with_shop_order_number
   has_scope :with_put_on_by
+  has_scope :with_customer
+  has_scope :with_process_code
   has_scope :with_part_number
+  has_scope :with_comments
   has_scope :with_put_on_at_gte
   has_scope :with_put_on_at_lte
-  has_scope :with_process_code
-  has_scope :with_customer
   has_scope :sorted_by
 
   def index
-    @salt_spray_tests = apply_scopes(SaltSprayTest).all.page(params[:page]).where('pulled_off_at IS NULL')
+    @salt_spray_tests = apply_scopes(SaltSprayTest).active.page(params[:page])
 
     respond_to do |format|
       format.html
@@ -103,7 +104,7 @@ class SaltSprayTestsController < ApplicationController
   end
 
   def archived_tests
-    @salt_spray_tests = apply_scopes(SaltSprayTest).all.page(params[:page]).where('pulled_off_at IS NOT NULL')
+    @salt_spray_tests = apply_scopes(SaltSprayTest).archived.page(params[:page])
 
     respond_to do |format|
       format.html
