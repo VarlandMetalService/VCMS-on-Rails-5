@@ -49,6 +49,19 @@ class SaltSprayTest < ApplicationRecord
   scope :with_comments, ->(query) {
     SaltSprayTest.joins(:comments).distinct.where('content like ?', "%#{query}%")
   }
+  scope :with_sample, lambda {|is_sample|
+    where "is_sample = ?", "#{is_sample}"
+  }
+  scope :with_has_comments, lambda {|has_comments|
+    if has_comments == '1'
+      joins(:comments)
+    end
+  }
+  scope :with_has_attachments, lambda {|has_attachments|
+    if has_attachments == '1'
+      joins(:comments)
+    end
+  }
   scope :with_put_on_at_gte, lambda { |reference_time|
     where 'put_on_at >= ?', reference_time.to_date
   }
