@@ -81,7 +81,6 @@ class User < ApplicationRecord
     end
   end
 
-  # TODO: Use Net::HTTP (instead of RestClient) to authenticate user on IBM System i.
   def authenticate(password = '')
     begin
       response = RestClient.get 'http://api.varland.com/v1/auth', params: { user: self.username,

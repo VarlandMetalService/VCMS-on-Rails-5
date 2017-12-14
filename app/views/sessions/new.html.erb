@@ -21,91 +21,9 @@
 
   <body class="login">
 
-    <div class="container-fluid visible-xs mobile-login-container">
-
-      <div class="row">
-
-        <div class="col-12 login-form-container">
-
-          <%= form_for(:session, url: login_path) do |f| %>
-            <%= f.hidden_field :login_method, value: 'mobile' %>
-
-            <%= render partial: 'shared/flash_messages', flash: flash %>
-
-            <div class="form-group">
-              <%= f.label :employee_number, 'Employee #:' %>
-              <%= f.text_field :employee_number, class: 'form-control input-lg text-center', readonly: 'readonly', maxlength: 3 %>
-            </div>
-
-            <div class="form-group">
-              <%= f.label :pin, 'Pin:' %>
-              <%= f.password_field :pin, class: 'form-control input-lg text-center', readonly: 'readonly', maxlength: 4 %>
-            </div>
-
-          <% end %>
-
-        </div>
-
-      </div>
-
-      <div class="row">
-
-        <div class="col-12">
-
-          <div class="row">
-            <div class="col-4">
-              <%= button_tag '1', class: 'btn btn-info mobile-login-button number-button' %>
-            </div>
-            <div class="col-4">
-              <%= button_tag '2', class: 'btn btn-info mobile-login-button number-button' %>
-            </div>
-            <div class="col-4">
-              <%= button_tag '3', class: 'btn btn-info mobile-login-button number-button' %>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-4">
-              <%= button_tag '4', class: 'btn btn-info mobile-login-button number-button' %>
-            </div>
-            <div class="col-4">
-              <%= button_tag '5', class: 'btn btn-info mobile-login-button number-button' %>
-            </div>
-            <div class="col-4">
-              <%= button_tag '6', class: 'btn btn-info mobile-login-button number-button' %>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-4">
-              <%= button_tag '7', class: 'btn btn-info mobile-login-button number-button' %>
-            </div>
-            <div class="col-4">
-              <%= button_tag '8', class: 'btn btn-info mobile-login-button number-button' %>
-            </div>
-            <div class="col-4">
-              <%= button_tag '9', class: 'btn btn-info mobile-login-button number-button' %>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-4">
-              <%= button_tag 'Del', class: 'btn btn-warning mobile-login-button delete-button' %>
-            </div>
-            <div class="col-4">
-              <%= button_tag '0', class: 'btn btn-info mobile-login-button number-button' %>
-            </div>
-            <div class="col-4">
-              <%= button_tag 'Enter', class: 'btn btn-success mobile-login-button enter-button' %>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-
     <div class="container d-none d-sm-block">
       <div class="row">
-        <div class="col-12 col-sm-6 offset-sm-3 col-md-4 offset-md-4 login-form-container">
+        <div class="col-12 col-sm-6 offset-sm-3 col-md-4 offset-md-4 card card-body bg-light">
 
           <%= form_for(:session, url: login_path) do |f| %>
             <%= f.hidden_field :login_method, value: 'desktop' %>
