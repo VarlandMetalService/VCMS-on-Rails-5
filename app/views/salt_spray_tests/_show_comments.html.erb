@@ -1,15 +1,19 @@
 <div class="salt-spray-comments">
   <% salt_spray_test.comments.each do |comment| %>
-    <% if comment.content.present? %>
       <div class="row">
         <div class="col-8 prevent-text-overflow">
-          &bull; <%= comment.content %>
+          <%= comment.content %><br />
+          <% if comment.attachments.size > 0 %>
+            <% comment.attachments.each do |a| %>
+              <%= show_attachment(a) %> <br /><br />
+            <% end %>
+          <% end %>
         </div>
         <div class="col-4">
           <%= link_to 'Edit', edit_comment_salt_spray_test_path(salt_spray_test, comment_id: comment.id), class: 'btn btn-sm btn-default' %>
           <%= link_to 'Delete', delete_comment_salt_spray_test_path(salt_spray_test, comment_id: comment.id),  data: { confirm: 'Are you sure?' }, method: 'delete', class: 'btn btn-sm btn-danger' %>
         </div>
       </div>
-    <% end %>
+      <hr>
   <% end %>
 </div>

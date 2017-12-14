@@ -35,19 +35,19 @@
       </div>
     </div>
     <div class="col-md-1">
-      <div class="form-group">
+      <div class="form-group text-center">
         <%= f.label :with_sample, 'Is Sample:'  %>
         <%= f.check_box :with_sample, class: 'form-control', checked: params[:with_sample] == '1' ? true : false %>
       </div>
     </div>
     <div class="col-md-1">
-      <div class="form-group">
+      <div class="form-group text-center">
         <%= f.label :with_has_comments, 'Has Comments:'  %>
         <%= f.check_box :with_has_comments, class: 'form-control', checked: params[:with_has_comments] == '1' ? true : false %>
       </div>
     </div>
     <div class="col-md-1">
-      <div class="form-group">
+      <div class="form-group text-center">
         <%= f.label :with_has_attachments, 'Has Attachments:'  %>
         <%= f.check_box :with_has_attachments, class: 'form-control', checked: params[:with_has_attachments] == '1' ? true : false %>
       </div>
@@ -104,7 +104,7 @@
         <% end %>
         <th class="col-2">White Rust</th> <!-- marked_white_at, marked_white_by -->
         <th class="col-2">Red Rust</th> <!-- marked_red_at, marked_red_by -->
-        <th class="col-<%= action_name == 'archived_tests' ? 1 : 2 %>">Comments</th>
+        <th class="col-<%= action_name == 'archived_tests' ? 1 : 2 %>">Comments / Attachments</th>
         <th class="col-1 text-center hidden-print <%= ' d-none' if action_name == 'archived_tests' %>"></th>
       </tr>
     </thead>
@@ -144,16 +144,9 @@
             <% end %>
           </td>
           <td class="col-<%= action_name == 'archived_tests' ? 1 : 2 %>">
-            <%= link_to "View Comments", show_comments_salt_spray_test_path(t.id), remote: true, class: 'btn btn-sm btn-link pl-0' if has_comments(t) %>
+            <%= link_to "View", show_comments_salt_spray_test_path(t.id), remote: true, class: 'btn btn-sm btn-info mr-2' if has_comments(t) %>
             <% if action_name != 'archived_tests' %>
-              <% if has_attachments(t) %>
-                | <%= link_to "View Attachments", salt_spray_test_path(t.id, has_attachment: true), remote: true, class: 'btn btn-sm btn-link' %>
-              <% end %>
-              <%= link_to 'Add Comment/Attachments', add_comment_salt_spray_test_path(t), class: 'btn btn-sm btn-success' %>
-            <% else %>
-              <% if has_attachments(t) %>
-                <br /><%= link_to "View Attachments", salt_spray_test_path(t.id, has_attachment: true), remote: true, class: 'btn btn-sm btn-link pl-0' %>
-              <% end %>
+              <%= link_to 'Add', add_comment_salt_spray_test_path(t), class: 'btn btn-sm btn-success' %>
             <% end %>
           </td>
           <% if @access_level.access_level == 3 and action_name != 'archived_tests' -%>

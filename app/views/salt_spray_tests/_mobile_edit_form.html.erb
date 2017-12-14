@@ -48,12 +48,12 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-12">
-      <%= link_to "View Comments", show_comments_salt_spray_test_path(@salt_spray_test.id), remote: true, class: 'btn btn-sm btn-link pl-0' if has_comments(@salt_spray_test) %>
-      <%= link_to "View Attachments", salt_spray_test_path(@salt_spray_test.id, has_attachment: true), remote: true, class: 'btn btn-sm btn-link' if has_attachments(@salt_spray_test) %>
+    <div class="col-12 text-center">
+      <%= link_to "View Comments / Attachments", show_comments_salt_spray_test_path(@salt_spray_test.id), remote: true, class: 'btn btn-sm btn-info' if has_comments(@salt_spray_test) %>
     </div>
   <div>
-  <div class="row">
+  <br />
+  <div class="container row">
     <div class="col-12">
       <%= f.fields_for :comments, @salt_spray_test.comments.build do |c| %>
         <div class="row">
@@ -61,10 +61,10 @@
             <%= f.label nil, 'New Comment', class: 'form-control-label' %>
             <div class="form-group">
               <div class="row form-group comment-group">
-                <div class="col-9 pr-0">
+                <div class="col-11 pr-0">
                   <%= c.text_area :content, rows: 3, class: 'form-control' %>
                 </div>
-                <div class="col-3 px-0">
+                <div class="col-1 px-0">
                   <div class="btn btn-sm btn-link clear-comment">Clear</div>
                 </div>
               </div>

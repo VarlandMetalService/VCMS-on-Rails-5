@@ -1,58 +1,42 @@
-<% if params[:has_attachment] %>
-  <div class="text-center">
-    <% @comments.each do |c| %>
-      <% if c.attachments.size > 0 %>
-        <div class="prevent-text-overflow">
-          <%= c.content %>
-        </div><br />
-        <% c.attachments.each do |a| %>
-          <%= show_attachment(a) %> <br /><br />
-        <% end %>
-        <hr>
-      <% end %>
-    <% end %>
-  </div>
-<% else %>
-  <table class="table table-bordered table-sm">
-    <thead>
-      <tr>
-        <td><strong>Shop Order</strong></td>
-        <td><%= @salt_spray_test.shop_order_number %></td>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><strong>Part ID</strong></td>
-        <td><%= @salt_spray_test.part_number %></td>
-      </tr>
-      <tr>
-        <td><strong>Customer</strong></td>
-        <td><%= @salt_spray_test.customer %></td>
-      </tr>
-      <tr>
-        <td><strong>Process</strong></td>
-        <td><%= @salt_spray_test.process_code %></td>
-      </tr>
-      <tr>
-        <td><strong>Sub ID</strong></td>
-        <td class="prevent-text-overflow"><%= @salt_spray_test.sub %></td>
-      </tr>
-      <tr>
-        <td><strong>White Spec</strong></td>
-        <td><%= @salt_spray_test.white_spec %></td>
-      </tr>
-      <tr>
-        <td><strong>Red Spec</strong></td>
-        <td><%= @salt_spray_test.red_spec %></td>
-      </tr>
-      <tr>
-        <td><strong>Part Area</strong></td>
-        <td><%= @salt_spray_test.part_area %></td>
-      </tr>
-      <tr>
-        <td><strong>Density</strong></td>
-        <td><%= number_with_precision(@salt_spray_test.density, strip_insignificant_zeros: true) %></td>
-      </tr>
-    </tbody>
-  </table>
-<% end %>
+<table class="table table-bordered table-sm">
+  <thead>
+    <tr>
+      <td><strong>Shop Order</strong></td>
+      <td><%= @salt_spray_test.shop_order_number %></td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Part ID</strong></td>
+      <td><%= @salt_spray_test.part_number %></td>
+    </tr>
+    <tr>
+      <td><strong>Customer</strong></td>
+      <td><%= @salt_spray_test.customer %></td>
+    </tr>
+    <tr>
+      <td><strong>Process</strong></td>
+      <td><%= @salt_spray_test.process_code %></td>
+    </tr>
+    <tr>
+      <td><strong>Sub ID</strong></td>
+      <td class="prevent-text-overflow"><%= @salt_spray_test.sub %></td>
+    </tr>
+    <tr>
+      <td><strong>White Spec</strong></td>
+      <td><%= @salt_spray_test.white_spec %></td>
+    </tr>
+    <tr>
+      <td><strong>Red Spec</strong></td>
+      <td><%= @salt_spray_test.red_spec %></td>
+    </tr>
+    <tr>
+      <td><strong>Part Area</strong></td>
+      <td><%= @salt_spray_test.part_area %></td>
+    </tr>
+    <tr>
+      <td><strong>Density</strong></td>
+      <td><%= number_with_precision(@salt_spray_test.density, strip_insignificant_zeros: true) %></td>
+    </tr>
+  </tbody>
+</table>

@@ -101,6 +101,9 @@ body {
   margin-bottom: $default-spacing;
   padding: $default-spacing;
   border: 1px solid rgb(221, 221, 221);
+  label {
+    font-size: 15px;
+  }
 }
 
 .vertical-alignment-helper {
