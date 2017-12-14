@@ -37,6 +37,7 @@ $(document).on 'turbolinks:load', (event) ->
   $('.test-complete-confirm').on 'click', (event) ->
     if $(event.target).attr('name') == 'yes'
         $('.form-submit-date-off').val(Date)
+        $('.form-submit-off-by').prop('disabled', false)
         $('.form-submit-archived').val(true)
     $('.trigger-test-complete').trigger('click');
     $('.trigger-test-complete').removeClass('trigger-test-complete');

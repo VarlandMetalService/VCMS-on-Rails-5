@@ -48,29 +48,40 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-12">
-      <p><strong>Attachments:</strong></p>
-      <div id="salt_spray_attachments">
-        <%#= f.fields_for :attachments do |attachment| %>
-          <%#= render 'attachment_fields', f: attachment %>
-        <%# end %>
+    <%= f.fields_for :comments, @salt_spray_test.comments.build do |c| %>
+      <div class="col-12 col-md-3">
+        <%= f.label nil, 'Comment', class: 'form-control-label' %>
+        <div class="form-group">
+          <div class="row form-group comment-group">
+            <div class="col-9 pr-0">
+              <%= c.text_area :content, rows: 3, class: 'form-control' %>
+            </div>
+            <div class="col-3 px-0">
+              <div class="btn btn-sm btn-link clear-comment">Clear</div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div>
-        <%#= link_to_add_association 'Add Attachment', f, :attachments,
-                                    :class => 'btn btn-sm btn-success text-right',
-                                    :'data-association-insertion-node' => '#salt_spray_attachments',
-                                    :'data-association-insertion-method' => 'append',
-                                    :partial => 'new_attachment_fields' %>
+      <div class="col-12 col-md-6 offset-md-3">
+        <div class="form-group">
+          <div class="view-comment-attachments">
+            <%= c.label nil, 'Attachments' %><br />
+            <div class="salt_spray_attachments">
+              <%= c.fields_for :attachments do |attachment| %>
+                <%= render 'attachment_fields', f: attachment %>
+              <% end %>
+            </div>
+            <div>
+              <%= link_to_add_association 'Add Attachment', c, :attachments,
+                                          :class => 'btn btn-sm btn-success text-right',
+                                          :'data-association-insertion-node' => ".salt_spray_attachments",
+                                          :'data-association-insertion-method' => 'append',
+                                          :partial => 'new_attachment_fields' %>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-12">
-      <br />
-      <%= f.label :comments, "Comments:" %><br />
-      <%= f.text_area :comments, class: 'col-12' %>
-      <br />
-    </div>
+    <% end %>
   </div>
   <br />
   <div class="row">
@@ -94,6 +105,7 @@
         <% end %>
       </div>
       <%= f.hidden_field :pulled_off_at, value: nil, class: 'form-submit-date-off' %>
+      <%= f.hidden_field :pulled_off_by, value: @current_user.id, class: 'form-submit-off-by', disabled: true %>
       <%= f.submit 'White Spot Found', class: 'btn btn-sm btn-danger test-complete-white' %>
       <%= f.submit 'Red Spot Found', class: 'btn btn-sm btn-danger test-complete-red' %>
     <% end %>

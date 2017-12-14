@@ -2,7 +2,6 @@ class Comment < ApplicationRecord
   before_validation :check_for_blank
 
   belongs_to :commentable, polymorphic: true
-  belongs_to :salt_spray_tests, -> {where( comments: { commentable_type: 'SaltSprayTest' }).includes(:comments)}, foreign_key: 'commentable_id'
   has_many   :attachments,
              as: :attachable,
              dependent: :destroy,
