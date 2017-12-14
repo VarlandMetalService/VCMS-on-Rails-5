@@ -54,12 +54,12 @@ class SaltSprayTest < ApplicationRecord
   }
   scope :with_has_comments, lambda {|has_comments|
     if has_comments == '1'
-      joins(:comments)
+      joins(:comments).distinct
     end
   }
   scope :with_has_attachments, lambda {|has_attachments|
     if has_attachments == '1'
-      joins(:comments)
+      joins(:comments => :attachments).distinct
     end
   }
   scope :with_comments, ->(query) {
