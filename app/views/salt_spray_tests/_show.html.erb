@@ -1,8 +1,10 @@
 <% if params[:has_attachment] %>
-  <div class="text-center prevent-text-overflow">
+  <div class="text-center">
     <% @comments.each do |c| %>
       <% if c.attachments.size > 0 %>
-        <%= c.content %><br />
+        <div class="prevent-text-overflow">
+          <%= c.content %>
+        </div><br />
         <% c.attachments.each do |a| %>
           <%= show_attachment(a) %> <br /><br />
         <% end %>
