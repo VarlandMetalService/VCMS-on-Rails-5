@@ -40,14 +40,14 @@ class SaltSprayTest < ApplicationRecord
   scope :with_put_on_by, ->(values) {
     where put_on_by: [*values]
   }
+  scope :with_customer, lambda { |customers|
+    where 'customer like ?', "#{customers}%"
+  }
   scope :with_part_number, lambda { |part_numbers|
     where("part_number like ?", "#{part_numbers}%")
   }
   scope :with_process_code, lambda { |process_code|
     where "process_code = ?", "#{process_code}"
-  }
-  scope :with_comments, ->(query) {
-    SaltSprayTest.joins(:comments).distinct.where('content like ?', "%#{query}%")
   }
   scope :with_sample, lambda {|is_sample|
     where "is_sample = ?", "#{is_sample}"
@@ -62,14 +62,17 @@ class SaltSprayTest < ApplicationRecord
       joins(:comments)
     end
   }
+  scope :with_comments, ->(query) {
+    joins(:comments).distinct.where('content like ?', "%#{query}%")
+  }
+  scope :with_sub, lambda { |sub_id|
+    where("sub like ?", "#{sub_id}%")
+  }
   scope :with_put_on_at_gte, lambda { |reference_time|
     where 'put_on_at >= ?', reference_time.to_date
   }
   scope :with_put_on_at_lte, lambda { |reference_time|
     where 'put_on_at < ?', reference_time.to_date + 1
-  }
-  scope :with_customer, lambda { |customers|
-    where 'customer like ?', "#{customers}%"
   }
   scope :sorted_by, ->(sort_option) {
     order sort_option

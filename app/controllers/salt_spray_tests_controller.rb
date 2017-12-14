@@ -5,12 +5,13 @@ class SaltSprayTestsController < ApplicationController
   has_scope :with_shop_order_number
   has_scope :with_put_on_by
   has_scope :with_customer
-  has_scope :with_process_code
   has_scope :with_part_number
-  has_scope :with_comments
+  has_scope :with_process_code
+  has_scope :with_sample
   has_scope :with_has_comments
   has_scope :with_has_attachments
-  has_scope :with_sample
+  has_scope :with_comments
+  has_scope :with_sub
   has_scope :with_put_on_at_gte
   has_scope :with_put_on_at_lte
   has_scope :sorted_by

@@ -111,9 +111,15 @@
             <%= f.label :process_code, 'Process', class: 'form-control-label' %><br />
             <%= f.text_field :process_code, disabled: !@salt_spray_test.is_custom_order?, class: 'form-control' %>
           </div>
+        </div>
+        <div class="col-md-3">
           <div class="form-group">
             <%= f.label :part_number, 'Part ID', class: 'form-control-label' %><br />
             <%= f.text_field :part_number, disabled: !@salt_spray_test.is_custom_order?, class: 'form-control' %>
+          </div>
+          <div class="form-group">
+            <%= f.label :sub, 'Sub ID', class: 'form-control-label' %><br />
+            <%= f.text_field :sub, disabled: !@salt_spray_test.is_custom_order?, class: 'form-control' %>
           </div>
         </div>
         <div class="col-md-3">

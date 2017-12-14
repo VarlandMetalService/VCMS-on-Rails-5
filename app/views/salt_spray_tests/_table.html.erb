@@ -20,18 +20,18 @@
     </div>
     <div class="col-md-2">
       <div class="form-group">
-        <%= f.label :with_process_code, 'Process:'  %>
-        <%= f.select :with_process_code, SaltSprayTest.options_for_process_code, {selected: params[:with_process_code]}, { class: 'form-control' } %>
-      </div>
-    </div>
-    <div class="col-md-2">
-      <div class="form-group">
         <%= f.label :with_part_number, 'Part ID:'  %>
         <%# if params[:with_part_number].blank? %>
           <%= f.select :with_part_number, @salt_spray_tests.options_for_part_number, { include_blank: true, selected: params[:with_part_number] }, { class: 'form-control' } %>
         <%# else %>
           <%#= f.select :with_part_number, SaltSprayTest.options_for_part_number, { include_blank: true, selected: params[:with_part_number] }, { class: 'form-control' } %>
         <%# end %>
+      </div>
+    </div>
+    <div class="col-md-1">
+      <div class="form-group">
+        <%= f.label :with_process_code, 'Process:'  %>
+        <%= f.select :with_process_code, SaltSprayTest.options_for_process_code, {selected: params[:with_process_code]}, { class: 'form-control' } %>
       </div>
     </div>
     <div class="col-md-1">
@@ -56,6 +56,12 @@
       <div class="form-group">
         <%= f.label :with_comments, 'Search Comments:'  %>
         <%= f.text_field :with_comments, class: 'form-control', value: params[:with_comments] %>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class="form-group">
+        <%= f.label :with_sub, 'Sub ID:'  %>
+        <%= f.text_field :with_sub, class: 'form-control', value: params[:with_sub] %>
       </div>
     </div>
     <div class="col-md-2">
