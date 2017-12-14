@@ -108,6 +108,13 @@ class SaltSprayTest < ApplicationRecord
     ]
   end
 
+  def self.options_for_archived_sorted_by
+    [
+      ['Date (newest first)', 'put_on_at DESC'],
+      ['Date (oldest first)', 'put_on_at'],
+    ]
+  end
+
   def delete_test(current_user_id)
     self.deleted_at = DateTime.current
     self.deleted_by = current_user_id

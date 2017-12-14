@@ -108,7 +108,7 @@ class SaltSprayTestsController < ApplicationController
   end
 
   def archived_tests
-    @salt_spray_tests = apply_scopes(SaltSprayTest).archived.page(params[:page])
+    @salt_spray_tests = apply_scopes(SaltSprayTest).archived.page(params[:page]).order(put_on_at: :desc)
 
     respond_to do |format|
       format.html
