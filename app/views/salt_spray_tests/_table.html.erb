@@ -110,7 +110,7 @@
     </thead>
     <tbody>
       <% @salt_spray_tests.each do |t| -%>
-        <tr class="row m-0<%= ' bg-warning-table' if t.flagged_by %>">
+        <tr class="row m-0<%= ' bg-warning-table' if t.flagged_by && action_name != 'archived_tests' %>">
           <td class="col-1 text-center shop-order">
             <%= link_to t.shop_order_number, salt_spray_test_path(t), remote: true %><br />
             <small>Load: <%= t.load_number %></small><br />
