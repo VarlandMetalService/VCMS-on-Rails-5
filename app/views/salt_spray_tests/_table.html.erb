@@ -114,7 +114,8 @@
           <td class="col-1 text-center shop-order">
             <%= link_to t.shop_order_number, salt_spray_test_path(t), remote: true %><br />
             <small>Load: <%= t.load_number %></small><br />
-            <% if t.dept %><small>Dept: <%= t.dept %></small><% end %>
+            <% if t.dept %><small>Dept: <%= t.dept %></small><br /><% end %>
+            <% if t.is_sample %><small class="text-danger">SAMPLE</small><% end %>
           </td>
           <td class="col-1 text-center prevent-text-overflow"><%= t.part_number %></td>
           <td class="col-1 text-center process"><%= t.process_code %></td>
