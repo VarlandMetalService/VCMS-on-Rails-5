@@ -1,7 +1,18 @@
+<%= content_for :javascript do %>
+  <script type="text/javascript">
+    if($(document).width() <= 600){
+      $('.salt_spray_test_edit').html('');
+      $('.salt_spray_test_edit').append('<%=j render "mobile_edit_form" %>');
+    } else {
+      $('.salt_spray_test_edit').html('');
+      $('.salt_spray_test_edit').append('<%=j render "edit_form" %>');
+    }
+  </script>
+<% end %>
+
 <div class="row mx-1">
   <div class="col-12 card bg-light mb-3 d-none d-md-block">
     <strong>Salt Spray Tests &ndash; Edit Test</strong>
   </div>
-  <div class="col-12 d-none d-md-block"><%= render 'edit_form' %></div>
-  <div class="col-12 d-md-none"><%= render 'mobile_edit_form' %></div>
+  <div class="col-12 salt_spray_test_edit"><%= render 'edit_form' %></div>
 </div>
