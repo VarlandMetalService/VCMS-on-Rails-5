@@ -25,4 +25,12 @@ module SaltSprayTestsHelper
     end
   end
 
+  def flag_test_text
+    if @salt_spray_test.flagged_by
+      'Remove Flag'
+    else
+      'Flag For Editing'
+    end
+  end
+
 end

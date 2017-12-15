@@ -27,6 +27,17 @@ $(document).on 'turbolinks:load', (event) ->
   $('.clear-comment').on 'click', ->
     $(this).closest('.row').find('textarea').val('')
 
+  # Toggle 'Flag For Editing'
+  $('.flag-test').on 'click', ->
+    if $(this).html() == '<i class="fa fa-exclamation-triangle"></i> Flag For Editing'
+      $(this).html("<i class='fa fa-exclamation-triangle'></i> Remove Flag")
+      $('.flag-icon').removeClass('d-none')
+    else
+      $(this).html("<i class='fa fa-exclamation-triangle'></i> Flag For Editing")
+      $('.flag-icon').addClass('d-none')
+    $('.toggle-flagged-by').prop 'disabled', (i, v) ->
+      return !v
+
   # "Test Complete?" modal functionality
   $('.open-submit-modal').on 'click', (event) ->
     $('.test-complete-' + $(event.target).data('spot')).addClass('trigger-test-complete');
