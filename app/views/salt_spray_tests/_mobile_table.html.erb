@@ -26,7 +26,7 @@
     </thead>
     <tbody>
       <% @salt_spray_tests.each do |t| -%>
-        <tr class="row m-0 mobile-row<%= ' bg-warning-table' if t.flagged_by %>">
+        <tr class="row m-0 mobile-row<%= ' bg-warning-table' if t.flagged_by %><%= ' checked-test' if t.checked_by %>">
           <td class="col-6 text-center shop-order"><%= link_to t.shop_order_number, edit_salt_spray_test_path(t) %></td>
           <td class="col-3 text-center load-number"><%= t.load_number %></td>
           <td class="col-3 text-center process"><%= t.process_code %></td>

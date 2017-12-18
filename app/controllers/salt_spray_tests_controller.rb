@@ -17,7 +17,7 @@ class SaltSprayTestsController < ApplicationController
   has_scope :sorted_by
 
   def index
-    @salt_spray_tests = apply_scopes(SaltSprayTest).active.page(params[:page])
+    @salt_spray_tests = apply_scopes(SaltSprayTest).active.page(params[:page]).order(checked_by: :asc, process_code: :desc)
 
     respond_to do |format|
       format.html
@@ -57,6 +57,8 @@ class SaltSprayTestsController < ApplicationController
       @salt_spray_test.pulled_off_at = Date.current
       @salt_spray_test.pulled_off_by = current_user.id
     end
+
+    @salt_spray_test.checked_by = current_user.id
 
     if @salt_spray_test.update(salt_spray_test_params)
       redirect_to action: 'index'
