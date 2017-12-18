@@ -104,15 +104,15 @@
         <% end %>
         <th class="col-2">White Rust</th> <!-- marked_white_at, marked_white_by -->
         <th class="col-2">Red Rust</th> <!-- marked_red_at, marked_red_by -->
-        <th class="col-<%= action_name == 'archived_tests' ? 1 : 2 %>">Comments / Attachments</th>
-        <th class="col-1 text-center hidden-print <%= ' d-none' if action_name == 'archived_tests' %>"></th>
+        <th class="col-2<%= ' d-none' if action_name == 'archived_tests' %>">Comments / Attachments</th>
+        <th class="col-1 text-center hidden-print"></th>
       </tr>
     </thead>
     <tbody>
       <% @salt_spray_tests.each do |t| -%>
         <tr class="row m-0<%= ' bg-warning-table' if t.flagged_by && action_name != 'archived_tests' %>">
           <td class="col-1 text-center shop-order">
-            <%= link_to t.shop_order_number, salt_spray_test_path(t), remote: true %><br />
+            <%= t.shop_order_number %><br />
             <small>Load: <%= t.load_number %></small><br />
             <% if t.dept %><small>Dept: <%= t.dept %></small><br /><% end %>
             <% if t.is_sample %><small class="text-danger">SAMPLE</small><% end %>
@@ -144,46 +144,52 @@
               <small><strong>Hours w/o: </strong></small><%= t.calculate_rust_hours(t.marked_red_at) %>
             <% end %>
           </td>
-          <td class="col-<%= action_name == 'archived_tests' ? 1 : 2 %>">
-            <%= link_to "View", show_comments_salt_spray_test_path(t.id, on_archived: action_name == 'archived_tests'), remote: true, class: 'btn btn-sm btn-info mr-2' if has_comments(t) %>
-            <% if action_name != 'archived_tests' %>
+          <% if action_name != 'archived_tests' %>
+            <td class="col-2">
+              <%= link_to "View", show_comments_salt_spray_test_path(t.id, on_archived: action_name == 'archived_tests'), remote: true, class: 'btn btn-sm btn-info mr-2' if has_comments(t) %>
               <%= link_to 'Add', add_comment_salt_spray_test_path(t), class: 'btn btn-sm btn-success' %>
-            <% end %>
-          </td>
-          <% if @access_level.access_level == 3 and action_name != 'archived_tests' -%>
+            </td>
+          <% end %>
+          <% if @access_level.access_level == 3 -%>
             <td class="col-md-1 text-center hidden-print">
               <a href="#" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions</a>
               <div class="dropdown-menu text-center">
-                  <%= link_to 'Edit', edit_salt_spray_test_path(t), class: "dropdown-item text-info" %>
-                  <% if !t.marked_white_at %>
-                    <%= form_with model: t, local: true do |f| %>
-                      <%= f.hidden_field :marked_white_at, value: Date.current %>
-                      <%= f.hidden_field :marked_white_by, value: current_user.id %>
-                      <%= f.submit 'Mark White', class: 'btn-form dropdown-item' %>
+                  <%= link_to 'Edit', edit_salt_spray_test_path(t), class: "dropdown-item text-info" if action_name != 'archived_tests' %>
+                  <%= link_to 'View Details', salt_spray_test_path(t), class: "dropdown-item text-muted", remote: true %>
+                  <% if action_name != 'archived_tests' %>
+                    <div class="dropdown-divider"></div>
+                    <% if !t.marked_white_at %>
+                      <%= form_with model: t, local: true do |f| %>
+                        <%= f.hidden_field :marked_white_at, value: Date.current %>
+                        <%= f.hidden_field :marked_white_by, value: current_user.id %>
+                        <%= f.submit 'Mark White', class: 'btn-form dropdown-item' %>
+                      <% end %>
                     <% end %>
-                  <% end %>
-                  <% if !t.marked_red_at %>
-                    <%= form_with model: t, local: true do |f| %>
-                      <%= f.hidden_field :marked_red_at, value: Date.current %>
-                      <%= f.hidden_field :marked_red_by, value: current_user.id %>
-                      <%= f.submit 'Mark Red', class: 'btn-form dropdown-item' %>
+                    <% if !t.marked_red_at %>
+                      <%= form_with model: t, local: true do |f| %>
+                        <%= f.hidden_field :marked_red_at, value: Date.current %>
+                        <%= f.hidden_field :marked_red_by, value: current_user.id %>
+                        <%= f.submit 'Mark Red', class: 'btn-form dropdown-item' %>
+                      <% end %>
+                      <% if t.marked_red_at || t.marked_white_at %>
+                        <%= form_with model: t, local: true do |f| %>
+                          <%= f.hidden_field :pulled_off_at, value: Date.current %>
+                          <%= f.hidden_field :pulled_off_by, value: current_user.id %>
+                          <%= f.submit 'Mark Complete', class: 'btn-form dropdown-item', data: {confirm: t.ready_to_archive? ? nil : 'Are you sure?'} %>
+                        <% end %>
+                      <% end %>
                     <% end %>
-                  <% end %>
-                  <% if t.marked_red_at || t.marked_white_at %>
-                    <%= form_with model: t, local: true do |f| %>
-                      <%= f.hidden_field :pulled_off_at, value: Date.current %>
-                      <%= f.hidden_field :pulled_off_by, value: current_user.id %>
-                      <%= f.submit 'Mark Complete', class: 'btn-form dropdown-item', data: {confirm: t.ready_to_archive? ? nil : 'Are you sure?'} %>
+                    <div class="dropdown-divider"></div>
+                    <% if t.flagged_by %>
+                      <%= form_with model: t, local: true do |f| %>
+                        <%= f.hidden_field :flagged_by, value: nil %>
+                        <%= f.submit 'Remove Flag', class: 'btn-form dropdown-item text-warning' %>
+                      <% end %>
                     <% end %>
+                    <%= link_to 'Delete', salt_spray_test_path(t), data: { confirm: 'Are you sure?'}, method: 'delete', class: 'text-danger dropdown-item' %>
+                  <% else %>
+                    <%= link_to "View Comments", show_comments_salt_spray_test_path(t.id, on_archived: action_name == 'archived_tests'), remote: true, class: 'dropdown-item text-muted' if has_comments(t) %>
                   <% end %>
-                  <% if t.flagged_by %>
-                    <%= form_with model: t, local: true do |f| %>
-                      <%= f.hidden_field :flagged_by, value: nil %>
-                      <%= f.submit 'Remove Flag', class: 'btn-form dropdown-item text-warning' %>
-                    <% end %>
-                  <% end %>
-                  <div class="dropdown-divider"></div>
-                  <%= link_to 'Delete', salt_spray_test_path(t), data: { confirm: 'Are you sure?'}, method: 'delete', class: 'text-danger dropdown-item' %>
               </div><br>
               <i class="fa fa-exclamation-triangle flag-icon<%= ' d-none' if !t.flagged_by %>"></i>
             </td>
