@@ -50,7 +50,9 @@ class SaltSprayTest < ApplicationRecord
     where "process_code = ?", "#{process_code}"
   }
   scope :with_sample, lambda {|is_sample|
-    where "is_sample = ?", "#{is_sample}"
+    if is_sample == '1'
+      where "is_sample = ?", true
+    end
   }
   scope :with_has_comments, lambda {|has_comments|
     if has_comments == '1'
