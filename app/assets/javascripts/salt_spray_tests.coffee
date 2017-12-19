@@ -31,9 +31,11 @@ $(document).on 'turbolinks:load', (event) ->
   $('.flag-test').on 'click', ->
     if $(this).html() == '<i class="fa fa-exclamation-triangle"></i> Flag For Editing'
       $(this).html("<i class='fa fa-exclamation-triangle'></i> Remove Flag")
+      $('.mobile-comment').prop('required', true)
       $('.flag-icon').removeClass('d-none')
     else
       $(this).html("<i class='fa fa-exclamation-triangle'></i> Flag For Editing")
+      $('.mobile-comment').prop('required', false)
       $('.flag-icon').addClass('d-none')
     $('.toggle-flagged-by').prop 'disabled', (i, v) ->
       return !v

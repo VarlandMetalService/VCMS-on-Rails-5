@@ -1,16 +1,25 @@
 <div class="row">
   <div class="col-12">
-    <% if @salt_spray_test.is_sample %><label class="text-danger"><strong>SAMPLE TEST</strong></label> - <% end %>
-    <label><strong>Shop Order:</strong></label>
-    <span><%= @salt_spray_test.shop_order_number %></span>
-    <label class="ml-3"><strong>Load:</strong></label>
-    <span><%= @salt_spray_test.load_number %></span>
+    <div class="row">
+      <div class="col-6">
+        <% if @salt_spray_test.is_sample %><label class="text-danger"><strong>SAMPLE TEST</strong></label> - <% end %>
+        <label><strong>Shop Order:</strong></label>
+        <span><%= @salt_spray_test.shop_order_number %></span>
+        <label class="ml-3"><strong>Load:</strong></label>
+        <span><%= @salt_spray_test.load_number %></span>
+      </div>
+      <% if @salt_spray_test.flagged_by %>
+        <div class="col-6">
+          <i class="fa fa-exclamation-triangle"></i> <span class="text-warning">Flagged:</span>
+          <em><%= @salt_spray_test.comments.first.content %></em>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>
 <div class="card bg-light">
   <div class="card-body">
     <%= form_with model: @salt_spray_test do |f| %>
-
       <% if @salt_spray_test.errors.any? %>
         <div id="error_explanation">
           <h2>
