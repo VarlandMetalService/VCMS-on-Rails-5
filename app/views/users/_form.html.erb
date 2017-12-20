@@ -77,6 +77,13 @@
           </div>
         </div>
 
+        <div class="col-12 col-sm-6 col-md-3">
+          <div class="form-group">
+            <%= f.label :role, required_field_label('Role:'), class: 'control-label' %>
+            <%= f.select :role, options_for_select(User.roles.keys.to_a, @user.role), {include_blank: false}, { class: "form-control#{' is-invalid' if @user.errors[:role].any?}" } %>
+          </div>
+        </div>
+
       </div>
       <div class="row">
 

@@ -37,7 +37,7 @@ private
 
   def user_params
     params.require(:user).permit(:username, :employee_number, :first_name, :last_name, :suffix, :initials,
-                                 :email, :pin, :current_status, :background_color, :text_color, :is_active,
+                                 :email, :pin, :current_status, :background_color, :text_color, :is_active, :role,
                                  timeclock_records_attributes: [:id, :record_type, :record_timestamp, :submit_type, :ip_address])
   end
 

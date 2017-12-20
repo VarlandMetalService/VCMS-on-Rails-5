@@ -1,7 +1,9 @@
 require 'rest-client'
 
 class User < ApplicationRecord
+  enum role: [:admin, :management, :supervisor, :employee]
 
+  after_initialize :set_default_role, if: :new_record?
   before_save :format_values
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
@@ -65,6 +67,10 @@ class User < ApplicationRecord
 
   def self.options_for_employees
     order('employee_number').map { |u| ["#{u.employee_number} - #{u.full_name}", u.id] }
+  end
+
+  def self.options_for_role
+    self.roles
   end
 
   def self.from_omniauth(access_token)
@@ -154,6 +160,10 @@ class User < ApplicationRecord
   end
 
 private
+
+  def set_default_role
+    # self.role ||= :employee
+  end
 
   def format_values
     self.email = email.downcase

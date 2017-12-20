@@ -17,8 +17,8 @@ class AssignedPermission < ApplicationRecord
       when 1      # Employee Notes
         [
           ['No Access to Notes', '0'],
-          ['Manage Own Notes', '2'],
-          ['Manage Everybody\'s Notes', '3']
+          ['Manage Own Notes', '2'],   # Employees
+          ['Manage Everybody\'s Notes', '3']    # Sysadmins, Management?
         ]
       when 2      # Sysadmin
         [
@@ -35,13 +35,13 @@ class AssignedPermission < ApplicationRecord
       when 4      # Timeclock
         [
           ['No Access', '0'],
-          ['Edit Timeclock Records', '2'],
-          ['Timeclock Administrator', '3']
+          ['Edit Timeclock Records', '2'],    # Sysadmins, Management
+          ['Timeclock Administrator', '3']    # Sysadmins
         ]
       when 5      # QMS Management Review
         [
           ['Does Not Participate in Management Review', '0'],
-          ['Participates in Management Review', '3']
+          ['Participates in Management Review', '3']          #Management
         ]
       when 6      # Yes/No Access
         [

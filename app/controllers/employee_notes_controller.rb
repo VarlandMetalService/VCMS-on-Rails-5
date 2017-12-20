@@ -11,6 +11,9 @@ class EmployeeNotesController < ApplicationController
   has_scope :sorted_by
 
   def index
+
+    # With Pundit gem this would be:
+      # apply_scopes(policy_scope(@employeeNotes)).all.page(params[:page])
     if @access_level.access_level == 3
       @employee_notes = apply_scopes(EmployeeNote).all.page(params[:page])
     else
