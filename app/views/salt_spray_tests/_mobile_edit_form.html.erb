@@ -105,6 +105,7 @@
   </div>
   <br />
   <div class="row">
+    <%= f.hidden_field :checked_by, value: @current_user.id %>
     <% if @salt_spray_test.red_spot_reporter || (@salt_spray_test.white_spot_reporter && !@salt_spray_test.red_spec_exists?) %>
       <div class="text-center col-6">
         <%= f.submit 'Continue Test', class: 'btn btn-sm btn-default' %>
