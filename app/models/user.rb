@@ -120,6 +120,22 @@ class User < ApplicationRecord
     end
   end
 
+  def is_admin?
+    User.roles[self.role] <= User.roles[:admin]
+  end
+
+  def is_management?
+    User.roles[self.role] <= User.roles[:management]
+  end
+
+  def is_supervisor?
+    User.roles[self.role] <= User.roles[:supervisor]
+  end
+
+  def is_employee?
+    User.roles[self.role] <= User.roles[:employee]
+  end
+
   # TODO: Reformat/Replace this method (most of it is already performed elsewhere)
   def punch_clock(record_type, submit_type = 'pin', timestamp = DateTime.current)
 

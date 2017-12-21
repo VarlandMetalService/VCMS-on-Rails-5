@@ -7,7 +7,7 @@
 
       <strong class="col-6">Employee Notes</strong>
 
-      <% if @access_level.access_level == 3 -%>
+      <% if @current_user.is_management? -%>
         <strong class="col-6 text-danger text-uppercase text-right">
           Admin Mode
         </strong>
@@ -53,7 +53,7 @@
             </div>
           </div>
 
-          <% if @access_level.access_level == 3 -%>
+          <% if @current_user.is_management? -%>
             <div class="col-12 col-sm-4 col-md-2">
               <div class="form-group">
                 <%= f.label :with_entered_by, 'Entered By:', class: 'w-100' %>

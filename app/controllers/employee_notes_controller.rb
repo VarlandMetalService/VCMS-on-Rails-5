@@ -14,7 +14,7 @@ class EmployeeNotesController < ApplicationController
 
     # With Pundit gem this would be:
       # apply_scopes(policy_scope(@employeeNotes)).all.page(params[:page])
-    if @access_level.access_level == 3
+    if @current_user.is_supervisor?
       @employee_notes = apply_scopes(EmployeeNote).all.page(params[:page])
     else
       @employee_notes = apply_scopes(EmployeeNote).all.page(params[:page]).with_entered_by(current_user.id)
@@ -63,7 +63,8 @@ class EmployeeNotesController < ApplicationController
 private
 
   def check_permission
-    require_permission 'employee_notes', 2
+    # require_permission 'employee_notes', 2
+    @current_user.is_employee?
   end
 
   def set_note
