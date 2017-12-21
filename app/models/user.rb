@@ -1,7 +1,12 @@
 require 'rest-client'
 
 class User < ApplicationRecord
-  enum role: [:admin, :management, :supervisor, :employee]
+  enum role: {
+    admin: 0,
+    management: 1,
+    supervisor: 2,
+    employee: 3
+  }
 
   after_initialize :set_default_role, if: :new_record?
   before_save :format_values
