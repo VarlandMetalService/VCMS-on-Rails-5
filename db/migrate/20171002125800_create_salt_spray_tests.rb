@@ -34,5 +34,7 @@ class CreateSaltSprayTests < ActiveRecord::Migration[5.1]
     add_foreign_key :salt_spray_tests, :users, column: :marked_red_by
     add_foreign_key :salt_spray_tests, :users, column: :pulled_off_by
 
+    add_index :salt_spray_tests, [:checked_by, :process_code], order: {checked_by: :asc, process_code: :desc}
+
   end
 end
