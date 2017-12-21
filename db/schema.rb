@@ -233,6 +233,7 @@ ActiveRecord::Schema.define(version: 20171117133422) do
     t.string "initials"
     t.string "email"
     t.string "pin"
+    t.integer "role", default: 3
     t.string "current_status", default: "out"
     t.string "background_color"
     t.string "text_color"
