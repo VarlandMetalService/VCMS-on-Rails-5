@@ -182,6 +182,7 @@ ActiveRecord::Schema.define(version: 20171220190512) do
     t.bigint "deleted_by"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["checked_by", "process_code"], name: "index_salt_spray_tests_on_checked_by_and_process_code"
     t.index ["marked_red_by"], name: "fk_rails_818a3fe6c3"
     t.index ["marked_white_by"], name: "fk_rails_eb9b825c87"
     t.index ["pulled_off_by"], name: "fk_rails_6125442cc0"
@@ -232,6 +233,7 @@ ActiveRecord::Schema.define(version: 20171220190512) do
     t.string "initials"
     t.string "email"
     t.string "pin"
+    t.integer "role", default: 3
     t.string "current_status", default: "out"
     t.string "background_color"
     t.string "text_color"
