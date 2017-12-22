@@ -23,6 +23,7 @@ class CreateSaltSprayTests < ActiveRecord::Migration[5.1]
       t.bigint :marked_red_by
       t.bigint :flagged_by
       t.bigint :checked_by
+      t.text :checked_by_archive
       t.boolean :is_sample,    default: false
       t.datetime :deleted_at
       t.bigint :deleted_by
@@ -33,6 +34,8 @@ class CreateSaltSprayTests < ActiveRecord::Migration[5.1]
     add_foreign_key :salt_spray_tests, :users, column: :marked_white_by
     add_foreign_key :salt_spray_tests, :users, column: :marked_red_by
     add_foreign_key :salt_spray_tests, :users, column: :pulled_off_by
+
+    add_index :salt_spray_tests, [:checked_by, :process_code], order: {checked_by: :asc, process_code: :desc}
 
   end
 end
