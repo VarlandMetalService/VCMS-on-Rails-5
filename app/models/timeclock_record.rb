@@ -24,7 +24,7 @@ class TimeclockRecord < ApplicationRecord
             if: lambda { |o| :desktop_submit && o.reason_code && o.reason_code.requires_notes? }
 
   scope :with_week, ->(values) {
-    where('record_timestamp >= ? AND record_timestamp <= ?', Period.find_by_id(values).period_start_date, Period.find_by_id(values).period_end_date - 1)
+    where('record_timestamp >= ? AND record_timestamp <= ?', Period.find_by_id(values).period_start_date, Period.find_by_id(values).period_end_date + 1)
   }
   scope :with_employee, ->(values) {
     where user_id: [*values]
