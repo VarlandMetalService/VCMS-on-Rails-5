@@ -177,6 +177,7 @@ ActiveRecord::Schema.define(version: 20171220190512) do
     t.bigint "marked_red_by"
     t.bigint "flagged_by"
     t.bigint "checked_by"
+    t.text "checked_by_archive"
     t.boolean "is_sample", default: false
     t.datetime "deleted_at"
     t.bigint "deleted_by"
