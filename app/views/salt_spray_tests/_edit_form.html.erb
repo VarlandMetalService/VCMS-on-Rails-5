@@ -26,7 +26,7 @@
       <% end %>
 
       <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-2">
           <div class="form-group">
             <%= f.label :put_on_at, class: 'form-control-label' %>
             <%= f.datetime_local_field :put_on_at, class: 'form-control', value: format_datetime_local(@salt_spray_test.put_on_at) %>
@@ -35,9 +35,12 @@
             <%= f.label :put_on_by, class: 'form-control-label' %>
             <%= f.select :put_on_by, reporters_for_select, {include_blank: true}, {class: 'form-control'} %>
           </div>
-
+          <div class="form-group">
+            <%= f.label :dept, 'Department', class: 'form-control-label' %><br />
+            <%= f.select :dept, SaltSprayTest.options_for_plating_department, {include_blank: true}, {class: 'form-control'} %>
+          </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
           <div class="form-group">
             <%= f.label :date_with_white, 'Date marked white', class: 'form-control-label' %>
             <%= f.datetime_local_field :marked_white_at, class: 'form-control marked-white-date', value: format_datetime_local(@salt_spray_test.marked_white_at) %>
@@ -49,12 +52,8 @@
           <div class="form-group">
             <div class="btn btn-sm btn-link clear-white">Clear 'Marked White' Values</div>
           </div>
-          <div class="form-group">
-            <%= f.label :white_spec, 'White Spec', class: 'form-control-label' %><br />
-            <%= f.number_field :white_spec, class: 'form-control white-spec-field', disabled: !@salt_spray_test.can_edit_spec? %>
-          </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
           <div class="form-group">
             <%= f.label :date_with_red, 'Date marked red', class: 'form-control-label' %>
             <%= f.datetime_local_field :marked_red_at, class: 'form-control marked-red-date', value: format_datetime_local(@salt_spray_test.marked_red_at) %>
@@ -66,19 +65,53 @@
           <div class="form-group">
             <div class="btn btn-sm btn-link clear-red">Clear 'Marked Red' Values</div>
           </div>
+        </div>
+        <div class="col-md-1">
+          <div class="form-group">
+            <%= f.label :white_spec, 'White Spec', class: 'form-control-label' %><br />
+            <%= f.number_field :white_spec, class: 'form-control white-spec-field', disabled: !@salt_spray_test.can_edit_spec? %>
+          </div>
           <div class="form-group">
             <%= f.label :red_spec, 'Red Spec', class: 'form-control-label' %><br />
             <%= f.number_field :red_spec, class: 'form-control white-spec-field', disabled: !@salt_spray_test.can_edit_spec? %>
           </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2 offset-md-1 border border-right-0 pt-2">
           <div class="form-group">
-            <%= f.label :dept, 'Department', class: 'form-control-label' %><br />
-            <%= f.select :dept, SaltSprayTest.options_for_plating_department, {include_blank: true}, {class: 'form-control'} %>
+            <%= f.label :customer, 'Customer', class: 'form-control-label' %><br />
+            <%= f.text_field :customer, disabled: !@salt_spray_test.is_custom_order?, class: 'form-control' %>
+          </div>
+          <div class="form-group">
+            <%= f.label :part_number, 'Part ID', class: 'form-control-label' %><br />
+            <%= f.text_field :part_number, disabled: !@salt_spray_test.is_custom_order?, class: 'form-control' %>
+          </div>
+          <div class="form-group">
+            <%= f.label :sub, 'Sub ID', class: 'form-control-label' %><br />
+            <%= f.text_field :sub, disabled: !@salt_spray_test.is_custom_order?, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="col-md-1 border border-right-0 border-left-0 pt-2">
+          <div class="form-group">
+            <%= f.label :process_code, 'Process', class: 'form-control-label' %><br />
+            <%= f.text_field :process_code, disabled: !@salt_spray_test.is_custom_order?, class: 'form-control' %>
+          </div>
+          <div class="form-group">
+            <%= f.label :part_area, 'Part Area', class: 'form-control-label' %><br />
+            <%= f.number_field :part_area, disabled: !@salt_spray_test.is_custom_order?, class: 'form-control', step: :any %>
+          </div>
+        </div>
+        <div class="col-md-1 border border-left-0 pt-2">
+          <div class="form-group">
+            <%= f.label :density, 'Density', class: 'form-control-label' %><br />
+            <%= f.number_field :density, disabled: !@salt_spray_test.is_custom_order?, class: 'form-control', step: :any %>
+          </div>
+          <div class="form-group">
+            <%= f.label :load_weight, 'Load Weight', class: 'form-control-label' %><br />
+            <%= f.number_field :load_weight, disabled: !@salt_spray_test.is_custom_order?, class: 'form-control', step: :any %>
           </div>
         </div>
       </div>
-      <div class="row">
+      <div class="row mt-3">
         <div class="col-md-3">
           <div class="form-group">
             <%= f.label nil, 'Process Steps' %><br />
@@ -100,40 +133,6 @@
                 </tr>
               </tfoot>
             </table>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <div class="form-group">
-            <%= f.label :customer, 'Customer', class: 'form-control-label' %><br />
-            <%= f.text_field :customer, disabled: !@salt_spray_test.is_custom_order?, class: 'form-control' %>
-          </div>
-          <div class="form-group">
-            <%= f.label :process_code, 'Process', class: 'form-control-label' %><br />
-            <%= f.text_field :process_code, disabled: !@salt_spray_test.is_custom_order?, class: 'form-control' %>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <div class="form-group">
-            <%= f.label :part_number, 'Part ID', class: 'form-control-label' %><br />
-            <%= f.text_field :part_number, disabled: !@salt_spray_test.is_custom_order?, class: 'form-control' %>
-          </div>
-          <div class="form-group">
-            <%= f.label :sub, 'Sub ID', class: 'form-control-label' %><br />
-            <%= f.text_field :sub, disabled: !@salt_spray_test.is_custom_order?, class: 'form-control' %>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <div class="form-group">
-            <%= f.label :part_area, 'Part Area', class: 'form-control-label' %><br />
-            <%= f.number_field :part_area, disabled: !@salt_spray_test.is_custom_order?, class: 'form-control', step: :any %>
-          </div>
-          <div class="form-group">
-            <%= f.label :density, 'Density', class: 'form-control-label' %><br />
-            <%= f.number_field :density, disabled: !@salt_spray_test.is_custom_order?, class: 'form-control', step: :any %>
-          </div>
-          <div class="form-group">
-            <%= f.label :load_weight, 'Load Weight', class: 'form-control-label' %><br />
-            <%= f.number_field :load_weight, disabled: !@salt_spray_test.is_custom_order?, class: 'form-control', step: :any %>
           </div>
         </div>
       </div>
