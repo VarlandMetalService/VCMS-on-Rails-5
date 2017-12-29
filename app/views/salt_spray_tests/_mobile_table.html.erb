@@ -1,6 +1,13 @@
 <%= form_with url: salt_spray_tests_path, class: 'filter-form d-block bg-warning hidden-print', method: 'get' do |f| %>
   <div class="row">
-    <div class="col-md-2">
+    <div class="col-8">
+      <div class="form-group">
+        <%= f.label :with_shop_order_number, 'Shop Order:'  %>
+        <%= f.text_field :with_shop_order_number, class: 'form-control', value: params[:with_shop_order_number] %>
+        <%= f.hidden_field :mobile_filter %>
+      </div>
+    </div>
+    <div class="col-4">
       <div class="form-group">
         <%= f.label :with_process_code, 'Process:'  %>
         <%= f.select :with_process_code, SaltSprayTest.active.options_for_process_code, {include_blank: true, selected: params[:with_process_code]}, { class: 'form-control' } %>
