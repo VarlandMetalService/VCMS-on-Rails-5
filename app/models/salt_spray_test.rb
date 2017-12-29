@@ -150,9 +150,9 @@ class SaltSprayTest < ApplicationRecord
     end
 
     if calculate_rust_hours(spot_date) <= spec_test
-      return 'spec-passed'
+      "<i class='fa fa-check text-success'></i>".html_safe
     else
-      return 'spec-failed'
+      "<i class='fa fa-close text-danger'></i>".html_safe
     end
   end
 
