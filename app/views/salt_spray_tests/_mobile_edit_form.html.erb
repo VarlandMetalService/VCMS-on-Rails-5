@@ -7,7 +7,7 @@
         <span><strong>Process: </strong><%= @salt_spray_test.process_code %></span>
       </div>
       <div class="col-2 mt-3">
-        <i class="fa fa-exclamation-triangle flag-icon<%= ' d-none' if !@salt_spray_test.flagged_by %>"></i>
+        <i class="fa fa-flag flag-icon<%= ' d-none' if !@salt_spray_test.flagged_by %>"></i>
       </div>
     </div>
   </div>
@@ -17,16 +17,18 @@
     <div class="row">
       <div class="col-6">
         <%= f.label :hours_wo_white, "Hours w/o white <br /> (spec):".html_safe %><br />
-        <div class="white_hours <%= @salt_spray_test.get_pass_fail('white') if @salt_spray_test.white_spec_exists? %>">
+        <div class="white_hours">
           <%= @salt_spray_test.calculate_rust_hours(@salt_spray_test.marked_white_at) %>
           (<%= @salt_spray_test.white_spec_exists? ? @salt_spray_test.white_spec : 'N/A' %>)
+          <%= @salt_spray_test.get_pass_fail('white') %>
         </div>
       </div>
       <div class="col-6">
         <%= f.label :hours_wo_red, "Hours w/o red <br /> (spec):".html_safe %><br />
-        <div class="red_hours <%= @salt_spray_test.get_pass_fail('red') if @salt_spray_test.red_spec_exists? %>">
+        <div class="red_hours">
           <%= @salt_spray_test.calculate_rust_hours(@salt_spray_test.marked_red_at) %>
           (<%= @salt_spray_test.red_spec_exists? ? @salt_spray_test.red_spec : 'N/A' %>)
+          <%= @salt_spray_test.get_pass_fail('red') %>
         </div>
       </div>
     </div>
@@ -57,7 +59,7 @@
   <div class="row">
     <div class="col-12 text-center">
       <%= link_to "View Comments / Attachments", show_comments_salt_spray_test_path(@salt_spray_test.id), remote: true, class: 'btn btn-sm btn-info' if has_comments(@salt_spray_test) %>
-      <div class="btn btn-sm btn-warning flag-test"><i class='fa fa-exclamation-triangle'></i> <%= flag_test_text %></div>
+      <div class="btn btn-sm btn-warning flag-test"><i class='fa fa-flag'></i> <%= flag_test_text %></div>
       <%= f.hidden_field :flagged_by, value: @current_user.id, disabled: !@salt_spray_test.flagged_by, class: 'toggle-flagged-by' %>
       <%= f.hidden_field :flagged_by, value: nil, disabled: @salt_spray_test.flagged_by, class: 'toggle-flagged-by' %>
     </div>

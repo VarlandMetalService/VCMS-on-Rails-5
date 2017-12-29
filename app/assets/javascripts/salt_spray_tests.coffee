@@ -29,13 +29,11 @@ $(document).on 'turbolinks:load', (event) ->
 
   # Toggle 'Flag For Editing'
   $('.flag-test').on 'click', ->
-    if $(this).html() == '<i class="fa fa-exclamation-triangle"></i> Flag For Editing'
-      $(this).html("<i class='fa fa-exclamation-triangle'></i> Remove Flag")
-      $('.mobile-comment').prop('required', true)
+    if $(this).html() == '<i class="fa fa-flag"></i> Flag For Editing'
+      $(this).html("<i class='fa fa-flag'></i> Remove Flag")
       $('.flag-icon').removeClass('d-none')
     else
-      $(this).html("<i class='fa fa-exclamation-triangle'></i> Flag For Editing")
-      $('.mobile-comment').prop('required', false)
+      $(this).html("<i class='fa fa-flag'></i> Flag For Editing")
       $('.flag-icon').addClass('d-none')
     $('.toggle-flagged-by').prop 'disabled', (i, v) ->
       return !v
