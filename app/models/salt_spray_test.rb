@@ -224,6 +224,10 @@ class SaltSprayTest < ApplicationRecord
     self.marked_red_at && self.red_spot_reporter
   end
 
+  def get_last_comment
+    self.comments.reverse_order.limit(1).to_a.first.content
+  end
+
 private
 
   def standardize_times

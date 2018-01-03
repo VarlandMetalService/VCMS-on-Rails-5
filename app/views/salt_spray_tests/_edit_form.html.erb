@@ -11,7 +11,7 @@
       <% if @salt_spray_test.flagged_by %>
         <div class="col-6">
           <i class="fa fa-exclamation-triangle"></i> <span class="text-warning">Flagged:</span>
-          <em><%= @salt_spray_test.comments.first.content %></em>
+          <em><%= @salt_spray_test.get_last_comment %></em>
         </div>
       <% end %>
     </div>

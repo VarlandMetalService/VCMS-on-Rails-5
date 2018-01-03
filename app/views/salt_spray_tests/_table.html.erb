@@ -184,12 +184,12 @@
                         <%= f.hidden_field :marked_red_by, value: current_user.id %>
                         <%= f.submit 'Mark Red', class: 'btn-form dropdown-item' %>
                       <% end %>
-                      <% if t.marked_red_at || t.marked_white_at %>
-                        <%= form_with model: t, local: true do |f| %>
-                          <%= f.hidden_field :pulled_off_at, value: Date.current %>
-                          <%= f.hidden_field :pulled_off_by, value: current_user.id %>
-                          <%= f.submit 'Mark Complete', class: 'btn-form dropdown-item', data: {confirm: t.ready_to_archive? ? nil : 'Are you sure?'} %>
-                        <% end %>
+                    <% end %>
+                    <% if t.marked_red_at || t.marked_white_at %>
+                      <%= form_with model: t, local: true do |f| %>
+                        <%= f.hidden_field :pulled_off_at, value: Date.current %>
+                        <%= f.hidden_field :pulled_off_by, value: current_user.id %>
+                        <%= f.submit 'Mark Complete', class: 'btn-form dropdown-item', data: {confirm: t.ready_to_archive? ? nil : 'Are you sure?'} %>
                       <% end %>
                     <% end %>
                     <div class="dropdown-divider"></div>
