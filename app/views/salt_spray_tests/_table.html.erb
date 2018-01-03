@@ -43,25 +43,25 @@
     <div class="col-md-1">
       <div class="form-group text-center">
         <%= f.label :with_flag, 'Is Flagged:'  %>
-        <%= f.check_box :with_flag, class: 'form-control', checked: params[:with_flag] == '1' ? true : false %>
+        <%= f.check_box :with_flag, class: 'form-control', checked: params[:with_flag] == '1' %>
       </div>
     </div>
     <div class="col-md-1">
       <div class="form-group text-center">
         <%= f.label :with_sample, 'Is Sample:'  %>
-        <%= f.check_box :with_sample, class: 'form-control', checked: params[:with_sample] == '1' ? true : false %>
+        <%= f.check_box :with_sample, class: 'form-control', checked: params[:with_sample] == '1' %>
       </div>
     </div>
     <div class="col-md-1">
       <div class="form-group text-center">
         <%= f.label :with_has_comments, 'Has Comments:'  %>
-        <%= f.check_box :with_has_comments, class: 'form-control', checked: params[:with_has_comments] == '1' ? true : false %>
+        <%= f.check_box :with_has_comments, class: 'form-control', checked: params[:with_has_comments] == '1' %>
       </div>
     </div>
     <div class="col-md-1">
       <div class="form-group text-center">
         <%= f.label :with_has_attachments, 'Has Attachments:'  %>
-        <%= f.check_box :with_has_attachments, class: 'form-control', checked: params[:with_has_attachments] == '1' ? true : false %>
+        <%= f.check_box :with_has_attachments, class: 'form-control', checked: params[:with_has_attachments] == '1' %>
       </div>
     </div>
     <div class="col-md-2">
@@ -102,7 +102,7 @@
     <thead>
       <tr class="row m-0">
         <th class="col-2 text-left">Shop Order</th>
-        <th class="col-1 text-center">Process</th>
+        <th class="col-1 text-center">Process / Dept</th>
         <th class="col-2">Date On</th>
         <% if action_name == 'archived_tests' %>
           <th class="col-2">Date Off</th>
