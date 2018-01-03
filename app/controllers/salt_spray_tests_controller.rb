@@ -7,6 +7,7 @@ class SaltSprayTestsController < ApplicationController
   has_scope :with_customer
   has_scope :with_part_number
   has_scope :with_process_code
+  has_scope :with_flag
   has_scope :with_sample
   has_scope :with_has_comments
   has_scope :with_has_attachments

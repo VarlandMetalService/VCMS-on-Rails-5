@@ -51,6 +51,11 @@ class SaltSprayTest < ApplicationRecord
   scope :with_process_code, lambda { |process_code|
     where "process_code = ?", "#{process_code}"
   }
+  scope :with_flag, lambda {|is_flagged|
+    if is_flagged == '1'
+      where "flagged_by IS NOT NULL"
+    end
+  }
   scope :with_sample, lambda {|is_sample|
     if is_sample == '1'
       where "is_sample = ?", true
