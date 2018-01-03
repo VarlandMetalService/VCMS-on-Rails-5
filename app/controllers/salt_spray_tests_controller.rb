@@ -59,6 +59,8 @@ class SaltSprayTestsController < ApplicationController
       @salt_spray_test.pulled_off_by = current_user.id
     end
 
+    @salt_spray_test.flagged_by = nil if params[:salt_spray_test][:remove_flag] == "1"
+
     if @salt_spray_test.update(salt_spray_test_params)
       redirect_to action: 'index'
     else

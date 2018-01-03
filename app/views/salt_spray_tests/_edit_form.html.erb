@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-12">
     <div class="row">
-      <div class="col-6">
+      <div class="col-7">
         <% if @salt_spray_test.is_sample %><label class="text-danger"><strong>SAMPLE TEST</strong></label> - <% end %>
         <label><strong>Shop Order:</strong></label>
         <span><%= @salt_spray_test.shop_order_number %></span>
@@ -9,7 +9,7 @@
         <span><%= @salt_spray_test.load_number %></span>
       </div>
       <% if @salt_spray_test.flagged_by %>
-        <div class="col-6">
+        <div class="col-5">
           <i class="fa fa-exclamation-triangle"></i> <span class="text-warning">Flagged:</span>
           <em><%= @salt_spray_test.get_last_comment %></em>
         </div>
@@ -142,6 +142,12 @@
             </table>
           </div>
         </div>
+        <% if @salt_spray_test.flagged_by %>
+          <div class="col-3 offset-5">
+            <%= f.check_box :remove_flag %>
+            <%= f.label :remove_flag, 'Remove Flag?' %>
+          </div>
+        <% end %>
       </div>
       <div class="form-group">
         <br />
