@@ -101,7 +101,7 @@ module ApplicationHelper
   end
 
   def filter_btn
-    "<button class='btn btn-sm btn-warning display-filter'>Show Filter</button>".html_safe
+    "<button class='btn btn-sm btn-warning display-filter'>Hide Filter</button>".html_safe
   end
 
 end
