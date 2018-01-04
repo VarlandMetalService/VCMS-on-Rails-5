@@ -32,6 +32,7 @@
               <div class="row form-group comment-group">
                 <div class="col-9 pr-0">
                   <%= c.text_area :content, rows: 5, class: 'form-control' %>
+                  <%= c.hidden_field :created_by, value: @current_user.initials %>
                 </div>
                 <div class="col-3 px-0">
                   <div class="btn btn-sm btn-link clear-comment">Clear</div>

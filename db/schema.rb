@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(version: 20171117133422) do
 
   create_table "comments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.text "content"
+    t.string "created_by"
     t.string "commentable_type"
     t.bigint "commentable_id"
     t.datetime "created_at", null: false
