@@ -19,45 +19,35 @@
     <div class="col-12">
       <div class="row d-none d-md-flex">
         <div class="col-12 text-right">
-          <% if @salt_spray_tests.size != 0 -%>
-            <%= filter_btn %>
-          <% end %>
+          <%= filter_btn %>
           <%= link_to 'View Active Tests', salt_spray_tests_path, class: "btn btn-sm btn-primary"%>
         </div>
       </div>
 
-      <% if @salt_spray_tests.size == 0 -%>
+      <div class="archived-results">
+        <%= render 'table' %>
+      </div>
 
-        <p class="text-muted">No salt spray tests found.</p>
+      <!-- Modal -->
+      <div id="modal-window" class="modal fade" role="dialog">
+        <div class="modal-dialog">
 
-      <% else -%>
-
-        <div class="archived-results">
-          <%= render 'table' %>
-        </div>
-
-        <!-- Modal -->
-        <div id="modal-window" class="modal fade" role="dialog">
-          <div class="modal-dialog">
-
-            <!-- Modal content-->
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title">Shop Order Information</h5>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-              </div>
-              <div class="modal-body">
-                <div id="part_info"></div>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              </div>
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Shop Order Information</h5>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-
+            <div class="modal-body">
+              <div id="part_info"></div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
           </div>
-        </div>
 
-      <% end %>
+        </div>
+      </div>
 
     </div>
   </div>

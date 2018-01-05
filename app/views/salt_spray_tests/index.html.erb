@@ -33,9 +33,7 @@
         <%= link_to 'Add Test', new_salt_spray_test_path, :class => "btn btn-success btn-sm" %>
       </div>
       <div class="col-6 text-right">
-        <%# if @salt_spray_tests.size != 0 -%>
-          <%= filter_btn %>
-        <%# end %>
+        <%= filter_btn %>
         <%= link_to 'View Archived Tests', archived_tests_salt_spray_tests_path, :class => "btn btn-sm btn-primary" %>
       </div>
     </div>
