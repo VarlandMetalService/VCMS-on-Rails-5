@@ -1,2 +1,3 @@
+$('#part-info-title').html("Comments - <%= @salt_spray_test.shop_order_number %> (<%= @salt_spray_test.load_number %>)")
 $('#part_info').html("<%= escape_javascript(render(partial: 'show_comments', locals: { salt_spray_test: @salt_spray_test })) %>");
 $('#modal-window').modal('show');
