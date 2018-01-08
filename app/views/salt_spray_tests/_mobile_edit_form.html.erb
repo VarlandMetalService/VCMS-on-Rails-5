@@ -8,9 +8,9 @@
       </div>
       <div class="col-4 mt-1">
         <%= link_to 'View Details', salt_spray_test_path(@salt_spray_test), class: "text-muted mobile-details-sm", remote: true %>
-        <div class="mobile-icons ml-3">
-          <i class="fa fa-flask<%= ' d-none' if !@salt_spray_test.is_sample %>"></i>
+        <div class="mobile-icons text-info ml-3">
           <i class="fa fa-flag flag-icon<%= ' d-none' if !@salt_spray_test.flagged_by %>"></i>
+          <i class="fa fa-flask<%= ' d-none' if !@salt_spray_test.is_sample %>"></i>
         </div>
       </div>
     </div>

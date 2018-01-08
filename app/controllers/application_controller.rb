@@ -22,6 +22,12 @@ protected
     end
   end
 
+  def require_permission_new(role)
+    if User.roles[current_user.role] > User.roles[role]
+      redirect_to(root_url, flash: { error: 'Permission denied. Please contact IT if you have questions.' }) and return
+    end
+  end
+
   def require_login
     unless logged_in?
       session[:return_to] = request.fullpath

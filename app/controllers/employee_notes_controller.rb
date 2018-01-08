@@ -64,7 +64,7 @@ private
 
   def check_permission
     # require_permission 'employee_notes', 2
-    @current_user.is_employee?
+    require_permission_new 'employee'
   end
 
   def set_note

@@ -18,7 +18,7 @@
     <div class="row">
       <strong class="col-6">Salt Spray Tests</strong>
 
-      <% if @access_level.access_level == 3 -%>
+      <% if @current_user.is_management? -%>
         <strong class="col-6 text-danger text-uppercase text-right">
           Admin Mode
         </strong>

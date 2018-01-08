@@ -70,7 +70,7 @@ class SaltSprayTestsController < ApplicationController
   end
 
   def destroy
-    if @access_level.access_level == 3
+    if current_user.is_supervisor?
       if @salt_spray_test.delete_test(current_user.id)
         redirect_to salt_spray_tests_path, notice: 'Successfully deleted salt spray test.'
       else
@@ -93,7 +93,7 @@ class SaltSprayTestsController < ApplicationController
 
   def delete_comment
     @comment = @salt_spray_test.comments.find(params[:comment_id])
-    if @access_level.access_level == 3
+    if current_user.is_supervisor?
       if @comment.destroy
         redirect_to salt_spray_tests_path, notice: 'Successfully deleted comment.'
       else
@@ -123,7 +123,8 @@ class SaltSprayTestsController < ApplicationController
 private
 
   def check_user_permission
-    check_permission 'salt_spray_tests'
+    # check_permission 'salt_spray_tests'
+    require_permission_new 'employee'
   end
 
   def set_salt_spray_test

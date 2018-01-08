@@ -9,7 +9,7 @@
             <% end %>
           <% end %>
         </div>
-        <% if params[:on_archived] == 'false' %>
+        <% if params[:on_archived] == 'false' && @current_user.is_supervisor? %>
           <div class="col-md-3 d-none d-md-block pl-4">
             <%= link_to '<i class="fa fa-pencil"></i>'.html_safe, edit_comment_salt_spray_test_path(salt_spray_test, comment_id: comment.id), class: 'btn btn-sm btn-default' %>
             <%= link_to '<i class="fa fa-trash"></i>'.html_safe, delete_comment_salt_spray_test_path(salt_spray_test, comment_id: comment.id),  data: { confirm: 'Are you sure?' }, method: 'delete', class: 'btn btn-sm btn-danger' %>
