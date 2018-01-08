@@ -1,13 +1,17 @@
 <div class="row">
   <div class="col-12 card bg-light">
     <div class="row">
-      <div class="col-10 text-left mobile-details-sm">
+      <div class="col-8 text-left mobile-details-sm">
         <span><strong>Shop Order: </strong><%= @salt_spray_test.shop_order_number %></span><br />
         <span><strong>Load: </strong><%= @salt_spray_test.load_number %></span><br />
         <span><strong>Process: </strong><%= @salt_spray_test.process_code %></span>
       </div>
-      <div class="col-2 mt-3">
-        <i class="fa fa-flag flag-icon<%= ' d-none' if !@salt_spray_test.flagged_by %>"></i>
+      <div class="col-4 mt-1">
+        <%= link_to 'View Details', salt_spray_test_path(@salt_spray_test), class: "text-muted mobile-details-sm", remote: true %>
+        <div class="mobile-icons ml-3">
+          <i class="fa fa-flask<%= ' d-none' if !@salt_spray_test.is_sample %>"></i>
+          <i class="fa fa-flag flag-icon<%= ' d-none' if !@salt_spray_test.flagged_by %>"></i>
+        </div>
       </div>
     </div>
   </div>
