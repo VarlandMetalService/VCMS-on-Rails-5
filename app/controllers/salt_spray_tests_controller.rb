@@ -1,12 +1,14 @@
 class SaltSprayTestsController < ApplicationController
   before_action :check_user_permission
   before_action :set_salt_spray_test, only: [:show, :edit, :update, :destroy, :add_comment, :edit_comment, :show_comments, :delete_comment]
+  before_action :manage_filter_state, only: :index
 
   has_scope :with_shop_order_number
   has_scope :with_put_on_by
   has_scope :with_customer
   has_scope :with_part_number
   has_scope :with_process_code
+  has_scope :with_flag
   has_scope :with_sample
   has_scope :with_has_comments
   has_scope :with_has_attachments
@@ -58,8 +60,10 @@ class SaltSprayTestsController < ApplicationController
       @salt_spray_test.pulled_off_by = current_user.id
     end
 
+    @salt_spray_test.flagged_by = nil if params[:salt_spray_test][:remove_flag] == "1"
+
     if @salt_spray_test.update(salt_spray_test_params)
-      redirect_to action: 'index'
+      redirect_to action: 'index', params: session[:params]
     else
       render 'edit'
     end
@@ -133,7 +137,11 @@ private
                                             :marked_white_at, :marked_white_by, :marked_red_at, :marked_red_by,
                                             :flagged_by, :checked_by, :checked_by_archive,:is_sample,
                                             salt_spray_process_steps_attributes: [:id, :name, :_destroy],
-                                            comments_attributes: [:id, :content, :_destroy, attachments_attributes: [:id, :content_type, :file, :_destroy]])
+                                            comments_attributes: [:id, :content, :created_by, :_destroy, attachments_attributes: [:id, :content_type, :file, :_destroy]])
+  end
+
+  def manage_filter_state
+    session[:params] = params
   end
 
 end

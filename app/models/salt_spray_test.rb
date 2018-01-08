@@ -51,6 +51,11 @@ class SaltSprayTest < ApplicationRecord
   scope :with_process_code, lambda { |process_code|
     where "process_code = ?", "#{process_code}"
   }
+  scope :with_flag, lambda {|is_flagged|
+    if is_flagged == '1'
+      where "flagged_by IS NOT NULL"
+    end
+  }
   scope :with_sample, lambda {|is_sample|
     if is_sample == '1'
       where "is_sample = ?", true
@@ -150,9 +155,9 @@ class SaltSprayTest < ApplicationRecord
     end
 
     if calculate_rust_hours(spot_date) <= spec_test
-      return 'spec-passed'
+      "<i class='fa fa-check text-success'></i>".html_safe
     else
-      return 'spec-failed'
+      "<i class='fa fa-close text-danger'></i>".html_safe
     end
   end
 
@@ -217,6 +222,10 @@ class SaltSprayTest < ApplicationRecord
 
   def marked_red?
     self.marked_red_at && self.red_spot_reporter
+  end
+
+  def get_last_comment
+    self.comments.reverse_order.limit(1).to_a.first.content
   end
 
 private

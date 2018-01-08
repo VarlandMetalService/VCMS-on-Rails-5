@@ -16,4 +16,5 @@ private
   def check_for_blank(attachment = nil)
     self.destroy if self.content.blank? && self.attachments.size == 0
   end
+
 end

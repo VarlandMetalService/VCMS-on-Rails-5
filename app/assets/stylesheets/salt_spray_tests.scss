@@ -9,6 +9,10 @@
 
     .shop-order {
       font-size: 24px;
+      i {
+        font-size: 22px;
+        padding-right: 5px;
+      }
     }
 
     .load-number {
@@ -88,6 +92,23 @@
 
   .bg-warning-table {
     background-color: #fffccb;
+  }
+
+  .comment-block {
+    padding-top: 2px;
+    padding-bottom: 3px;
+  }
+
+  .commenter-initials {
+    background-color: darkcyan;
+    color: white;
+    width: 30px;
+    height: 30px;
+    box-shadow: 0px 0px 2px #888888;
+    border-radius: 100%;
+    margin-right: 10px;
+    padding: 5px;
+    font-size: 14px;
   }
 
   // Table row colors
