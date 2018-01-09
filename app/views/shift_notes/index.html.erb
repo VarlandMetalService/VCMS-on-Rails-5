@@ -6,7 +6,7 @@
     <div class="row">
       <strong class="col-6">Shift Notes</strong>
 
-      <% if @access_level.access_level == 3 -%>
+      <% if @current_user.is_supervisor? -%>
         <strong class="col-6 text-danger text-uppercase text-right">
           Admin Mode
         </strong>
@@ -111,10 +111,10 @@
       <% end %>
 
       <div id="results" class="d-none d-md-block">
-        <%= render partial: 'list', locals: { shift_notes: @shift_notes, current_user: @current_user, access_level: @access_level.access_level } %>
+        <%= render partial: 'list', locals: { shift_notes: @shift_notes, current_user: @current_user } %>
       </div>
       <div class="d-md-none">
-        <%= render partial: 'mobile_list', locals: { shift_notes: @shift_notes, current_user: @current_user, access_level: @access_level.access_level } %>
+        <%= render partial: 'mobile_list', locals: { shift_notes: @shift_notes, current_user: @current_user } %>
       </div>
 
     <% end %>

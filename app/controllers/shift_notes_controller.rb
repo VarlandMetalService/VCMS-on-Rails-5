@@ -55,7 +55,8 @@ class ShiftNotesController < ApplicationController
 private
 
   def check_permission
-    require_permission 'shift_notes', 2
+    # require_permission 'shift_notes', 2
+    require_permission_new 'employee'
   end
 
   def set_note

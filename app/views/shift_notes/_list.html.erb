@@ -37,7 +37,7 @@
             <% end %>
           </td>
           <td class="d-inline-block col-1 text-center hidden-print">
-            <% if access_level == 3 || current_user == n.author -%>
+            <% if current_user.is_supervisor? || current_user == n.author -%>
               <%= link_to 'Edit', edit_shift_note_path(n), class: 'btn btn-sm btn-default'  %>
               <%= link_to 'Delete', n, method: :delete, class: 'btn btn-sm btn-danger', data: { confirm: 'Are you sure you want to delete this note?' }  %>
             <% end %>

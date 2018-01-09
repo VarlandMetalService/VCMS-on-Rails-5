@@ -94,7 +94,8 @@ class TimeclockRecordsController < ApplicationController
 private
 
   def check_permission
-    require_permission 'timeclock_records', 2
+    # require_permission 'timeclock_records', 2
+    require_permission_new 'employee'
   end
 
   def set_timeclock_record

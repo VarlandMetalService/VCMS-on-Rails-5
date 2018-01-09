@@ -64,7 +64,7 @@
 
           </div>
 
-          <% unless @shift_note.id.nil? || @access_level.access_level < 3 -%>
+          <% unless @shift_note.id.nil? || @current_user.is_supervisor? -%>
             <div class="row">
 
               <div class="col-12">
