@@ -150,7 +150,7 @@ class SaltSprayTest < ApplicationRecord
       spot_date = self.marked_red_at
     end
 
-    if spec_test.nil? || spec_test == 0
+    if spec_test.nil? || spec_test == 0 || spot_date.nil?
       return
     end
 
