@@ -52,7 +52,6 @@ brandon = User.create(username: 'brandon', employee_number: 131, first_name: 'Br
 jeff = User.create(username: 'jeff', employee_number: 438, first_name: 'Jeff', last_name: 'Coad', initials: 'JC', email: 'jeff.coad@varland.com', pin: '6168')
 koby = User.create(username: 'koby', employee_number: 439, first_name: 'Koby', last_name: 'Luccasen', initials: 'KL', email: 'koby.luccasen@varland.com', pin: '0399')
 dennis = User.create(username: 'dennis', employee_number: 132, first_name: 'Dennis', last_name: 'Loew', initials: 'DL', email: 'dennis.loew@varland.com', pin: '1425')
-eric = User.create(username: 'eric', employee_number: 832, first_name: 'Eric', last_name: 'Thiry', initials: 'ET', email: 'eric.thiry@varland.com', pin: '9816')
 garrett = User.create(username: 'garrett', employee_number: 133, first_name: 'Garrett', last_name: 'Nadicksbernd', initials: 'GN', email: 'garrett.nadicksbernd@varland.com', pin: '5695')
 mattc = User.create(username: 'mattc', employee_number: 134, first_name: 'Matthew', last_name: 'Cappelletti', initials: 'MC', email: 'matthew.cappelletti@varland.com', pin: '0118')
 brendan = User.create(username: 'brendan', employee_number: 833, first_name: 'Brendan', last_name: 'Ryan', initials: 'BR', email: 'brendan.ryan@varland.com', pin: '5714')
@@ -119,3 +118,23 @@ reason_codes = ReasonCode.create([{code: 'Forgot to Clock In', requires_notes: f
                                   {code: 'Change Start Time', requires_notes: true, is_deleted: false},
                                   {code: 'Change End Time', requires_notes: true, is_deleted: false},
                                   {code: 'No Clock In/Out For Lunch', requires_notes: false, is_deleted: false}])
+
+salt_spray_tests = SaltSprayTest.create([{shop_order_number: 264175, load_number: 1, customer: 'FIS', process_code: 'ZN', part_number: 24760, white_spec: 72, red_spec: 120,
+                                          density: 0.3170, dept: 3, put_on_by: 57, put_on_at: '2016-01-12 15:47:48', pulled_off_at: '2016-01-21 15:47:48', pulled_off_by: 57,
+                                          marked_white_at: '2016-01-18 15:47:48', marked_white_by: 57, marked_red_at: '2016-01-21 15:47:48', marked_red_by: 57},
+                                         {shop_order_number: 264591, load_number: 1, customer: 'FIS', process_code: 'ZN', part_number: 24760, white_spec: 72, red_spec: 120,
+                                          density: 0.3180, dept: 3, put_on_by: 57, put_on_at: '2016-01-29 15:47:48', pulled_off_at: '2016-02-05 15:47:48', pulled_off_by: 57,
+                                          marked_white_at: '2016-02-02 15:47:48', marked_white_by: 57, marked_red_at: '2016-02-05 15:47:48', marked_red_by: 57},
+                                         {shop_order_number: 264838, load_number: 1, customer: 'FIS', process_code: 'ZN', part_number: 24760, white_spec: 72, red_spec: 120,
+                                          density: 0.3330, dept: 3, put_on_by: 57, put_on_at: '2016-02-05 15:47:48', pulled_off_at: '2016-02-12 15:47:48', pulled_off_by: 57,
+                                          marked_white_at: '2016-02-09 15:47:48', marked_white_by: 57, marked_red_at: '2016-02-11 15:47:48', marked_red_by: 57},
+                                         {shop_order_number: 265079, load_number: 1, customer: 'FIS', process_code: 'ZN', part_number: 24760, white_spec: 72, red_spec: 120,
+                                          density: 0.3490, dept: 3, put_on_by: 57, put_on_at: '2016-02-19 15:47:48', pulled_off_at: '2016-02-29 15:47:48', pulled_off_by: 57,
+                                          marked_white_at: '2016-02-23 15:47:48', marked_white_by: 57, marked_red_at: '2016-02-29 15:47:48', marked_red_by: 57},
+                                         {shop_order_number: 265377, load_number: 1, customer: 'FIS', process_code: 'ZN', part_number: 24760, white_spec: 72, red_spec: 120,
+                                          density: 0.3380, dept: 3, put_on_by: 57, put_on_at: '2016-02-29 15:47:48', pulled_off_at: '2016-03-11 15:47:48', pulled_off_by: 57,
+                                          marked_white_at: '2016-03-04 15:47:48', marked_white_by: 57, marked_red_at: '2016-03-11 15:47:48', marked_red_by: 57},
+                                         {shop_order_number: 281871, load_number: 11, customer: 'FIS', process_code: 'ZN', part_number: 24760, sub: 'H 250 45 sec @ 140 F',
+                                          white_spec: 72, red_spec: 120, density: 122, dept: 3, put_on_by: 57, put_on_at: '2018-01-03 15:47:48'},
+                                         {shop_order_number: 281871, load_number: 12, customer: 'FIS', process_code: 'ZN', part_number: 24760, sub: 'H 200 110 sec',
+                                          white_spec: 72, red_spec: 120, density: 122, dept: 3, put_on_by: 57, put_on_at: '2018-01-03 15:47:48'}])

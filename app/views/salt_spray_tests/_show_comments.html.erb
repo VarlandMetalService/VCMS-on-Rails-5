@@ -2,7 +2,7 @@
   <% salt_spray_test.comments.each do |comment| %>
       <div class="row">
         <div class="col-12 col-md-9 prevent-text-overflow comment-block">
-          <span class="commenter-initials"><%= comment.created_by %></span> <%# TODO: change to comment.created_by.initials after DB change %>
+          <span class="commenter-initials"><%= User.find(comment.created_by).initials %></span>
           <%= comment.content %><br />
           <% if comment.attachments.size > 0 %>
             <% comment.attachments.each do |a| %>
