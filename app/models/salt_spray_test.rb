@@ -75,7 +75,7 @@ class SaltSprayTest < ApplicationRecord
     joins(:comments).distinct.where('content like ?', "%#{query}%")
   }
   scope :with_sub, lambda { |sub_id|
-    where("sub like ?", "#{sub_id}%")
+    where("sub like ?", "%#{sub_id}%")
   }
   scope :with_put_on_at_gte, lambda { |reference_time|
     where 'put_on_at >= ?', reference_time.to_date
