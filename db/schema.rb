@@ -141,16 +141,9 @@ ActiveRecord::Schema.define(version: 20171117133422) do
   create_table "salt_spray_process_steps", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "salt_spray_test_id"
     t.string "name"
-    t.string "vat_name"
-    t.decimal "temperature", precision: 10
-    t.decimal "ph", precision: 10
-    t.integer "barrel_rpm"
-    t.timestamp "time_in"
-    t.timestamp "time_out"
-    t.decimal "amp_hours", precision: 10
-    t.decimal "target_amp_hours", precision: 10
     t.decimal "thickness", precision: 10
-    t.decimal "alloy_percentage", precision: 10
+    t.integer "dipping_time"
+    t.string "note", limit: 100
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
