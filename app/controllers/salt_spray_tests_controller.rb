@@ -136,7 +136,7 @@ private
                                             :put_on_by, :put_on_at, :pulled_off_at, :pulled_off_by,
                                             :marked_white_at, :marked_white_by, :marked_red_at, :marked_red_by,
                                             :flagged_by, :checked_by, :checked_by_archive,:is_sample,
-                                            salt_spray_process_steps_attributes: [:id, :name, :_destroy],
+                                            salt_spray_process_steps_attributes: [:id, :name, :thickness, :dipping_time, :note, :_destroy],
                                             comments_attributes: [:id, :content, :created_by, :_destroy, attachments_attributes: [:id, :content_type, :file, :_destroy]])
   end
 

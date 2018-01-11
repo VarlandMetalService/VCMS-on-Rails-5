@@ -119,9 +119,9 @@
         </div>
       </div>
       <div class="row mt-3">
-        <div class="col-md-3">
+        <div class="col-md-6">
           <div class="form-group">
-            <%= f.label nil, 'Process Steps' %><br />
+            <strong><%= f.label nil, 'Process Steps' %></strong><br />
             <table class="table-responsive table-sm">
               <tbody id="salt_spray_processes">
                 <%= f.fields_for :salt_spray_process_steps do |process| %>
