@@ -94,15 +94,15 @@ class SaltSprayTest < ApplicationRecord
   }
 
   def self.options_for_part_number
-    distinct.where.not(part_number: [nil, '']).pluck(:part_number).sort!
+    distinct.where.not(part_number: [nil, '']).limit(100).pluck(:part_number).sort!
   end
 
   def self.options_for_process_code
-    distinct.where.not(process_code: [nil, '']).pluck(:process_code).sort!
+    distinct.where.not(process_code: [nil, '']).limit(100).pluck(:process_code).sort!
   end
 
   def self.options_for_customer
-    distinct.where.not(customer: [nil, '']).pluck(:customer).sort!
+    distinct.where.not(customer: [nil, '']).limit(100).pluck(:customer).sort!
   end
 
   def self.options_for_put_on_by
