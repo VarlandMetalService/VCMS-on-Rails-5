@@ -47,7 +47,7 @@
       <br />
       <div class="form-group">
         <%= f.submit 'Create Salt Spray Test', class: 'btn btn-primary' %>
-        <%= link_to 'Cancel', salt_spray_tests_path, class: 'btn btn-link' %>
+        <%= link_to 'Cancel', salt_spray_tests_path(session[:params]), class: 'btn btn-link' %>
       </div>
     <% end %>
   </div>

@@ -64,7 +64,7 @@
       <div class="form-group">
         <br />
         <%= f.submit 'Add Comment', class: 'btn btn-primary' %>
-        <%= link_to 'Cancel', salt_spray_tests_path, class: 'btn btn-link' %>
+        <%= link_to 'Cancel', salt_spray_tests_path(session[:params]), class: 'btn btn-link' %>
       </div>
     <% end %>
   </div>

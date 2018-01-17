@@ -1,7 +1,7 @@
 class SaltSprayTestsController < ApplicationController
   before_action :check_user_permission
   before_action :set_salt_spray_test, only: [:show, :edit, :update, :destroy, :add_comment, :edit_comment, :show_comments, :delete_comment]
-  before_action :manage_filter_state, only: :index
+  after_action :cache_filters, only: :index
 
   has_scope :with_shop_order_number
   has_scope :with_put_on_by
@@ -72,12 +72,12 @@ class SaltSprayTestsController < ApplicationController
   def destroy
     if @access_level.access_level == 3
       if @salt_spray_test.delete_test(current_user.id)
-        redirect_to salt_spray_tests_path, notice: 'Successfully deleted salt spray test.'
+        redirect_to salt_spray_tests_path(session[:params]), notice: 'Successfully deleted salt spray test.'
       else
-        redirect_to salt_spray_tests_path, flash: { error: 'Error deleting salt spray test. Please contact IT.' }
+        redirect_to salt_spray_tests_path(session[:params]), flash: { error: 'Error deleting salt spray test. Please contact IT.' }
       end
     else
-      redirect_to salt_spray_tests_path, flash: { error: 'You do not have permission to delete salt spray tests.' }
+      redirect_to salt_spray_tests_path(session[:params]), flash: { error: 'You do not have permission to delete salt spray tests.' }
     end
   end
 
@@ -95,12 +95,12 @@ class SaltSprayTestsController < ApplicationController
     @comment = @salt_spray_test.comments.find(params[:comment_id])
     if @access_level.access_level == 3
       if @comment.destroy
-        redirect_to salt_spray_tests_path, notice: 'Successfully deleted comment.'
+        redirect_to salt_spray_tests_path(session[:params]), notice: 'Successfully deleted comment.'
       else
-        redirect_to salt_spray_tests_path, flash: { error: 'Error deleting comment. Please contact IT.' }
+        redirect_to salt_spray_tests_path(session[:params]), flash: { error: 'Error deleting comment. Please contact IT.' }
       end
     else
-      redirect_to salt_spray_tests_path, flash: { error: 'You do not have permission to delete comments.' }
+      redirect_to salt_spray_tests_path(session[:params]), flash: { error: 'You do not have permission to delete comments.' }
     end
   end
 
@@ -140,7 +140,7 @@ private
                                             comments_attributes: [:id, :content, :created_by, :_destroy, attachments_attributes: [:id, :content_type, :file, :_destroy]])
   end
 
-  def manage_filter_state
+  def cache_filters
     session[:params] = params
   end
 
