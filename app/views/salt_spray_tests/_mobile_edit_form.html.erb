@@ -4,7 +4,7 @@
       <div class="col-8 text-left mobile-details-sm">
         <span><strong>Shop Order: </strong><%= @salt_spray_test.shop_order_number %></span><br />
         <span><strong>Load: </strong><%= @salt_spray_test.load_number %></span><br />
-        <span><strong>Process: </strong><%= @salt_spray_test.process_code %></span>
+        <span><strong>Proc/Dept: </strong><%= @salt_spray_test.process_code %><%= "/" + @salt_spray_test.dept.to_s if @salt_spray_test.dept %></span>
       </div>
       <div class="col-4 mt-1">
         <%= link_to 'View Details', salt_spray_test_path(@salt_spray_test), class: "text-muted mobile-details-sm", remote: true %>
