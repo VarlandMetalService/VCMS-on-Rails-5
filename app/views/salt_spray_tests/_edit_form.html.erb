@@ -149,10 +149,19 @@
           </div>
         <% end %>
       </div>
-      <div class="form-group">
-        <br />
-        <%= f.submit 'Edit Salt Spray Test', class: 'btn btn-primary' %>
-        <%= link_to 'Cancel', '#', onclick: "history.back()", class: 'btn btn-link' %>
+      <br />
+      <div class="row">
+        <div class="col-6">
+          <div class="form-group">
+            <%= f.submit 'Edit Salt Spray Test', class: 'btn btn-primary' %>
+            <%= link_to 'Cancel', '#', onclick: "history.back()", class: 'btn btn-link' %>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group text-right">
+            <%= link_to 'Delete Test', salt_spray_test_path(@salt_spray_test), data: { confirm: 'Are you sure?'}, method: 'delete', class: 'btn btn-danger' %>
+          </div>
+        </div>
       </div>
     <% end %>
   </div>
