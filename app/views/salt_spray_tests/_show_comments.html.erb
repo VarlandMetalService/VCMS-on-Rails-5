@@ -3,7 +3,7 @@
       <div class="row">
         <div class="col-12 col-md-9 prevent-text-overflow comment-block">
           <span class="commenter-initials"><%= User.find(comment.created_by).initials %></span>
-          <%= comment.content %><br />
+          <%= comment.content %><br /><br />
           <% if comment.attachments.size > 0 %>
             <% comment.attachments.each do |a| %>
               <%= show_attachment(a) %> <br /><br />
