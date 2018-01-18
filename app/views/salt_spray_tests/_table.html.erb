@@ -172,7 +172,7 @@
             <td class="col-md-1 text-center hidden-print">
               <a href="#" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions</a>
               <div class="dropdown-menu text-center">
-                <%= link_to 'Edit', edit_salt_spray_test_path(t, saved_params: params.permit!), class: "dropdown-item text-info" if action_name != 'archived_tests' %>
+                <%= link_to 'Edit', edit_salt_spray_test_path(t), class: "dropdown-item text-info" if action_name != 'archived_tests' %>
                 <%= link_to 'View Details', salt_spray_test_path(t), class: "dropdown-item text-muted", remote: true %>
                 <% if action_name != 'archived_tests' %>
                   <div class="dropdown-divider"></div>
@@ -204,7 +204,7 @@
                       <%= f.submit 'Remove Flag', class: 'btn-form dropdown-item text-warning' %>
                     <% end %>
                   <% end %>
-                  <%= link_to 'Delete', salt_spray_test_path(t, saved_params: params.permit!), data: { confirm: 'Are you sure?'}, method: 'delete', class: 'text-danger dropdown-item' %>
+                  <%= link_to 'Delete', salt_spray_test_path(t), data: { confirm: 'Are you sure?'}, method: 'delete', class: 'text-danger dropdown-item' %>
                 <% else %>
                   <%= link_to "View Comments", show_comments_salt_spray_test_path(t.id, on_archived: action_name == 'archived_tests'), remote: true, class: 'dropdown-item text-muted' if has_comments(t) %>
                 <% end %>
