@@ -36,7 +36,7 @@
     </div>
     <div class="col-md-4">
       <div class="form-group">
-        <%= f.label :with_comments, 'Search Comments:'  %>
+        <%= f.label :with_comments, 'Comments:'  %>
         <%= f.text_field :with_comments, class: 'form-control', value: params[:with_comments] %>
       </div>
     </div>
@@ -150,8 +150,8 @@
             </div>
           </div>
         </th> <!-- marked_red_at, marked_red_by -->
-        <th class="col-1<%= ' d-none' if action_name == 'archived_tests' %>">Comments</th>
-        <th class="col-1 text-center hidden-print"></th>
+        <th class="col-1">Comments</th>
+        <th class="col-1 text-center hidden-print<%= ' d-none' if action_name == 'archived_tests' %>"></th>
       </tr>
     </thead>
     <tbody>
@@ -196,46 +196,50 @@
             </td>
           <% end %>
           <td class="col-2">
-            <% if t.marked_white? %>
-              <div class="row">
-                <div class="col-9 text-left">
+            <div class="row">
+              <div class="col-9 text-left">
+                <% if t.marked_white? %>
                   <%= t.marked_white_at.strftime('%m/%d/%Y') %><br />
                   <small><strong>By: </strong></small><%= t.white_spot_reporter.full_name %><br />
                   <small><strong>Hours w/o: </strong></small><%= t.calculate_rust_hours(t.marked_white_at) %> <%= t.get_pass_fail('white') %>
-                </div>
-                <div class="col-3 text-muted text-right pl-0">
-                  <%= "(#{t.white_spec})" if t.white_spec_exists? %>
-                </div>
+                <% end %>
               </div>
-            <% end %>
+              <div class="col-3 text-muted text-right pl-0">
+                <%= "(#{t.white_spec})" if t.white_spec_exists? %>
+              </div>
+            </div>
           </td>
           <td class="col-2">
-            <% if t.marked_red? %>
-              <div class="row">
-                <div class="col-9 text-left">
+            <div class="row">
+              <div class="col-9 text-left">
+                <% if t.marked_red? %>
                   <%= t.marked_red_at.strftime('%m/%d/%Y') %><br />
                   <small><strong>By: </strong></small><%= t.red_spot_reporter.full_name %><br />
                   <small><strong>Hours w/o: </strong></small><%= t.calculate_rust_hours(t.marked_red_at) %> <%= t.get_pass_fail('red') %>
-                </div>
-                <div class="col-3 text-muted text-right pl-0">
-                  <%= "(#{t.red_spec})" if t.red_spec_exists? %>
-                </div>
+                <% end %>
               </div>
-            <% end %>
+              <div class="col-3 text-muted text-right pl-0">
+                <%= "(#{t.red_spec})" if t.red_spec_exists? %>
+              </div>
+            </div>
+          </td>
+          <td class="col-1">
+            <%= link_to "View", show_comments_salt_spray_test_path(t.id, on_archived: action_name == 'archived_tests'), remote: true, class: 'btn btn-sm btn-info mr-2' if has_comments(t) %>
+            <%= link_to 'Add', add_comment_salt_spray_test_path(t), class: 'btn btn-sm btn-success' %>
           </td>
           <% if action_name != 'archived_tests' %>
-            <td class="col-1">
-              <%= link_to "View", show_comments_salt_spray_test_path(t.id, on_archived: action_name == 'archived_tests'), remote: true, class: 'btn btn-sm btn-info mr-2' if has_comments(t) %>
-              <%= link_to 'Add', add_comment_salt_spray_test_path(t), class: 'btn btn-sm btn-success' %>
-            </td>
-          <% end %>
-          <% if @access_level.access_level == 3 -%>
-            <td class="col-md-1 text-center hidden-print">
-              <a href="#" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions</a>
-              <div class="dropdown-menu text-center">
-                <%= link_to 'Edit', edit_salt_spray_test_path(t), class: "dropdown-item text-info" if action_name != 'archived_tests' %>
-                <%= link_to 'View Details', salt_spray_test_path(t), class: "dropdown-item text-muted", remote: true %>
-                <% if action_name != 'archived_tests' %>
+            <% if @access_level.access_level == 3 -%>
+              <td class="col-md-1 text-center hidden-print">
+                <a href="#" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions</a>
+                <div class="dropdown-menu text-center">
+                  <%= link_to 'Edit', edit_salt_spray_test_path(t), class: "dropdown-item text-info" if action_name != 'archived_tests' %>
+                  <% if t.flagged_by %>
+                    <%= form_with model: t, local: true do |f| %>
+                      <%= f.hidden_field :flagged_by, value: nil %>
+                      <%= f.submit 'Remove Flag', class: 'btn-form dropdown-item text-warning' %>
+                    <% end %>
+                  <% end %>
+                  <%#= link_to 'View Details', salt_spray_test_path(t), class: "dropdown-item text-muted", remote: true %>
                   <div class="dropdown-divider"></div>
                   <% if !t.marked_white_at %>
                     <%= form_with model: t, local: true do |f| %>
@@ -259,18 +263,10 @@
                     <% end %>
                   <% end %>
                   <div class="dropdown-divider"></div>
-                  <% if t.flagged_by %>
-                    <%= form_with model: t, local: true do |f| %>
-                      <%= f.hidden_field :flagged_by, value: nil %>
-                      <%= f.submit 'Remove Flag', class: 'btn-form dropdown-item text-warning' %>
-                    <% end %>
-                  <% end %>
                   <%= link_to 'Delete', salt_spray_test_path(t), data: { confirm: 'Are you sure?'}, method: 'delete', class: 'text-danger dropdown-item' %>
-                <% else %>
-                  <%= link_to "View Comments", show_comments_salt_spray_test_path(t.id, on_archived: action_name == 'archived_tests'), remote: true, class: 'dropdown-item text-muted' if has_comments(t) %>
-                <% end %>
-              </div><br>
-            </td>
+                </div><br>
+              </td>
+            <% end %>
           <% end %>
         </tr>
       <% end %>
