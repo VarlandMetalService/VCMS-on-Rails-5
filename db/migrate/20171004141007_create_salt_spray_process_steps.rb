@@ -5,7 +5,7 @@ class CreateSaltSprayProcessSteps < ActiveRecord::Migration[5.1]
     create_table :salt_spray_process_steps do |t|
       t.bigint      :salt_spray_test_id
       t.string      :name
-      t.decimal     :thickness
+      t.decimal     :thickness #,       precision: 10, scale: 10            <--------- TODO AFTER DEMO
       t.integer     :dipping_time
       t.string      :note,            limit: 100
 

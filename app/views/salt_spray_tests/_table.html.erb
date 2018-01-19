@@ -8,14 +8,14 @@
     </div>
     <div class="col-md-2">
       <div class="form-group">
-        <%= f.label :with_put_on_by, 'Put On By:'  %>
-        <%= f.select :with_put_on_by, @salt_spray_tests.options_for_put_on_by, { include_blank: true, selected: params[:with_put_on_by] }, { class: 'form-control' } %>
-      </div>
-    </div>
-    <div class="col-md-2">
-      <div class="form-group">
         <%= f.label :with_customer, 'Customer:'  %>
         <%= f.select :with_customer, @salt_spray_tests.options_for_customer, { include_blank: true, selected: params[:with_customer] }, { class: 'form-control' } %>
+      </div>
+    </div>
+    <div class="col-md-1">
+      <div class="form-group">
+        <%= f.label :with_process_code, 'Process:'  %>
+        <%= f.select :with_process_code, @salt_spray_tests.options_for_process_code, {include_blank: true, selected: params[:with_process_code]}, { class: 'form-control' } %>
       </div>
     </div>
     <div class="col-md-2">
@@ -30,11 +30,11 @@
     </div>
     <div class="col-md-1">
       <div class="form-group">
-        <%= f.label :with_process_code, 'Process:'  %>
-        <%= f.select :with_process_code, @salt_spray_tests.options_for_process_code, {include_blank: true, selected: params[:with_process_code]}, { class: 'form-control' } %>
+        <%= f.label :with_sub, 'Sub ID:'  %>
+        <%= f.text_field :with_sub, class: 'form-control', value: params[:with_sub] %>
       </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-4">
       <div class="form-group">
         <%= f.label :with_comments, 'Search Comments:'  %>
         <%= f.text_field :with_comments, class: 'form-control', value: params[:with_comments] %>
@@ -66,8 +66,8 @@
     </div>
     <div class="col-md-2">
       <div class="form-group">
-        <%= f.label :with_sub, 'Sub ID:'  %>
-        <%= f.text_field :with_sub, class: 'form-control', value: params[:with_sub] %>
+        <%= f.label :with_put_on_by, 'Put On By:'  %>
+        <%= f.select :with_put_on_by, @salt_spray_tests.options_for_put_on_by, { include_blank: true, selected: params[:with_put_on_by] }, { class: 'form-control' } %>
       </div>
     </div>
     <div class="col-md-2">
@@ -106,15 +106,51 @@
   <table class="table table-bordered">
     <thead>
       <tr class="row m-0">
-        <th class="col-2 text-left">Shop Order</th>
-        <th class="col-1 text-center">Process / Dept</th>
+        <th class="col-2">
+          <div class="row">
+            <div class="col-6 text-left">
+              Shop Order
+            </div>
+            <div class="col-6 text-muted text-right">
+              (Load)
+            </div>
+          </div>
+        </th>
+        <th class="col-2">
+          <div class="row">
+            <div class="col-6 text-left">
+              Process / Dept
+            </div>
+            <div class="col-6 text-muted text-right">
+              (Steps)
+            </div>
+          </div>
+        </th>
         <th class="col-2">Date On</th>
         <% if action_name == 'archived_tests' %>
-          <th class="col-2">Date Off</th>
+          <th class="col-1">Date Off</th>
         <% end %>
-        <th class="col-2">White Rust</th> <!-- marked_white_at, marked_white_by -->
-        <th class="col-2">Red Rust</th> <!-- marked_red_at, marked_red_by -->
-        <th class="col-2<%= ' d-none' if action_name == 'archived_tests' %>">Comments / Attachments</th>
+        <th class="col-2">
+          <div class="row">
+            <div class="col-6 text-left">
+              White Rust
+            </div>
+            <div class="col-6 text-muted text-right">
+              (Spec)
+            </div>
+          </div>
+        </th> <!-- marked_white_at, marked_white_by -->
+        <th class="col-2">
+          <div class="row">
+            <div class="col-6 text-left">
+              Red Rust
+            </div>
+            <div class="col-6 text-muted text-right">
+              (Spec)
+            </div>
+          </div>
+        </th> <!-- marked_red_at, marked_red_by -->
+        <th class="col-1<%= ' d-none' if action_name == 'archived_tests' %>">Comments</th>
         <th class="col-1 text-center hidden-print"></th>
       </tr>
     </thead>
@@ -136,34 +172,59 @@
               </div>
             </div>
           </td>
-          <td class="col-1 text-center process"><%= t.process_code %><% if t.dept %> / <%= t.dept %><br /><% end %></td>
+          <td class="col-2 text-center process">
+            <div class="row">
+              <div class="col-6 text-left">
+                <%= t.process_code %><% if t.dept %> / <%= t.dept %><br /><% end %>
+              </div>
+              <div class="col-6 text-right text-muted">
+                <% t.salt_spray_process_steps.each do |step| %>
+                  <%= step.name %><br />
+                <% end %>
+              </div>
+            </div>
+          </td>
           <td class="col-2">
             <%= t.put_on_at.strftime('%m/%d/%Y') %><br />
             <small><strong>By: </strong></small><%= t.salt_spray_tester.full_name %><br />
             <small><strong>Hours On: </strong></small><%= t.calculate_rust_hours(t.pulled_off_at) %>
           </td>
           <% if t.pulled_off_at.present? %>
-            <td class="col-2">
+            <td class="col-1">
               <%= t.pulled_off_at.strftime('%m/%d/%Y') %><br />
               <small><strong>By: </strong></small><%= t.test_completed_by.full_name %>
             </td>
           <% end %>
           <td class="col-2">
             <% if t.marked_white? %>
-              <%= t.marked_white_at.strftime('%m/%d/%Y') %><br />
-              <small><strong>By: </strong></small><%= t.white_spot_reporter.full_name %><br />
-              <small><strong>Hours w/o: </strong></small><%= t.calculate_rust_hours(t.marked_white_at) %> <%= t.get_pass_fail('white') %>
+              <div class="row">
+                <div class="col-9 text-left">
+                  <%= t.marked_white_at.strftime('%m/%d/%Y') %><br />
+                  <small><strong>By: </strong></small><%= t.white_spot_reporter.full_name %><br />
+                  <small><strong>Hours w/o: </strong></small><%= t.calculate_rust_hours(t.marked_white_at) %> <%= t.get_pass_fail('white') %>
+                </div>
+                <div class="col-3 text-muted text-right pl-0">
+                  <%= "(#{t.white_spec})" if t.white_spec_exists? %>
+                </div>
+              </div>
             <% end %>
           </td>
           <td class="col-2">
             <% if t.marked_red? %>
-              <%= t.marked_red_at.strftime('%m/%d/%Y') %><br />
-              <small><strong>By: </strong></small><%= t.red_spot_reporter.full_name %><br />
-              <small><strong>Hours w/o: </strong></small><%= t.calculate_rust_hours(t.marked_red_at) %> <%= t.get_pass_fail('red') %>
+              <div class="row">
+                <div class="col-9 text-left">
+                  <%= t.marked_red_at.strftime('%m/%d/%Y') %><br />
+                  <small><strong>By: </strong></small><%= t.red_spot_reporter.full_name %><br />
+                  <small><strong>Hours w/o: </strong></small><%= t.calculate_rust_hours(t.marked_red_at) %> <%= t.get_pass_fail('red') %>
+                </div>
+                <div class="col-3 text-muted text-right pl-0">
+                  <%= "(#{t.red_spec})" if t.red_spec_exists? %>
+                </div>
+              </div>
             <% end %>
           </td>
           <% if action_name != 'archived_tests' %>
-            <td class="col-2">
+            <td class="col-1">
               <%= link_to "View", show_comments_salt_spray_test_path(t.id, on_archived: action_name == 'archived_tests'), remote: true, class: 'btn btn-sm btn-info mr-2' if has_comments(t) %>
               <%= link_to 'Add', add_comment_salt_spray_test_path(t), class: 'btn btn-sm btn-success' %>
             </td>
