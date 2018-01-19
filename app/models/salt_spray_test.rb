@@ -140,7 +140,7 @@ class SaltSprayTest < ApplicationRecord
     end
   end
 
-  def get_pass_fail(spot_type)
+  def get_pass_fail(spot_type, pass_only = false)
     case spot_type
     when 'white'
       spec_test = self.white_spec
@@ -150,14 +150,16 @@ class SaltSprayTest < ApplicationRecord
       spot_date = self.marked_red_at
     end
 
-    if spec_test.nil? || spec_test == 0 || spot_date.nil?
+    if spec_test.nil? || spec_test == 0 #|| spot_date.nil?
       return
     end
 
     if calculate_rust_hours(spot_date) >= spec_test
       "<i class='fa fa-check text-success'></i>".html_safe
     else
-      "<i class='fa fa-close text-danger'></i>".html_safe
+      if !pass_only
+        "<i class='fa fa-close text-danger'></i>".html_safe
+      end
     end
   end
 

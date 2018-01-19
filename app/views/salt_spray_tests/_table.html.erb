@@ -205,21 +205,27 @@
                 <% end %>
               </div>
               <div class="col-3 text-muted text-right pl-0">
-                <%= "(#{t.white_spec})" if t.white_spec_exists? %>
+                <% if t.white_spec_exists? %>
+                  <%= "(#{t.white_spec})"  %>
+                  <%= t.get_pass_fail('white', true) if !t.marked_white_at %>
+                <% end %>
               </div>
             </div>
           </td>
           <td class="col-2">
             <div class="row">
-              <div class="col-9 text-left">
+              <div class="col-7 text-left">
                 <% if t.marked_red? %>
                   <%= t.marked_red_at.strftime('%m/%d/%Y') %><br />
                   <small><strong>By: </strong></small><%= t.red_spot_reporter.full_name %><br />
                   <small><strong>Hours w/o: </strong></small><%= t.calculate_rust_hours(t.marked_red_at) %> <%= t.get_pass_fail('red') %>
                 <% end %>
               </div>
-              <div class="col-3 text-muted text-right pl-0">
-                <%= "(#{t.red_spec})" if t.red_spec_exists? %>
+              <div class="col-5 text-muted text-right pl-0">
+                <% if t.red_spec_exists? %>
+                  <%= "(#{t.red_spec})" %>
+                  <%= t.get_pass_fail('red', true) if !t.marked_red_at %>
+                <% end %>
               </div>
             </div>
           </td>
