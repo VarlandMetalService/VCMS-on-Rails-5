@@ -14,7 +14,7 @@
 
   <div class="form-group">
     <%= f.hidden_field :submit_type, value: 'edit' if !params[:id] %>
-    <%= f.hidden_field :edit_type, value: params[:id] ? 'update' : 'add' %>
+    <%= f.hidden_field :edit_type, value: params[:id] ? 'update' : 'add' %>  <%# TODO: Remove this after demo%>
     <%= f.hidden_field :ip_address, value: request.remote_ip if !params[:id] %>
     <%= f.hidden_field :edit_ip_address, value: request.remote_ip %>
   </div>

@@ -27,7 +27,7 @@
             <%= t.record_type %>
           </td>
           <td class="d-inline-block col-2 text-left">
-            <% if t.edit_type %>
+            <% if t.submit_type == 'edit' %>
               <small><strong>By:</strong></small> <%= t.user.full_name %>
               <br />
               <small><strong>When:</strong></small> <%= t.updated_at.localtime.strftime('%m/%d/%y %l:%M:%S %P') %>

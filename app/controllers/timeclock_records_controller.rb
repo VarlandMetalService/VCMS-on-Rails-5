@@ -106,4 +106,6 @@ private
                                              :edit_type, :edit_ip_address, :notes, :is_locked, :is_flagged, :is_deleted, :submit_location)
   end
 
+  # TODO: ^^^ remove :edit_type after demo
+
 end
