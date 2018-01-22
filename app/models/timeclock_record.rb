@@ -68,9 +68,11 @@ private
   end
 
   def check_for_buffer
-    buffer = 10.seconds
-    buffer_min = [1, 16, 31, 46]
-    self.record_timestamp -= buffer if self.record_timestamp.sec <= buffer && buffer_min.include?(self.record_timestamp.min)
+    if self.submit_type != 'edit'
+      buffer = 10.seconds
+      buffer_min = [1, 16, 31, 46]
+      self.record_timestamp -= buffer if self.record_timestamp.sec <= buffer && buffer_min.include?(self.record_timestamp.min)
+    end
   end
 
   def update_user_status
