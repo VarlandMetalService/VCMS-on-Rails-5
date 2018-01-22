@@ -231,7 +231,7 @@
           </td>
           <td class="col-1">
             <%= link_to "View", show_comments_salt_spray_test_path(t.id, on_archived: action_name == 'archived_tests'), remote: true, class: 'btn btn-sm btn-info mr-2' if has_comments(t) %>
-            <%= link_to 'Add', add_comment_salt_spray_test_path(t), class: 'btn btn-sm btn-success' %>
+            <%= link_to 'Add', add_comment_salt_spray_test_path(t, on_archived: action_name == 'archived_tests'), class: 'btn btn-sm btn-success' %>
           </td>
           <% if action_name != 'archived_tests' %>
             <% if @access_level.access_level == 3 -%>

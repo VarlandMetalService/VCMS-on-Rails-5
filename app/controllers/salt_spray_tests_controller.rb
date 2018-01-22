@@ -1,7 +1,7 @@
 class SaltSprayTestsController < ApplicationController
   before_action :check_user_permission
   before_action :set_salt_spray_test, only: [:show, :edit, :update, :destroy, :add_comment, :edit_comment, :show_comments, :delete_comment]
-  after_action :cache_filters, only: :index
+  after_action :cache_filters, only: [:index, :archived_tests]
 
   has_scope :with_shop_order_number
   has_scope :with_put_on_by
