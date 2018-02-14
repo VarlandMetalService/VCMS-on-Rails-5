@@ -63,6 +63,7 @@
       </div>
       <div class="form-group">
         <br />
+        <%= f.hidden_field :on_archived, value: true if params[:on_archived] == 'true' %>
         <%= f.submit 'Add Comment', class: 'btn btn-primary' %>
         <%= link_to 'Cancel', salt_spray_tests_path(session[:params]), class: 'btn btn-link' if params[:on_archived] == 'false' %>
         <%= link_to 'Cancel', archived_tests_salt_spray_tests_path(session[:params]), class: 'btn btn-link' if params[:on_archived] == 'true' %>

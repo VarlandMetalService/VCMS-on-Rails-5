@@ -63,7 +63,11 @@ class SaltSprayTestsController < ApplicationController
     @salt_spray_test.flagged_by = nil if params[:salt_spray_test][:remove_flag] == "1"
 
     if @salt_spray_test.update(salt_spray_test_params)
-      redirect_to action: 'index', params: session[:params]
+      if params[:salt_spray_test][:on_archived] == 'true'
+        redirect_to action: 'archived_tests', params: session[:params]
+      else
+        redirect_to action: 'index', params: session[:params]
+      end
     else
       render 'edit'
     end
