@@ -16,24 +16,20 @@
       <li class="nav-item dropdown">
         <a href="#" class="nav-link dropdown-toggle" id="app-dropdown" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Apps</a>
         <ul class="dropdown-menu" aria-labelledby="app-dropdown">
-          <%= primary_nav_link 'employee_notes', 'index', 'Employee Notes' %>
-          <%= primary_nav_link 'shift_notes', 'index', 'Shift Notes' %>
-          <%= primary_nav_link 'opto_messages', 'index', 'Opto Logs' %>
-          <%= primary_nav_link 'documents', 'index', 'Documents' %>
-          <%= primary_nav_link 'salt_spray_tests', 'index', 'Salt Spray Tests' %>
-          <%= primary_nav_link 'timeclock_records', 'index', 'Timeclock Records' %>
-        <!--
           <%#= primary_nav_link 'employee_notes', 'index', 'Employee Notes' %>
           <%#= primary_nav_link 'shift_notes', 'index', 'Shift Notes' %>
           <%#= primary_nav_link 'opto_messages', 'index', 'Opto Logs' %>
           <%#= primary_nav_link 'documents', 'index', 'Documents' %>
+          <%= primary_nav_link 'salt_spray_tests', 'index', 'Salt Spray Tests' %>
+          <%#= primary_nav_link 'timeclock_records', 'index', 'Timeclock Records' %>
+
+        <!--
           <%#= primary_nav_link 'thickness', 'index', 'Thickness' %>
-          <%#= primary_nav_link 'salt_spray_tests', 'index', 'Salt Spray Tests' %>
         -->
         </ul>
       </li>
       <li class="nav-item">
-        <%= link_to '<i class="fa fa-clock-o"></i> Right Now'.html_safe, clocked_in_timeclock_records_path, class: 'nav-link' %>
+        <%#= link_to '<i class="fa fa-clock-o"></i> Right Now'.html_safe, clocked_in_timeclock_records_path, class: 'nav-link' %>
       </li>
       <!--
       <li class="nav-item dropdown">
