@@ -234,16 +234,16 @@ private
 
   def standardize_times
     if self.put_on_at.present?
-      self.put_on_at = self.put_on_at.noon
+      self.put_on_at = self.put_on_at.noon - 1.hour
     end
     if self.marked_white_at.present?
-      self.marked_white_at = self.marked_white_at.noon
+      self.marked_white_at = self.marked_white_at.noon - 1.hour
     end
     if self.marked_red_at.present?
-      self.marked_red_at = self.marked_red_at.noon
+      self.marked_red_at = self.marked_red_at.noon - 1.hour
     end
     if self.pulled_off_at.present?
-      self.pulled_off_at = self.pulled_off_at.noon
+      self.pulled_off_at = self.pulled_off_at.noon - 1.hour
     end
   end
 
