@@ -19,7 +19,7 @@ class SaltSprayTestsController < ApplicationController
   has_scope :sorted_by
 
   def index
-    @salt_spray_tests = apply_scopes(SaltSprayTest).active.page(params[:page]).order(checked_by: :asc, process_code: :desc)
+    @salt_spray_tests = apply_scopes(SaltSprayTest).active.order(checked_by: :asc, process_code: :desc)
 
     respond_to do |format|
       format.html
