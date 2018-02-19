@@ -62,6 +62,14 @@ class SaltSprayTestsController < ApplicationController
 
     @salt_spray_test.flagged_by = nil if params[:salt_spray_test][:remove_flag] == "1"
 
+    if params[:salt_spray_test][:marked_white_at].present? && params[:salt_spray_test][:marked_white_by].blank?
+      params[:salt_spray_test][:marked_white_by] = current_user.id
+    end
+
+    if params[:salt_spray_test][:marked_red_at].present? && params[:salt_spray_test][:marked_red_by].blank?
+      params[:salt_spray_test][:marked_red_by] = current_user.id
+    end
+
     if @salt_spray_test.update(salt_spray_test_params)
       if params[:salt_spray_test][:on_archived] == 'true'
         redirect_to action: 'archived_tests', params: session[:params]
