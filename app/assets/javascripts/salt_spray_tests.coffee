@@ -2,16 +2,19 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-# color Salt Spray Tests table based on process
-# colorTable = () ->
-#   $('.salt_spray_test_results').find('td.process').each ->
-#     $(this).closest('.row').addClass 'row-color-' + $(this).text()
-#     return
-
 $(document).on 'turbolinks:load', (event) ->
-  # colorTable()
-  # $(document).ajaxSuccess ->
-  #   colorTable()
+
+  # Write-in field functionality for process steps
+  $('.trigger-other').on 'change', ->
+    write_in = $(this).next('input')
+    if $(this).find(":selected").text() == 'Other'
+      console.log(write_in.html())
+      write_in.prop('disabled', false)
+      write_in.removeClass('d-none')
+    else
+      console.log("Value != Other")
+      write_in.prop('disabled', true)
+      write_in.addClass('d-none')
 
   # Clear Marked White Field
   $('.clear-white').on 'click', ->
