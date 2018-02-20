@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171117133422) do
+ActiveRecord::Schema.define(version: 20180220181927) do
 
   create_table "assigned_permissions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "user_id"
@@ -140,12 +140,13 @@ ActiveRecord::Schema.define(version: 20171117133422) do
 
   create_table "salt_spray_process_steps", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "salt_spray_test_id"
-    t.string "name"
-    t.decimal "thickness", precision: 10
+    t.string "chromate"
+    t.decimal "thickness", precision: 10, scale: 3
     t.integer "dipping_time"
     t.string "note", limit: 100
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "top_coat"
   end
 
   create_table "salt_spray_tests", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
