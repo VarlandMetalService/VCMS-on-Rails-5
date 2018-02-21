@@ -168,7 +168,7 @@
                 </strong>
               </div>
               <div class="col-3 text-right text-muted">
-                (<%= t.load_number %>)
+                <%= "(#{t.load_number})" if t.load_number %>
               </div>
             </div>
           </td>

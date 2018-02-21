@@ -73,9 +73,11 @@ class SaltSprayTestsController < ApplicationController
 
     @salt_spray_test.flagged_by = nil if params[:salt_spray_test][:remove_flag] == "1"
 
-    params[:salt_spray_test][:salt_spray_process_steps_attributes].each do |k, v|
-      v[:chromate] = v[:chromate_other] if v[:chromate_other].present?
-      v[:top_coat] = v[:top_coat_other] if v[:top_coat_other].present?
+    if params[:salt_spray_test][:salt_spray_process_steps_attributes]
+      params[:salt_spray_test][:salt_spray_process_steps_attributes].each do |k, v|
+        v[:chromate] = v[:chromate_other] if v[:chromate_other].present?
+        v[:top_coat] = v[:top_coat_other] if v[:top_coat_other].present?
+      end
     end
 
     if params[:salt_spray_test][:marked_white_at].present? && params[:salt_spray_test][:marked_white_by].blank?
