@@ -207,7 +207,8 @@ class SaltSprayTest < ApplicationRecord
   end
 
   def can_edit_spec?
-    self.is_sample || (self.white_spec == 0 && self.red_spec == 0)
+    return true # Temporary until we decide on intended functionality
+    # self.is_sample || (self.white_spec == 0 && self.red_spec == 0)
   end
 
   def is_custom_order?
