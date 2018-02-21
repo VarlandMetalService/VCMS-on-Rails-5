@@ -2,19 +2,25 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
+enableOtherField = (field) ->
+  write_in = $(field).next('input')
+  if $(field).find(":selected").text() == 'Other'
+    write_in.prop('disabled', false)
+    write_in.removeClass('d-none')
+  else
+    write_in.val("")
+    write_in.prop('disabled', true)
+    write_in.addClass('d-none')
+
 $(document).on 'turbolinks:load', (event) ->
+
+  $('#salt_spray_processes').on 'cocoon:after-insert', ->
+    $('.trigger-other').on 'change', ->
+      enableOtherField(this)
 
   # Write-in field functionality for process steps
   $('.trigger-other').on 'change', ->
-    write_in = $(this).next('input')
-    if $(this).find(":selected").text() == 'Other'
-      console.log(write_in.html())
-      write_in.prop('disabled', false)
-      write_in.removeClass('d-none')
-    else
-      console.log("Value != Other")
-      write_in.prop('disabled', true)
-      write_in.addClass('d-none')
+    enableOtherField(this)
 
   # Clear Marked White Field
   $('.clear-white').on 'click', ->

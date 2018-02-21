@@ -110,29 +110,6 @@ class SaltSprayTest < ApplicationRecord
     users.map { |u| [u.full_name, u.id] }
   end
 
-  def self.options_for_chromates
-    [
-      ['Clear', 'Clear'],
-      ['Tri-Yellow', 'Tri-Yellow'],
-      ['Tri-Black', 'Tri-Black'],
-      ['Dichromate', 'Dichromate'],
-      ['Hex-Yellow', 'Hex-Yellow'],
-      ['Other', 'Other']
-    ]
-  end
-
-  def self.options_for_top_coats
-    [
-      ['250', '250'],
-      ['320', '320'],
-      ['330', '330'],
-      ['437', '437'],
-      ['Dipsol', 'Dipsol'],
-      ['Wax', 'Wax'],
-      ['Other', 'Other']
-    ]
-  end
-
   def self.options_for_sorted_by
     [
       ['Date (oldest first)', 'put_on_at'],

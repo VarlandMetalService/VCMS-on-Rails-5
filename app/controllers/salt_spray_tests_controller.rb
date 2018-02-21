@@ -36,6 +36,17 @@ class SaltSprayTestsController < ApplicationController
   end
 
   def edit
+    @salt_spray_test.salt_spray_process_steps.each do |process_step|
+      if process_step.chromate.present? && !in_nested_array?(process_step.chromate, SaltSprayProcessStep.options_for_chromate)
+        process_step.chromate_other = process_step.chromate
+        process_step.chromate = "Other"
+      end
+
+      if process_step.top_coat.present? && !in_nested_array?(process_step.top_coat, SaltSprayProcessStep.options_for_top_coat)
+        process_step.top_coat_other = process_step.top_coat
+        process_step.top_coat = "Other"
+      end
+    end
   end
 
   def create
@@ -61,6 +72,11 @@ class SaltSprayTestsController < ApplicationController
     end
 
     @salt_spray_test.flagged_by = nil if params[:salt_spray_test][:remove_flag] == "1"
+
+    params[:salt_spray_test][:salt_spray_process_steps_attributes].each do |k, v|
+      v[:chromate] = v[:chromate_other] if v[:chromate_other].present?
+      v[:top_coat] = v[:top_coat_other] if v[:top_coat_other].present?
+    end
 
     if params[:salt_spray_test][:marked_white_at].present? && params[:salt_spray_test][:marked_white_by].blank?
       params[:salt_spray_test][:marked_white_by] = current_user.id
@@ -148,12 +164,21 @@ private
                                             :put_on_by, :put_on_at, :pulled_off_at, :pulled_off_by,
                                             :marked_white_at, :marked_white_by, :marked_red_at, :marked_red_by,
                                             :flagged_by, :checked_by, :checked_by_archive,:is_sample,
-                                            salt_spray_process_steps_attributes: [:id, :name, :thickness, :dipping_time, :note, :_destroy],
+                                            salt_spray_process_steps_attributes: [:id, :chromate, :top_coat, :chromate_other, :top_coat_other, :thickness, :dipping_time, :note, :_destroy],
                                             comments_attributes: [:id, :content, :created_by, :_destroy, attachments_attributes: [:id, :content_type, :file, :_destroy]])
   end
 
   def cache_filters
     session[:params] = params
+  end
+
+  def in_nested_array?(value, array)
+    array.each do |a|
+      if value == a[0]
+        return true
+      end
+    end
+    return false
   end
 
 end

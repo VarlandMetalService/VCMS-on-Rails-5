@@ -1,18 +1,24 @@
 <tr class="nested-fields">
   <td>
     <%= f.label :chromate, class: 'mt-2 mb-0' %>
-    <%= f.select :name, SaltSprayTest.options_for_chromates, {include_blank: true}, {class: 'form-control trigger-other'} %>
-    <%= f.text_field :name, class: 'form-control mt-1 d-none', disabled: true %>
+    <%= f.select :chromate, SaltSprayProcessStep.options_for_chromate, {include_blank: true}, {class: 'form-control trigger-other'} %>
+    <% display_field_ch = ' d-none' if f.object.chromate != "Other" %>
+    <%= f.text_field :chromate_other, class: "form-control mt-1#{display_field_ch}", disabled: f.object.chromate != "Other" %>
   </td>
   <td>
     <%= f.label :top_coat, class: 'mt-2 mb-0' %>
-    <%= f.select :name, SaltSprayTest.options_for_top_coats, {include_blank: true}, {class: 'form-control trigger-other'} %>
-    <%= f.text_field :name, class: 'form-control mt-1 d-none', disabled: true %>
+    <%= f.select :top_coat, SaltSprayProcessStep.options_for_top_coat, {include_blank: true}, {class: 'form-control trigger-other'} %>
+    <% display_field_tc = ' d-none' if f.object.top_coat != "Other" %>
+    <%= f.text_field :top_coat_other, class: "form-control mt-1#{display_field_tc}", disabled: f.object.top_coat != "Other" %>
   </td>
   <td>
     <%= f.label :thickness, class: 'mt-2 mb-0' %>
     <%= f.number_field :thickness, {step: 'any', class: 'form-control'} %>
   </td>
+  <td>
+    <%= f.label :note, class: 'mt-2 mb-0' %>
+    <%= f.text_field :note, class: 'form-control' %>
+   </td>
   <td>
     <%= link_to_remove_association '<i class="fa fa-close"></i>'.html_safe, f, class: 'btn btn-sm btn-mobile btn-danger' %>
   </td>
