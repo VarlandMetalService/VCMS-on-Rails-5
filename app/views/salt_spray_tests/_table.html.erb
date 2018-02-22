@@ -150,7 +150,7 @@
             </div>
           </div>
         </th> <!-- marked_red_at, marked_red_by -->
-        <th class="col-1">Comments</th>
+        <th class="col-1 ipad-padding">Comments</th>
         <th class="col-1 text-center hidden-print<%= ' d-none' if action_name == 'archived_tests' %>"></th>
       </tr>
     </thead>
@@ -235,7 +235,7 @@
           </td>
           <% if action_name != 'archived_tests' %>
             <% if @access_level.access_level == 3 -%>
-              <td class="col-md-1 text-center hidden-print">
+              <td class="col-md-1 text-center hidden-print ipad-padding">
                 <a href="#" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions</a>
                 <div class="dropdown-menu text-center">
                   <%= link_to 'Edit', edit_salt_spray_test_path(t), class: "dropdown-item text-info" if action_name != 'archived_tests' %>
