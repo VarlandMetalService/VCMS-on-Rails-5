@@ -1,8 +1,8 @@
 class SaltSprayTest < ApplicationRecord
   serialize :checked_by_archive, Array
 
-  before_save :standardize_times
   before_save :archive_checked_by
+  before_create :standardize_times
   before_create :add_shop_order_details
 
   default_scope { where 'deleted_at IS NULL' }
