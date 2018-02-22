@@ -132,10 +132,10 @@ class SaltSprayTest < ApplicationRecord
 
   def update_spot(current_user_id, spot_type)
     if spot_type == 'white'
-      self.marked_white_at = Date.current
+      self.marked_white_at = DateTime.current.change(sec: 0)
       self.marked_white_by = current_user_id
     elsif spot_type == 'red'
-      self.marked_red_at = Date.current
+      self.marked_red_at = DateTime.current.change(sec: 0)
       self.marked_red_by = current_user_id
     end
   end
