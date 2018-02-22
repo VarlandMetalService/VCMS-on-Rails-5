@@ -37,15 +37,17 @@ class SaltSprayTestsController < ApplicationController
 
   def edit
     @salt_spray_test.salt_spray_process_steps.each do |process_step|
+
+      # If 'Other' is selected in process steps, ensure the data is correctly displayed in the form
       if process_step.chromate.present? && !in_nested_array?(process_step.chromate, SaltSprayProcessStep.options_for_chromate)
         process_step.chromate_other = process_step.chromate
         process_step.chromate = "Other"
       end
-
       if process_step.top_coat.present? && !in_nested_array?(process_step.top_coat, SaltSprayProcessStep.options_for_top_coat)
         process_step.top_coat_other = process_step.top_coat
         process_step.top_coat = "Other"
       end
+
     end
   end
 
@@ -71,22 +73,7 @@ class SaltSprayTestsController < ApplicationController
       @salt_spray_test.pulled_off_by = current_user.id
     end
 
-    @salt_spray_test.flagged_by = nil if params[:salt_spray_test][:remove_flag] == "1"
-
-    if params[:salt_spray_test][:salt_spray_process_steps_attributes]
-      params[:salt_spray_test][:salt_spray_process_steps_attributes].each do |k, v|
-        v[:chromate] = v[:chromate_other] if v[:chromate_other].present?
-        v[:top_coat] = v[:top_coat_other] if v[:top_coat_other].present?
-      end
-    end
-
-    if params[:salt_spray_test][:marked_white_at].present? && params[:salt_spray_test][:marked_white_by].blank?
-      params[:salt_spray_test][:marked_white_by] = current_user.id
-    end
-
-    if params[:salt_spray_test][:marked_red_at].present? && params[:salt_spray_test][:marked_red_by].blank?
-      params[:salt_spray_test][:marked_red_by] = current_user.id
-    end
+    check_param_values(params)
 
     if @salt_spray_test.update(salt_spray_test_params)
       if params[:salt_spray_test][:on_archived] == 'true'
@@ -186,6 +173,26 @@ private
       end
     end
     return false
+  end
+
+  def check_param_values(params)
+    @salt_spray_test.flagged_by = nil if params[:salt_spray_test][:remove_flag] == "1"
+
+    # If 'Other' is selected for process steps, save the write-in field instead
+    if params[:salt_spray_test][:salt_spray_process_steps_attributes]
+      params[:salt_spray_test][:salt_spray_process_steps_attributes].each do |k, v|
+        v[:chromate] = v[:chromate_other] if v[:chromate_other].present?
+        v[:top_coat] = v[:top_coat_other] if v[:top_coat_other].present?
+      end
+    end
+
+    # If no marked_by value is selected when marked_at is updated, set value to current user
+    if params[:salt_spray_test][:marked_white_at].present? && params[:salt_spray_test][:marked_white_by].blank?
+      params[:salt_spray_test][:marked_white_by] = current_user.id
+    end
+    if params[:salt_spray_test][:marked_red_at].present? && params[:salt_spray_test][:marked_red_by].blank?
+      params[:salt_spray_test][:marked_red_by] = current_user.id
+    end
   end
 
 end

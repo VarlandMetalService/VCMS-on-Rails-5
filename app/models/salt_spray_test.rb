@@ -134,7 +134,7 @@ class SaltSprayTest < ApplicationRecord
     if spot_type == 'white'
       self.marked_white_at = Date.current
       self.marked_white_by = current_user_id
-    elsif(spot_type == 'red')
+    elsif spot_type == 'red'
       self.marked_red_at = Date.current
       self.marked_red_by = current_user_id
     end

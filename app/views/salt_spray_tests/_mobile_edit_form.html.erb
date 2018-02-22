@@ -63,7 +63,7 @@
   <div class="row">
     <div class="col-12 text-center">
       <%= link_to "View Comments / Attachments", show_comments_salt_spray_test_path(@salt_spray_test.id), remote: true, class: 'btn btn-sm btn-info' if has_comments(@salt_spray_test) %>
-      <div class="btn btn-sm btn-warning flag-test d-none"><i class='fa fa-flag'></i> <%= flag_test_text %></div>
+      <div class="btn btn-sm btn-warning flag-test"><i class='fa fa-flag'></i> <%= flag_test_text %></div>
       <%= f.hidden_field :flagged_by, value: @current_user.id, disabled: !@salt_spray_test.flagged_by, class: 'toggle-flagged-by' %>
       <%= f.hidden_field :flagged_by, value: nil, disabled: @salt_spray_test.flagged_by, class: 'toggle-flagged-by' %>
     </div>

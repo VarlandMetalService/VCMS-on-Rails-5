@@ -1,7 +1,3 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://coffeescript.org/
-
 enableOtherField = (field) ->
   write_in = $(field).next('input')
   if $(field).find(":selected").text() == 'Other'
@@ -40,9 +36,11 @@ $(document).on 'turbolinks:load', (event) ->
   $('.flag-test').on 'click', ->
     if $(this).html() == '<i class="fa fa-flag"></i> Flag For Editing'
       $(this).html("<i class='fa fa-flag'></i> Remove Flag")
+      $('.mobile-comment').prop('required', true)
       $('.flag-icon').removeClass('d-none')
     else
       $(this).html("<i class='fa fa-flag'></i> Flag For Editing")
+      $('.mobile-comment').prop('required', false)
       $('.flag-icon').addClass('d-none')
     $('.toggle-flagged-by').prop 'disabled', (i, v) ->
       return !v
@@ -63,7 +61,7 @@ $(document).on 'turbolinks:load', (event) ->
     $('.trigger-test-complete').removeClass('trigger-test-complete');
 
   # Give file input field label the look and feel of the file input field
-  # (_new_attachment_fields.html.erb)
+    # Styling hack for file input fields
   $('body').on 'change', '.inputfile', (e) ->
     $input = $(this)
     $label = $input.next('label')
