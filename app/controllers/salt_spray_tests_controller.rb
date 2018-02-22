@@ -157,7 +157,12 @@ private
   end
 
   def set_salt_spray_test
-    @salt_spray_test = SaltSprayTest.find params[:id]
+    begin
+      @salt_spray_test = SaltSprayTest.find params[:id]
+    rescue ActiveRecord::RecordNotFound
+      flash[:notice] = "Unable to find record. Refreshed record list."
+      redirect_to action: 'index'
+    end
   end
 
   def salt_spray_test_params
