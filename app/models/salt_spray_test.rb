@@ -7,6 +7,8 @@ class SaltSprayTest < ApplicationRecord
 
   default_scope { where 'deleted_at IS NULL' }
 
+  self.per_page = 20
+
   belongs_to    :salt_spray_tester,
                 class_name: 'User',
                 foreign_key: 'put_on_by',

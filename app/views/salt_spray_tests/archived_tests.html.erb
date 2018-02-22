@@ -25,6 +25,9 @@
       </div>
 
       <div class="archived-results">
+        <div class="digg_pagination mb-2">
+          <%= will_paginate @posts %>
+        </div>
         <%= render 'table' %>
       </div>
 

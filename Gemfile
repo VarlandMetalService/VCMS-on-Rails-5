@@ -56,6 +56,12 @@ group :development, :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
+
+  gem 'rack-mini-profiler', require: false
+  gem 'memory_profiler'
+  gem 'flamegraph'
+  gem 'stackprof'
+  gem 'fast_stack'
 end
 
 group :development do
