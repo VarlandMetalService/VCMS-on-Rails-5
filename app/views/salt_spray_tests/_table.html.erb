@@ -21,11 +21,7 @@
     <div class="col-md-2">
       <div class="form-group">
         <%= f.label :with_part_number, 'Part ID:'  %>
-        <%# if params[:with_part_number].blank? %>
           <%= f.select :with_part_number, @salt_spray_tests.options_for_part_number, { include_blank: true, selected: params[:with_part_number] }, { class: 'form-control' } %>
-        <%# else %>
-          <%#= f.select :with_part_number, SaltSprayTest.options_for_part_number, { include_blank: true, selected: params[:with_part_number] }, { class: 'form-control' } %>
-        <%# end %>
       </div>
     </div>
     <div class="col-md-1">

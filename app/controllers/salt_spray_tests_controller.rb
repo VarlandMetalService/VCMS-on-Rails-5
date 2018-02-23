@@ -1,6 +1,7 @@
 class SaltSprayTestsController < ApplicationController
   before_action :check_user_permission
   before_action :set_salt_spray_test, only: [:show, :edit, :update, :destroy, :add_comment, :edit_comment, :show_comments, :delete_comment]
+  before_action :set_other_field_values, only: :edit
   after_action :cache_filters, only: [:index, :archived_tests]
 
   has_scope :with_shop_order_number
@@ -36,19 +37,6 @@ class SaltSprayTestsController < ApplicationController
   end
 
   def edit
-    @salt_spray_test.salt_spray_process_steps.each do |process_step|
-
-      # If 'Other' is selected in process steps, ensure the data is correctly displayed in the form
-      if process_step.chromate.present? && !in_nested_array?(process_step.chromate, SaltSprayProcessStep.options_for_chromate)
-        process_step.chromate_other = process_step.chromate
-        process_step.chromate = "Other"
-      end
-      if process_step.top_coat.present? && !in_nested_array?(process_step.top_coat, SaltSprayProcessStep.options_for_top_coat)
-        process_step.top_coat_other = process_step.top_coat
-        process_step.top_coat = "Other"
-      end
-
-    end
   end
 
   def create
@@ -62,17 +50,7 @@ class SaltSprayTestsController < ApplicationController
   end
 
   def update
-    # For mobile submit
-    case params[:commit]
-    when 'White Spot Found'
-      @salt_spray_test.update_spot(current_user.id, 'white')
-    when 'Red Spot Found'
-      @salt_spray_test.update_spot(current_user.id, 'red')
-    when 'Test Complete'
-      @salt_spray_test.pulled_off_at = Date.current
-      @salt_spray_test.pulled_off_by = current_user.id
-    end
-
+    check_for_mobile(params[:commit])
     check_param_values(params)
 
     if @salt_spray_test.update(salt_spray_test_params)
@@ -192,6 +170,34 @@ private
     end
     if params[:salt_spray_test][:marked_red_at].present? && params[:salt_spray_test][:marked_red_by].blank?
       params[:salt_spray_test][:marked_red_by] = current_user.id
+    end
+  end
+
+  def set_other_field_values
+    @salt_spray_test.salt_spray_process_steps.each do |process_step|
+
+      # If 'Other' is selected in process steps, ensure the data is correctly displayed in the form
+      if process_step.chromate.present? && !in_nested_array?(process_step.chromate, SaltSprayProcessStep.options_for_chromate)
+        process_step.chromate_other = process_step.chromate
+        process_step.chromate = "Other"
+      end
+      if process_step.top_coat.present? && !in_nested_array?(process_step.top_coat, SaltSprayProcessStep.options_for_top_coat)
+        process_step.top_coat_other = process_step.top_coat
+        process_step.top_coat = "Other"
+      end
+
+    end
+  end
+
+  def check_for_mobile(commit_text)
+    case commit_text
+    when 'White Spot Found'
+      @salt_spray_test.update_spot(current_user.id, 'white')
+    when 'Red Spot Found'
+      @salt_spray_test.update_spot(current_user.id, 'red')
+    when 'Test Complete'
+      @salt_spray_test.pulled_off_at = Date.current
+      @salt_spray_test.pulled_off_by = current_user.id
     end
   end
 

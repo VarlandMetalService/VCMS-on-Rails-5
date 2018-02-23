@@ -4,7 +4,7 @@
     <label><strong>Shop Order:</strong></label>
     <span><%= @salt_spray_test.shop_order_number %></span>
     <label class="ml-3"><strong>Load:</strong></label>
-    <span><%= @salt_spray_test.load_number %></span>
+    <span><%= @salt_spray_test.load_number.present? ? @salt_spray_test.load_number : 'N/A' %></span>
   </div>
 </div>
 <div class="card bg-light">

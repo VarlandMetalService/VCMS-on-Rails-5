@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-8 text-left mobile-details-sm">
         <span><strong>Shop Order: </strong><%= @salt_spray_test.shop_order_number %></span><br />
-        <span><strong>Load: </strong><%= @salt_spray_test.load_number.present? ? @salt_spray_test.load_number.present? : 'Unknown' %></span><br />
+        <span><strong>Load: </strong><%= @salt_spray_test.load_number.present? ? @salt_spray_test.load_number : 'N/A' %></span><br />
         <span><strong>Proc/Dept: </strong><%= @salt_spray_test.process_code %><%= "/" + @salt_spray_test.dept.to_s if @salt_spray_test.dept %></span>
       </div>
       <div class="col-4 mt-1">
