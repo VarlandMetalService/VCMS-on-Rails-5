@@ -32,6 +32,7 @@ private
 
   def check_for_other
     self.chromate = self.chromate_other if self.chromate_other.present?
+    self.top_coat = self.top_coat_other if self.top_coat_other.present?
   end
 
 end

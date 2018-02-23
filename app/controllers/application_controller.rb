@@ -34,4 +34,13 @@ protected
     @@my_logger ||= Logger.new("#{Rails.root}/log/my_dev.log")
   end
 
+  def in_nested_array?(value, array)
+    array.each do |a|
+      if value == a[0]
+        return true
+      end
+    end
+    return false
+  end
+
 end

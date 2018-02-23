@@ -144,25 +144,8 @@ private
     session[:params] = params
   end
 
-  def in_nested_array?(value, array)
-    array.each do |a|
-      if value == a[0]
-        return true
-      end
-    end
-    return false
-  end
-
   def check_param_values(params)
     @salt_spray_test.flagged_by = nil if params[:salt_spray_test][:remove_flag] == "1"
-
-    # If 'Other' is selected for process steps, save the write-in field instead
-    if params[:salt_spray_test][:salt_spray_process_steps_attributes]
-      params[:salt_spray_test][:salt_spray_process_steps_attributes].each do |k, v|
-        v[:chromate] = v[:chromate_other] if v[:chromate_other].present?
-        v[:top_coat] = v[:top_coat_other] if v[:top_coat_other].present?
-      end
-    end
 
     # If no marked_by value is selected when marked_at is updated, set value to current user
     if params[:salt_spray_test][:marked_white_at].present? && params[:salt_spray_test][:marked_white_by].blank?

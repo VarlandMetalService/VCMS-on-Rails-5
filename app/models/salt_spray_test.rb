@@ -7,7 +7,7 @@ class SaltSprayTest < ApplicationRecord
 
   default_scope { where 'deleted_at IS NULL' }
 
-  self.per_page = 20
+  self.per_page = 30
 
   belongs_to    :salt_spray_tester,
                 class_name: 'User',
