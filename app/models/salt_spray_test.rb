@@ -258,8 +258,8 @@ private
           self.process_code = so_details['process']
           self.part_number = so_details['part']
           self.sub = so_details['sub']
-          self.white_spec ||= so_details['saltSprayWhite']
-          self.red_spec ||= so_details['saltSprayRed']
+          self.white_spec = so_details['saltSprayWhite'] if self.white_spec == 0
+          self.red_spec = so_details['saltSprayRed'] if self.red_spec == 0
           self.part_area = so_details['pieceArea']
           self.density = so_details['poundsPerCubic']
           self.load_weight = so_details['loadWeight']
