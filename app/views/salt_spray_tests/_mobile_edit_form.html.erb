@@ -139,11 +139,11 @@
         <%= f.submit 'No Spot Found', class: 'btn btn-default' if !@salt_spray_test.red_spot_reporter %>
       </div>
       <div class="text-right col-6">
-        <%= button_tag 'Red Spot Found', type: 'button', data: {toggle: 'modal', target: '#test-complete-modal', spot: 'red'}, class: 'btn btn-danger open-submit-modal' if @salt_spray_test.white_spot_reporter || !@salt_spray_test.white_spec_exists? %>
+        <%= button_tag 'Red Spot Found', type: 'button', data: {toggle: 'modal', target: '#test-complete-modal', spot: 'red'}, class: 'btn btn-danger open-submit-modal' if @salt_spray_test.white_spot_reporter %>
         <% if !@salt_spray_test.red_spec_exists? %>
-          <%= button_tag 'White Spot Found', type: 'button', data: {toggle: 'modal', target: '#test-complete-modal', spot: 'white'}, class: 'btn btn-danger open-submit-modal' if !@salt_spray_test.white_spot_reporter && @salt_spray_test.white_spec_exists? %>
+          <%= button_tag 'White Spot Found', type: 'button', data: {toggle: 'modal', target: '#test-complete-modal', spot: 'white'}, class: 'btn btn-danger open-submit-modal' if !@salt_spray_test.white_spot_reporter %>
         <% else %>
-          <%= f.submit 'White Spot Found', class: 'btn btn-danger submit-white' if !@salt_spray_test.white_spot_reporter && @salt_spray_test.white_spec_exists? %>
+          <%= f.submit 'White Spot Found', class: 'btn btn-danger submit-white' if !@salt_spray_test.white_spot_reporter %>
         <% end %>
       </div>
       <%= f.hidden_field :pulled_off_at, value: nil, class: 'form-submit-date-off' %>

@@ -1,6 +1,6 @@
 <%= content_for :javascript do %>
   <script type="text/javascript">
-    if($(document).width() <= 600){
+    if($(document).width() <= 768){
       $('.salt_spray_test_results').html('');
       $('.salt_spray_test_results').append('<%=j render "mobile_table" %>');
     } else {

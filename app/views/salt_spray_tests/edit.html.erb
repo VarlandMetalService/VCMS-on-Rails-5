@@ -1,6 +1,6 @@
 <%= content_for :javascript do %>
   <script type="text/javascript">
-    if($(document).width() <= 600){
+    if($(document).width() <= 768){
       $('.salt_spray_test_edit').html('');
       $('.salt_spray_test_edit').append('<%=j render "mobile_edit_form" %>');
     } else {
