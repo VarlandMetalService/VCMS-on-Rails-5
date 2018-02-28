@@ -243,7 +243,7 @@
                   <% end %>
                   <%#= link_to 'View Details', salt_spray_test_path(t), class: "dropdown-item text-muted", remote: true %>
                   <div class="dropdown-divider"></div>
-                  <% if !t.marked_white_at %>
+                  <% if !t.marked_white_at && !t.marked_red_at %>
                     <%= form_with model: t, local: true do |f| %>
                       <%= f.hidden_field :marked_white_at, value: DateTime.current.change(sec: 0) %>
                       <%= f.hidden_field :marked_white_by, value: current_user.id %>
