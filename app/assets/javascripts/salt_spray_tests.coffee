@@ -10,6 +10,10 @@ enableOtherField = (field) ->
 
 $(document).on 'turbolinks:load', (event) ->
 
+  if $(document).width() >= 768
+    $('.rust-spot-info.ipad').removeClass('d-none')
+    $('.rust-spot-info.iphone').addClass('d-none')
+
   $('#salt_spray_processes').on 'cocoon:after-insert', ->
     $('.trigger-other').on 'change', ->
       enableOtherField(this)
