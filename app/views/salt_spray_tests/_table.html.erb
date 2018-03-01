@@ -247,14 +247,20 @@
                     <%= form_with model: t, local: true do |f| %>
                       <%= f.hidden_field :marked_white_at, value: DateTime.current.change(sec: 0) %>
                       <%= f.hidden_field :marked_white_by, value: current_user.id %>
-                      <%= f.submit 'Mark White', class: 'btn-form dropdown-item' %>
+                      <% if !t.red_spec_exists? %>
+                        <%= button_tag 'Mark White', type: 'button', data: {toggle: 'modal', target: '#test-complete-modal', spot: 'white'}, class: 'btn-form dropdown-item open-submit-modal' %>
+                        <%= f.submit 'Mark White', class: 'btn-form dropdown-item test-complete-white d-none' %>
+                      <% else %>
+                        <%= f.submit 'Mark White', class: 'btn-form dropdown-item' %>
+                      <% end %>
                     <% end %>
                   <% end %>
                   <% if !t.marked_red_at %>
                     <%= form_with model: t, local: true do |f| %>
                       <%= f.hidden_field :marked_red_at, value: DateTime.current.change(sec: 0) %>
                       <%= f.hidden_field :marked_red_by, value: current_user.id %>
-                      <%= f.submit 'Mark Red', class: 'btn-form dropdown-item' %>
+                      <%= button_tag 'Mark Red', type: 'button', data: {toggle: 'modal', target: '#test-complete-modal', spot: 'red'}, class: 'btn-form dropdown-item open-submit-modal' %>
+                      <%= f.submit 'Mark Red', class: 'btn-form dropdown-item test-complete-red d-none' %>
                     <% end %>
                   <% end %>
                   <%= form_with model: t, local: true do |f| %>
@@ -274,3 +280,28 @@
   </table>
 
 <% end %>
+
+<!-- Modal -->
+<div id="test-complete-modal" class="modal fade" role="dialog">
+  <div class="vertical-alignment-helper">
+    <div class="modal-dialog vertical-align-center">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-body">
+          <div id="test-complete-question">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4>Is this test complete?</h4><br /><br />
+            <div class="row">
+              <div class="col-6">
+                <%= button_tag 'No', type: 'button', name: 'no', class: 'btn btn-default test-complete-confirm' %>
+              </div>
+              <div class="col-6">
+                <%= button_tag 'Yes', type: 'button', name: 'yes', class: 'btn btn-success test-complete-confirm' %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

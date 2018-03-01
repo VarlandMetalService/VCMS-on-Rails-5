@@ -114,8 +114,7 @@ body {
 }
 
 .vertical-align-center {
-  /* To center vertically */
-  display: table-cell;
+  top: 30vh;
   vertical-align: middle;
   pointer-events:none;
 }
