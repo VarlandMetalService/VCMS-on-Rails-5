@@ -59,8 +59,6 @@ class SaltSprayTestsController < ApplicationController
       else
         if @salt_spray_test.pulled_off_at
           flash[:notice] = "#{@salt_spray_test.shop_order_number} has been archived."
-        else
-          flash[:notice] = "#{@salt_spray_test.shop_order_number} has been updated."
         end
         redirect_to action: 'index', params: session[:params]
       end
