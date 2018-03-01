@@ -4,8 +4,8 @@
 
 .vcms-salt_spray_tests {
 
-  // Mobile only
-  @media (max-width:600px) {
+  // Mobile and iPad
+  @media (max-width:768px) {
 
     .shop-order {
       font-size: 24px;
@@ -29,7 +29,7 @@
 
   }
 
-  // iPad only
+  // iPad landscape only
   @media only screen
   and (min-device-width : 768px)
   and (max-device-width : 1024px)
