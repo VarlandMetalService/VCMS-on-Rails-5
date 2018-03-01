@@ -7,6 +7,9 @@ require "capistrano/deploy"
 require 'capistrano/rails'
 require 'capistrano/passenger'
 
+# Whenever gem integration
+require 'whenever/capistrano'
+
 # If you are using rbenv add these lines:
 require 'capistrano/rbenv'
 set :rbenv_type, :user
