@@ -3,7 +3,7 @@
     <div class="col-7">
       <div class="form-group">
         <%= f.label :with_shop_order_number, 'Shop Order:'  %>
-        <%= f.text_field :with_shop_order_number, class: 'form-control', value: params[:with_shop_order_number] %>
+        <%= f.number_field :with_shop_order_number, class: 'form-control', value: params[:with_shop_order_number] %>
         <%= f.hidden_field :mobile_filter %>
       </div>
     </div>

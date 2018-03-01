@@ -5,7 +5,7 @@
       <small class="text-warning">(Yellow highlight means on break)</small>
     </div>
     <div class="col-3 text-right">
-      <%= link_to '<i class="fa fa-times"></i>'.html_safe, '#', onclick: "history.back()", class: 'btn btn-sm btn-danger d-xl-none' %>
+      <%= link_to '<i class="fa fa-times"></i>'.html_safe, '#', onclick: "event.preventDefault();javascript:history.go(-1);", class: 'btn btn-sm btn-danger d-xl-none' %>
     </div>
 
     <% if @clocked_in.size == 0 %>
