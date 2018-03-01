@@ -157,7 +157,7 @@
       <%= f.submit 'Red Spot Found', class: 'btn btn-danger test-complete-red' %>
     <% end %>
     <div class="text-center col-12 cancel-test">
-      <%= link_to 'Cancel', '#', onclick: "javascript:history.go(-1)", class: 'btn btn-sm btn-link' %>
+      <%= link_to 'Cancel', '#', onclick: "event.preventDefault();javascript:history.go(-1);", class: 'btn btn-sm btn-link' %>
     </div>
   </div>
 <% end %>
