@@ -57,6 +57,11 @@ class SaltSprayTestsController < ApplicationController
       if params[:salt_spray_test][:on_archived] == 'true'
         redirect_to action: 'archived_tests', params: session[:params]
       else
+        if @salt_spray_test.pulled_off_at
+          flash[:notice] = "#{@salt_spray_test.shop_order_number} has been archived."
+        else
+          flash[:notice] = "#{@salt_spray_test.shop_order_number} has been updated."
+        end
         redirect_to action: 'index', params: session[:params]
       end
     else

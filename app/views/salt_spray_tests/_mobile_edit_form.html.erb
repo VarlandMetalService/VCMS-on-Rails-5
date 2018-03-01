@@ -81,13 +81,13 @@
       <%= f.hidden_field :flagged_by, value: @current_user.id, disabled: !@salt_spray_test.flagged_by, class: 'toggle-flagged-by' %>
       <%= f.hidden_field :flagged_by, value: nil, disabled: @salt_spray_test.flagged_by, class: 'toggle-flagged-by' %>
     </div>
-  <div>
+  </div>
   <br />
   <div class="container row">
     <div class="col-12">
       <%= f.fields_for :comments, @salt_spray_test.comments.build do |c| %>
         <div class="row">
-          <div class="col-12 col-md-3">
+          <div class="col-12 col-md-5 offset-md-1 col-lg-3">
             <%= f.label nil, 'New Comment', class: 'form-control-label' %>
             <div class="form-group">
               <div class="row form-group comment-group">
@@ -101,7 +101,7 @@
               </div>
             </div>
           </div>
-          <div class="col-12 col-md-6 offset-md-3">
+          <div class="col-12 col-md-5 offset-md-1 col-lg-6 offset-lg-3">
             <div class="form-group">
               <div class="view-comment-attachments">
                 <%= c.label nil, 'New Attachments' %><br />
@@ -128,21 +128,21 @@
   <div class="row">
     <%= f.hidden_field :checked_by, value: @current_user.id %>
     <% if @salt_spray_test.red_spot_reporter || (@salt_spray_test.white_spot_reporter && !@salt_spray_test.red_spec_exists?) %>
-      <div class="text-center col-6">
+      <div class="text-center col-6 col-md-4 offset-md-2">
         <%= f.submit 'Continue Test', class: 'btn btn-default' %>
       </div>
       <div class="text-center col-6">
         <%= f.submit 'Test Complete', class: 'btn btn-danger' %>
       </div>
     <% else %>
-      <div class="text-left col-6">
+      <div class="text-left col-6 col-md-4 offset-md-2">
         <% if @salt_spray_test.calculate_rust_hours(nil) > @salt_spray_test.red_spec  %>
           <%= button_tag 'No Spot Found', type: 'button', data: {toggle: 'modal', target: '#test-complete-modal', spot: 'none'}, class: 'btn btn-default open-submit-modal' %>
         <% else %>
           <%= f.submit 'No Spot Found', class: 'btn btn-default' if !@salt_spray_test.red_spot_reporter %>
         <% end %>
       </div>
-      <div class="text-right col-6">
+      <div class="text-right col-6 col-md-4">
         <%= button_tag 'Red Spot Found', type: 'button', data: {toggle: 'modal', target: '#test-complete-modal', spot: 'red'}, class: 'btn btn-danger open-submit-modal' if @salt_spray_test.white_spot_reporter %>
         <% if !@salt_spray_test.red_spec_exists? %>
           <%= button_tag 'White Spot Found', type: 'button', data: {toggle: 'modal', target: '#test-complete-modal', spot: 'white'}, class: 'btn btn-danger open-submit-modal' if !@salt_spray_test.white_spot_reporter %>
