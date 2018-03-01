@@ -188,4 +188,15 @@ body {
   *:first-child + html .digg_pagination {
     overflow: hidden;
   }
+
+}
+
+// iPad Only
+@media only screen and
+(min-device-width: 481px) and
+(max-device-width: 1024px) and
+(orientation:portrait) {
+  .ipad-mb {
+    margin-bottom: 75px;
+  }
 }
