@@ -52,7 +52,12 @@ class SaltSprayTest < ApplicationRecord
     where("part_number like ?", "#{part_numbers}%")
   }
   scope :with_process_code, lambda { |process_code|
-    where "process_code = ?", "#{process_code}"
+    child_codes = get_child_process_codes(process_code)
+    if child_codes
+      child_codes.unshift(process_code)
+      process_code = child_codes
+    end
+    where(process_code: process_code)
   }
   scope :with_flag, lambda {|is_flagged|
     if is_flagged == '1'
@@ -101,7 +106,8 @@ class SaltSprayTest < ApplicationRecord
   end
 
   def self.options_for_process_code
-    distinct.where.not(process_code: [nil, '']).limit(100).pluck(:process_code).sort!
+    result = self.distinct.where.not(process_code: [nil, '']).limit(100).pluck(:process_code).sort!
+    result.map { |p| get_parent_process_code(p) }.uniq
   end
 
   def self.options_for_customer
@@ -232,6 +238,34 @@ class SaltSprayTest < ApplicationRecord
 
   def get_last_comment
     self.comments.reverse_order.limit(1).to_a.first.content
+  end
+
+  def self.get_parent_process_code(process_code)
+    case process_code
+    when 'LN', 'SHN'
+      return 'HN'
+    when 'STZ'
+      return 'TZ'
+    when 'SZF'
+      return 'ZF'
+    when 'SZN'
+      return 'ZN'
+    else
+      return process_code
+    end
+  end
+
+  def self.get_child_process_codes(process_code)
+    case process_code
+    when 'HN'
+      return ['LN', 'SHN']
+    when 'TZ'
+      return ['STZ']
+    when 'ZF'
+      return ['SZF']
+    when 'ZN'
+      return ['SZN']
+    end
   end
 
 private
