@@ -53,6 +53,12 @@
             <%= f.label :dept, 'Department', class: 'form-control-label' %><br />
             <%= f.select :dept, SaltSprayTest.options_for_plating_department, {include_blank: true}, {class: 'form-control'} %>
           </div>
+          <% if @salt_spray_test.is_custom_order? %>
+            <div class="form-group">
+              <%= f.label :sample_code, 'Sample Code', class: 'form-control-label' %><br />
+              <%= f.text_field :sample_code, class: 'form-control', maxlength: 3 %>
+            </div>
+          <% end %>
         </div>
         <div class="col-md-3 offset-md-1 px-0">
           <div class="form-group">

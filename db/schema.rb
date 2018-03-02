@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180220181927) do
+ActiveRecord::Schema.define(version: 20180302160115) do
 
   create_table "assigned_permissions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "user_id"
@@ -178,6 +178,7 @@ ActiveRecord::Schema.define(version: 20180220181927) do
     t.bigint "deleted_by"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "sample_code"
     t.index ["checked_by", "process_code"], name: "index_salt_spray_tests_on_checked_by_and_process_code"
     t.index ["marked_red_by"], name: "fk_rails_818a3fe6c3"
     t.index ["marked_white_by"], name: "fk_rails_eb9b825c87"
