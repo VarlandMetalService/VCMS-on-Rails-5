@@ -51,7 +51,7 @@ $(document).on 'turbolinks:load', (event) ->
 
   # "Test Complete?" modal functionality
   $('.open-submit-modal').on 'click', (event) ->
-    $('.test-complete-' + $(event.target).data('spot')).addClass('trigger-test-complete');
+    $(event.target).closest('.row').find('.test-complete-' + $(event.target).data('spot')).addClass('trigger-test-complete');
 
   $('#test-complete-modal').on 'hidden.bs.modal', (event) ->
     $('.trigger-test-complete').removeClass('trigger-test-complete');

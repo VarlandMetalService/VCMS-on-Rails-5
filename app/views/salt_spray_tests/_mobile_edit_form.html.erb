@@ -126,9 +126,9 @@
   <div class="row ss-action-buttons">
     <div class="text-center col-6 col-md-4 offset-md-2">
       <% if !@salt_spray_test.red_spec_exists? %>
-        <%= button_tag 'Mark White', type: 'button', data: {toggle: 'modal', target: '#test-complete-modal', spot: 'white'}, class: 'btn btn-info open-submit-modal', disabled: @salt_spray_test.white_spot_reporter %>
+        <%= button_tag 'Mark White', type: 'button', data: {toggle: 'modal', target: '#test-complete-modal', spot: 'white'}, class: 'btn btn-info open-submit-modal', disabled: @salt_spray_test.white_spot_reporter || @salt_spray_test.red_spot_reporter %>
       <% else %>
-        <%= f.submit 'Mark White', class: 'btn btn-info', disabled: @salt_spray_test.white_spot_reporter %>
+        <%= f.submit 'Mark White', class: 'btn btn-info', disabled: @salt_spray_test.white_spot_reporter || @salt_spray_test.red_spot_reporter %>
       <% end %>
     </div>
     <div class="text-center col-6 col-md-4 ipad-mb-sm">
