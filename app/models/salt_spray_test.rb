@@ -2,6 +2,7 @@ class SaltSprayTest < ApplicationRecord
   serialize :checked_by_archive, Array
 
   before_save :archive_checked_by
+  before_save :check_for_sample
   before_create :standardize_times
   before_create :add_shop_order_details
 
@@ -278,6 +279,12 @@ private
   def archive_checked_by
     if self.checked_by
       self.checked_by_archive << self.checked_by
+    end
+  end
+
+  def check_for_sample
+    if self.is_custom_order?
+      self.is_sample = true
     end
   end
 
