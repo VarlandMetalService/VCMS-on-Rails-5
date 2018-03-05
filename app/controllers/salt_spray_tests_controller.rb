@@ -50,7 +50,7 @@ class SaltSprayTestsController < ApplicationController
   end
 
   def update
-    check_for_mobile(params[:commit])
+    check_for_mobile(params)
     check_param_values(params)
 
     if @salt_spray_test.update(salt_spray_test_params)
@@ -175,15 +175,14 @@ private
     end
   end
 
-  def check_for_mobile(commit_text)
-    case commit_text
-    when 'White Spot Found'
+  def check_for_mobile(params)
+    if params[:mark_white]
       @salt_spray_test.update_spot(current_user.id, 'white')
-    when 'Red Spot Found'
+    elsif params[:mark_red]
       @salt_spray_test.update_spot(current_user.id, 'red')
-    when 'Test Complete'
-      @salt_spray_test.pulled_off_at = Date.current
-      @salt_spray_test.pulled_off_by = current_user.id
+    elsif params[:test_complete]
+      params[:salt_spray_test][:pulled_off_at] = DateTime.current
+      params[:salt_spray_test][:pulled_off_by] = current_user.id
     end
   end
 

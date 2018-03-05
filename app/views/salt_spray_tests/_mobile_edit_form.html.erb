@@ -124,6 +124,9 @@
     </div>
   </div>
   <div class="row ss-action-buttons">
+    <%= f.hidden_field :checked_by, value: @current_user.id %>
+    <%= f.hidden_field :pulled_off_at, value: nil, class: 'form-submit-date-off' %>
+    <%= f.hidden_field :pulled_off_by, value: @current_user.id, class: 'form-submit-off-by', disabled: true %>
     <div class="text-center col-6 col-md-4 offset-md-2">
       <% if !@salt_spray_test.red_spec_exists? %>
         <%= button_tag 'Mark White', type: 'button', data: {toggle: 'modal', target: '#test-complete-modal', spot: 'white'}, class: 'btn btn-info open-submit-modal', disabled: @salt_spray_test.white_spot_reporter || @salt_spray_test.red_spot_reporter %>
@@ -142,13 +145,10 @@
       <% end %>
     </div>
     <div class="text-center col-6 col-md-4">
-      <%= f.submit 'Test Complete', class: 'btn btn-primary', data: { confirm: 'Are you sure?'} %>
+      <%= f.submit 'Test Complete', name: 'test_complete', class: 'btn btn-primary', data: { confirm: 'Are you sure?'} %>
     </div>
-    <%= f.hidden_field :checked_by, value: @current_user.id %>
-    <%= f.hidden_field :pulled_off_at, value: nil, class: 'form-submit-date-off' %>
-    <%= f.hidden_field :pulled_off_by, value: @current_user.id, class: 'form-submit-off-by', disabled: true %>
-    <%= f.submit 'White Spot Found', class: 'btn btn-danger test-complete-white' %>
-    <%= f.submit 'Red Spot Found', class: 'btn btn-danger test-complete-red' %>
+    <%= f.submit 'White Spot Found', name: 'mark_white', class: 'btn btn-danger test-complete-white' %>
+    <%= f.submit 'Red Spot Found', name: 'mark_red', class: 'btn btn-danger test-complete-red' %>
     <div class="text-center col-12 cancel-test">
       <%= link_to 'Cancel', '#', onclick: "event.preventDefault();javascript:history.go(-1);", class: 'btn btn-sm btn-link' %>
     </div>
