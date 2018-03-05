@@ -144,7 +144,6 @@
     <div class="text-center col-6 col-md-4">
       <%= f.submit 'Test Complete', class: 'btn btn-primary', data: { confirm: 'Are you sure?'} %>
     </div>
-    <%= f.hidden_field :mobile_submit, value: true %>
     <%= f.hidden_field :checked_by, value: @current_user.id %>
     <%= f.hidden_field :pulled_off_at, value: nil, class: 'form-submit-date-off' %>
     <%= f.hidden_field :pulled_off_by, value: @current_user.id, class: 'form-submit-off-by', disabled: true %>
