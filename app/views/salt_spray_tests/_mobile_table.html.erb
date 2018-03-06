@@ -35,7 +35,8 @@
     <tbody>
       <% @salt_spray_tests.each do |t| -%>
         <tr class="row m-0 mobile-row<%= ' bg-warning-table' if t.flagged_by %><%= ' checked-test' if t.checked_by %>">
-          <td class="col-6 text-center shop-order"><%= '<i class="fa fa-flask text-info" title="This is a sample test"></i>'.html_safe if t.is_sample %><%= link_to t.shop_order_number, edit_salt_spray_test_path(t) %></td>
+          <% mobile_sample_code = "-#{t.sample_code}" if t.sample_code.present? %>
+          <td class="col-6 text-center shop-order px-0"><%= '<i class="fa fa-flask text-info" title="This is a sample test"></i>'.html_safe if t.is_sample %><%= link_to "#{t.shop_order_number}#{mobile_sample_code}", edit_salt_spray_test_path(t) %></td>
           <td class="col-3 text-center load-number"><%= t.load_number %></td>
           <td class="col-3 text-center process"><%= t.process_code %></td>
         </tr>
