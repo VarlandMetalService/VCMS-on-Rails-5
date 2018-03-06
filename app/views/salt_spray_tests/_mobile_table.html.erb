@@ -44,3 +44,24 @@
     </tbody>
   </table>
 </div>
+<% if @recently_archived_tests.count > 0 %>
+  <div class="table-responsive">
+    <table class="table table-bordered">
+      <thead>
+        <tr class="row m-0">
+          <th class="col-12 text-center">Recently Archived</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @recently_archived_tests.each do |a| -%>
+          <tr class="row m-0 mobile-row">
+            <% mobile_sample_code = "-#{a.sample_code}" if a.sample_code.present? %>
+            <td class="col-6 text-center shop-order px-0"><%= '<i class="fa fa-flask text-info" title="This is a sample test"></i>'.html_safe if a.is_sample %><%= link_to "#{a.shop_order_number}#{mobile_sample_code}", edit_salt_spray_test_path(a) %></td>
+            <td class="col-3 text-center load-number"><%= a.load_number %></td>
+            <td class="col-3 text-center process"><%= a.process_code %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>

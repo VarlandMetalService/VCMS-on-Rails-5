@@ -21,6 +21,7 @@ class SaltSprayTestsController < ApplicationController
 
   def index
     @salt_spray_tests = apply_scopes(SaltSprayTest).active.order(checked_by: :asc, process_code: :desc)
+    @recently_archived_tests = apply_scopes(SaltSprayTest).archived.where("pulled_off_at >= ? AND pulled_off_at <= ?", DateTime.now.beginning_of_day, DateTime.now.end_of_day)
 
     respond_to do |format|
       format.html
