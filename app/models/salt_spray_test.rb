@@ -187,11 +187,9 @@ class SaltSprayTest < ApplicationRecord
   def get_spot_found_value(value, spot_type)
     case spot_type
     when 'white'
-      return 'N/A' if !self.white_spec_exists?
       spot_date = self.marked_white_at
       reporter = self.white_spot_reporter
     when 'red'
-      return 'N/A' if !self.red_spec_exists?
       spot_date = self.marked_red_at
       reporter = self.red_spot_reporter
     end
@@ -237,7 +235,7 @@ class SaltSprayTest < ApplicationRecord
   end
 
   def get_last_comment
-    self.comments.reverse_order.limit(1).to_a.first.content
+    self.comments.reverse_order.limit(1).to_a.first.content if self.comments.count > 0
   end
 
   def self.get_parent_process_code(process_code)

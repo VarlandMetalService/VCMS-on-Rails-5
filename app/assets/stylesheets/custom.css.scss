@@ -29,6 +29,10 @@ body {
   margin-bottom: 0;
 }
 
+.btn.disabled, .btn:disabled {
+  opacity: 0.35;
+}
+
 .btn-mobile {
   margin-bottom: 0;
 }

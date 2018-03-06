@@ -28,7 +28,7 @@ module SaltSprayTestsHelper
     if @salt_spray_test.flagged_by
       'Remove Flag'
     else
-      'Flag For Editing'
+      'Add Flag'
     end
   end
 

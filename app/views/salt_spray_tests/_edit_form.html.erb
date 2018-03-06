@@ -154,17 +154,15 @@
             <%= f.number_field :load_weight, disabled: !@salt_spray_test.is_custom_order?, class: 'form-control', step: :any %>
           </div>
         </div>
-        <% if @salt_spray_test.flagged_by %>
-          <div class="col-4 offset-2">
-            <%= f.check_box :remove_flag %>
-            <%= f.label :remove_flag, 'Remove Flag?' %>
-          </div>
-        <% end %>
       </div>
       <br />
       <div class="row">
         <div class="col-12">
           <div class="form-group text-right">
+            <% if @salt_spray_test.flagged_by %>
+              <%= f.check_box :remove_flag %>
+              <%= f.label :remove_flag, 'Remove Flag?', class: "mr-3" %>
+            <% end %>
             <%= f.submit 'Edit Salt Spray Test', class: 'btn btn-primary' %>
             <%= link_to 'Cancel', salt_spray_tests_path(session[:params]), class: 'btn btn-link' %>
           </div>

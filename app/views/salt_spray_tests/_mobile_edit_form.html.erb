@@ -2,7 +2,7 @@
   <div class="col-12 card bg-light">
     <div class="row">
       <div class="col-8 text-left mobile-details-sm">
-        <span><strong>Shop Order: </strong><%= @salt_spray_test.shop_order_number %></span><br />
+        <span><strong>Shop Order: </strong><%= @salt_spray_test.shop_order_number %><%= "-#{@salt_spray_test.sample_code}" if @salt_spray_test.sample_code.present? %></span><br />
         <span><strong>Load: </strong><%= @salt_spray_test.load_number.present? ? @salt_spray_test.load_number : 'N/A' %></span><br />
         <span><strong>Proc/Dept: </strong><%= @salt_spray_test.process_code %><%= "/" + @salt_spray_test.dept.to_s if @salt_spray_test.dept %></span>
       </div>
@@ -18,17 +18,33 @@
 </div>
 <%= form_with model: @salt_spray_test do |f| %>
   <div class="row rust-spot-info iphone text-center border-0">
-    <div class="col-6">
-      <strong><%= f.label :hours_wo_white, "White Hrs (Spec):" %></strong><br />
-      <%= @salt_spray_test.calculate_rust_hours(@salt_spray_test.marked_white_at) %>
-      (<%= @salt_spray_test.white_spec_exists? ? @salt_spray_test.white_spec : 'N/A' %>)
-      <%= @salt_spray_test.get_pass_fail('white') if @salt_spray_test.marked_white_at %>
+    <div class="col-6 border border-left-0 border-bottom-0 border-top-0">
+      <strong><%= f.label :hours_wo_white, "White Spot:", class: "mb-0" %></strong><br />
+      <% if @salt_spray_test.marked_white_at %>
+        <strong class="text-success">Marked</strong><br />
+        <%= @salt_spray_test.get_spot_found_value('date', 'white') %><br />
+      <% else %>
+        <strong class="text-muted">Not Marked</strong><br />
+      <% end %>
+      <div class="text-muted">
+        Hrs:
+        <%= @salt_spray_test.calculate_rust_hours(@salt_spray_test.marked_white_at) %><%= " (#{@salt_spray_test.white_spec})" if @salt_spray_test.white_spec_exists? %>
+        <%= @salt_spray_test.get_pass_fail('white') if @salt_spray_test.marked_white_at %>
+      </div>
     </div>
     <div class="col-6">
-      <strong><%= f.label :hours_wo_red, "Red Hrs (Spec):" %></strong><br />
-      <%= @salt_spray_test.calculate_rust_hours(@salt_spray_test.marked_red_at) %>
-      (<%= @salt_spray_test.red_spec_exists? ? @salt_spray_test.red_spec : 'N/A' %>)
-      <%= @salt_spray_test.get_pass_fail('red') if @salt_spray_test.marked_red_at %>
+      <strong><%= f.label :hours_wo_white, "Red Spot:", class: "mb-0" %></strong><br />
+      <% if @salt_spray_test.marked_red_at %>
+        <strong class="text-success">Marked</strong><br />
+        <%= @salt_spray_test.get_spot_found_value('date', 'red') %><br />
+      <% else %>
+        <strong class="text-muted">Not Marked</strong><br />
+      <% end %>
+      <div class="text-muted">
+        Hrs:
+        <%= @salt_spray_test.calculate_rust_hours(@salt_spray_test.marked_red_at) %><%= " (#{@salt_spray_test.red_spec})" if @salt_spray_test.red_spec_exists? %>
+        <%= @salt_spray_test.get_pass_fail('red') if @salt_spray_test.marked_red_at %>
+      </div>
     </div>
   </div>
   <div class="container rust-spot-info ipad d-none">
@@ -76,8 +92,7 @@
   </div>
   <div class="row ipad-mb">
     <div class="col-12 text-center">
-      <%= link_to "View Comments / Attachments", show_comments_salt_spray_test_path(@salt_spray_test.id), remote: true, class: 'btn btn-sm btn-info mobile-attachments-btn' if has_comments(@salt_spray_test) %>
-      <div class="btn btn-sm btn-warning flag-test mt-3"><i class='fa fa-flag'></i> <%= flag_test_text %></div>
+      <%= link_to "View Comments / Attachments", show_comments_salt_spray_test_path(@salt_spray_test.id), remote: true, class: 'btn btn-sm btn-info' if has_comments(@salt_spray_test) %>
       <%= f.hidden_field :flagged_by, value: @current_user.id, disabled: !@salt_spray_test.flagged_by, class: 'toggle-flagged-by' %>
       <%= f.hidden_field :flagged_by, value: nil, disabled: @salt_spray_test.flagged_by, class: 'toggle-flagged-by' %>
     </div>
@@ -90,11 +105,12 @@
             <%= f.label nil, 'New Comment', class: 'form-control-label' %>
             <div class="form-group">
               <div class="row form-group comment-group">
-                <div class="col-11 pr-0">
-                  <%= c.text_area :content, rows: 3, class: 'form-control mobile-comment' %>
+                <div class="col-10 pr-0">
+                  <%= c.text_area :content, rows: 2, class: 'form-control' %>
                   <%= c.hidden_field :created_by, value: @current_user.id %>
                 </div>
-                <div class="col-1 px-0">
+                <div class="col-2 px-0">
+                  <div class="btn btn-sm btn-link text-warning flag-test"><%= flag_test_text %></div>
                   <div class="btn btn-sm btn-link clear-comment">Clear</div>
                 </div>
               </div>
