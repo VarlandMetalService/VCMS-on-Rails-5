@@ -107,7 +107,14 @@ class SaltSprayTest < ApplicationRecord
 
   def self.options_for_process_code
     result = self.distinct.where.not(process_code: [nil, '']).limit(100).pluck(:process_code).sort!
-    result.map { |p| get_parent_process_code(p) }.uniq
+    result.map { |p|
+      child_code_options = get_child_process_codes(get_parent_process_code(p))
+      if child_code_options.length > 0
+        [get_parent_process_code(p) + ", " + child_code_options.join(", "), get_parent_process_code(p)]
+      else
+        [get_parent_process_code(p), get_parent_process_code(p)]
+      end
+    }.uniq
   end
 
   def self.options_for_customer
@@ -263,6 +270,8 @@ class SaltSprayTest < ApplicationRecord
       return ['SZF']
     when 'ZN'
       return ['SZN']
+    else
+      return []
     end
   end
 
