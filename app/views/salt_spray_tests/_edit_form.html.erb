@@ -163,6 +163,7 @@
               <%= f.check_box :remove_flag %>
               <%= f.label :remove_flag, 'Remove Flag?', class: "mr-3" %>
             <% end %>
+            <%= f.hidden_field :manual_edit, value: true %>
             <%= f.submit 'Edit Salt Spray Test', class: 'btn btn-primary' %>
             <%= link_to 'Cancel', salt_spray_tests_path(session[:params]), class: 'btn btn-link' %>
           </div>

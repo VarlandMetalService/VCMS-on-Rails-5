@@ -1,9 +1,11 @@
 class SaltSprayTest < ApplicationRecord
   serialize :checked_by_archive, Array
 
+  attr_accessor :manual_edit
+
   before_save :archive_checked_by
   before_save :check_for_sample
-  before_create :standardize_times
+  before_save :standardize_times, unless: :manual_edit
   before_create :add_shop_order_details
 
   default_scope { where 'deleted_at IS NULL' }
@@ -278,16 +280,16 @@ class SaltSprayTest < ApplicationRecord
 private
 
   def standardize_times
-    if self.put_on_at.present?
+    if self.put_on_at.present? && self.put_on_at_changed?
       self.put_on_at = self.put_on_at.noon - 1.hour
     end
-    if self.marked_white_at.present?
+    if self.marked_white_at.present? && (self.white_spec_exists? && self.white_spec >= 24) && self.marked_white_at_changed?
       self.marked_white_at = self.marked_white_at.noon - 1.hour
     end
-    if self.marked_red_at.present?
+    if self.marked_red_at.present? && (self.red_spec_exists? && self.red_spec >= 24) && self.marked_red_at_changed?
       self.marked_red_at = self.marked_red_at.noon - 1.hour
     end
-    if self.pulled_off_at.present?
+    if self.pulled_off_at.present? && self.pulled_off_at_changed?
       self.pulled_off_at = self.pulled_off_at.noon - 1.hour
     end
   end

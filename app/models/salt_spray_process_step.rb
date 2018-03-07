@@ -1,9 +1,9 @@
 class SaltSprayProcessStep < ApplicationRecord
+  attr_accessor :chromate_other, :top_coat_other
+
   before_save :check_for_other
 
   belongs_to :salt_spray_test
-
-  attr_accessor :chromate_other, :top_coat_other
 
   def self.options_for_chromate
     [
