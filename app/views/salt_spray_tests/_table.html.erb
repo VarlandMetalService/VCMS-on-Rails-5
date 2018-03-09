@@ -1,5 +1,5 @@
 <div class="filter-form border-0 mb-0 p-0">
-<ul class="nav nav-tabs" id="myTab" role="tablist">
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-item">
       <a class="nav-link active" id="standard-tab" data-toggle="tab" href="#standard" role="tab" aria-controls="home" aria-selected="true">Standard</a>
     </li>
@@ -7,159 +7,159 @@
       <a class="nav-link" id="dates-tab" data-toggle="tab" href="#dates" role="tab" aria-controls="profile" aria-selected="false">Dates</a>
     </li>
   </ul>
-<%= form_with url: filter_path, class: 'filter-form bg-warning hidden-print border-top-0', method: 'get', local: true do |f| %>
+  <%= form_with url: filter_path, class: 'filter-form bg-warning hidden-print border-top-0', method: 'get', local: true do |f| %>
 
-  <div class="tab-content mt-2" id="myTabContent">
-    <div class="row tab-pane fade show active" id="standard" role="tabpanel" aria-labelledby="standard-tab">
-      <div class="col-md-2">
-        <div class="form-group">
-          <%= f.label :with_shop_order_number, 'Shop Order:'  %>
-          <%= f.text_field :with_shop_order_number, class: 'form-control', value: params[:with_shop_order_number] %>
+    <div class="tab-content mt-2" id="myTabContent">
+      <div class="row tab-pane fade show active" id="standard" role="tabpanel" aria-labelledby="standard-tab">
+        <div class="col-md-2">
+          <div class="form-group">
+            <%= f.label :with_shop_order_number, 'Shop Order:'  %>
+            <%= f.text_field :with_shop_order_number, class: 'form-control', value: params[:with_shop_order_number] %>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-group">
+            <%= f.label :with_customer, 'Customer:'  %>
+            <%= f.select :with_customer, @salt_spray_tests.options_for_customer, { include_blank: true, selected: params[:with_customer] }, { class: 'form-control' } %>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <%= f.label :with_sub, 'Sub ID:'  %>
+            <%= f.text_field :with_sub, class: 'form-control', value: params[:with_sub] %>
+          </div>
+        </div>
+        <div class="col-md-1">
+          <div class="form-group">
+            <%= f.label :with_process_code, 'Process:'  %>
+            <%= f.select :with_process_code, @salt_spray_tests.options_for_process_code, {include_blank: true, selected: params[:with_process_code]}, { class: 'form-control' } %>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-group">
+            <%= f.label :with_part_number, 'Part ID:'  %>
+              <%= f.select :with_part_number, @salt_spray_tests.options_for_part_number, { include_blank: true, selected: params[:with_part_number] }, { class: 'form-control' } %>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-group">
+            <%= f.label :sorted_by, 'Sorted By:' %>
+            <%= f.select :sorted_by, sorted_by_options, { selected: params[:sorted_by] }, { class: 'form-control' } %>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-group text-center">
+            <%= f.label :with_flag, 'Is Flagged:'  %>
+            <%= f.check_box :with_flag, class: 'form-control', checked: params[:with_flag] == '1' %>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-group text-center">
+            <%= f.label :with_sample, 'Is Sample:'  %>
+            <%= f.check_box :with_sample, class: 'form-control', checked: params[:with_sample] == '1' %>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-group text-center">
+            <%= f.label :with_has_comments, 'Has Comments:'  %>
+            <%= f.check_box :with_has_comments, class: 'form-control', checked: params[:with_has_comments] == '1' %>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-group text-center">
+            <%= f.label :with_has_attachments, 'Has Attachments:'  %>
+            <%= f.check_box :with_has_attachments, class: 'form-control', checked: params[:with_has_attachments] == '1' %>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <%= f.label :with_comments, 'Comments:'  %>
+            <%= f.text_field :with_comments, class: 'form-control', value: params[:with_comments] %>
+          </div>
         </div>
       </div>
-      <div class="col-md-2">
-        <div class="form-group">
-          <%= f.label :with_customer, 'Customer:'  %>
-          <%= f.select :with_customer, @salt_spray_tests.options_for_customer, { include_blank: true, selected: params[:with_customer] }, { class: 'form-control' } %>
+      <div class="row tab-pane fade" id="dates" role="tabpanel" aria-labelledby="dates-tab">
+        <div class="col-md-2">
+          <div class="form-group">
+            <%= f.label :with_put_on_by, 'Put On By:'  %>
+            <%= f.select :with_put_on_by, @salt_spray_tests.options_for_put_on_by, { include_blank: true, selected: params[:with_put_on_by] }, { class: 'form-control' } %>
+          </div>
         </div>
-      </div>
-      <div class="col-md-3">
-        <div class="form-group">
-          <%= f.label :with_sub, 'Sub ID:'  %>
-          <%= f.text_field :with_sub, class: 'form-control', value: params[:with_sub] %>
+        <div class="col-md-2">
+          <div class="form-group">
+            <%= f.label :with_put_on_at_gte, 'Date On - Start:' %>
+            <%= f.date_field :with_put_on_at_gte, class: 'form-control', value: params[:with_put_on_at_gte] %>
+          </div>
         </div>
-      </div>
-      <div class="col-md-1">
-        <div class="form-group">
-          <%= f.label :with_process_code, 'Process:'  %>
-          <%= f.select :with_process_code, @salt_spray_tests.options_for_process_code, {include_blank: true, selected: params[:with_process_code]}, { class: 'form-control' } %>
+        <div class="col-md-2">
+          <div class="form-group">
+            <%= f.label :with_put_on_at_lte, 'Date On - End:' %>
+            <%= f.date_field :with_put_on_at_lte, class: 'form-control', value: params[:with_put_on_at_lte] %>
+          </div>
         </div>
-      </div>
-      <div class="col-md-2">
-        <div class="form-group">
-          <%= f.label :with_part_number, 'Part ID:'  %>
-            <%= f.select :with_part_number, @salt_spray_tests.options_for_part_number, { include_blank: true, selected: params[:with_part_number] }, { class: 'form-control' } %>
+        <div class="col-md-2">
+          <div class="form-group">
+            <%= f.label :with_marked_white_by, 'Marked White By:'  %>
+            <%= f.select :with_marked_white_by, @salt_spray_tests.options_for_marked_white_by, { include_blank: true, selected: params[:with_marked_white_by] }, { class: 'form-control' } %>
+          </div>
         </div>
-      </div>
-      <div class="col-md-2">
-        <div class="form-group">
-          <%= f.label :sorted_by, 'Sorted By:' %>
-          <%= f.select :sorted_by, sorted_by_options, { selected: params[:sorted_by] }, { class: 'form-control' } %>
+        <div class="col-md-2">
+          <div class="form-group">
+            <%= f.label :with_marked_white_at_gte, 'Date Marked White - Start:' %>
+            <%= f.date_field :with_marked_white_at_gte, class: 'form-control', value: params[:with_marked_white_at_gte] %>
+          </div>
         </div>
-      </div>
-      <div class="col-md-2">
-        <div class="form-group text-center">
-          <%= f.label :with_flag, 'Is Flagged:'  %>
-          <%= f.check_box :with_flag, class: 'form-control', checked: params[:with_flag] == '1' %>
+        <div class="col-md-2">
+          <div class="form-group">
+            <%= f.label :with_marked_white_at_lte, 'Date Marked White - End:' %>
+            <%= f.date_field :with_marked_white_at_lte, class: 'form-control', value: params[:with_marked_white_at_lte] %>
+          </div>
         </div>
-      </div>
-      <div class="col-md-2">
-        <div class="form-group text-center">
-          <%= f.label :with_sample, 'Is Sample:'  %>
-          <%= f.check_box :with_sample, class: 'form-control', checked: params[:with_sample] == '1' %>
+        <div class="col-md-2">
+          <div class="form-group">
+            <%= f.label :with_pulled_off_by, 'Pulled Off By:'  %>
+            <%= f.select :with_pulled_off_by, @salt_spray_tests.options_for_pulled_off_by, { include_blank: true, selected: params[:with_pulled_off_by] }, { class: 'form-control', disabled: action_name != 'archived_tests' } %>
+          </div>
         </div>
-      </div>
-      <div class="col-md-2">
-        <div class="form-group text-center">
-          <%= f.label :with_has_comments, 'Has Comments:'  %>
-          <%= f.check_box :with_has_comments, class: 'form-control', checked: params[:with_has_comments] == '1' %>
+        <div class="col-md-2">
+          <div class="form-group">
+            <%= f.label :with_pulled_off_at_gte, 'Date Off - Start:' %>
+            <%= f.date_field :with_pulled_off_at_gte, class: 'form-control', value: params[:with_pulled_off_at_gte], disabled: action_name != 'archived_tests' %>
+          </div>
         </div>
-      </div>
-      <div class="col-md-2">
-        <div class="form-group text-center">
-          <%= f.label :with_has_attachments, 'Has Attachments:'  %>
-          <%= f.check_box :with_has_attachments, class: 'form-control', checked: params[:with_has_attachments] == '1' %>
+        <div class="col-md-2">
+          <div class="form-group">
+            <%= f.label :with_pulled_off_at_lte, 'Date Off - End:' %>
+            <%= f.date_field :with_pulled_off_at_lte, class: 'form-control', value: params[:with_pulled_off_at_lte], disabled: action_name != 'archived_tests' %>
+          </div>
         </div>
-      </div>
-      <div class="col-md-4">
-        <div class="form-group">
-          <%= f.label :with_comments, 'Comments:'  %>
-          <%= f.text_field :with_comments, class: 'form-control', value: params[:with_comments] %>
+        <div class="col-md-2">
+          <div class="form-group">
+            <%= f.label :with_marked_red_by, 'Marked Red By:'  %>
+            <%= f.select :with_marked_red_by, @salt_spray_tests.options_for_marked_red_by, { include_blank: true, selected: params[:with_marked_red_by] }, { class: 'form-control' } %>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-group">
+            <%= f.label :with_marked_red_at_gte, 'Date Marked Red - Start:' %>
+            <%= f.date_field :with_marked_red_at_gte, class: 'form-control', value: params[:with_marked_red_at_gte] %>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-group">
+            <%= f.label :with_marked_red_at_lte, 'Date Marked Red - End:' %>
+            <%= f.date_field :with_marked_red_at_lte, class: 'form-control', value: params[:with_marked_red_at_lte] %>
+          </div>
         </div>
       </div>
     </div>
-    <div class="row tab-pane fade" id="dates" role="tabpanel" aria-labelledby="dates-tab">
-      <div class="col-md-2">
-        <div class="form-group">
-          <%= f.label :with_put_on_by, 'Put On By:'  %>
-          <%= f.select :with_put_on_by, @salt_spray_tests.options_for_put_on_by, { include_blank: true, selected: params[:with_put_on_by] }, { class: 'form-control' } %>
-        </div>
-      </div>
-      <div class="col-md-2">
-        <div class="form-group">
-          <%= f.label :with_put_on_at_gte, 'Date On - Start:' %>
-          <%= f.date_field :with_put_on_at_gte, class: 'form-control', value: params[:with_put_on_at_gte] %>
-        </div>
-      </div>
-      <div class="col-md-2">
-        <div class="form-group">
-          <%= f.label :with_put_on_at_lte, 'Date On - End:' %>
-          <%= f.date_field :with_put_on_at_lte, class: 'form-control', value: params[:with_put_on_at_lte] %>
-        </div>
-      </div>
-      <div class="col-md-2">
-        <div class="form-group">
-          <%= f.label :with_marked_white_by, 'Marked White By:'  %>
-          <%= f.select :with_marked_white_by, @salt_spray_tests.options_for_marked_white_by, { include_blank: true, selected: params[:with_marked_white_by] }, { class: 'form-control' } %>
-        </div>
-      </div>
-      <div class="col-md-2">
-        <div class="form-group">
-          <%= f.label :with_marked_white_at_gte, 'Date Marked White - Start:' %>
-          <%= f.date_field :with_marked_white_at_gte, class: 'form-control', value: params[:with_marked_white_at_gte] %>
-        </div>
-      </div>
-      <div class="col-md-2">
-        <div class="form-group">
-          <%= f.label :with_marked_white_at_lte, 'Date Marked White - End:' %>
-          <%= f.date_field :with_marked_white_at_lte, class: 'form-control', value: params[:with_marked_white_at_lte] %>
-        </div>
-      </div>
-      <div class="col-md-2">
-        <div class="form-group">
-          <%= f.label :with_pulled_off_by, 'Pulled Off By:'  %>
-          <%= f.select :with_pulled_off_by, @salt_spray_tests.options_for_pulled_off_by, { include_blank: true, selected: params[:with_pulled_off_by] }, { class: 'form-control', disabled: action_name != 'archived_tests' } %>
-        </div>
-      </div>
-      <div class="col-md-2">
-        <div class="form-group">
-          <%= f.label :with_pulled_off_at_gte, 'Date Off - Start:' %>
-          <%= f.date_field :with_pulled_off_at_gte, class: 'form-control', value: params[:with_pulled_off_at_gte], disabled: action_name != 'archived_tests' %>
-        </div>
-      </div>
-      <div class="col-md-2">
-        <div class="form-group">
-          <%= f.label :with_pulled_off_at_lte, 'Date Off - End:' %>
-          <%= f.date_field :with_pulled_off_at_lte, class: 'form-control', value: params[:with_pulled_off_at_lte], disabled: action_name != 'archived_tests' %>
-        </div>
-      </div>
-      <div class="col-md-2">
-        <div class="form-group">
-          <%= f.label :with_marked_red_by, 'Marked Red By:'  %>
-          <%= f.select :with_marked_red_by, @salt_spray_tests.options_for_marked_red_by, { include_blank: true, selected: params[:with_marked_red_by] }, { class: 'form-control' } %>
-        </div>
-      </div>
-      <div class="col-md-2">
-        <div class="form-group">
-          <%= f.label :with_marked_red_at_gte, 'Date Marked Red - Start:' %>
-          <%= f.date_field :with_marked_red_at_gte, class: 'form-control', value: params[:with_marked_red_at_gte] %>
-        </div>
-      </div>
-      <div class="col-md-2">
-        <div class="form-group">
-          <%= f.label :with_marked_red_at_lte, 'Date Marked Red - End:' %>
-          <%= f.date_field :with_marked_red_at_lte, class: 'form-control', value: params[:with_marked_red_at_lte] %>
-        </div>
+    <div class="row">
+      <div class="col-12">
+        <%= link_to 'Reset Filters', filter_path, class: 'btn btn-sm btn-link float-left' %>
+        <%= f.submit 'Filter', name: nil, class: 'float-right' %>
       </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col-12">
-      <%= link_to 'Reset Filters', filter_path, class: 'btn btn-sm btn-link float-left' %>
-      <%= f.submit 'Filter', name: nil, class: 'float-right' %>
-    </div>
-  </div>
-<% end %>
+  <% end %>
 </div>
 
 <% if @salt_spray_tests.size == 0 -%>
