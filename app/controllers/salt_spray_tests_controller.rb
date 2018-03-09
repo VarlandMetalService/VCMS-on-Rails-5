@@ -18,6 +18,8 @@ class SaltSprayTestsController < ApplicationController
   has_scope :with_sub
   has_scope :with_put_on_at_gte
   has_scope :with_put_on_at_lte
+  has_scope :with_pulled_off_at_gte
+  has_scope :with_pulled_off_at_lte
   has_scope :with_marked_white_at_gte
   has_scope :with_marked_white_at_lte
   has_scope :with_marked_white_by
