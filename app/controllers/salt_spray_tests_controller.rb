@@ -6,6 +6,7 @@ class SaltSprayTestsController < ApplicationController
 
   has_scope :with_shop_order_number
   has_scope :with_put_on_by
+  has_scope :with_pulled_off_by
   has_scope :with_customer
   has_scope :with_part_number
   has_scope :with_process_code
@@ -17,6 +18,12 @@ class SaltSprayTestsController < ApplicationController
   has_scope :with_sub
   has_scope :with_put_on_at_gte
   has_scope :with_put_on_at_lte
+  has_scope :with_marked_white_at_gte
+  has_scope :with_marked_white_at_lte
+  has_scope :with_marked_white_by
+  has_scope :with_marked_red_at_gte
+  has_scope :with_marked_red_at_lte
+  has_scope :with_marked_red_by
   has_scope :sorted_by
 
   def index

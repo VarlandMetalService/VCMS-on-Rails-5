@@ -93,6 +93,30 @@ class SaltSprayTest < ApplicationRecord
   scope :with_put_on_at_lte, lambda { |reference_time|
     where 'put_on_at < ?', reference_time.to_date + 1
   }
+  scope :with_pulled_off_at_gte, lambda { |reference_time|
+    where 'pulled_off_at >= ?', reference_time.to_date
+  }
+  scope :with_pulled_off_at_lte, lambda { |reference_time|
+    where 'pulled_off_at < ?', reference_time.to_date + 1
+  }
+  scope :with_marked_white_at_gte, lambda { |reference_time|
+    where 'marked_white_at >= ?', reference_time.to_date
+  }
+  scope :with_marked_white_at_lte, lambda { |reference_time|
+    where 'marked_white_at < ?', reference_time.to_date + 1
+  }
+  scope :with_marked_white_by, ->(values) {
+    where marked_white_by: [*values]
+  }
+  scope :with_marked_red_at_gte, lambda { |reference_time|
+    where 'marked_red_at >= ?', reference_time.to_date
+  }
+  scope :with_marked_red_at_lte, lambda { |reference_time|
+    where 'marked_red_at < ?', reference_time.to_date + 1
+  }
+  scope :with_marked_red_by, ->(values) {
+    where marked_red_by: [*values]
+  }
   scope :sorted_by, ->(sort_option) {
     order sort_option
   }
@@ -125,6 +149,21 @@ class SaltSprayTest < ApplicationRecord
 
   def self.options_for_put_on_by
     users = User.where id: SaltSprayTest.distinct.pluck(:put_on_by)
+    users.map { |u| [u.full_name, u.id] }
+  end
+
+  def self.options_for_pulled_off_by
+    users = User.where id: SaltSprayTest.distinct.pluck(:pulled_off_by)
+    users.map { |u| [u.full_name, u.id] }
+  end
+
+  def self.options_for_marked_red_by
+    users = User.where id: self.distinct.pluck(:marked_red_by)
+    users.map { |u| [u.full_name, u.id] }
+  end
+
+  def self.options_for_marked_white_by
+    users = User.where id: self.distinct.pluck(:marked_white_by)
     users.map { |u| [u.full_name, u.id] }
   end
 

@@ -195,6 +195,16 @@ body {
 
 }
 
+// Overrides bootstrap default
+.tab-content > .active {
+  display: flex;
+}
+
+.nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link {
+  background-color: #fcf8e3;
+  border-color: #dee2e6 #dee2e6 #fcf8e3;
+}
+
 // iPad Only
 @media only screen and
 (min-device-width: 481px) and
