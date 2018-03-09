@@ -169,15 +169,15 @@ class SaltSprayTest < ApplicationRecord
 
   def self.options_for_sorted_by
     [
-      ['Date (oldest first)', 'put_on_at'],
-      ['Date (newest first)', 'put_on_at DESC']
+      ['Date On (oldest first)', 'put_on_at'],
+      ['Date On (newest first)', 'put_on_at DESC']
     ]
   end
 
   def self.options_for_archived_sorted_by
     [
-      ['Date (newest first)', 'put_on_at DESC'],
-      ['Date (oldest first)', 'put_on_at'],
+      ['Date On (newest first)', 'put_on_at DESC'],
+      ['Date On (oldest first)', 'put_on_at'],
     ]
   end
 
