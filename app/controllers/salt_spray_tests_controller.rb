@@ -29,7 +29,7 @@ class SaltSprayTestsController < ApplicationController
   has_scope :sorted_by
 
   def index
-    @salt_spray_tests = apply_scopes(SaltSprayTest).active.order(checked_by: :asc, process_code: :desc, shop_order_number: :asc)
+    @salt_spray_tests = apply_scopes(SaltSprayTest).active.order(checked_by: :asc, process_code: :asc, shop_order_number: :asc)
     @recently_archived_tests = apply_scopes(SaltSprayTest).archived.where("pulled_off_at >= ? AND pulled_off_at <= ?", DateTime.now.beginning_of_day, DateTime.now.end_of_day)
 
     respond_to do |format|
