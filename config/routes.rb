@@ -21,7 +21,7 @@ Rails.application.routes.draw do
   end
 
   resources :shift_notes
-  root                        'vcms#home'
+  root                        'salt_spray_tests#index'
   get     'login'         =>  'sessions#new'
   post    'login'         =>  'sessions#create'
   delete  'logout'        =>  'sessions#destroy'
