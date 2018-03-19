@@ -164,8 +164,8 @@ class SaltSprayTest < ApplicationRecord
   end
 
   def self.options_for_chromate
-    process_steps = SaltSprayProcessStep.distinct.where salt_spray_test_id: self.pluck(:id)
-    process_steps.map { |p| p.chromate }.uniq
+    process_steps = SaltSprayProcessStep.distinct.where(salt_spray_test_id: self.pluck(:id)).where.not(chromate: [nil, ''])
+    process_steps.map { |p| p.chromate if p.chromate.present? }.uniq
   end
 
   def self.options_for_put_on_by
