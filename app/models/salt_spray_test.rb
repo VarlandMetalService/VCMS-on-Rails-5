@@ -81,6 +81,18 @@ class SaltSprayTest < ApplicationRecord
       joins(:comments => :attachments).distinct
     end
   }
+  scope :with_dept, lambda { |dept|
+    where 'dept like ?', "#{dept}%"
+  }
+  scope :with_white_spec, lambda { |white_spec|
+    where 'white_spec like ?', "#{white_spec}%"
+  }
+  scope :with_red_spec, lambda { |red_spec|
+    where 'red_spec like ?', "#{red_spec}%"
+  }
+  scope :with_chromate, ->(query) {
+    joins(:salt_spray_process_steps).distinct.where('chromate like ?', "%#{query}%")
+  }
   scope :with_comments, ->(query) {
     joins(:comments).distinct.where('content like ?', "%#{query}%")
   }
@@ -145,6 +157,15 @@ class SaltSprayTest < ApplicationRecord
 
   def self.options_for_customer
     distinct.where.not(customer: [nil, '']).limit(100).pluck(:customer).sort!
+  end
+
+  def self.options_for_dept
+    self.distinct.where.not(dept: nil).limit(100).pluck(:dept).sort!
+  end
+
+  def self.options_for_chromate
+    process_steps = SaltSprayProcessStep.distinct.where salt_spray_test_id: self.distinct.pluck(:id)
+    process_steps.map { |p| p.chromate }
   end
 
   def self.options_for_put_on_by

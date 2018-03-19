@@ -14,6 +14,10 @@ class SaltSprayTestsController < ApplicationController
   has_scope :with_sample
   has_scope :with_has_comments
   has_scope :with_has_attachments
+  has_scope :with_dept
+  has_scope :with_white_spec
+  has_scope :with_red_spec
+  has_scope :with_chromate
   has_scope :with_comments
   has_scope :with_sub
   has_scope :with_put_on_at_gte

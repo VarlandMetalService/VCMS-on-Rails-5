@@ -47,31 +47,55 @@
             <%= f.select :sorted_by, sorted_by_options, { selected: params[:sorted_by] }, { class: 'form-control' } %>
           </div>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-1">
           <div class="form-group text-center">
             <%= f.label :with_flag, 'Is Flagged:'  %>
             <%= f.check_box :with_flag, class: 'form-control', checked: params[:with_flag] == '1' %>
           </div>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-1">
           <div class="form-group text-center">
             <%= f.label :with_sample, 'Is Sample:'  %>
             <%= f.check_box :with_sample, class: 'form-control', checked: params[:with_sample] == '1' %>
           </div>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-1">
           <div class="form-group text-center">
             <%= f.label :with_has_comments, 'Has Comments:'  %>
             <%= f.check_box :with_has_comments, class: 'form-control', checked: params[:with_has_comments] == '1' %>
           </div>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-1">
           <div class="form-group text-center">
             <%= f.label :with_has_attachments, 'Has Attachments:'  %>
             <%= f.check_box :with_has_attachments, class: 'form-control', checked: params[:with_has_attachments] == '1' %>
           </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-1">
+          <div class="form-group">
+            <%= f.label :with_dept, 'Dept:'  %>
+            <%= f.select :with_dept, @salt_spray_tests.options_for_dept, {include_blank: true, selected: params[:with_dept]}, { class: 'form-control' } %>
+          </div>
+        </div>
+        <div class="col-md-1">
+          <div class="form-group">
+            <%= f.label :with_white_spec, 'White Spec:'  %>
+            <%= f.text_field :with_white_spec, class: 'form-control', value: params[:with_white_spec] %>
+          </div>
+        </div>
+        <div class="col-md-1">
+          <div class="form-group">
+            <%= f.label :with_red_spec, 'Red Spec:'  %>
+            <%= f.text_field :with_red_spec, class: 'form-control', value: params[:with_red_spec] %>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-group">
+            <%= f.label :with_chromate, 'Chromate:'  %>
+            <%= f.select :with_chromate, @salt_spray_tests.options_for_chromate, {include_blank: true, selected: params[:with_chromate]}, { class: 'form-control' } %>
+          </div>
+        </div>
+        <div class="col-md-3">
           <div class="form-group">
             <%= f.label :with_comments, 'Comments:'  %>
             <%= f.text_field :with_comments, class: 'form-control', value: params[:with_comments] %>
