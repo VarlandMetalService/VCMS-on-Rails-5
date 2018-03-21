@@ -4,6 +4,13 @@ GIT
   specs:
     american_date (1.0.0)
 
+GIT
+  remote: git@github.com:zungaphobia/lightbox2-rails.git
+  revision: 8c5c676c437bf6365105c5dd0a7e48c2a80cc1bf
+  specs:
+    lightbox2-rails (2.8.2.1)
+      railties (>= 3.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -364,6 +371,7 @@ DEPENDENCIES
   has_scope
   holder_rails
   jquery-rails
+  lightbox2-rails!
   listen (>= 3.0.5, < 3.2)
   memory_profiler
   meta_request

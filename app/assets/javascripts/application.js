@@ -18,4 +18,5 @@
 //= require cocoon
 //= require moment
 //= require bootstrap-sprockets
+//= require lightbox
 //= require_tree .
