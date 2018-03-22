@@ -18,7 +18,6 @@ class SaltSprayTestsController < ApplicationController
   has_scope :with_dept
   has_scope :with_white_spec
   has_scope :with_red_spec
-  has_scope :with_chromate
   has_scope :with_comments
   has_scope :with_sub
   has_scope :with_put_on_at_gte
@@ -32,6 +31,9 @@ class SaltSprayTestsController < ApplicationController
   has_scope :with_marked_red_at_lte
   has_scope :with_marked_red_by
   has_scope :sorted_by
+  has_scope :with_chromate
+  has_scope :with_top_coat
+  has_scope :with_note
 
   def index
     @salt_spray_tests = apply_scopes(SaltSprayTest).active.order(checked_by: :asc, process_code: :asc, shop_order_number: :asc)

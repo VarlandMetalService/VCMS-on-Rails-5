@@ -4,7 +4,10 @@
       <a class="nav-link active" id="standard-tab" data-toggle="tab" href="#standard" role="tab" aria-controls="home" aria-selected="true">Standard</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" id="dates-tab" data-toggle="tab" href="#dates" role="tab" aria-controls="profile" aria-selected="false">Dates</a>
+      <a class="nav-link" id="dates-tab" data-toggle="tab" href="#dates" role="tab" aria-controls="dates" aria-selected="false">Dates</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="process-steps-tab" data-toggle="tab" href="#process-steps" role="tab" aria-controls="process-steps" aria-selected="false">Process Steps</a>
     </li>
   </ul>
   <%= form_with url: filter_path, class: 'filter-form bg-warning hidden-print border-top-0', method: 'get', local: true do |f| %>
@@ -89,12 +92,6 @@
             <%= f.text_field :with_red_spec, class: 'form-control', value: params[:with_red_spec] %>
           </div>
         </div>
-        <div class="col-md-2">
-          <div class="form-group">
-            <%= f.label :with_chromate, 'Chromate:'  %>
-            <%= f.select :with_chromate, @salt_spray_tests.options_for_chromate, {include_blank: true, selected: params[:with_chromate]}, { class: 'form-control' } %>
-          </div>
-        </div>
         <div class="col-md-3">
           <div class="form-group">
             <%= f.label :with_comments, 'Comments:'  %>
@@ -176,6 +173,26 @@
           </div>
         </div>
       </div>
+      <div class="row tab-pane fade" id="process-steps" role="tabpanel" aria-labelledby="process-steps-tab">
+        <div class="col-md-2">
+          <div class="form-group">
+            <%= f.label :with_chromate, 'Chromate:'  %>
+            <%= f.select :with_chromate, @salt_spray_tests.options_for_chromate, {include_blank: true, selected: params[:with_chromate]}, { class: 'form-control' } %>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-group">
+            <%= f.label :with_top_coat, 'Top Coat:'  %>
+            <%= f.select :with_top_coat, @salt_spray_tests.options_for_top_coat, {include_blank: true, selected: params[:with_top_coat]}, { class: 'form-control' } %>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <%= f.label :with_note, 'Notes:'  %>
+            <%= f.text_field :with_note, class: 'form-control', value: params[:with_note] %>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="row">
       <div class="col-12">
@@ -213,10 +230,10 @@
         </th>
         <th class="col-2">
           <div class="row">
-            <div class="col-6 text-left">
-              Steps
+            <div class="col-8 text-left">
+              Chromate / Top Coat
             </div>
-            <div class="col-6 text-muted text-right">
+            <div class="col-4 text-muted text-right">
               Notes
             </div>
           </div>
@@ -271,17 +288,15 @@
             <%= t.process_code %><% if t.dept %> / <%= t.dept %><br /><% end %>
           </td>
           <td class="col-2">
-            <div class="row">
-              <div class="col-6 text-left">
-                <% t.salt_spray_process_steps.each do |step| %>
-                  <%= step.chromate %><br />
-                <% end %>
-              </div>
-              <div class="col-6 text-right text-muted">
-                <% t.salt_spray_process_steps.each do |step| %>
-                  <%= step.note %><br />
-                <% end %>
-              </div>
+            <div class="row process-steps">
+              <% t.salt_spray_process_steps.each_with_index do |step, index| %>
+                <div class="col-6 text-left mb-2">
+                  <%= step.chromate %> <%= " / #{step.top_coat}" if step.top_coat.present? %>
+                </div>
+                <div class="col-6 text-right text-muted">
+                    <%= step.note %>
+                </div>
+              <% end %>
             </div>
           </td>
           <td class="col-1">

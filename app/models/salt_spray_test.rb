@@ -90,9 +90,6 @@ class SaltSprayTest < ApplicationRecord
   scope :with_red_spec, lambda { |red_spec|
     where 'red_spec like ?', "#{red_spec}%"
   }
-  scope :with_chromate, ->(query) {
-    joins(:salt_spray_process_steps).distinct.where('chromate like ?', "%#{query}%")
-  }
   scope :with_comments, ->(query) {
     joins(:comments).distinct.where('content like ?', "%#{query}%")
   }
@@ -132,6 +129,15 @@ class SaltSprayTest < ApplicationRecord
   scope :sorted_by, ->(sort_option) {
     order sort_option
   }
+  scope :with_chromate, ->(query) {
+    joins(:salt_spray_process_steps).distinct.where('chromate like ?', "%#{query}%")
+  }
+  scope :with_top_coat, ->(query) {
+    joins(:salt_spray_process_steps).distinct.where('top_coat like ?', "%#{query}%")
+  }
+  scope :with_note, ->(query) {
+    joins(:salt_spray_process_steps).distinct.where('note like ?', "%#{query}%")
+  }
   scope :active, -> {
     where 'pulled_off_at IS NULL'
   }
@@ -166,6 +172,11 @@ class SaltSprayTest < ApplicationRecord
   def self.options_for_chromate
     process_steps = SaltSprayProcessStep.distinct.where(salt_spray_test_id: self.pluck(:id)).where.not(chromate: [nil, ''])
     process_steps.map { |p| p.chromate if p.chromate.present? }.uniq
+  end
+
+  def self.options_for_top_coat
+    process_steps = SaltSprayProcessStep.distinct.where(salt_spray_test_id: self.pluck(:id)).where.not(top_coat: [nil, ''])
+    process_steps.map { |p| p.top_coat if p.top_coat.present? }.uniq
   end
 
   def self.options_for_put_on_by
