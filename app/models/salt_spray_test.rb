@@ -337,6 +337,115 @@ class SaltSprayTest < ApplicationRecord
     end
   end
 
+  def self.csv_header
+    fields = []
+    fields.push 'Shop Order Number'
+    fields.push 'Load Number'
+    fields.push 'Customer'
+    fields.push 'Process Code'
+    fields.push 'Part ID'
+    fields.push 'Sub ID'
+    fields.push 'Part Area'
+    fields.push 'Density'
+    fields.push 'White Spec'
+    fields.push 'Red Spec'
+    fields.push 'Dept'
+    fields.push 'Load Weight'
+    fields.push 'Put On By'
+    fields.push 'Put On At'
+    fields.push 'Pulled Off By'
+    fields.push 'Pulled Off At'
+    fields.push 'Marked White By'
+    fields.push 'Marked White At'
+    fields.push 'Marked Red By'
+    fields.push 'Marked Red At'
+    fields.push 'Is Sample'
+    fields.push 'Chromate'
+    fields.push 'Top Coat'
+    fields.push 'Thickness'
+    fields.push 'Note'
+    return fields.join(',')
+  end
+
+  def to_csv
+    lines = []
+    fields = []
+    if self.shop_order_number == 111
+      fields.push self.shop_order_number.to_s + ' - ' + self.sample_code.to_s
+    else
+      fields.push self.shop_order_number
+    end
+    fields.push self.load_number
+    fields.push self.customer
+    fields.push self.process_code
+    fields.push self.part_number
+    fields.push self.sub
+    fields.push self.part_area
+    fields.push self.density
+    fields.push self.white_spec
+    fields.push self.red_spec
+    fields.push self.dept
+    fields.push self.load_weight
+    if self.put_on_by
+      fields.push User.find(self.put_on_by).full_name
+    else
+      fields.push ''
+    end
+    fields.push self.put_on_at.strftime '%m/%d/%y %H:%M:%S'
+    if self.pulled_off_by
+      fields.push User.find(self.pulled_off_by).full_name
+    else
+      fields.push ''
+    end
+    if self.pulled_off_at
+      fields.push self.pulled_off_at.strftime '%m/%d/%y %H:%M:%S'
+    else
+      fields.push ''
+    end
+    if self.marked_white_by
+      fields.push User.find(self.marked_white_by).full_name
+    else
+      fields.push ''
+    end
+    if self.marked_white_at
+      fields.push self.marked_white_at.strftime '%m/%d/%y %H:%M:%S'
+    else
+      fields.push ''
+    end
+    if self.marked_red_by
+      fields.push User.find(self.marked_red_by).full_name
+    else
+      fields.push ''
+    end
+    if self.marked_red_at
+      fields.push self.marked_red_at.strftime '%m/%d/%y %H:%M:%S'
+    else
+      fields.push ''
+    end
+    if self.is_sample
+      fields.push 'Yes'
+    else
+      fields.push 'No'
+    end
+    chromate_arr = []
+    top_coat_arr = []
+    thickness_arr = []
+    note_arr = []
+    self.salt_spray_process_steps.each do |p|
+      chromate_arr.push p.chromate
+      top_coat_arr.push p.top_coat
+      thickness_arr.push p.thickness
+      note_arr.push p.note
+    end
+    fields.push chromate_arr
+    fields.push top_coat_arr
+    fields.push thickness_arr
+    fields.push note_arr
+    lines.push fields.join(',')
+    return lines.join("\n")
+  end
+
+
 private
 
   def standardize_times

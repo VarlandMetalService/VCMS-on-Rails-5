@@ -2,6 +2,7 @@ class SaltSprayTestsController < ApplicationController
   before_action :check_user_permission
   before_action :set_salt_spray_test, only: [:show, :edit, :update, :destroy, :add_comment, :edit_comment, :show_comments, :delete_comment]
   before_action :set_other_field_values, only: :edit
+  before_action :set_params_for_csv, only: [:index, :archived_tests]
   after_action :cache_filters, only: [:index, :archived_tests]
 
   has_scope :with_shop_order_number
@@ -39,6 +40,7 @@ class SaltSprayTestsController < ApplicationController
     respond_to do |format|
       format.html
       format.js
+      format.csv { send_data SaltSprayTest.csv_header + "\n" + @salt_spray_tests.map(&:to_csv).join("\n"), filename: "salt_spray_tests-#{Date.today}.csv" }
     end
   end
 
@@ -129,6 +131,7 @@ class SaltSprayTestsController < ApplicationController
     respond_to do |format|
       format.html
       format.js
+      format.csv { send_data SaltSprayTest.csv_header + "\n" + @salt_spray_tests.map(&:to_csv).join("\n"), filename: "salt_spray_tests-#{Date.today}.csv" }
     end
   end
 
@@ -197,6 +200,12 @@ private
     elsif params[:test_complete]
       params[:salt_spray_test][:pulled_off_at] = DateTime.current
       params[:salt_spray_test][:pulled_off_by] = current_user.id
+    end
+  end
+
+  def set_params_for_csv
+    if request.format.csv?
+      self.params = session[:params]
     end
   end
 

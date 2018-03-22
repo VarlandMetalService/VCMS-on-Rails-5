@@ -184,6 +184,9 @@
       </div>
     </div>
   <% end %>
+
+  <%= link_to 'Download CSV of Filtered Data', { :format => :csv }, { :class => 'btn btn-sm btn-info' } %>
+
 </div>
 
 <% if @salt_spray_tests.size == 0 -%>
