@@ -205,17 +205,20 @@
             </div>
           </div>
         </th>
+        <th class="col-1">
+          Process / Dept
+        </th>
         <th class="col-2">
           <div class="row">
             <div class="col-6 text-left">
-              Process / Dept
+              Steps
             </div>
             <div class="col-6 text-muted text-right">
-              (Steps)
+              Notes
             </div>
           </div>
         </th>
-        <th class="col-2">Date On</th>
+        <th class="col-1">Date On</th>
         <% if action_name == 'archived_tests' %>
           <th class="col-1">Date Off</th>
         <% end %>
@@ -261,21 +264,26 @@
               </div>
             </div>
           </td>
-          <td class="col-2 text-center process">
+          <td class="col-1 process">
+            <%= t.process_code %><% if t.dept %> / <%= t.dept %><br /><% end %>
+          </td>
+          <td class="col-2">
             <div class="row">
               <div class="col-6 text-left">
-                <%= t.process_code %><% if t.dept %> / <%= t.dept %><br /><% end %>
-              </div>
-              <div class="col-6 text-right text-muted">
                 <% t.salt_spray_process_steps.each do |step| %>
                   <%= step.chromate %><br />
                 <% end %>
               </div>
+              <div class="col-6 text-right text-muted">
+                <% t.salt_spray_process_steps.each do |step| %>
+                  <%= step.note %><br />
+                <% end %>
+              </div>
             </div>
           </td>
-          <td class="col-2">
+          <td class="col-1">
             <%= t.put_on_at.strftime('%m/%d/%Y') %><br />
-            <small><strong>By: </strong></small><%= t.salt_spray_tester.full_name %><br />
+            <small><strong>By: </strong></small><%= t.salt_spray_tester.initials %><br />
             <small><strong>Hours On: </strong></small><%= t.calculate_rust_hours(t.pulled_off_at) %>
           </td>
           <% if t.pulled_off_at.present? %>
