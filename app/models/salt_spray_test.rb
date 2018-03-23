@@ -133,7 +133,11 @@ class SaltSprayTest < ApplicationRecord
     joins(:salt_spray_process_steps).distinct.where('chromate like ?', "%#{query}%")
   }
   scope :with_top_coat, ->(query) {
-    joins(:salt_spray_process_steps).distinct.where('top_coat like ?', "%#{query}%")
+    if query == 'None'
+      joins(:salt_spray_process_steps).where('top_coat like ?', '')
+    else
+      joins(:salt_spray_process_steps).distinct.where('top_coat like ?', "%#{query}%")
+    end
   }
   scope :with_note, ->(query) {
     joins(:salt_spray_process_steps).distinct.where('note like ?', "%#{query}%")
@@ -176,7 +180,7 @@ class SaltSprayTest < ApplicationRecord
 
   def self.options_for_top_coat
     process_steps = SaltSprayProcessStep.distinct.where(salt_spray_test_id: self.pluck(:id)).where.not(top_coat: [nil, ''])
-    process_steps.map { |p| p.top_coat if p.top_coat.present? }.uniq
+    process_steps.map { |p| p.top_coat if p.top_coat.present? }.uniq.unshift(['None', 'None'])
   end
 
   def self.options_for_put_on_by
