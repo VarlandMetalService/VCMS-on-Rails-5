@@ -26,6 +26,10 @@ $(document).on 'turbolinks:load', (event) ->
   $('.undo-archive').on 'click', ->
     $(this).parent().find('.undo-archive-target').prop('disabled', false)
 
+  # Convert To Sample functionality
+  $('.convert-sample').on 'click', ->
+    $(this).parent().find('.convert-sample-target').prop('disabled', false)
+
   # Write-in field functionality for process steps
   $('.trigger-other').on 'change', ->
     enableOtherField(this)
