@@ -39,6 +39,11 @@
         <%= @salt_spray_test.calculate_rust_hours(@salt_spray_test.marked_white_at) %><%= " (#{@salt_spray_test.white_spec})" if @salt_spray_test.white_spec_exists? %>
         <%= @salt_spray_test.get_pass_fail('white') if @salt_spray_test.marked_white_at %>
       </div>
+      <% if @salt_spray_test.recently_archived? && @salt_spray_test.marked_white_at %>
+        <%= f.hidden_field :marked_white_at, value: nil, disabled: true, class: 'undo-target' %>
+        <%= f.hidden_field :marked_white_by, value: nil, disabled: true, class: 'undo-target' %>
+        <%= f.submit 'Undo', class: 'btn btn-sm btn-warning mt-1 undo-mark' %>
+      <% end %>
     </div>
     <div class="col-6">
       <strong><%= f.label :hours_wo_white, "Red Spot:", class: "mb-0" %></strong><br />
@@ -53,6 +58,11 @@
         <%= @salt_spray_test.calculate_rust_hours(@salt_spray_test.marked_red_at) %><%= " (#{@salt_spray_test.red_spec})" if @salt_spray_test.red_spec_exists? %>
         <%= @salt_spray_test.get_pass_fail('red') if @salt_spray_test.marked_red_at %>
       </div>
+      <% if @salt_spray_test.recently_archived? && @salt_spray_test.marked_red_at %>
+        <%= f.hidden_field :marked_red_at, value: nil, disabled: true, class: 'undo-target' %>
+        <%= f.hidden_field :marked_red_by, value: nil, disabled: true, class: 'undo-target' %>
+        <%= f.submit 'Undo', class: 'btn btn-sm btn-warning mt-1 undo-mark' %>
+      <% end %>
     </div>
   </div>
   <div class="container rust-spot-info ipad d-none">
@@ -180,7 +190,16 @@
   <% else %>
     <div class="text-center">
       <small>*Archived on <%= @salt_spray_test.pulled_off_at.to_date.strftime("%m/%d/%Y") %> by <%= User.find(@salt_spray_test.pulled_off_by).full_name %></small><br />
-      <%= f.submit 'Edit Test', class: 'btn btn-primary' %>
+      <div class="row mt-1">
+        <div class="col-5">
+          <%= f.submit 'Edit Test', class: 'btn btn-primary' %>
+        </div>
+        <div class="col-7">
+          <%= f.hidden_field :pulled_off_at, value: nil, disabled: true, class: 'undo-archive-target' %>
+          <%= f.hidden_field :pulled_off_by, value: nil, disabled: true, class: 'undo-archive-target' %>
+          <%= f.submit 'Undo Archive', class: 'btn btn-danger undo-archive' %>
+        </div>
+      </div>
     </div>
   <% end %>
   <div class="text-center col-12 cancel-test">

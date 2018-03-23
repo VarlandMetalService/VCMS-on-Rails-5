@@ -18,6 +18,14 @@ $(document).on 'turbolinks:load', (event) ->
     $('.trigger-other').on 'change', ->
       enableOtherField(this)
 
+  # Undo Mark functionality
+  $('.undo-mark').on 'click', ->
+    $(this).parent().find('.undo-target').prop('disabled', false)
+
+  # Undo Archive functionality
+  $('.undo-archive').on 'click', ->
+    $(this).parent().find('.undo-archive-target').prop('disabled', false)
+
   # Write-in field functionality for process steps
   $('.trigger-other').on 'change', ->
     enableOtherField(this)

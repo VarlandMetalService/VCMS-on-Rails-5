@@ -318,6 +318,11 @@ class SaltSprayTest < ApplicationRecord
     self.marked_red_at && self.red_spot_reporter
   end
 
+  def recently_archived?
+    return unless self.pulled_off_at
+    self.pulled_off_at >= DateTime.now.beginning_of_day && self.pulled_off_at <= DateTime.now.end_of_day
+  end
+
   def get_last_comment
     self.comments.reverse_order.limit(1).to_a.first.content if self.comments.count > 0
   end
