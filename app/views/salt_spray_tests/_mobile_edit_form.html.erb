@@ -5,8 +5,13 @@
         <span><strong>Shop Order: </strong><%= @salt_spray_test.shop_order_number %><%= "-#{@salt_spray_test.sample_code}" if @salt_spray_test.sample_code.present? %></span><br />
         <span><strong>Load: </strong><%= @salt_spray_test.load_number.present? ? @salt_spray_test.load_number : 'N/A' %></span><br />
         <span><strong>Proc/Dept: </strong><%= @salt_spray_test.process_code %><%= "/" + @salt_spray_test.dept.to_s if @salt_spray_test.dept %></span><br />
-        <% if @salt_spray_test.is_sample && @salt_spray_test.sub.present? %>
-          <span><strong>Sub: </strong><%= @salt_spray_test.sub %></span><br />
+        <% if @salt_spray_test.is_sample && @salt_spray_test.salt_spray_process_steps[0].note.present? %>
+          <span>
+            <strong>Note: </strong>
+            <% @salt_spray_test.salt_spray_process_steps.each_with_index do |s, index| %>
+              <%= ", " if index != 0 && s.note.present? %><%= s.note %>
+            <% end %>
+          </span><br />
         <% end %>
       </div>
       <div class="col-4 mt-1">
