@@ -159,7 +159,7 @@
       <div class="row">
         <div class="col-4 text-left">
           <% unless @salt_spray_test.is_sample %>
-            <%= f.hidden_field :is_sample, value: true, disabled: true, class: 'convert-sample-target' %>
+            <%= f.hidden_field :is_sample, value: false, class: 'convert-sample-target' %>
             <%= f.submit 'Convert To Sample', data: { confirm: 'Are you sure? (this action cannot be reverted)'}, class: 'btn btn-link text-info convert-sample' %>
           <% end %>
         </div>

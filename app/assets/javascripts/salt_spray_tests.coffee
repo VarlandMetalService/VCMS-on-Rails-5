@@ -28,7 +28,7 @@ $(document).on 'turbolinks:load', (event) ->
 
   # Convert To Sample functionality
   $('.convert-sample').on 'click', ->
-    $(this).parent().find('.convert-sample-target').prop('disabled', false)
+    $(this).parent().find('.convert-sample-target').prop('value', true)
 
   # Write-in field functionality for process steps
   $('.trigger-other').on 'change', ->
