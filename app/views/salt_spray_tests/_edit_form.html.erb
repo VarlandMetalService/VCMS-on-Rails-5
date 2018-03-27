@@ -166,9 +166,13 @@
         <div class="col-8">
           <div class="form-group text-right">
             <% if @salt_spray_test.flagged_by %>
-              <%= f.check_box :remove_flag %>
-              <%= f.label :remove_flag, 'Remove Flag?', class: "mr-3" %>
+              <%= f.label :remove_flag, 'Remove Flag?' %>
+              <%= f.check_box :remove_flag, class: "mr-3" %>
             <% end %>
+            <%= f.label :notify_management, 'Notify Management?' %>
+            <%= f.check_box :notify_management, class: "mr-3" %>
+            <%= f.label :notify_sales, 'Notify Sales?' %>
+            <%= f.check_box :notify_sales, class: "mr-3" %>
             <%= f.hidden_field :manual_edit, value: true %>
             <%= f.submit 'Edit Salt Spray Test', class: 'btn btn-primary' %>
             <%= link_to 'Cancel', salt_spray_tests_path(session[:params]), class: 'btn btn-link' %>

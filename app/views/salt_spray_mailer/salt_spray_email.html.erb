@@ -1,0 +1,36 @@
+<div><strong>Shop Order:</strong> <%= @shop_order_number %>  <%= "(SAMPLE)" if @is_sample == '1' %></div>
+<div><strong>Load:</strong> <%= @load_number ? @load_number : 'N/A' %></div>
+<div><strong>Part ID:</strong> <%= @part ? @part : 'N/A' %></div>
+<% if @sub.present? %>
+  <div><strong>Sub:</strong> <%= @sub %></div>
+<% end %>
+<% if @is_sample == '1' && @process_steps %>
+  <div><strong>Sample Notes:</strong>
+    <% @process_steps.each_with_index do |s, index| %>
+      <%= ", " if index != 0 && s.note.present? %><%= s.note %>
+    <% end %>
+  </div>
+<% end %>
+<ul>
+  <li>
+    <p><strong>White Rust:</strong></p>
+    <% if @marked_white_at %>
+      <span><%= @marked_white_at.strftime('%m/%d/%Y %l:%M %P') %></span><br />
+      <span><%= User.find(@marked_white_by).full_name if @marked_white_by %></span>
+    <% else %>
+      <em>Not Marked</em>
+    <% end %>
+  </li>
+  <li>
+    <p><strong>Red Rust:</strong></p>
+    <% if @marked_red_at %>
+      <span><%= @marked_red_at.strftime('%m/%d/%Y %l:%M %P') %></span><br />
+      <span><%= User.find(@marked_red_by).full_name if @marked_red_by %></span>
+    <% else %>
+      <em>Not Marked</em>
+    <% end %>
+  </li>
+</ul>
+<% if @pulled_off_at && @pulled_off_by %>
+  <%= "*Test has been completed and archived by #{User.find(@pulled_off_by).full_name} on #{@pulled_off_at.strftime('%m/%d/%Y %l:%M %P')}" %>
+<% end %>

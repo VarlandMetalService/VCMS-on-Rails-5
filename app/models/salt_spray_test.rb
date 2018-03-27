@@ -7,6 +7,7 @@ class SaltSprayTest < ApplicationRecord
   before_save :check_for_sample
   before_save :standardize_times, unless: :manual_edit
   before_create :add_shop_order_details
+  after_save :send_notifications
 
   default_scope { where 'deleted_at IS NULL' }
 
@@ -517,6 +518,12 @@ private
   def check_for_sample
     if self.is_custom_order?
       self.is_sample = true
+    end
+  end
+
+  def send_notifications
+    if (self.notify_management || self.notify_sales) && (self.saved_change_to_marked_white_at? || self.saved_change_to_marked_red_at? || self.saved_change_to_pulled_off_at?)
+      SaltSprayMailer.salt_spray_email(self, self.notify_management, self.notify_sales).deliver_now
     end
   end
 

@@ -157,7 +157,7 @@ private
                                             :part_area, :density, :white_spec, :red_spec, :dept, :load_weight,
                                             :put_on_by, :put_on_at, :pulled_off_at, :pulled_off_by, :manual_edit,
                                             :marked_white_at, :marked_white_by, :marked_red_at, :marked_red_by,
-                                            :flagged_by, :checked_by, :checked_by_archive, :is_sample, :sample_code,
+                                            :flagged_by, :checked_by, :checked_by_archive, :is_sample, :sample_code, :notify_management, :notify_sales,
                                             salt_spray_process_steps_attributes: [:id, :chromate, :top_coat, :chromate_other, :top_coat_other, :thickness, :dipping_time, :note, :_destroy],
                                             comments_attributes: [:id, :content, :created_by, :_destroy, attachments_attributes: [:id, :content_type, :file, :_destroy]])
   end
