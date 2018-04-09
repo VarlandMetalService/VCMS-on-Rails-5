@@ -2,6 +2,7 @@ class SaltSprayMailer < ApplicationMailer
   default from: 'varlandmetalservice@gmail.com'
 
   def salt_spray_email(test, notify_management, notify_sales)
+    @test = test
     @shop_order_number = test.shop_order_number
     @load_number = test.load_number
     @customer = test.customer
@@ -9,8 +10,10 @@ class SaltSprayMailer < ApplicationMailer
     @sub = test.sub
     @marked_white_at = test.marked_white_at
     @marked_white_by = test.marked_white_by
+    @marked_white_hours = (@marked_white_at.nil? ? nil : test.calculate_rust_hours(@market_white_at))
     @marked_red_at = test.marked_red_at
     @marked_red_by = test.marked_red_by
+    @marked_red_hours = (@marked_red_at.nil? ? nil : test.calculate_rust_hours(@marked_red_at))
     @is_sample = test.is_sample
     @process_steps = test.salt_spray_process_steps
     @pulled_off_at = test.pulled_off_at

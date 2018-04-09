@@ -14,18 +14,34 @@
 <ul>
   <li>
     <p><strong>White Rust:</strong></p>
+    <% unless @test.white_spec.nil? %>
+      <span>Spec: <%= @test.white_spec %></span><br />
+    <% end %>
     <% if @marked_white_at %>
-      <span><%= @marked_white_at.strftime('%m/%d/%Y %l:%M %P') %></span><br />
-      <span><%= User.find(@marked_white_by).full_name if @marked_white_by %></span>
+      <span><%= @marked_white_at.strftime('%m/%d/%Y %l:%M %P') %></span>
+      <% if @marked_white_by %>
+        <br />
+        <span><%= User.find(@marked_white_by).full_name %></span>
+      <% end %>
+      <br />
+      <span>Hours to White: <%= @marked_white_hours %></span>
     <% else %>
       <em>Not Marked</em>
     <% end %>
   </li>
   <li>
     <p><strong>Red Rust:</strong></p>
+    <% unless @test.red_spec.nil? %>
+      <span>Spec: <%= @test.red_spec %></span><br />
+    <% end %>
     <% if @marked_red_at %>
-      <span><%= @marked_red_at.strftime('%m/%d/%Y %l:%M %P') %></span><br />
-      <span><%= User.find(@marked_red_by).full_name if @marked_red_by %></span>
+      <span><%= @marked_red_at.strftime('%m/%d/%Y %l:%M %P') %></span>
+      <% if @marked_red_by %>
+        <br />
+        <span><%= User.find(@marked_red_by).full_name %></span>
+      <% end %>
+      <br />
+      <span>Hours to Red: <%= @marked_red_hours %></span>
     <% else %>
       <em>Not Marked</em>
     <% end %>
