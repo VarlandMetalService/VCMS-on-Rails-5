@@ -20,7 +20,7 @@ class SaltSprayMailer < ApplicationMailer
 
 private
   def get_email_list(notify_management, notify_sales)
-    email_list = []
+    email_list = ['toby.varland@varland.com']
 
     if notify_management
       email_list.push('joel.perrine@varland.com',
