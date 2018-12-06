@@ -8,7 +8,6 @@ class SaltSprayMailer < ApplicationMailer
 
 private
   def get_email_list(notify_management, notify_sales)
-    return ['richard.legacy@varland.com']
     email_list = ['toby.varland@varland.com']
 
     if notify_management
