@@ -1,12 +1,12 @@
-<div><strong>Shop Order:</strong> <%= @shop_order_number %>  <%= "(SAMPLE)" if @is_sample == '1' %></div>
-<div><strong>Load:</strong> <%= @load_number ? @load_number : 'N/A' %></div>
-<div><strong>Part ID:</strong> <%= @part ? @part : 'N/A' %></div>
-<% if @sub.present? %>
-  <div><strong>Sub:</strong> <%= @sub %></div>
+<div><strong>Shop Order:</strong> <%= @test.shop_order_number %>  <%= "(SAMPLE)" if @test.is_sample == '1' %></div>
+<div><strong>Load:</strong> <%= @test.load_number ? @test.load_number : 'N/A' %></div>
+<div><strong>Part ID:</strong> <%= @test.part_number ? @test.part_number : 'N/A' %></div>
+<% if @test.sub.present? %>
+  <div><strong>Sub:</strong> <%= @test.sub %></div>
 <% end %>
-<% if @is_sample == '1' && @process_steps %>
+<% if @test.is_sample == '1' && @test.salt_spray_process_steps %>
   <div><strong>Sample Notes:</strong>
-    <% @process_steps.each_with_index do |s, index| %>
+    <% @test.salt_spray_process_steps.each_with_index do |s, index| %>
       <%= ", " if index != 0 && s.note.present? %><%= s.note %>
     <% end %>
   </div>
@@ -17,14 +17,14 @@
     <% unless @test.white_spec.nil? %>
       <span>Spec: <%= @test.white_spec %></span><br />
     <% end %>
-    <% if @marked_white_at %>
-      <span><%= @marked_white_at.strftime('%m/%d/%Y %l:%M %P') %></span>
-      <% if @marked_white_by %>
+    <% if @test.marked_white_at %>
+      <span><%= @test.marked_white_at.strftime('%m/%d/%Y %l:%M %P') %></span>
+      <% if @test.marked_white_at %>
         <br />
-        <span><%= User.find(@marked_white_by).full_name %></span>
+        <span><%= User.find(@test.marked_white_at).full_name %></span>
       <% end %>
       <br />
-      <span>Hours to White: <%= @marked_white_hours %></span>
+      <span>Hours to White: <%= ((@test.marked_white_at - @test.put_on_at) / 1.hour).round %></span>
     <% else %>
       <em>Not Marked</em>
     <% end %>
@@ -34,19 +34,72 @@
     <% unless @test.red_spec.nil? %>
       <span>Spec: <%= @test.red_spec %></span><br />
     <% end %>
-    <% if @marked_red_at %>
-      <span><%= @marked_red_at.strftime('%m/%d/%Y %l:%M %P') %></span>
-      <% if @marked_red_by %>
+    <% if @test.marked_red_at %>
+      <span><%= @test.marked_red_at.strftime('%m/%d/%Y %l:%M %P') %></span>
+      <% if @test.marked_red_by %>
         <br />
-        <span><%= User.find(@marked_red_by).full_name %></span>
+        <span><%= User.find(@test.marked_red_by).full_name %></span>
       <% end %>
       <br />
-      <span>Hours to Red: <%= @marked_red_hours %></span>
+      <span>Hours to Red: <%= ((@test.marked_red_at - @test.put_on_at) / 1.hour).round %></span>
     <% else %>
       <em>Not Marked</em>
     <% end %>
   </li>
 </ul>
-<% if @pulled_off_at && @pulled_off_by %>
-  <%= "*Test has been completed and archived by #{User.find(@pulled_off_by).full_name} on #{@pulled_off_at.strftime('%m/%d/%Y %l:%M %P')}" %>
+<% if @test.pulled_off_at && @test.pulled_off_by %>
+  <%= "*Test has been completed and archived by #{User.find(@test.pulled_off_by).full_name} on #{@test.pulled_off_at.strftime('%m/%d/%Y %l:%M %P')}" %>
 <% end %>
+
+<br>
+<u>Additional Info</u>
+<table style="width: 320px;">
+  <thead>
+    <tr>
+      <th colspan=''></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Customer:</td>
+      <td><%= @test.customer %></td>
+    </tr>
+    <tr>
+      <td>Process Code:</td>
+      <td><%= @test.process_code %></td>
+    </tr>
+    <tr>
+      <td>Dept:</td>
+      <td><%= @test.dept %></td>
+    </tr>
+    <tr>
+      <td>Load Weight:</td>
+      <td><%= @test.load_weight %></td>
+    </tr>
+    <tr>
+      <td>Part Area:</td>
+      <td><%= @test.part_area %></td>
+    </tr>
+    <tr>
+      <td>Density:</td>
+      <td><%= @test.density %></td>
+    </tr>
+    <% @test.salt_spray_process_steps.each do |s| %>
+    <th>Process Steps</th>
+    <tr>
+      <td>
+        Chromate: <%= s.chromate %>
+        <br>
+        Thickness: <%= s.thickness %>
+        <br>
+        Dipping Time: <%= s.dipping_time %>
+        <br>
+        Top Coat: <%= s.top_coat %>
+        <br>
+        Alloy Percent: <%= s.alloy_percent %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= %>

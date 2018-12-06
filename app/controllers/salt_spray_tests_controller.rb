@@ -55,6 +55,7 @@ class SaltSprayTestsController < ApplicationController
   end
 
   def edit
+    SaltSprayMailer.salt_spray_email(@salt_spray_test, @salt_spray_test.notify_management, @salt_spray_test.notify_sales).deliver_later
   end
 
   def create
