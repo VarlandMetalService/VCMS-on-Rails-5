@@ -11,8 +11,7 @@ class SessionsController < ApplicationController
     if params[:provider] == 'google_oauth2'
       user = User.from_omniauth(request.env["omniauth.auth"])
       if user && user.is_active
-        log_in user
-        redirect_to(session[:return_to] || root_path) and return
+        
       else
         flash.now[:error] = 'Authentication failed.'
         render 'new', :layout => false

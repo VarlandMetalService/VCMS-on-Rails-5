@@ -2,8 +2,8 @@ default: &default
   adapter: mysql2
   encoding: utf8
   pool: 5
-  username: <%= ENV['DB_USERNAME'] %>
-  password: <%= ENV['DB_PASSWORD'] %>
+  username: vcms
+  password: Vms.1946!
   host: 192.168.82.2
 
 development:
@@ -18,7 +18,7 @@ production:
   adapter: mysql2
   encoding: utf8
   pool: 5
-  username: <%= ENV['DB_USERNAME'] %>
-  password: <%= ENV['DB_PASSWORD'] %>
+  username: vcms
+  password: Vms.1946!
   host: 192.168.82.2
   database: rails5_prod

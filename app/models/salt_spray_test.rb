@@ -372,6 +372,7 @@ class SaltSprayTest < ApplicationRecord
     fields.push 'Red Spec'
     fields.push 'Dept'
     fields.push 'Load Weight'
+    fields.push 'Alloy %'
     fields.push 'Put On By'
     fields.push 'Put On At'
     fields.push 'Pulled Off By'
@@ -407,6 +408,7 @@ class SaltSprayTest < ApplicationRecord
     fields.push self.red_spec
     fields.push self.dept
     fields.push self.load_weight
+    fields.push self.alloy_percent
     if self.put_on_by
       fields.push User.find(self.put_on_by).full_name
     else

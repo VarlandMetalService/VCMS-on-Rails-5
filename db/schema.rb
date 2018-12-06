@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180327183745) do
+ActiveRecord::Schema.define(version: 20181206140707) do
 
   create_table "assigned_permissions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "user_id"
@@ -181,6 +181,7 @@ ActiveRecord::Schema.define(version: 20180327183745) do
     t.string "sample_code"
     t.boolean "notify_management", default: false
     t.boolean "notify_sales", default: false
+    t.float "alloy_percent", limit: 24
     t.index ["checked_by", "process_code"], name: "index_salt_spray_tests_on_checked_by_and_process_code"
     t.index ["marked_red_by"], name: "fk_rails_818a3fe6c3"
     t.index ["marked_white_by"], name: "fk_rails_eb9b825c87"
