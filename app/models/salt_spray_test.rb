@@ -372,19 +372,21 @@ class SaltSprayTest < ApplicationRecord
     fields.push 'Red Spec'
     fields.push 'Dept'
     fields.push 'Load Weight'
-    fields.push 'Alloy %'
     fields.push 'Put On By'
     fields.push 'Put On At'
     fields.push 'Pulled Off By'
     fields.push 'Pulled Off At'
     fields.push 'Marked White By'
     fields.push 'Marked White At'
+    fields.push 'Hours to White'
     fields.push 'Marked Red By'
     fields.push 'Marked Red At'
+    fields.push 'Hours to Red'
     fields.push 'Is Sample'
     fields.push 'Chromate'
     fields.push 'Top Coat'
     fields.push 'Thickness'
+    fields.push 'Alloy %'
     fields.push 'Note'
     return fields.join(',')
   end
@@ -408,7 +410,6 @@ class SaltSprayTest < ApplicationRecord
     fields.push self.red_spec
     fields.push self.dept
     fields.push self.load_weight
-    fields.push self.alloy_percent
     if self.put_on_by
       fields.push User.find(self.put_on_by).full_name
     else
@@ -432,7 +433,9 @@ class SaltSprayTest < ApplicationRecord
     end
     if self.marked_white_at
       fields.push self.marked_white_at.strftime '%m/%d/%y %H:%M:%S'
+      fields.push ((self.marked_white_at - self.put_on_at) / 1.hour).round
     else
+      fields.push ''
       fields.push ''
     end
     if self.marked_red_by
@@ -442,7 +445,9 @@ class SaltSprayTest < ApplicationRecord
     end
     if self.marked_red_at
       fields.push self.marked_red_at.strftime '%m/%d/%y %H:%M:%S'
+      fields.push ((self.marked_red_at - self.put_on_at) / 1.hour).round
     else
+      fields.push ''
       fields.push ''
     end
     if self.is_sample
@@ -453,16 +458,19 @@ class SaltSprayTest < ApplicationRecord
     chromate_arr = []
     top_coat_arr = []
     thickness_arr = []
+    alloy_arr = []
     note_arr = []
     self.salt_spray_process_steps.each do |p|
       chromate_arr.push p.chromate
       top_coat_arr.push p.top_coat
       thickness_arr.push p.thickness
+      alloy_arr.push p.alloy_percent
       note_arr.push p.note
     end
     fields.push chromate_arr
     fields.push top_coat_arr
     fields.push thickness_arr
+    fields.push alloy_arr
     fields.push note_arr
     lines.push fields.join(',')
     return lines.join("\n")

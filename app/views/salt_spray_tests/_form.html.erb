@@ -43,12 +43,6 @@
           <%= f.hidden_field :put_on_at, value: Date.current %>
           <%= f.hidden_field :put_on_by, value: current_user.id %>
         </div>
-        <div class='col'>
-          <div class='form-group'>
-            <%= f.label 'Alloy %', class: 'form-control-label' %>
-            <%= f.number_field :alloy_percent, step: 0.01, class: 'form-control' %>
-          </div>
-        </div>
       </div>
       <br />
       <div class="form-group">
