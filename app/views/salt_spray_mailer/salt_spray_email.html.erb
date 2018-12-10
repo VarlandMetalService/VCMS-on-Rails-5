@@ -21,7 +21,7 @@
       <span><%= @test.marked_white_at.strftime('%m/%d/%Y %l:%M %P') %></span>
       <% if @test.marked_white_at %>
         <br />
-        <span><%= User.find(@test.marked_white_at).full_name %></span>
+        <span><%= User.find(@test.marked_white_by).full_name %></span>
       <% end %>
       <br />
       <span>Hours to White: <%= ((@test.marked_white_at - @test.put_on_at) / 1.hour).round %></span>
