@@ -1,0 +1,142 @@
+<div class='card'>
+  <div class='card-header'>
+    <h3 class='card-title text-center'>
+      Cabinet Readings
+    </h3>
+  </div>
+  <%= form_for 'data' do |form| %>
+    <div class='card-body'>
+      <!-- pH -->
+      <div class='form-group row'>
+        <%= form.label :ph, 'pH', class: 'form-control-label col-form-label col-3' %>
+        <div class='col-9'>
+          <div class='input-group'>
+            <%= form.number_field :ph, min: 0, max: 14, step: 0.01, class: 'form-control' %>
+          </div>
+        </div>
+      </div>
+      <!-- temp -->
+      <div class='form-group row'>
+        <%= form.label :temp, 'Temp', class: 'form-control-label col-form-label col-3' %>
+        <div class='col-9'>
+          <div class='input-group'>
+            <%= form.number_field :temp, min: 0, max: 14, step: 0.01, class: 'form-control' %>
+            <div class="input-group-append">
+              <div class="input-group-text">º F</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- weight -->
+      <div class='form-group row'>
+        <%= form.label :weight, 'Weight', class: 'form-control-label col-form-label col-3' %>
+        <div class='col-9'>
+          <div class='input-group'>
+            <%= form.number_field :weight, min: 0, max: 14, step: 0.01, class: 'form-control' %>
+            <div class="input-group-append">
+              <div class="input-group-text">grams</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- cabinet temp -->
+      <div class='form-group row'>
+        <%= form.label :cab_temp, 'Cabinet Temp', class: 'form-control-label col-form-label col-3' %>
+        <div class='col-9'>
+          <div class='input-group'>
+            <%= form.number_field :cab_temp, min: 0, max: 14, step: 0.01, class: 'form-control' %>
+            <div class="input-group-append">
+              <div class="input-group-text">º F</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr>
+      <!-- collection 1 -->
+      <h5 class='text-center'>Collection 1</h5>
+        <!-- volume1 -->
+        <div class='form-group row'>
+          <%= form.label :volume1, 'Volume', class: 'form-control-label col-form-label col-3' %>
+          <div class='col-9'>
+            <div class='input-group'>
+              <%= form.number_field :volume1, min: 0, max: 14, step: 0.01, class: 'form-control' %>
+              <div class="input-group-append">
+                <div class="input-group-text">cc</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- time1 -->
+        <div class='form-group row'>
+          <%= form.label :time1, 'Time', class: 'form-control-label col-form-label col-3' %>
+          <div class='col-9'>
+            <div class='input-group'>
+              <%= form.time_field :time1, min: "01:00:00", class: 'form-control' %>
+              <div class="input-group-append">
+                <div class="input-group-text">HH:MM: SS</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      <hr>
+      <!-- collection 2 -->
+      <h5 class='text-center'>Collection 2</h5>
+        <!-- volume2 -->
+        <div class='form-group row'>
+          <%= form.label :volume2, 'Volume', class: 'form-control-label col-form-label col-3' %>
+          <div class='col-9'>
+            <div class='input-group'>
+              <%= form.number_field :volume2, min: 0, max: 14, step: 0.01, class: 'form-control' %>
+              <div class="input-group-append">
+                <div class="input-group-text">cc</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- time2 -->
+        <div class='form-group row'>
+          <%= form.label :time2, 'Time', class: 'form-control-label col-form-label col-3' %>
+          <div class='col-9'>
+            <div class='input-group'>
+              <%= form.time_field :time2, min: "01:00:00", class: 'form-control' %>
+              <div class="input-group-append">
+                <div class="input-group-text">HH:MM SS</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+      <hr>
+      <h5 class='text-center'>Additions</h5>
+      <!-- DI H20 -->
+        <div class='form-group row'>
+          <%= form.label :di_water, 'DI H20', class: 'form-control-label col-form-label col-3' %>
+          <div class='col-9'>
+            <div class='input-group'>
+              <%= form.number_field :di_water, min: 0, max: 14, step: 0.01, class: 'form-control' %>
+              <div class="input-group-append">
+                <div class="input-group-text">gal</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- NaCl H20 -->
+        <div class='form-group row'>
+          <%= form.label :salt_water, 'Salt', class: 'form-control-label col-form-label col-3' %>
+          <div class='col-9'>
+            <div class='input-group'>
+              <%= form.number_field :salt_water, min: 0, max: 14, step: 0.01, class: 'form-control' %>
+              <div class="input-group-append">
+                <div class="input-group-text">gal</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+    <div class='text-center'>
+      <%= form.submit 'Submit', class: 'btn btn-block btn-primary' %>
+    </div>
+  <% end %>
+</div>

@@ -35,6 +35,12 @@ class SaltSprayTestsController < ApplicationController
   has_scope :with_top_coat
   has_scope :with_note
 
+  require 'net/http'
+  def cabinet_readings
+  #   my_connection = Net::HTTP.new('www.target.com', 80)
+  #   reponse = my_connection.post(path_within_url, data)
+  end
+
   def index
     @salt_spray_tests = apply_scopes(SaltSprayTest).active.order(checked_by: :asc, process_code: :asc, shop_order_number: :asc)
     @recently_archived_tests = apply_scopes(SaltSprayTest).archived.where("pulled_off_at >= ? AND pulled_off_at <= ?", DateTime.now.beginning_of_day, DateTime.now.end_of_day)

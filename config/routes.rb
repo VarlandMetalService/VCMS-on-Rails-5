@@ -46,6 +46,8 @@ Rails.application.routes.draw do
     end
   end
 
+  get 'cabinet_readings' => 'salt_spray_tests#cabinet_readings', :as => 'cabinet_readings'
+
   resources :documents do
     collection do
       get :get_google_meta

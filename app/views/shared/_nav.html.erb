@@ -9,41 +9,18 @@
 
   <div class="navbar-collapse collapse" id="vcms-primary-nav">
     <ul class="navbar-nav mx-auto w-100 justify-content-start">
-    <%# if false %>
       <li class="nav-item">
         <a class="nav-link" href="/">Home</a>
       </li>
-      <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle" id="app-dropdown" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Apps</a>
-        <ul class="dropdown-menu" aria-labelledby="app-dropdown">
-          <%#= primary_nav_link 'employee_notes', 'index', 'Employee Notes' %>
-          <%#= primary_nav_link 'shift_notes', 'index', 'Shift Notes' %>
-          <%#= primary_nav_link 'opto_messages', 'index', 'Opto Logs' %>
-          <%#= primary_nav_link 'documents', 'index', 'Documents' %>
-          <%= primary_nav_link 'salt_spray_tests', 'index', 'Salt Spray Tests' %>
-          <%#= primary_nav_link 'timeclock_records', 'index', 'Timeclock Records' %>
-
-        <!--
-          <%#= primary_nav_link 'thickness', 'index', 'Thickness' %>
-        -->
-        </ul>
+      <li class='nav-item'>
+        <%= link_to 'Salt Spray Tests', salt_spray_tests_path, class: 'nav-link' %>
       </li>
-      <li class="nav-item">
-        <%#= link_to '<i class="fa fa-clock-o"></i> Right Now'.html_safe, clocked_in_timeclock_records_path, class: 'nav-link' %>
+      <li class='nav-item'>
+        <%# link_to 'Cabinet Readings', cabinet_readings_path, class: 'nav-link' %>
       </li>
-      <!--
-      <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle" id="timeclock-dropdown" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Timeclock</a>
-        <ul class="dropdown_menu" aria-labelledby="timeclock-dropdown">
-          <%#= primary_nav_link 'timeclock_records', 'index', 'Records' %>
-        </ul>
-      </li>
-      -->
-    <%# end %>
     </ul>
     <ul class="nav navbar-nav ml-auto w-100 justify-content-end">
       <% if current_user.nil? %>
-        <li><%#= link_to "Sign in with Google", "/auth/google_oauth2", class: 'nav-link' %></li>
         <li class="nav-item"><%= link_to 'Login', login_url, class: 'nav-link' %></li>
       <% else %>
         <% if current_user.is_sysadmin -%>
