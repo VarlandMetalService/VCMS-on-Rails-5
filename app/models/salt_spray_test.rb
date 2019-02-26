@@ -248,7 +248,7 @@ class SaltSprayTest < ApplicationRecord
       return
     end
 
-    if calculate_rust_hours(spot_date) > spec_test
+    if calculate_rust_hours(spot_date) >= spec_test
       "<i class='fa fa-check text-success'></i>".html_safe
     else
       if !pass_only
