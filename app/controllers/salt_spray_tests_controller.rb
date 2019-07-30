@@ -139,7 +139,7 @@ class SaltSprayTestsController < ApplicationController
     respond_to do |format|
       format.html
       format.js
-      format.csv { send_data SaltSprayTest.csv_header + "\n" + @salt_spray_tests.map(&:to_csv).join("\n"), filename: "salt_spray_tests-#{Date.today}.csv" }
+      format.csv { send_data SaltSprayTest.csv_header + "\n" + @salt_spray_tests.except(:limit, :offset).map(&:to_csv).join("\n"), filename: "salt_spray_tests-#{Date.today}.csv" }
     end
   end
 
