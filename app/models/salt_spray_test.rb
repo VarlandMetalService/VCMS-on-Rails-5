@@ -226,10 +226,10 @@ class SaltSprayTest < ApplicationRecord
 
   def update_spot(current_user_id, spot_type)
     if spot_type == 'white'
-      self.marked_white_at = DateTime.current.change(sec: 0)
+      self.marked_white_at = DateTime.current.change(hour: 12, min: 0, sec: 0)
       self.marked_white_by = current_user_id
     elsif spot_type == 'red'
-      self.marked_red_at = DateTime.current.change(sec: 0)
+      self.marked_red_at = DateTime.current.change(hour: 12, min: 0, sec: 0)
       self.marked_red_by = current_user_id
     end
   end
@@ -259,7 +259,7 @@ class SaltSprayTest < ApplicationRecord
 
   def calculate_rust_hours(spot_date)
     if spot_date
-      return subtract_time_get_hours(spot_date.to_time, self.put_on_at.to_time)
+      return (subtract_time_get_hours(spot_date.to_time, self.put_on_at.to_time) - 24.hours)
     else
       if(self.pulled_off_at)
         return subtract_time_get_hours(self.pulled_off_at.to_time, self.put_on_at)

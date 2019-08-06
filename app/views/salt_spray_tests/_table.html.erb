@@ -347,6 +347,7 @@
           <td class="col-1">
             <%= link_to "View", show_comments_salt_spray_test_path(t.id, on_archived: action_name == 'archived_tests'), remote: true, class: 'btn btn-sm btn-info mr-2' if has_comments(t) %>
             <%= link_to 'Add', add_comment_salt_spray_test_path(t, on_archived: action_name == 'archived_tests'), class: 'btn btn-sm btn-success' %>
+            <%= link_to "Edit test", edit_salt_spray_test_path(t.id, on_archived: action_name == 'archived_tests'), class: 'btn btn-sm mr-2' if action_name == 'archived_tests' %>
           </td>
           <% if action_name != 'archived_tests' %>
             <% if @access_level.access_level == 3 -%>
@@ -364,7 +365,7 @@
                   <div class="dropdown-divider"></div>
                   <% if !t.marked_white_at && !t.marked_red_at %>
                     <%= form_with model: t, local: true do |f| %>
-                      <%= f.hidden_field :marked_white_at, value: DateTime.current.change(sec: 0) %>
+                      <%= f.hidden_field :marked_white_at, value: DateTime.current.change(hour: 12, min: 0, sec: 0) %>
                       <%= f.hidden_field :marked_white_by, value: current_user.id %>
                       <% if !t.red_spec_exists? %>
                         <%= button_tag 'Mark White', type: 'button', data: {toggle: 'modal', target: '#test-complete-modal', spot: 'white'}, class: 'btn-form dropdown-item open-submit-modal' %>
@@ -376,14 +377,14 @@
                   <% end %>
                   <% if !t.marked_red_at %>
                     <%= form_with model: t, local: true do |f| %>
-                      <%= f.hidden_field :marked_red_at, value: DateTime.current.change(sec: 0) %>
+                      <%= f.hidden_field :marked_red_at, value: DateTime.current.change(hour: 12, min: 0, sec: 0) %>
                       <%= f.hidden_field :marked_red_by, value: current_user.id %>
                       <%= button_tag 'Mark Red', type: 'button', data: {toggle: 'modal', target: '#test-complete-modal', spot: 'red'}, class: 'btn-form dropdown-item open-submit-modal' %>
                       <%= f.submit 'Mark Red', class: 'btn-form dropdown-item test-complete-red d-none' %>
                     <% end %>
                   <% end %>
                   <%= form_with model: t, local: true do |f| %>
-                    <%= f.hidden_field :pulled_off_at, value: DateTime.current.change(sec: 0) %>
+                    <%= f.hidden_field :pulled_off_at, value: DateTime.current.change(hour: 12, min: 0, sec: 0) %>
                     <%= f.hidden_field :pulled_off_by, value: current_user.id %>
                     <%= f.submit 'Mark Complete', class: 'btn-form dropdown-item', data: {confirm: t.ready_to_archive? ? nil : 'Are you sure?'} %>
                   <% end %>
