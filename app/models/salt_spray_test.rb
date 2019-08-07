@@ -350,7 +350,7 @@ class SaltSprayTest < ApplicationRecord
   def self.get_child_process_codes(process_code)
     case process_code
     when 'LN'
-      return ['HN', 'SHN']
+      return ['HN', 'SHN', 'SLN']
     when 'TZ'
       return ['STZ']
     when 'ZF'
