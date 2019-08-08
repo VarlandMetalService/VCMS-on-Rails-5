@@ -259,7 +259,14 @@ class SaltSprayTest < ApplicationRecord
 
   def calculate_rust_hours(spot_date)
     if spot_date
-      return (subtract_time_get_hours(spot_date.to_time, self.put_on_at.to_time) - 24)
+      hours_to_subtract = 24
+      case spot_date.to_time.wday
+      when 1:
+        hours_to_subtract = 72
+      when 0:
+        hours_to_subtract = 48
+      end
+      return (subtract_time_get_hours(spot_date.to_time, self.put_on_at.to_time) - hours_to_subtract)
     else
       if(self.pulled_off_at)
         return subtract_time_get_hours(self.pulled_off_at.to_time, self.put_on_at)
