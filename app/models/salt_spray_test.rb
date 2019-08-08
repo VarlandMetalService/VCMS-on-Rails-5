@@ -248,7 +248,7 @@ class SaltSprayTest < ApplicationRecord
       return
     end
 
-    if calculate_rust_hours(spot_date) >= spec_test
+    if calc_previous_check_hours(spot_date) >= spec_test
       "<i class='fa fa-check text-success'></i>".html_safe
     else
       if !pass_only
@@ -257,9 +257,9 @@ class SaltSprayTest < ApplicationRecord
     end
   end
 
-  def calculate_rust_hours(spot_date)
+  def calc_previous_check_hours(spot_date)
+    hours_to_subtract = 24
     if spot_date
-      hours_to_subtract = 24
       case spot_date.to_time.wday
       when 1
         hours_to_subtract = 72
@@ -267,6 +267,30 @@ class SaltSprayTest < ApplicationRecord
         hours_to_subtract = 48
       end
       return (subtract_time_get_hours(spot_date.to_time, self.put_on_at.to_time) - hours_to_subtract)
+    else
+      if(self.pulled_off_at)
+        case self.pulled_off_at.to_time.wday
+        when 1
+          hours_to_subtract = 72
+        when 0
+          hours_to_subtract = 48
+        end
+        return subtract_time_get_hours(self.pulled_off_at.to_time, self.put_on_at - hours_to_subtract)
+      else
+        case DateTime.current.to_time.wday
+        when 1
+          hours_to_subtract = 72
+        when 0
+          hours_to_subtract = 48
+        end
+        return subtract_time_get_hours(DateTime.current.to_time, self.put_on_at - hours_to_subtract)
+      end
+    end
+  end
+
+  def calculate_rust_hours(spot_date)
+    if spot_date
+      return (subtract_time_get_hours(spot_date.to_time, self.put_on_at.to_time))
     else
       if(self.pulled_off_at)
         return subtract_time_get_hours(self.pulled_off_at.to_time, self.put_on_at)

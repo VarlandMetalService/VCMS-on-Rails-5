@@ -316,7 +316,8 @@
                 <% if t.marked_white? %>
                   <%= t.marked_white_at.strftime('%m/%d/%Y') %><br />
                   <small><strong>By: </strong></small><%= t.white_spot_reporter.full_name %><br />
-                  <small><strong>Hours to White: </strong></small><%= t.calculate_rust_hours(t.marked_white_at) %> <%= t.get_pass_fail('white') %>
+                  <small><strong>Marked White: </strong></small><%= t.calculate_rust_hours(t.marked_white_at) %><br />
+                  <small><strong>Last Check w/o White: </strong></small><%= t.calc_previous_check_hours(t.marked_white_at) %> <%= t.get_pass_fail('white') %>
                 <% end %>
               </div>
               <div class="col-3 text-muted text-right pl-0">
@@ -333,7 +334,8 @@
                 <% if t.marked_red? %>
                   <%= t.marked_red_at.strftime('%m/%d/%Y') %><br />
                   <small><strong>By: </strong></small><%= t.red_spot_reporter.full_name %><br />
-                  <small><strong>Hours to Red: </strong></small><%= t.calculate_rust_hours(t.marked_red_at) %> <%= t.get_pass_fail('red') %>
+                  <small><strong>Marked Red: </strong></small><%= t.calculate_rust_hours(t.marked_red_at) %><br />
+                  <small><strong>Last Check w/o Red: </strong></small><%= t.calc_previous_check_hours(t.marked_red_at) %> <%= t.get_pass_fail('red') %>
                 <% end %>
               </div>
               <div class="col-5 text-muted text-right pl-0">
