@@ -261,9 +261,9 @@ class SaltSprayTest < ApplicationRecord
     if spot_date
       hours_to_subtract = 24
       case spot_date.to_time.wday
-      when 1:
+      when 1
         hours_to_subtract = 72
-      when 0:
+      when 0
         hours_to_subtract = 48
       end
       return (subtract_time_get_hours(spot_date.to_time, self.put_on_at.to_time) - hours_to_subtract)
