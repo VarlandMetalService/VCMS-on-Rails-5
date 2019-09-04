@@ -23,7 +23,7 @@ class SaltSprayProcessStep < ApplicationRecord
       ['330', '330'],
       ['437', '437'],
       ['Dipsol', 'Dipsol'],
-      ['Hydroklad SI', 'Hydroklad SI'],
+      ['ENSEAL Si', 'ENSEAL Si'],
       ['Wax', 'Wax'],
       ['Other', 'Other']
     ]
