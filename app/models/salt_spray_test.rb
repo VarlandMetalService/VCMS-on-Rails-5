@@ -167,7 +167,7 @@ class SaltSprayTest < ApplicationRecord
   end
 
   def self.options_for_customer
-    distinct.where.not(customer: [nil, '']).limit(100).pluck(:customer).sort!
+    distinct.where.not(customer: [nil, '']).limit(100).order(:customer).pluck(:customer).sort!
   end
 
   def self.options_for_dept
