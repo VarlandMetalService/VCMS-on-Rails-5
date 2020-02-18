@@ -31,7 +31,7 @@ gem 'has_scope'
 gem 'holder_rails'
 gem 'jquery-rails'
 gem 'lightbox2-rails',              :git => "git@github.com:zungaphobia/lightbox2-rails.git"
-gem 'mini_magick',                   '~> 4.3'
+gem 'mini_magick',                   '~> 4.10'
 gem 'momentjs-rails'
 gem 'mysql2',                       '~> 0.4.9'
 gem 'omniauth-google-oauth2',       '~> 0.2.1'
