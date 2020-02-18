@@ -128,7 +128,7 @@ class SaltSprayTest < ApplicationRecord
     where marked_red_by: [*values]
   }
   scope :sorted_by, ->(sort_option) {
-    order sort_option
+    # order sort_option
   }
   scope :with_chromate, ->(query) {
     joins(:salt_spray_process_steps).distinct.where('chromate like ?', "%#{query}%")
