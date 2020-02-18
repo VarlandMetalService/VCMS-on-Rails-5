@@ -4,7 +4,7 @@ default: &default
   pool: 5
   username: vcms
   password: Vms.1946!
-  host: 192.168.82.2
+  host: mysql.varland.com
 
 development:
   <<: *default
@@ -20,5 +20,5 @@ production:
   pool: 5
   username: <%= ENV['DB_USERNAME'] %>
   password: <%= ENV['DB_PASSWORD'] %>
-  host: 192.168.82.2
+  host: mysql.varland.com
   database: rails5_prod
