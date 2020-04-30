@@ -2,6 +2,6 @@
   "name": "VCMS-on-Rails-5",
   "private": true,
   "dependencies": {
-    "jquery": "^3.2.1"
+    "jquery": "^3.5.0"
   }
 }
