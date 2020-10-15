@@ -222,7 +222,8 @@ GEM
     os (0.9.6)
     popper_js (1.12.9)
     public_suffix (3.0.1)
-    puma (3.11.0)
+    puma (5.0.2)
+      nio4r (~> 2.0)
     rack (2.0.3)
     rack-contrib (2.0.1)
       rack (~> 2.0)
@@ -379,7 +380,7 @@ DEPENDENCIES
   momentjs-rails
   mysql2 (~> 0.4.9)
   omniauth-google-oauth2 (~> 0.2.1)
-  puma (~> 3.7)
+  puma (~> 5.0)
   rack-mini-profiler
   rails (~> 5.1.3)
   rails-erd
