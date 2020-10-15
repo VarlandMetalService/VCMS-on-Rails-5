@@ -70,6 +70,12 @@
         </div>
         <div class="col-md-1">
           <div class="form-group text-center">
+            <%= f.label :with_process_step_notes, 'Has Process Notes:'  %>
+            <%= f.check_box :with_process_step_notes, class: 'form-control', checked: params[:with_process_step_notes] == '1' %>
+          </div>
+        </div>
+        <div class="col-md-1">
+          <div class="form-group text-center">
             <%= f.label :with_has_attachments, 'Has Attachments:'  %>
             <%= f.check_box :with_has_attachments, class: 'form-control', checked: params[:with_has_attachments] == '1' %>
           </div>

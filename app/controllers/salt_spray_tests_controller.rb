@@ -34,6 +34,7 @@ class SaltSprayTestsController < ApplicationController
   has_scope :with_chromate
   has_scope :with_top_coat
   has_scope :with_note
+  has_scope :with_process_step_notes
 
   require 'net/http'
   def cabinet_readings

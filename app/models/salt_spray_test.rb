@@ -143,6 +143,11 @@ class SaltSprayTest < ApplicationRecord
   scope :with_note, ->(query) {
     joins(:salt_spray_process_steps).distinct.where('note like ?', "%#{query}%")
   }
+  scope :with_process_step_notes, lambda {|has_notes|
+    if has_notes == '1'
+      joins(:salt_spray_process_steps).distinct.where('note IS NOT NULL AND note != ""')
+    end
+  }
   scope :active, -> {
     where 'pulled_off_at IS NULL'
   }
